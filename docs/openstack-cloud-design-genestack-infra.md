@@ -15,9 +15,18 @@ After switch and firewall configuration, deployment nodes are created with in th
 ### Ironic Diagram
 
 ``` mermaid
-%%{ init: { "theme": "default",
-            "flowchart": { "curve": "basis", "nodeSpacing": 80, "rankSpacing": 60 } } }%%
-
+---
+config:
+  theme: neutral
+  markdownAutoWrap: false
+  themeVariables:
+    fontFamily: Inter
+    fontSize: 15px
+  flowchart:
+    curve: basis
+    rankSpacing: 50
+    nodeSpacing: 80
+---
 flowchart TD
     %% ──────────── TIER 1 ────────────
     subgraph UI [" "]
@@ -77,19 +86,19 @@ flowchart TD
 
 #### Benefits of Ironic
 
-​	With a standard API and lightweight footprint, Ironic can serve as a driver for a variety of bare metal infrastructure. Ironic allows users to manage bare metal infrastructure like they would virtual  machines and provides ideal infrastructure to run container  orchestration frameworks like Kubernetes to optimize performance.
+​ With a standard API and lightweight footprint, Ironic can serve as a driver for a variety of bare metal infrastructure. Ironic allows users to manage bare metal infrastructure like they would virtual  machines and provides ideal infrastructure to run container  orchestration frameworks like Kubernetes to optimize performance.
 
 #### Integration Methods and Use-Case
 
-​	Ironic is being used today to deploy the infrastructure for Rackspace's Openstack public cloud in an internal product known as Undercloud. Undercloud is agnostic to tooling making it flexible to use in local or remote datacenters.
+​ Ironic is being used today to deploy the infrastructure for Rackspace's Openstack public cloud in an internal product known as Undercloud. Undercloud is agnostic to tooling making it flexible to use in local or remote datacenters.
 
-​	For example, a customer in their own datacenter can stand up the reference architecture hardware for Rackspace OpenStack and, granting ingress access to DRAC or iLO, allow our engineers to create the Ironic environment and flavors required for the compute hardware.  The servers are identified their first PXE boot and the proper server flavor and image are applied.  When a server goes offline to due hardware or drive failures, it can be re-provisioned after repair back to its original operating system and added back to the Openstack environment through Flex automation.
+​ For example, a customer in their own datacenter can stand up the reference architecture hardware for Rackspace OpenStack and, granting ingress access to DRAC or iLO, allow our engineers to create the Ironic environment and flavors required for the compute hardware.  The servers are identified their first PXE boot and the proper server flavor and image are applied.  When a server goes offline to due hardware or drive failures, it can be re-provisioned after repair back to its original operating system and added back to the Openstack environment through Flex automation.
 
 ### Leaf-Spline Network Architecture
 
 #### Overview
 
-​	Spine-leaf, or leaf-spine, is a two-layer network topology composed of spine and leaf switches. A spine-leaf architecture helps data center networks reduce network latency and hop count and improve network efficiency.  This two-layer full-mesh network topology was designed as an alternative to three-tier architectures and is suitable for modern data centers  that experience more east-west network traffic than north-south or switch-to-switch traffic. East-west traffic flows transfer data packets from server to server within a data center.
+​ Spine-leaf, or leaf-spine, is a two-layer network topology composed of spine and leaf switches. A spine-leaf architecture helps data center networks reduce network latency and hop count and improve network efficiency.  This two-layer full-mesh network topology was designed as an alternative to three-tier architectures and is suitable for modern data centers  that experience more east-west network traffic than north-south or switch-to-switch traffic. East-west traffic flows transfer data packets from server to server within a data center.
 
 - **Spine switches.** Leaf switches connect to spine switches and mesh into the spine, forming the access layer that delivers network connection points for servers.
 - **Leaf switches.** Servers and storage connect to leaf  switches and consist of access switches that aggregate traffic from  servers. They connect directly to the spine.
@@ -106,21 +115,21 @@ flowchart TD
 
 #### Network Design Details
 
-​	Rackspace utilizes Spline-leaf network architecture where server to server traffic (east-west) has higher importance than external connectivity of the deployed application.  This is ideal for single or multi tenant deployments that process large workloads of internal data kept in **block** or **object** storage.
+​ Rackspace utilizes Spline-leaf network architecture where server to server traffic (east-west) has higher importance than external connectivity of the deployed application.  This is ideal for single or multi tenant deployments that process large workloads of internal data kept in **block** or **object** storage.
 
 ### Commodity Storage Solutions
 
-​	Commodity storage hardware, sometimes known as off-the-shelf storage, is relatively inexpensive storage systems utilizing standard hard rives that are widely available  and basically interchangeable with other drives of its type.  These drives are housed in simple JBOD (just a bunch of disks) chassis or in smarter storage solutions such as Dell EMC or NetApp enclosures.
+​ Commodity storage hardware, sometimes known as off-the-shelf storage, is relatively inexpensive storage systems utilizing standard hard rives that are widely available  and basically interchangeable with other drives of its type.  These drives are housed in simple JBOD (just a bunch of disks) chassis or in smarter storage solutions such as Dell EMC or NetApp enclosures.
 
 #### Cost effectiveness
 
-​	A major advantage of using commodity storage is for data resilience and reduced storage costs.  Because of their ability to spread data across spans of inexpensive disks, data loss risk is greatly reduced when a drive inevitably fails.  Data is automatically rebalanced to healthy drives before a degraded drive is removed from the cluster to be replaced as time permits by support staff.
+​ A major advantage of using commodity storage is for data resilience and reduced storage costs.  Because of their ability to spread data across spans of inexpensive disks, data loss risk is greatly reduced when a drive inevitably fails.  Data is automatically rebalanced to healthy drives before a degraded drive is removed from the cluster to be replaced as time permits by support staff.
 
 #### Genestack Storage Integrations
 
-​	Genestack easily integrates commodity storage into its cloud solutions by leveraging it for Ceph (block/object storage) and Swift (object storage) storage targets.
+​ Genestack easily integrates commodity storage into its cloud solutions by leveraging it for Ceph (block/object storage) and Swift (object storage) storage targets.
 
-​	**Ceph** is an open source software-defined storage solution designed to address the  block, file and object storage needs of modern enterprises. Its  highly scalable architecture sees it being adopted as the new norm for  high-growth block storage, object stores, and data lakes.
+​ **Ceph** is an open source software-defined storage solution designed to address the  block, file and object storage needs of modern enterprises. Its  highly scalable architecture sees it being adopted as the new norm for  high-growth block storage, object stores, and data lakes.
 
 - **Scalability**: Ceph can scale to support hundreds of petabytes of data and tens of billions of objects.
 - **Self-managed**: Ceph is designed to be self-healing and self-managing, so it can handle failures without interruption.

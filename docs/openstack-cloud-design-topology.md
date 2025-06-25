@@ -13,14 +13,18 @@ As the cloud designer and builder, providing the capabilities for high-availabil
 These are typically arranged as in a hierarchy, with each increasing lower layer becoming less independent of the other layers:
 
 ```mermaid
-%%{ init: { "theme": "default",
-            'themeVariables': {
-            "fontSize": "20px"
-             },
-            "flowchart": { "curve": "basis", 
-            "nodeSpacing": 80, 
-            "rankSpacing": 160
-             } } }%%
+---
+config:
+  theme: neutral
+  markdownAutoWrap: false
+  themeVariables:
+    fontFamily: Inter
+    fontSize: 15px
+  flowchart:
+    curve: basis
+    rankSpacing: 50
+    nodeSpacing: 80
+---
 flowchart TD
 
 %% Node Defs

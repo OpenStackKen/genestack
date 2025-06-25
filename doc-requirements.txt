@@ -1,4 +1,5 @@
 mkdocs
+mkdocs-mermaid2-plugin
 mkdocs-material
 mkdocs-material-adr
 mkdocs-swagger-ui-tag

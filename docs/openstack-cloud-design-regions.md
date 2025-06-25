@@ -3,14 +3,18 @@
 Regions are separate physical locations served by a single cloud.  In terms of our taxonomy, a Cloud can contain several Regions.
 
 ```mermaid
-%%{ init: { "theme": "default",
-            'themeVariables': {
-            "fontSize": "20px"
-             },
-            "flowchart": { "curve": "basis", 
-            "nodeSpacing": 80, 
-            "rankSpacing": 160
-             } } }%%
+---
+config:
+  theme: neutral
+  markdownAutoWrap: false
+  themeVariables:
+    fontFamily: Inter
+    fontSize: 15px
+  flowchart:
+    curve: basis
+    rankSpacing: 50
+    nodeSpacing: 80
+---
 flowchart TD
 
 %% Node Defs
