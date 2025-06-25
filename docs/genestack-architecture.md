@@ -16,7 +16,7 @@ They say a picture is worth 1000 words, so here's a picture.
 ---
 config:
   theme: neutral
-  #markdownAutoWrap: false
+  markdownAutoWrap: false
   themeVariables:
     fontFamily: Nunito
     fontSize: 12px
@@ -128,16 +128,15 @@ class OS os
 class HW hardware
 
 %% Display Classes
-    classDef tw             fill: #858e96,stroke: #383a3c,stroke-width: 2px,rx: 15,ry: 15,height: 400px,y: -10px
+    classDef tw             fill: #858e96,stroke: #383a3c,stroke-width: 2px,rx: 15,ry: 15,height: 350px
     classDef twtitles       fill: none,stroke: none,font-size: 24px,color: #ffffff,font-style: bold
     classDef wl             fill: #fff,stroke: #383a3c,color: #383a3c,rx: 15,ry: 15,font-size: 24px,height: 200px,width: 1000px
     classDef wltitles       fill: none,stroke: none,font-size: 24px,color: #383a3c
     classDef container      fill: none,stroke: none
     classDef vm             fill: none,stroke: none
-    classDef cni            fill: #a4d8ff,stroke: #1971c2,stroke-width: 4px,stroke-dasharray: 4 4,rx: 15,ry: 15,padding: 2150px,font-size: 32px,height: 80px,text-align:center,y: -40px,width: 2150px,x: -1075px,text-align: center
-    classDef operators      fill: #b1f2bc,stroke: #2f9e44,stroke-width: 4px,stroke-dasharray: 4 4,rx: 15,ry: 15,padding: 2150px,font-size: 32px,height: 80px,text-align:center,y: -40px,width: 2150px,x: -1075px,text-align: center
+    classDef cni            fill: #a4d8ff,stroke: #1971c2,stroke-width: 4px,stroke-dasharray: 4 4,rx: 15,ry: 15,padding: 2150px,font-size: 32px,height: 80px,text-align:center,y: -40px,width: 2150px,x: -1075px
+    classDef operators      fill: #b1f2bc,stroke: #2f9e44,stroke-width: 4px,stroke-dasharray: 4 4,rx: 15,ry: 15,padding: 2150px,font-size: 32px,height: 80px,text-align:center,y: -40px,width: 2150px,x: -1075px
     classDef services       fill: none,stroke: none,height: 10
-    classDef svc            fill: #e8ecef,stroke: #5193d1,stroke-width: 2px,rx: 15,ry: 15
     classDef svc            fill: #e8ecef,stroke: #5193d1,stroke-width: 2px,rx: 15,ry: 15,y: 50
     classDef k8s            fill: none,stroke: none,color: #383a3c,height: 100px,y: 53
     classDef k8sicon        fill: none,stroke: none,color: #383a3c
@@ -145,8 +144,8 @@ class HW hardware
     classDef stack          fill: #fff,stroke: #e26061,stroke-width: 2px,color: #383a3c,rx: 15,ry: 15,height: 120px,y: 80px
     classDef stackicon      fill: none,stroke: none,color: #383a3c,height: 10px
     classDef stacklabel     fill: none,stroke: none,color: #383a3c,font-size: 24px,padding: 280px
-    classDef os             fill: #ffec99,stroke: #f08c01,stroke-width: 4px,stroke-dasharray: 4 4,color: #383a3c,rx: 15,ry: 15,padding: 2150px,font-size: 32px,height: 80px,text-align:center,y: -40px,width: 2150px,x: -1075px,text-align: center
-    classDef hardware       fill: #ffffff,stroke: #1e1e1e,color: #1e1e1e,stroke-width: 2px,rx: 15,ry: 15,padding: 2150px,font-size: 32px,height: 80px,text-align:center,y: -40px,width: 2150px,x: -1075px,text-align: center
+    classDef os             fill: #ffec99,stroke: #f08c01,stroke-width: 4px,stroke-dasharray: 4 4,color: #383a3c,rx: 15,ry: 15,padding: 2150px,font-size: 32px,height: 80px,text-align:center,y: -40px,width: 2150px,x: -1075px
+    classDef hardware       fill: #ffffff,stroke: #1e1e1e,color: #1e1e1e,stroke-width: 2px,rx: 15,ry: 15,padding: 2150px,font-size: 32px,height: 80px,text-align:center,y: -40px,width: 2150px,x: -1075px
 ```
 
 The idea behind Genestack is simple, build an Open Infrastructure system that unites Public and Private
