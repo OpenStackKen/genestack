@@ -1,15 +1,17 @@
+# Using Sealed Secrets with Genestack
+
 !!! Danger "This section is still underdevelopment and experimental"
 
     None of the vault components are required to run a Genestack environment.
 
-# Sealed Secrets Introduction and Installation Guide
+## Sealed Secrets Introduction and Installation Guide
 
 Sealed Secrets is a Kubernetes-native solution for securely storing and managing sensitive information within Kubernetes Secrets. It ensures secure secret management by encrypting Kubernetes Secrets and storing them as SealedSecret resources, which can only be decrypted by the cluster itself.
 
 Sealed Secrets utilizes public-key cryptography to encrypt secrets, enabling safe storage in your version control system.
 
 
-## Installation
+### Installation
 
 ``` shell
 cd kustomize/sealed-secrets/base
@@ -34,11 +36,14 @@ kubectl  kustomize . --enable-helm | kubectl apply -f -
 kubectl get secret -n sealed-secrets -l sealedsecrets.bitnami.com/sealed-secrets-key=active -o yaml  > sealed-secrets-key.yaml
 ```
 
-## Usage Example:
+### Example Usage
+
 In this example, we will use Sealed Secrets to encrypt a Grafana certificate from Kubernetes Secret yaml file.
 
-### Encrypting Kubernetes Secret:
+#### Encrypting Kubernetes Secret:
+
 - Kubernetes Secret yaml file containing Grafana certificate:
+
 ```
 # cat grafana-cert.yaml
 apiVersion: v1
@@ -57,22 +62,29 @@ metadata:
   namespace: rackspace-system
 type: kubernetes.io/tls
 ```
+
 - Download [kubeseal](https://github.com/bitnami-labs/sealed-secrets/releases) binary.
 - Use `kubeseal` for the Kuberntes Secret entryption:
+
 ``` shell
 kubeseal --scope cluster-wide --allow-empty-data -o yaml --controller-namespace rackspace-system  < ~/grafana-cert.yaml  > encrypted_grafana-cert.yaml
 cat encrypted_grafana-cert.yaml
 ```
+
 For more options around `kubeseal` please check help page.
 
 - Upload the encrypted Sealed Secret resource(`encrypted_grafana-cert.yaml`) to your version control system. It can only be decrypted using the secret created during the Sealed Secrets installation.
 
-### Deploying Kubernetes Secret from Sealed Secret Resource:
+#### Deploying Kubernetes Secret from Sealed Secret Resource:
+
 - Apply sealed-secret resource(`encrypted_grafana-cert.yaml`):
+
 ```shell
 kubectl apply -f encrypted_grafana-cert.yaml
 ```
+
 - Verify that the Sealed Secret has been created and the Kubernetes Secret has been decrypted:
+
 ```shell
 kubectl get sealedsecret/grafana -n rackspace-system
 kubectl get secret grafana -n rackspace-system

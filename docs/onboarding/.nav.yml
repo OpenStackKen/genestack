@@ -1,18 +1,6 @@
+title: Cloud Onboarding
 nav:
   - Welcome: welcome.md
-  - Using the OpenStack CLI
-    - Installing the CLI Tools: cli.md
-    - Getting Started: getting-started.md
-    - Security Groups: security-groups.md
-    - Floating IPs: floating-ips.md
-    - Keypairs: keypairs.md
-    - Servers: servers.md
-    - Routers: routers.md
-    - Images: images.md
-    - Metrics: metrics.md
-    - object
-    - Snapshots: snapshots.md
-    - Volumes: volumes.md
-    - Load Balancers: load-balancers.md
-    - Networks: networks.md
-    - Quotas: quotas.md
+  - Installing the CLI Tools: cli.md
+  - Getting Started: getting-started.md
+  - OpenStack: openstack

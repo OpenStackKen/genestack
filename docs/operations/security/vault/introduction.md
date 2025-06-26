@@ -1,12 +1,14 @@
+# Using Hashicorp Vault with Genestack
+
 !!! Danger "This section is still underdevelopment and experimental"
 
     None of the vault components are required to run a Genestack environment.
 
-# HashiCorp Vault Setup for Genestack Installation
+## HashiCorp Vault Setup for Genestack Installation
 
 HashiCorp Vault is a versatile tool designed for secret management and data protection. It allows you to securely store and control access to various sensitive data, such as tokens, passwords, certificates, and API keys. In this guide, we will use HashiCorp Vault to store Kubernetes Secrets for the Genestack installation.
 
-## Prerequisites
+### Prerequisites
 
 Before starting the installation, ensure the following prerequisites are met:
 - **Storage:** The Kubernetes Cluster should have available storage to create a PVC for data storage, especially when using integrated storage backend and storing audit logs. We will be using local storage located at /opt/vault on nodes labeled with `vault-storage: enabled`. Ensure that the nodes contain the `/opt/vault` directory.
@@ -14,7 +16,7 @@ Before starting the installation, ensure the following prerequisites are met:
 - **Sealed-secret:** If the Vault UI URL will use a domain certificate then, the Kubernetes secret should be deployed in the vault namespace. Make sure the secret manifest is encrypted using sealed-secret for secure storage in a Git repository.
 - **Cert-Manager:** The installation will use end-to-end TLS generated using cert-manager. Hence, cert-manager should be available.
 
-## Installation
+### Installation
 
 ``` shell
 cd kustomize/vault/base
@@ -37,7 +39,7 @@ vi kustomization.yaml
 kubectl  kustomize . --enable-helm | kubectl apply -f -
 ```
 
-## Configure Vault
+### Configuring Vault
 
 After installing Vault, the Vault pods will initially be in a not-ready state. Initialization and unsealing are required.
 
@@ -49,7 +51,7 @@ vault-2                                 0/1     Running   0          55s
 vault-agent-injector-7f9f668fd5-wk7tm   1/1     Running   0          55s
 ```
 
-### Initialize Vault
+#### Initialize Vault
 
 ``` shell
 kubectl exec vault-0 -n vault -- vault operator init -key-shares=3 -key-threshold=2 -format=json > cluster-keys.json
@@ -58,7 +60,7 @@ kubectl exec vault-0 -n vault -- vault operator init -key-shares=3 -key-threshol
 This command provides unseal keys and a root token in cluster-keys.json. Keep this information secure.
 
 
-### Unseal Vault(vault-0)
+#### Unseal Vault (vault-0)
 
 On vault-0 pod, use any of the 2 unseal keys obtained during initialization:
 ``` shell
@@ -66,7 +68,7 @@ kubectl exec -it vault-0 -n vault -- vault operator unseal
 ```
 Repeat the unseal command as needed with different unseal keys.
 
-### Join Vault Pods to Form a Cluster
+#### Join Vault Pods to Form a Cluster
 
 ``` shell
 kubectl exec -it vault-1 -n vault -- vault operator raft join -leader-ca-cert=@/vault/userconfig/vault-server-tls/ca.crt https://vault-0.vault-internal:8200
@@ -76,7 +78,7 @@ kubectl exec -it vault-1 -n vault -- vault operator raft join -leader-ca-cert=@/
 kubectl exec -it vault-2 -n vault -- vault operator raft join -leader-ca-cert=@/vault/userconfig/vault-server-tls/ca.crt https://vault-0.vault-internal:8200
 ```
 
-### Unseal Vault(vault-1, vault-2)
+#### Unseal Vault (vault-1, vault-2)
 
 On each Vault pod (vault-1, vault-2), use any of the 2 unseal keys obtained during initialization:
 ``` shell
@@ -88,19 +90,21 @@ kubectl exec -it vault-2 -n vault -- vault operator unseal
 
 Repeat the unseal command as needed with different unseal keys.
 
-### Authenticate to Vault
+#### Authenticate to Vault
 
 Use the root token obtained during initialization to authenticate:
 
 ``` shell
 kubectl exec -it vault-0 -n vault -- vault login
 ```
-### Enable audit logging
+
+#### Enable audit logging
+
 ```
 kubectl exec -it vault-0 -n vault -- vault audit enable file file_path=/vault/audit/audit.log
 ```
 
-## Validation
+### Validation
 
 Login to vault-0 and list the raft peers:
 
@@ -113,9 +117,7 @@ vault-1    vault-1.vault-internal:8201    follower    true
 vault-2    vault-2.vault-internal:8201    follower    true
 ```
 
----
-
-## Example to create secrets in Vault for Keystone:
+### Example to create secrets in Vault for Keystone:
 
 - Enable Kubernetes auth method:
 
@@ -191,6 +193,5 @@ vault kv put -mount=osh/keystone keystone-admin  password=$(< /dev/urandom tr -d
 vault kv put -mount=osh/keystone keystone-credential-keys  password=$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-32};echo;)
 ```
 
----
 
 Once the secrets are created in Vault, we can use [vault-secrets-operator](https://github.com/rackerlabs/genestack/blob/main/docs/vault-secrets-operator.md) to populate the Kubernetes secret resources in Kubernetes cluster.

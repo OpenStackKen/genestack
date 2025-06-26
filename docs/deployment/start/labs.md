@@ -1,4 +1,4 @@
-# Quick Start Guide
+# Hyperconverged Lab Quick Start Guide
 
 This guide will walk you through the process of deploying a test environment for Genestack. This is a great way to get started
 with the platform and to familiarize yourself with the deployment process. The following steps will guide you through the process
@@ -47,8 +47,14 @@ A simple reference architecture for a hyper-converged lab environment is shown b
 that are connected to a two networks. The networks are connected via a router that provides external connectivity.
 
 ``` mermaid
-%%{ init: { "theme": "default",
-            "flowchart": { "curve": "basis", "nodeSpacing": 80, "rankSpacing": 60 } } }%%
+---
+config:
+  theme: neutral
+  flowchart:
+    curve: basis
+    rankSpacing: 50
+    nodeSpacing: 80
+---
             
 flowchart TB
     %% Define clusters/subgraphs for clarity

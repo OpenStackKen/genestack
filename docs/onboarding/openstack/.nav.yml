@@ -1,0 +1,14 @@
+nav:
+  - Servers: servers.md
+  - Images: images.md
+  - Keypairs: keypairs.md
+  - Networks: networks.md
+  - Routers: routers.md
+  - Security Groups: security-groups.md
+  - Load Balancers: load-balancers.md
+  - Floating IPs: floating-ips.md
+  - Volumes: volumes.md
+  - Snapshots: snapshots.md
+  - Metrics: metrics.md
+  - Quotas: quotas.md
+  - Object Storage: object

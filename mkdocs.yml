@@ -82,9 +82,9 @@ extra:
                   link: https://blog.rackspacecloud.com/
 
 extra_css:
-        - overrides/stylesheets/adr.css
-        - overrides/stylesheets/admonition.css
-        - overrides/stylesheets/fonts.css
+        - css/adr.css
+        - css/admonition.css
+        - css/fonts.css
 
 plugins:
         - search

@@ -4,3 +4,4 @@ nav:
   - Infrastructure: infrastructure
   - Observability: observability
   - OpenStack: openstack
+  - Security: security

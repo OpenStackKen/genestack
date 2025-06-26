@@ -1,18 +1,19 @@
+# Hashicorp Vault Secrets Operator
+
 !!! Danger "This section is still underdevelopment and experimental"
 
     None of the vault components are required to run a Genestack environment.
 
-# HashiCorp Vault Secret Operators for Genestack Installation
+## HashiCorp Vault Secret Operators for Genestack Installation
 
 The Vault Secrets Operator (VSO) enables Pods to seamlessly consume Vault secrets from Kubernetes Secrets. This guide outlines the process of consuming secrets stored in Vault for Genestack installation. This is continuation of [vault.md](https://docs.rackspacecloud.com/vault/) where we have created few secrets in the Vault
 
-## Prerequisites
+### Prerequisites
 
 !!! note
-
     Before starting the installation, ensure HashiCorp Vault is installed in the cluster. You can refer [vault.md](https://docs.rackspacecloud.com/vault/) for more details.
 
-## Installation
+### Installation
 
 Navigate to the Vault Secrets Operator base directory:
 
@@ -37,11 +38,11 @@ Validate if all the pods are up.
 kubectl get pods -n vault-secrets-operator
 ```
 
-## Consume secrets from the Vault
+### Consume secrets from the Vault
 
 After installing the `vault-secrets-operator`, create the necessary resources to consume secrets stored in Vault.
 
-### Connect to the vault
+#### Connect to the vault
 
 Create a `VaultConnection` resource to establish a connection to Vault.
 
@@ -69,7 +70,7 @@ caCertSecretRef: "vault-ca-secret"
 
 `vault-ca-secret`: CA certificate used to sign the Vault certificate for internal communication.
 
-### Authenticate with vault:
+#### Authenticate with vault:
 
 Create a `VaultAuth` resource to authenticate with Vault and access secrets.
 
@@ -90,7 +91,7 @@ kubernetes:
 vaultConnectionRef: vault-connection
 ```
 
-### Create Vault static:
+#### Create Vault static:
 
 Define a `VaultStaticSecret` resource to fetch a secret from Vault and create a Kubernetes Secret resource.
 
