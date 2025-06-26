@@ -171,6 +171,14 @@ It is important to have some documentation standards so that a user can understa
 
 ### Custom Admonition Types
 
+We have added a 'genestack' admonition type:
+
+```
+!!! genestack
+    [Genestack](https://github.com/rackerlabs/genestack){:target="_blank"}
+    is a cool new project!
+```
+
 !!! genestack
     The "genestack" admonition type is for Genestack-specific information or to point how _how_ something is done in Genestack.
 

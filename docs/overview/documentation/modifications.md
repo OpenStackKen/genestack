@@ -1,17 +1,9 @@
 # Local Documentation Customizations
 
-## Custom Genestack Admonition
+## mkdocs
 
-We have added a 'genestack' admonition type:
+We are using the [mkdocs-material](https://squidfunk.github.io/mkdocs-material/){:target="_blank"} theme, along with several plugins:
 
-```
-!!! genestack
-    [Genestack](https://github.com/rackerlabs/genestack){:target="_blank"}
-    is a cool new project!
-```
-
-It renders like this:
-
-!!! genestack
-    [Genestack](https://github.com/rackerlabs/genestack){:target="_blank"}
-    is a cool new project!
+- [mkdocs-glightbox](https://blueswen.github.io/mkdocs-glightbox/){:target="_blank"}
+- [mkdocs-awesome-nav](https://lukasgeiter.github.io/mkdocs-awesome-nav/){:target="_blank"}
+- [mkdocs-swagger-ui-tag](https://blueswen.github.io/mkdocs-swagger-ui-tag/){:target="_blank"}
