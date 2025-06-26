@@ -1,15 +1,12 @@
 # Hyperconverged Lab Quick Start Guide
 
-This guide will walk you through the process of deploying a test environment for Genestack. This is a great way to get started
-with the platform and to familiarize yourself with the deployment process. The following steps will guide you through the process
-of deploying a test environment on an OpenStack cloud in a simple three node configuration that is hyper-converged.
+This guide will walk you through the process of deploying a test environment for Genestack. This is a great way to get started with the platform and to familiarize yourself with the deployment process. The following steps will guide you through the process of deploying a test environment on an OpenStack cloud in a simple three node configuration that is hyperconverged.
 
 ## Build Script
 
-The following script will deploy a hyperconverged lab environment on an OpenStack cloud. The script can be found at
-[`scripts/hyperconverged-lab.sh`](https://raw.githubusercontent.com/rackerlabs/genestack/refs/heads/main/scripts/hyperconverged-lab.sh).
+The following script will deploy a hyperconverged lab environment on an OpenStack cloud. The script can be found at [`scripts/hyperconverged-lab.sh`](https://raw.githubusercontent.com/rackerlabs/genestack/refs/heads/main/scripts/hyperconverged-lab.sh).
 
-??? "View the  Hyper-converged Lab Script"
+??? "View the  Hyperconverged Lab Script"
 
     ``` shell
     --8<-- "scripts/hyperconverged-lab.sh"
@@ -31,7 +28,7 @@ All of the variables can be defined on the command line using environment variab
 
 !!! example "Deploying a Hyper-converged Lab Environment with Environment Variables"
 
-    ``` shell
+    ```shell
     export ACME_EMAIL="user@domain.com"
     export GATEWAY_DOMAIN="cluster.local"
     export OS_CLOUD="default"
@@ -43,47 +40,49 @@ All of the variables can be defined on the command line using environment variab
 
 ## Overview
 
-A simple reference architecture for a hyper-converged lab environment is shown below. This environment consists of three nodes
-that are connected to a two networks. The networks are connected via a router that provides external connectivity.
+A simple reference architecture for a hyper-converged lab environment is shown below. This environment consists of three nodes that are connected to a two networks. The networks are connected via a router that provides external connectivity.
 
-``` mermaid
+```mermaid
 ---
 config:
   theme: neutral
+  themeVariables:
+    fontFamily: Nunito
+    fontSize: 14px
   flowchart:
     curve: basis
     rankSpacing: 50
     nodeSpacing: 80
 ---
-            
+                 
 flowchart TB
     %% Define clusters/subgraphs for clarity
-    subgraph Public_Network ["<div style="width:15em; height:8.5em; display:flex; justify-content: flex-start; align-items:flex-end;">Public Network</div>"]
+    subgraph Public_Network ["<div style="width:15em; height:8.5em; display:flex; justify-content: flex-start; align-items:flex-end; rx:10; ry:10;">Public Network</div>"]
         PF("Floating IP<br>(203.0.113.x)")
     end
 
-    subgraph Router ["<div style="width:29em; height:8.5em; display:flex; justify-content: flex-start; align-items:flex-end;">Router</div>"]
+    subgraph Router ["<div style="width:29em; height:8.5em; display:flex; justify-content: flex-start; align-items:flex-end; rx:10; ry:10;">Router</div>"]
         TR("hyperconverged-router<br>(with external gateway)")
     end
 
-    subgraph Hyperconverged_Net ["<div style="width:55em; height:8.5em; display:flex; justify-content: flex-start; align-items:flex-end;">HyperConverged Net</div>"]
+    subgraph Hyperconverged_Net ["<div style="width:55em; height:8.5em; display:flex; justify-content: flex-start; align-items:flex-end; rx:10; ry:10;">HyperConverged Net</div>"]
         TN("hyperconverged-net<br>(192.168.100.x)")
     end
 
-    subgraph Hyperconverged_Compute_Net ["<div style="width:43em; height:10em; display:flex; justify-content: flex-start; align-items:flex-end;">HyperConverged Compute Net</div>"]
+    subgraph Hyperconverged_Compute_Net ["<div style="width:43em; height:8.5em; display:flex; justify-content: flex-start; align-items:flex-end; rx:10; ry:10;">HyperConverged Compute Net</div>"]
         TCN("hyperconverged-compute-net<br>(192.168.102.x)")
     end
 
     %% Hyperconverged Nodes
-    subgraph NODE_0 ["<div style="width:15em; height:7em; display:flex; justify-content: flex-start; align-items:flex-end;">Node 0</div>"]
+    subgraph Node_0 ["<div style="width:15em; height:7em; display:flex; justify-content: flex-start; align-items:flex-end; rx:10; ry:10;">Node 0</div>"]
         HPC0("hyperconverged-0")
     end
 
-    subgraph Node_1 ["<div style="width:15em; height:7em; display:flex; justify-content: flex-start; align-items:flex-end;">Node 1</div>"]
+    subgraph Node_1 ["<div style="width:15em; height:7em; display:flex; justify-content: flex-start; align-items:flex-end; rx:10; ry:10;">Node 1</div>"]
         HPC1("hyperconverged-1")
     end
 
-    subgraph Node_2 ["<div style="width:15em; height:7em; display:flex; justify-content: flex-start; align-items:flex-end;">Node 2</div>"]
+    subgraph Node_2 ["<div style="width:15em; height:7em; display:flex; justify-content: flex-start; align-items:flex-end; rx:10; ry:10;">Node 2</div>"]
         HPC2("hyperconverged-2")
     end
 
@@ -98,6 +97,13 @@ flowchart TB
     HPC0 -- compute port --> TCN
     HPC1 -- compute port --> TCN
     HPC2 -- compute port --> TCN
+
+class Public_Network,Router sg
+class Hyperconverged_Compute_Net,Hyperconverged_Net sg
+class Node_0,Node_1,Node_2 sg
+
+classDef sg     rx: 10,ry: 10
+
 ```
 
 ## Build Phases
@@ -120,14 +126,13 @@ After the deployment is complete, the script will output the internal and extern
 With this information, operators can login to the Genestack instance and begin to explore the platform.
 
 !!! Genestack
-    Genestack uses DNS to route services in Kubernetes, which may be a bit different from what you might be used to in other lab environments, where
-    IP addresses are used heavily.  To be able to access OpenStack externally from the jumpbox, set `GATEWAY_DOMAIN` to a DNS domain that you control.
+    Genestack uses DNS to route services in Kubernetes, which may be a bit different from what you might be used to in other lab environments, where IP addresses are used heavily.  To be able to access OpenStack externally from the jumpbox, set `GATEWAY_DOMAIN` to a DNS domain that you control.
 
 ### Setting up DNS for a Hyper-Converged Lab
 
 At the end of the hyper-converged lab script run, you will see output that looks like this:
 
-```
+```shell
 The lab is now ready for use and took 1298 seconds to complete.
 This is the jump host address WW.XX.YY.ZZ, write this down.
 This is the VIP address internally 192.168.100.NN with public address AA.BB.CC.DD within MetalLB, write this down.
@@ -135,7 +140,7 @@ This is the VIP address internally 192.168.100.NN with public address AA.BB.CC.D
 
 To make DNS correctly resolve the OpenStack services in the lab, you will need to set some DNS entries for the `GATEWAY_DOMAIN` you specified when building the lab.  Using the "cluster.local" default example domain, you should configure something like this:
 
-```
+```ini
 jumpbox.cluster.local       A       WW.XX.YY.ZZ
 cluster.local               A       AA.BB.CC.DD
 *.cluster.local             CNAME   cluster.local
@@ -144,13 +149,13 @@ cluster.local               A       AA.BB.CC.DD
 !!! Warning
     Do **NOT** use `cluster.local` as your domain.  You will need to use a domain that you control and you will need to set the `GATEWAY_DOMAIN` variable to this prior to building your hyper-converged lab.
 
-### Accessing your Hyper-Converged Lab
+### Accessing your Hyperconverged Lab
 
-When generating your hyper-converged lab, the script creates an SSH key pair and puts it into your `$HOME/.ssh` directory.  The name of the key is derived from the `LAB_NAME_PREFIX` variable, and the default is `hyperconverged`.
+When generating your hyperconverged lab, the script creates an SSH key pair and puts it into your `$HOME/.ssh` directory.  The name of the key is derived from the `LAB_NAME_PREFIX` variable, and the default is `hyperconverged`.
 
 To access the lab, you can SSH into the jumpbox using this key as the default user of the OpenStack Glance image you specified.  The default image is Ubuntu 24.04 LTS which has a default user of `ubuntu`.  In this case, the SSH command would be as follows:
 
-```bash
+```shell
 bash$ ssh -i $HOME/.ssh/hyperconverged-key.pem ubuntu@jumpbox.cluster.local
 ```
 
@@ -158,7 +163,7 @@ The jumpbox user has passwordless sudo if configured in the Glance image. (The U
 
 If you sudo to the `root` user, and look at the `clouds.yaml` file for that user, you will be able to see the OpenStack `admin` user password:
 
-```
+```shell
 bash$ sudo su - root
 bash# cat $HOME/.config/openstack/clouds.yaml
 cache:
