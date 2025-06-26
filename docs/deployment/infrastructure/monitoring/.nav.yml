@@ -1,0 +1,17 @@
+nav:
+  - Monitoring Overview: overview.md
+  - Getting Started: getting-started.md
+  - graphana.md
+  - kube-ovn.md
+  - kube-event.md
+  - nginx-gateway.md
+  - rabbitmq.md
+  - memcached.md
+  - mariadb.md
+  - openstack.md
+  - postgres.md
+  - blackbox.md
+  - pushgateway.md
+  - snmp.md
+  - custom.md
+  - Alert Manager Examples: alertmanager

@@ -1,0 +1,6 @@
+nav:
+  - overview.md
+  - secrets.md
+  - placement.md
+  - nova.md
+  - neutron.md

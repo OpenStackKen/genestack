@@ -6,7 +6,7 @@ Clouds Without Borders. Rackspace OpenStack Private Goes __Public__.
 
 ## Power Innovation Worldwide with One OpenStack Platform
 
-![Rackspace OpenStack Software](assets/images/cloud-anywhere.png){ align=left : style="width:100%;max-width:500px" }
+![Rackspace OpenStack Software](/assets/images/cloud-anywhere.png){ align=left : style="width:100%;max-width:500px" }
 
 The ability to scale across geographies, meet strict data sovereignty requirements, and maintain rigorous security
 is paramount. With Rackspace, you can tap into any of our available regions, all running on a unified OpenStack

@@ -1,0 +1,5 @@
+nav:
+  - Overview: overview.md
+  - Monitoring: monitoring.md
+  - Alerting: alerting.md
+  - Logging: logging.md

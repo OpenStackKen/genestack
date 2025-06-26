@@ -1,0 +1,3 @@
+nav:
+  - External Ceph Storage: external.md
+  - In-Cluster: internal.md

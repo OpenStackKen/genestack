@@ -1,0 +1,5 @@
+nav:
+  - Kubernetes: kubernetes
+  - OVN: ovn
+  - MariaDB: mariadb
+  - Gateway API: gateway

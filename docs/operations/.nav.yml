@@ -1,0 +1,6 @@
+nav:
+  - Genestack: genestack
+  - Resource Metering: metering
+  - Infrastructure: infrastructure
+  - Observability: observability
+  - OpenStack: openstack

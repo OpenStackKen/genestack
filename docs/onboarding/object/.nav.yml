@@ -1,0 +1,6 @@
+nav:
+  - OpenStack CLI: openstack-cli.md
+  - Swift CLI: swift-cli.md
+  - S3 CLI: s3-cli.md
+  - Skyline Web Dashboard: skyline.md
+  - 3rd-Party SDKs and Tools: 3rdparty.md

@@ -1,0 +1,4 @@
+nav:
+  - Custom Routes: custom.md
+  - Rackspace Example Gateway Overview: rackspace-gateway.md
+  - Creating a self-signed issuer for Gateway API: self-signed-ca.md

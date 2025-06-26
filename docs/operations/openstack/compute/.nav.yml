@@ -1,0 +1,6 @@
+nav:
+  - Nova Flavor Creation: flavors.md
+  - Nova CPU Allocation Ratios: cpu-ratios.md
+  - Nova PCI Passthrough: pci-passthrough.md
+  - Host Aggregates: host-aggregates.md
+  - Instance Data Recovery: data-disk-recovery.md
