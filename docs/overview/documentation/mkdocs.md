@@ -1,6 +1,8 @@
-# Working on docs locally
+# Working on the Documentation Locally
 
 To work on documentation locally and preview it while developing, we can use `mkdocs serve`
+
+## Serving mkdocs
 
 Start by installing the requirements for documentation.
 

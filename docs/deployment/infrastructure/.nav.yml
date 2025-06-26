@@ -1,0 +1,7 @@
+nav:
+  - Kubernetes: kubernetes
+  - Storage: storage
+  - Infrastructure: infrastructure
+  - OpenStack: openstack
+  - Monitoring: monitoring
+

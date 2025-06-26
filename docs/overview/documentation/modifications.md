@@ -1,6 +1,8 @@
-# Custom Genestack Admonition
+# Local Documentation Customizations
 
-There is now a 'genestack' admonition type:
+## Custom Genestack Admonition
+
+We have added a 'genestack' admonition type:
 
 ```
 !!! genestack

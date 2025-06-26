@@ -1,0 +1,8 @@
+nav:
+  - Overview: overview.md
+  - Providers: providers
+  - Post-Deployment: post-deploy
+  - Plugins and Tools: plugins.md
+  - Container Network Interface: cni
+  - Retrieve kube config: kube-config.md
+  - Prometheus: prometheus.md

@@ -34,7 +34,7 @@ hide:
 
     Learn about the components.
 
-    [:octicons-diff-renamed-16: A complete list of Project Components](genestack-components.md)
+    [:octicons-diff-renamed-16: A complete list of Project Components](overview-components.md)
 
     ---
 

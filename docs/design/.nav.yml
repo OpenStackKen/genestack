@@ -1,0 +1,9 @@
+title: Cloud Design Guide
+nav:
+  - Cloud Topology: openstack-cloud-design-topology.md
+  - Regions: openstack-cloud-design-regions.md
+  - Availability Zones: openstack-cloud-design-az.md
+  - Host Aggregates: openstack-cloud-design-ha.md
+  - Genestack SDLC: sdlc
+  - Acclerated Computing: accel
+  - Other Design Documenation: other

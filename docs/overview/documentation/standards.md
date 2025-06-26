@@ -1,8 +1,3 @@
----
-hide:
-  - navigation
----
-
 # Genestack Documentation Standards and Style Guide
 
 This document is intended to help define some common documentation standards and practices for the [Genestack documentation](https://docs.rackspacecloud.com/){:target="_blank"}.

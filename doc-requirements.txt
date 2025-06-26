@@ -1,7 +1,7 @@
 mkdocs
-mkdocs-mermaid2-plugin
 mkdocs-material
 mkdocs-material-adr
+mkdocs-awesome-nav
 mkdocs-swagger-ui-tag
 mkdocs-glightbox
 markdown-exec

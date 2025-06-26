@@ -1,5 +1,7 @@
 # Product Component Matrix
 
+## Release Components
+
 The following components are part of the initial product release
 and largely deployed with Helm+Kustomize against the K8s API (v1.28 and up).
 
@@ -45,7 +47,11 @@ and largely deployed with Helm+Kustomize against the K8s API (v1.28 and up).
 | OpenStack  | PostgreSQL (Operator) | Included |
 | OpenStack  | Consul                | Planned  |
 
-Initial monitoring components consists of the following projects
+## Monitoring
+
+Monitoring is also included.
+
+Initial monitoring components consists of the following projects:
 
 | Group      | Component          | Status   |
 |------------|--------------------|----------|

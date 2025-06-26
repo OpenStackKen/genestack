@@ -1,23 +1,31 @@
 # Genestack SDLC
 
-``` mermaid
-flowchart LR
-    PD([Plan & Design])
-    IMP([Implement])
-    DOC([Document])
-    TST([Test])
-    DEP([Deployment])
-    MTN([Maintain])
-
-    PD  -->|Scope| IMP
-    IMP -->|Create Code| DOC
-    DOC -->|Share Knowledge| TST
-    TST -->|Validate| DEP
-    DEP -->|Release| MTN
-    MTN -->|Feedback| PD
-```
-
 Software Development Life Cycle (SDLC) is the process used to ensure high quality solutions are delivered in a predictable, repeatable fashion. The SDLC aims to produce outcomes that meet or exceed customer expectations while reaching completion within time and cost estimates.
+
+```mermaid
+flowchart LR
+    subgraph SDLC[ "" ]
+        direction LR
+        SC([Scope])
+        IMP([Implement])
+        DOC([Document])
+        TST([Test])
+        DEP([Deployment])
+        MTN([Maintain])
+
+        SC  -->|Plan & Design| IMP
+        IMP -->|Create Code| DOC
+        DOC -->|Share Knowledge| TST
+        TST -->|Validate| DEP
+        DEP -->|Release| MTN
+        MTN -->|Feedback| SC
+    end
+
+    class SDLC diagram
+
+    classDef diagram fill:none,stroke: none
+
+```
 
 The process is broken down into 6 distinct phases:
 
@@ -35,7 +43,7 @@ In the implement phase, development teams use the requirements gathered in the s
 
 Documentation must reflect the current state of the codebase for any deployed application, service or process. If functionality has been added, removed, or changed the documentation is updated to reflect the change.
 
-Tl;dr changed something, added something, removed something -- document it.
+`tl;dr` changed something, added something, removed something → *document it*.
 
 ### Test
 
