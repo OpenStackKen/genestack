@@ -1,0 +1,1700 @@
+INFO    -  Cleaning site directory
+INFO    -  Building documentation to directory: /Volumes/SSD/Projects/Rackspace/genestack/site
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+             - attic/arch.md
+             - attic/features.md
+             - attic/genestack-architecture-orig.md
+             - attic/genestack-features.md
+             - deployment/welcome.md
+             - deployment/infrastructure/infrastructure/fluentbit.md
+             - deployment/infrastructure/infrastructure/libvirt.md
+             - deployment/infrastructure/infrastructure/loki.md
+             - deployment/infrastructure/infrastructure/memcached.md
+             - deployment/infrastructure/infrastructure/metallb.md
+             - deployment/infrastructure/infrastructure/namespace.md
+             - deployment/infrastructure/infrastructure/overview.md
+             - deployment/infrastructure/infrastructure/ovn.md
+             - deployment/infrastructure/infrastructure/sealed-secrets.md
+             - deployment/infrastructure/infrastructure/gateway/envoy.md
+             - deployment/infrastructure/infrastructure/gateway/nginx.md
+             - deployment/infrastructure/infrastructure/gateway/overview.md
+             - deployment/infrastructure/infrastructure/mariadb/mariadb.md
+             - deployment/infrastructure/infrastructure/rabbitmq/rabbitmq.md
+             - deployment/infrastructure/kubernetes/kube-config.md
+             - deployment/infrastructure/kubernetes/overview.md
+             - deployment/infrastructure/kubernetes/plugins.md
+             - deployment/infrastructure/kubernetes/prometheus.md
+             - deployment/infrastructure/kubernetes/cni/cni-kube-ovn.md
+             - deployment/infrastructure/kubernetes/post-deploy/dashboard.md
+             - deployment/infrastructure/kubernetes/post-deploy/labels.md
+             - deployment/infrastructure/kubernetes/post-deploy/taint.md
+             - deployment/infrastructure/kubernetes/providers/kubespray.md
+             - deployment/infrastructure/monitoring/blackbox.md
+             - deployment/infrastructure/monitoring/custom.md
+             - deployment/infrastructure/monitoring/getting-started.md
+             - deployment/infrastructure/monitoring/grafana.md
+             - deployment/infrastructure/monitoring/kube-event.md
+             - deployment/infrastructure/monitoring/kube-ovn.md
+             - deployment/infrastructure/monitoring/mariadb.md
+             - deployment/infrastructure/monitoring/memcached.md
+             - deployment/infrastructure/monitoring/nginx-gateway.md
+             - deployment/infrastructure/monitoring/openstack.md
+             - deployment/infrastructure/monitoring/overview.md
+             - deployment/infrastructure/monitoring/postgres.md
+             - deployment/infrastructure/monitoring/pushgateway.md
+             - deployment/infrastructure/monitoring/rabbitmq.md
+             - deployment/infrastructure/monitoring/snmp.md
+             - deployment/infrastructure/monitoring/alertmanager/pagerduty.md
+             - deployment/infrastructure/monitoring/alertmanager/slack.md
+             - deployment/infrastructure/monitoring/alertmanager/teams.md
+             - deployment/infrastructure/openstack/overview.md
+             - deployment/infrastructure/openstack/services/barbican.md
+             - deployment/infrastructure/openstack/services/glance.md
+             - deployment/infrastructure/openstack/services/heat.md
+             - deployment/infrastructure/openstack/services/keystone.md
+             - deployment/infrastructure/openstack/services/magnum.md
+             - deployment/infrastructure/openstack/services/octavia.md
+             - deployment/infrastructure/openstack/services/cinder/fips-encryption.md
+             - deployment/infrastructure/openstack/services/cinder/lvm-iscsi.md
+             - deployment/infrastructure/openstack/services/cinder/overview.md
+             - deployment/infrastructure/openstack/services/cinder/netapp/container.md
+             - deployment/infrastructure/openstack/services/cinder/netapp/worker.md
+             - deployment/infrastructure/openstack/services/compute/neutron.md
+             - deployment/infrastructure/openstack/services/compute/nova.md
+             - deployment/infrastructure/openstack/services/compute/overview.md
+             - deployment/infrastructure/openstack/services/compute/placement.md
+             - deployment/infrastructure/openstack/services/compute/secrets.md
+             - deployment/infrastructure/openstack/services/dashboards/horizon.md
+             - deployment/infrastructure/openstack/services/dashboards/skyline.md
+             - deployment/infrastructure/openstack/services/metering/ceilometer.md
+             - deployment/infrastructure/openstack/services/metering/gnocchi.md
+             - deployment/infrastructure/openstack/services/metering/postgresql.md
+             - deployment/infrastructure/storage/longhorn.md
+             - deployment/infrastructure/storage/overview.md
+             - deployment/infrastructure/storage/topolvm.md
+             - deployment/infrastructure/storage/ceph/external.md
+             - deployment/infrastructure/storage/ceph/internal.md
+             - deployment/infrastructure/storage/csi/csi-external-block.md
+             - deployment/infrastructure/storage/nfs/nfs-external.md
+             - deployment/start/genestack.md
+             - deployment/start/labs.md
+             - design/openstack-cloud-design-az.md
+             - design/openstack-cloud-design-ha.md
+             - design/openstack-cloud-design-intro.md
+             - design/openstack-cloud-design-regions.md
+             - design/openstack-cloud-design-topology.md
+             - design/accel/infrastructure.md
+             - design/accel/overview.md
+             - design/other/disaster-recovery.md
+             - design/other/genestack-infra.md
+             - design/sdlc/sdlc.md
+             - flex/api-status.md
+             - onboarding/cli.md
+             - onboarding/getting-started.md
+             - onboarding/welcome.md
+             - onboarding/openstack/floating-ips.md
+             - onboarding/openstack/images.md
+             - onboarding/openstack/keypairs.md
+             - onboarding/openstack/load-balancers.md
+             - onboarding/openstack/metrics.md
+             - onboarding/openstack/networks.md
+             - onboarding/openstack/quotas.md
+             - onboarding/openstack/routers.md
+             - onboarding/openstack/security-groups.md
+             - onboarding/openstack/servers.md
+             - onboarding/openstack/snapshots.md
+             - onboarding/openstack/volumes.md
+             - onboarding/openstack/object/3rdparty.md
+             - onboarding/openstack/object/openstack-cli.md
+             - onboarding/openstack/object/s3-cli.md
+             - onboarding/openstack/object/skyline.md
+             - onboarding/openstack/object/swift-cli.md
+             - operations/genestack/fernet-keys.md
+             - operations/genestack/multi-region.md
+             - operations/genestack/upgrades.md
+             - operations/infrastructure/gateway/nginx/custom.md
+             - operations/infrastructure/gateway/nginx/rackspace-gateway.md
+             - operations/infrastructure/gateway/nginx/self-signed-ca.md
+             - operations/infrastructure/kubernetes/adding-nodes.md
+             - operations/infrastructure/kubernetes/etcd-backup.md
+             - operations/infrastructure/kubernetes/kubespray-upgrades.md
+             - operations/infrastructure/mariadb/operations.md
+             - operations/infrastructure/ovn/alert-claim-storm.md
+             - operations/infrastructure/ovn/db-backup.md
+             - operations/infrastructure/ovn/helm-conversion.md
+             - operations/infrastructure/ovn/introduction.md
+             - operations/infrastructure/ovn/monitoring-intro.md
+             - operations/infrastructure/ovn/openstack-configuration.md
+             - operations/infrastructure/ovn/re-ip.md
+             - operations/infrastructure/ovn/traffic-flow-intro.md
+             - operations/infrastructure/ovn/troubleshooting.md
+             - operations/metering/billing.md
+             - operations/metering/ceilometer.md
+             - operations/metering/chargebacks.md
+             - operations/metering/gnocchi.md
+             - operations/metering/overview.md
+             - operations/observability/alerting.md
+             - operations/observability/logging.md
+             - operations/observability/monitoring.md
+             - operations/observability/overview.md
+             - operations/openstack/public-endpoints.md
+             - operations/openstack/resource-lookups.md
+             - operations/openstack/service-overrides.md
+             - operations/openstack/block/openstack-cinder-block-node-decommission-process.md
+             - operations/openstack/block/openstack-cinder-volume-provisioning-specs.md
+             - operations/openstack/block/openstack-cinder-volume-qos-policies.md
+             - operations/openstack/block/openstack-cinder-volume-type-specs.md
+             - operations/openstack/cli/openstack-clouds.md
+             - operations/openstack/compute/cpu-ratios.md
+             - operations/openstack/compute/data-disk-recovery.md
+             - operations/openstack/compute/flavors.md
+             - operations/openstack/compute/host-aggregates.md
+             - operations/openstack/compute/pci-passthrough.md
+             - operations/openstack/containers/magnum-kubernetes-cluster-setup-guide.md
+             - operations/openstack/identity/federation.md
+             - operations/openstack/identity/readonly.md
+             - operations/openstack/images/images.md
+             - operations/openstack/images/swift-store.md
+             - operations/openstack/lb/octavia-flavor-and-flavorprofile-guide.md
+             - operations/openstack/lb/octavia-loadbalancer-setup-guide.md
+             - operations/openstack/networking/networks.md
+             - operations/openstack/object/openstack-swift-operators-guide.md
+             - operations/openstack/quotas/quotas.md
+             - operations/security/introduction.md
+             - operations/security/lifecycle.md
+             - operations/security/stages.md
+             - operations/security/summary.md
+             - operations/security/sealed-secrets/introduction.md
+             - operations/security/vault/introduction.md
+             - operations/security/vault/secrets-operator.md
+             - overview/architecture.md
+             - overview/components.md
+             - overview/object-srorage.md
+             - overview/release-notes.md
+             - overview/documentation/mkdocs.md
+             - overview/documentation/modifications.md
+             - overview/documentation/standards.md
+             - unused/infrastructure-argocd.md
+[33mWARNING -  [0mA reference to 'overview' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'design' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'accel' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'deployment-guide-welcome.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'build-test-envs.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'genestack-getting-started.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'k8s-overview.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-kubespray.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-labels.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-dashboard.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-taint.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-tools.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-cni-kube-ovn.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-config.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'prometheus.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'storage-overview.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'storage-ceph-rook-internal.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'storage-ceph-rook-external.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'storage-nfs-external.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'storage-topolvm.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'storage-external-block.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'storage-longhorn.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-overview.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-namespace.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-metallb.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-gateway-api.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-envoy-gateway-api.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-nginx-gateway-api.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-mariadb.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-rabbitmq.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-memcached.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-libvirt.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-ovn-setup.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-fluentbit.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-loki.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-sealed-secrets.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-overview.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-keystone.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-glance.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-heat.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-barbican.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-lvmisci.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-netapp-worker.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-netapp-container.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-fips-encryption.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-compute-kit.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-compute-kit-secrets.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-compute-kit-placement.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-compute-kit-nova.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-compute-kit-neutron.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-horizon.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-skyline.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-octavia.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-magnum.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-postgresql.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-gnocchi.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-ceilometer.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'prometheus-monitoring-overview.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'monitoring-getting-started.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'grafana.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-kube-ovn.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-kube-event-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-nginx-gateway.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'prometheus-rabbitmq-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-memcached-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-mysql-exporter.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'prometheus-postgres-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-openstack-metrics-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-blackbox-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-pushgateway.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'prometheus-snmp-exporter.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'prometheus-custom-node-metrics.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'alertmanager-slack.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'alertmanager-msteams.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'alertmanager-pagerduty.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'multi-region-support.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'sync-fernet-keys.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'genestack-upgrade.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'metering-overview.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'metering-ceilometer.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'metering-gnocchi.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'metering-billing.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'metering-chargebacks.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'etcd-backup.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'adding-new-node.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-kubespray-upgrade.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'ovn-intro.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'ovn-troubleshooting.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'ovn-traffic-flow-intro.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-ovn-db-backup.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'ovn-monitoring-introduction.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'ovn-alert-claim-storm.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'ovn-kube-ovn-openstack.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-kube-ovn-re-ip.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'k8s-cni-kube-ovn-helm-conversion.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-mariadb-ops.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-nginx-gateway-api-custom.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'rackspace-infrastructure-nginx-gateway-api.md' is included in the 'nav' configuration, which is not found in
+           the documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-nginx-gateway-api-ca-issuer.md' is included in the 'nav' configuration, which is not found in
+           the documentation files.
+[33mWARNING -  [0mA reference to 'observability-info.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'monitoring-info.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'alerting-info.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'genestack-logging.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-clouds.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-volume-provisioning-specs.md' is included in the 'nav' configuration, which is not found in
+           the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-volume-qos-policies.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-volume-type-specs.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-block-node-decommission-process.md' is included in the 'nav' configuration, which is not
+           found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-flavors.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cpu-allocation-ratio.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-pci-passthrough.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-host-aggregates.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-data-disk-recovery.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-quota-managment.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-glance-images.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-glance-swift-store.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-keystone-federation.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-keystone-readonly.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-neutron-networks.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'magnum-kubernetes-cluster-setup-guide.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'octavia-flavor-and-flavorprofile-guide.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'octavia-loadbalancer-setup-guide.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-swift-operators-guide.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-override-public-endpoint-fqdn.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-service-overrides.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-resource-lookups.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'mkdocs-howto.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'cloud-onboarding-welcome.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-deploy-cli.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-getting-started-cli.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-security-groups.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-floating-ips.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-keypairs.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-servers.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-router.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-images.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-metrics.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'storage-object-store-openstack-cli.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'storage-object-store-swift-cli.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'storage-object-store-s3-cli.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'storage-object-store-skyline-gui.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'storage-object-store-swift-3rd-party.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-snapshot.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-volumes.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-load-balancer.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-networks.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-quota.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'security-introduction.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'security-lifecycle.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'security-stages.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'security-summary.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'api-status.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mawesome-nav: 'nav' config from mkdocs.yml is being replaced with one generated by awesome-nav
+[33mWARNING -  [0mawesome-nav: The nav item 'graphana.md' doesn't match any files or directories [deployment/infrastructure/monitoring/.nav.yml]
+[33mWARNING -  [0mawesome-nav: The nav item 'sealed-secrets.md' doesn't match any files or directories [operations/security/.nav.yml]
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+             - attic/arch.md
+             - attic/features.md
+             - attic/genestack-architecture-orig.md
+             - attic/genestack-features.md
+             - deployment/infrastructure/monitoring/grafana.md
+             - design/openstack-cloud-design-intro.md
+             - operations/openstack/lb/octavia-flavor-and-flavorprofile-guide.md
+             - operations/openstack/lb/octavia-loadbalancer-setup-guide.md
+             - operations/security/sealed-secrets/introduction.md
+             - operations/security/vault/introduction.md
+             - operations/security/vault/secrets-operator.md
+             - unused/infrastructure-argocd.md
+[33mWARNING -  [0mDoc file 'index.md' contains a link 'overview-components.md', but the target is not found among documentation files.
+[33mWARNING -  [0mDoc file 'index.md' contains a link 'genestack-getting-started.md', but the target is not found among documentation files.
+[33mWARNING -  [0mDoc file 'attic/genestack-features.md' contains a link 'assets/images/refarch.svg', but the target
+           'attic/assets/images/refarch.svg' is not found among documentation files.
+INFO    -  Doc file 'deployment/welcome.md' contains an absolute link '/assets/images/ospc_flex_logo_red.svg', it was left as is. Did you
+           mean '../assets/images/ospc_flex_logo_red.svg'?
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/memcached.md' contains a link 'prometheus-memcached-exporter.md', but the
+           target 'deployment/infrastructure/infrastructure/prometheus-memcached-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/memcached.md' contains a link 'prometheus-monitoring-overview.md', but the
+           target 'deployment/infrastructure/infrastructure/prometheus-monitoring-overview.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/overview.md' contains a link 'assets/images/genstack-local-arch-k8s.svg',
+           but the target 'deployment/infrastructure/infrastructure/assets/images/genstack-local-arch-k8s.svg' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/ovn.md' contains a link 'ovn-kube-ovn-openstack.md', but the target
+           'deployment/infrastructure/infrastructure/ovn-kube-ovn-openstack.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/gateway/overview.md' contains a link 'infrastructure-envoy-gateway-api.md',
+           but the target 'deployment/infrastructure/infrastructure/gateway/infrastructure-envoy-gateway-api.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/gateway/overview.md' contains a link 'infrastructure-nginx-gateway-api.md',
+           but the target 'deployment/infrastructure/infrastructure/gateway/infrastructure-nginx-gateway-api.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/kubernetes/prometheus.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/kubernetes/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/kubernetes/cni/cni-kube-ovn.md' contains a link 'infrastructure-ovn-db-backup.md', but the
+           target 'deployment/infrastructure/kubernetes/cni/infrastructure-ovn-db-backup.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-mysql-exporter.md', but the
+           target 'deployment/infrastructure/monitoring/prometheus-mysql-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-rabbitmq-exporter.md', but the
+           target 'deployment/infrastructure/monitoring/prometheus-rabbitmq-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-postgres-exporter.md', but the
+           target 'deployment/infrastructure/monitoring/prometheus-postgres-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-memcached-exporter.md', but the
+           target 'deployment/infrastructure/monitoring/prometheus-memcached-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-openstack-metrics-exporter.md',
+           but the target 'deployment/infrastructure/monitoring/prometheus-openstack-metrics-exporter.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-pushgateway.md', but the target
+           'deployment/infrastructure/monitoring/prometheus-pushgateway.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'alertmanager-slack.md', but the target
+           'deployment/infrastructure/monitoring/alertmanager-slack.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link
+           'infrastructure-rabbitmq.md#rabbitmq-operator-monitoring', but the target
+           'deployment/infrastructure/monitoring/infrastructure-rabbitmq.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/grafana.md' contains a link 'infrastructure-gateway-api.md', but the target
+           'deployment/infrastructure/monitoring/infrastructure-gateway-api.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/kube-event.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/mariadb.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/memcached.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/openstack.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/openstack.md' contains a link 'openstack-clouds.md', but the target
+           'deployment/infrastructure/monitoring/openstack-clouds.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/overview.md' contains a link 'monitoring-getting-started.md', but the target
+           'deployment/infrastructure/monitoring/monitoring-getting-started.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/postgres.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/rabbitmq.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/overview.md' contains a link 'assets/images/genestack-logo.png', but the target
+           'deployment/infrastructure/openstack/assets/images/genestack-logo.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/barbican.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/glance.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/glance.md' contains a link 'openstack-glance-swift-store.md', but the
+           target 'deployment/infrastructure/openstack/services/openstack-glance-swift-store.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/heat.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/keystone.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/magnum.md' contains a link 'openstack-barbican.md', but the target
+           'deployment/infrastructure/openstack/services/openstack-barbican.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/magnum.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/octavia.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/lvm-iscsi.md' contains a link
+           'openstack-cinder-volume-qos-policies.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/openstack-cinder-volume-qos-policies.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/lvm-iscsi.md' contains a link
+           'openstack-cinder-volume-provisioning-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/openstack-cinder-volume-provisioning-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/lvm-iscsi.md' contains a link
+           'openstack-cinder-volume-type-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/openstack-cinder-volume-type-specs.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/overview.md' contains a link 'multi-region-support.md', but the
+           target 'deployment/infrastructure/openstack/services/cinder/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/container.md' contains a link
+           'openstack-cinder-netapp-worker.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-netapp-worker.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/container.md' contains a link
+           'openstack-cinder-volume-qos-policies.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-qos-policies.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/container.md' contains a link
+           'openstack-cinder-volume-provisioning-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-provisioning-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/container.md' contains a link
+           'openstack-cinder-volume-type-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-type-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-qos-policies.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-qos-policies.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-provisioning-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-provisioning-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-type-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-type-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-qos-policies.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-qos-policies.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-provisioning-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-provisioning-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-type-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-type-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/compute/neutron.md' contains a link 'multi-region-support.md', but the
+           target 'deployment/infrastructure/openstack/services/compute/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/compute/nova.md' contains a link 'multi-region-support.md', but the
+           target 'deployment/infrastructure/openstack/services/compute/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/compute/nova.md' contains a link 'multi-region-support.md', but the
+           target 'deployment/infrastructure/openstack/services/compute/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/compute/placement.md' contains a link 'multi-region-support.md', but
+           the target 'deployment/infrastructure/openstack/services/compute/multi-region-support.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/dashboards/horizon.md' contains a link 'multi-region-support.md', but
+           the target 'deployment/infrastructure/openstack/services/dashboards/multi-region-support.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/dashboards/skyline.md' contains a link 'infrastructure-gateway-api.md',
+           but the target 'deployment/infrastructure/openstack/services/dashboards/infrastructure-gateway-api.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/ceilometer.md' contains a link 'multi-region-support.md', but
+           the target 'deployment/infrastructure/openstack/services/metering/multi-region-support.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/gnocchi.md' contains a link 'openstack-ceilometer.md', but the
+           target 'deployment/infrastructure/openstack/services/metering/openstack-ceilometer.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/gnocchi.md' contains a link 'openstack-gnocchi.md', but the
+           target 'deployment/infrastructure/openstack/services/metering/openstack-gnocchi.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/gnocchi.md' contains a link
+           'assets/images/gnocchi-architecture.svg', but the target
+           'deployment/infrastructure/openstack/services/metering/assets/images/gnocchi-architecture.svg' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/gnocchi.md' contains a link 'multi-region-support.md', but the
+           target 'deployment/infrastructure/openstack/services/metering/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/postgresql.md' contains a link 'openstack-gnocchi.md', but the
+           target 'deployment/infrastructure/openstack/services/metering/openstack-gnocchi.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/postgresql.md' contains a link 'openstack-ceilometer.md', but
+           the target 'deployment/infrastructure/openstack/services/metering/openstack-ceilometer.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-ceph-rook-external.md', but the target
+           'deployment/infrastructure/storage/storage-ceph-rook-external.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-ceph-rook-internal.md', but the target
+           'deployment/infrastructure/storage/storage-ceph-rook-internal.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-external-block.md', but the target
+           'deployment/infrastructure/storage/storage-external-block.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-nfs-external.md', but the target
+           'deployment/infrastructure/storage/storage-nfs-external.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-topolvm.md', but the target
+           'deployment/infrastructure/storage/storage-topolvm.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-longhorn.md', but the target
+           'deployment/infrastructure/storage/storage-longhorn.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-az.md' contains a link 'infrastructure-ovn-setup.md', but the target
+           'design/infrastructure-ovn-setup.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-ha.md' contains a link 'openstack-host-aggregates.md', but the target
+           'design/openstack-host-aggregates.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-intro.md' contains a link 'assets/images/OpenStack-Logo-Vertical.svg', but the target
+           'design/assets/images/OpenStack-Logo-Vertical.svg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-intro.md' contains a link 'index.md', but the target 'design/index.md' is not found
+           among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-intro.md' contains a link 'assets/images/kubernetes-stacked-color.svg', but the target
+           'design/assets/images/kubernetes-stacked-color.svg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-regions.md' contains a link 'openstack-keystone-federation.md', but the target
+           'design/openstack-keystone-federation.md' is not found among documentation files.
+INFO    -  Doc file 'design/accel/infrastructure.md' contains an absolute link '/assets/images/ospc_flex_logo_red.svg', it was left as
+           is. Did you mean '../../assets/images/ospc_flex_logo_red.svg'?
+INFO    -  Doc file 'design/accel/overview.md' contains an absolute link '/assets/images/ospc_flex_logo_red.svg', it was left as is. Did
+           you mean '../../assets/images/ospc_flex_logo_red.svg'?
+[33mWARNING -  [0mDoc file 'design/other/disaster-recovery.md' contains a link 'deployment-guide-welcome.md', but the target
+           'design/other/deployment-guide-welcome.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/other/disaster-recovery.md' contains a link 'openstack-cloud-design-ha.md', but the target
+           'design/other/openstack-cloud-design-ha.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/other/disaster-recovery.md' contains a link 'openstack-cloud-design-az.md', but the target
+           'design/other/openstack-cloud-design-az.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/other/genestack-infra.md' contains a link 'assets/images/leaf-spline.png', but the target
+           'design/other/assets/images/leaf-spline.png' is not found among documentation files.
+INFO    -  Doc file 'flex/api-status.md' contains an absolute link '/assets/images/cloud-anywhere.png', it was left as is. Did you mean
+           '../assets/images/cloud-anywhere.png'?
+[33mWARNING -  [0mDoc file 'onboarding/getting-started.md' contains a link 'openstack-deploy-cli.md', but the target
+           'onboarding/openstack-deploy-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/getting-started.md' contains a link 'openstack-clouds.md', but the target
+           'onboarding/openstack-clouds.md' is not found among documentation files.
+INFO    -  Doc file 'onboarding/welcome.md' contains an absolute link '/assets/images/ospc_flex_logo_red.svg', it was left as is. Did you
+           mean '../assets/images/ospc_flex_logo_red.svg'?
+[33mWARNING -  [0mDoc file 'onboarding/openstack/floating-ips.md' contains a link 'build-test-envs.md', but the target
+           'onboarding/openstack/build-test-envs.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/metrics.md' contains a link 'metering-gnocchi.md', but the target
+           'onboarding/openstack/metering-gnocchi.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/quotas.md' contains a link './assets/images/SkylineHomeQuota.png', but the target
+           'onboarding/openstack/assets/images/SkylineHomeQuota.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/quotas.md' contains a link './assets/images/quota_show.png', but the target
+           'onboarding/openstack/assets/images/quota_show.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/quotas.md' contains a link './assets/images/limits_show.png', but the target
+           'onboarding/openstack/assets/images/limits_show.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/servers.md' contains a link 'openstack-snapshot.md', but the target
+           'onboarding/openstack/openstack-snapshot.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/servers.md' contains a link 'openstack-volumes.md', but the target
+           'onboarding/openstack/openstack-volumes.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/servers.md' contains a link 'build-test-envs.md', but the target
+           'onboarding/openstack/build-test-envs.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/openstack-cli.md' contains a link 'openstack-getting-started-cli.md', but the target
+           'onboarding/openstack/object/openstack-getting-started-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/openstack-cli.md' contains a link 'storage-object-store-swift-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-swift-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/openstack-cli.md' contains a link 'storage-object-store-skyline-gui.md', but the target
+           'onboarding/openstack/object/storage-object-store-skyline-gui.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/openstack-cli.md' contains a link 'storage-object-store-swift-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-swift-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link
+           'assets/images/storage-object-store-skyline-gui-01-navigate.png', but the target
+           'onboarding/openstack/object/assets/images/storage-object-store-skyline-gui-01-navigate.png' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link
+           'assets/images/storage-object-store-skyline-gui-02-create-dialog.png', but the target
+           'onboarding/openstack/object/assets/images/storage-object-store-skyline-gui-02-create-dialog.png' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link
+           'assets/images/storage-object-store-skyline-gui-03-container-list.png', but the target
+           'onboarding/openstack/object/assets/images/storage-object-store-skyline-gui-03-container-list.png' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link
+           'assets/images/storage-object-store-skyline-gui-04-in-container.png', but the target
+           'onboarding/openstack/object/assets/images/storage-object-store-skyline-gui-04-in-container.png' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link
+           'assets/images/storage-object-store-skyline-gui-05-file-list.png', but the target
+           'onboarding/openstack/object/assets/images/storage-object-store-skyline-gui-05-file-list.png' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link 'storage-object-store-openstack-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-openstack-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link 'storage-object-store-swift-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-swift-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link 'storage-object-store-openstack-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-openstack-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link 'storage-object-store-swift-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-swift-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link 'storage-object-store-swift-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-swift-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/genestack/multi-region.md' contains a link 'openstack-compute-kit.md', but the target
+           'operations/genestack/openstack-compute-kit.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/genestack/multi-region.md' contains a link 'openstack-compute-kit.md', but the target
+           'operations/genestack/openstack-compute-kit.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/gateway/nginx/rackspace-gateway.md' contains a link 'assets/images/flexingress.png', but
+           the target 'operations/infrastructure/gateway/nginx/assets/images/flexingress.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/kubernetes/adding-nodes.md' contains a link 'openstack-pci-passthrough.md', but the target
+           'operations/infrastructure/kubernetes/openstack-pci-passthrough.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/kubernetes/adding-nodes.md' contains a link 'openstack-host-aggregates.md', but the target
+           'operations/infrastructure/kubernetes/openstack-host-aggregates.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/kubernetes/adding-nodes.md' contains a link 'openstack-flavors.md', but the target
+           'operations/infrastructure/kubernetes/openstack-flavors.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/ovn/monitoring-intro.md' contains a link './prometheus-kube-ovn.md', but the target
+           'operations/infrastructure/ovn/prometheus-kube-ovn.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/ovn/openstack-configuration.md' contains a link 'infrastructure-ovn-setup.md', but the
+           target 'operations/infrastructure/ovn/infrastructure-ovn-setup.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/ceilometer.md' contains a link 'assets/images/metering-ceilometer.png', but the target
+           'operations/metering/assets/images/metering-ceilometer.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/gnocchi.md' contains a link 'assets/images/gnocchi-architecture.svg', but the target
+           'operations/metering/assets/images/gnocchi-architecture.svg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/gnocchi.md' contains a link 'openstack-metrics.md', but the target
+           'operations/metering/openstack-metrics.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/overview.md' contains a link 'metering-ceilometer.md', but the target
+           'operations/metering/metering-ceilometer.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/overview.md' contains a link 'metering-gnocchi.md', but the target
+           'operations/metering/metering-gnocchi.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/overview.md' contains a link 'assets/images/metering-overview.svg', but the target
+           'operations/metering/assets/images/metering-overview.svg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'monitoring-info.md', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'monitoring-info.md', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'monitoring-info.md', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'prometheus.md', but the target
+           'operations/observability/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'assets/images/prometheus-architecture.png', but the target
+           'operations/observability/assets/images/prometheus-architecture.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'alertmanager-slack.md', but the target
+           'operations/observability/alertmanager-slack.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'alertmanager-pagerduty.md', but the target
+           'operations/observability/alertmanager-pagerduty.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'alertmanager-msteams.md', but the target
+           'operations/observability/alertmanager-msteams.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/logging.md' contains a link 'assets/images/grafana-explore.png', but the target
+           'operations/observability/assets/images/grafana-explore.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/logging.md' contains a link 'assets/images/grafana-search.png', but the target
+           'operations/observability/assets/images/grafana-search.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-monitoring-overview.md', but the target
+           'operations/observability/prometheus-monitoring-overview.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'grafana.md', but the target
+           'operations/observability/grafana.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'assets/images/prometheus-architecture.png', but the target
+           'operations/observability/assets/images/prometheus-architecture.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus.md', but the target
+           'operations/observability/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-mariadb.md', but the target
+           'operations/observability/infrastructure-mariadb.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-mysql-exporter.md', but the target
+           'operations/observability/prometheus-mysql-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-mysql-exporter.md', but the target
+           'operations/observability/prometheus-mysql-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'openstack-gnocchi.md', but the target
+           'operations/observability/openstack-gnocchi.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-postgres-exporter.md', but the target
+           'operations/observability/prometheus-postgres-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-rabbitmq.md', but the target
+           'operations/observability/infrastructure-rabbitmq.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-rabbitmq-exporter.md', but the target
+           'operations/observability/prometheus-rabbitmq-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-memcached.md', but the target
+           'operations/observability/infrastructure-memcached.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-blackbox-exporter.md', but the target
+           'operations/observability/prometheus-blackbox-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-ovn-setup.md', but the target
+           'operations/observability/infrastructure-ovn-setup.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'ovn-monitoring-introduction.md', but the target
+           'operations/observability/ovn-monitoring-introduction.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-gateway-api.md', but the target
+           'operations/observability/infrastructure-gateway-api.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-nginx-gateway.md', but the target
+           'operations/observability/prometheus-nginx-gateway.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-openstack-metrics-exporter.md', but the target
+           'operations/observability/prometheus-openstack-metrics-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'storage-ceph-rook-internal.md', but the target
+           'operations/observability/storage-ceph-rook-internal.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'storage-ceph-rook-external.md', but the target
+           'operations/observability/storage-ceph-rook-external.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-pushgateway.md', but the target
+           'operations/observability/prometheus-pushgateway.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-custom-node-metrics.md', but the target
+           'operations/observability/prometheus-custom-node-metrics.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-loki.md', but the target
+           'operations/observability/infrastructure-loki.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'grafana.md', but the target
+           'operations/observability/grafana.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'grafana.md', but the target
+           'operations/observability/grafana.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'infrastructure-loki.md', but the target
+           'operations/observability/infrastructure-loki.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'genestack-logging.md', but the target
+           'operations/observability/genestack-logging.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'assets/images/prometheus-architecture.png', but the target
+           'operations/observability/assets/images/prometheus-architecture.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'monitoring-info.md', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'alerting-info.md', but the target
+           'operations/observability/alerting-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'alerting-info.md', but the target
+           'operations/observability/alerting-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'ovn-alert-claim-storm.md', but the target
+           'operations/observability/ovn-alert-claim-storm.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'assets/images/loki-alerting-rules-example.png', but the
+           target 'operations/observability/assets/images/loki-alerting-rules-example.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'assets/images/project-lookup-example.png', but the target
+           'operations/observability/assets/images/project-lookup-example.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'monitoring-info.md#visualization', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'monitoring-info.md', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/resource-lookups.md' contains a link 'openstack-clouds.md', but the target
+           'operations/openstack/openstack-clouds.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/service-overrides.md' contains a link 'openstack-pci-passthrough.md', but the target
+           'operations/openstack/openstack-pci-passthrough.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/compute/flavors.md' contains a link 'openstack-service-overrides.md', but the target
+           'operations/openstack/compute/openstack-service-overrides.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/compute/flavors.md' contains a link 'openstack-pci-passthrough.md', but the target
+           'operations/openstack/compute/openstack-pci-passthrough.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/compute/pci-passthrough.md' contains a link 'openstack-service-overrides.md', but the target
+           'operations/openstack/compute/openstack-service-overrides.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/compute/pci-passthrough.md' contains a link 'openstack-flavors.md', but the target
+           'operations/openstack/compute/openstack-flavors.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/images/swift-store.md' contains a link 'api-status.md', but the target
+           'operations/openstack/images/api-status.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/security/lifecycle.md' contains a link 'assets/images/CNCF_develop.jpg', but the target
+           'operations/security/assets/images/CNCF_develop.jpg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/security/lifecycle.md' contains a link 'assets/images/CNCF_distribute.jpg', but the target
+           'operations/security/assets/images/CNCF_distribute.jpg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/security/lifecycle.md' contains a link 'assets/images/CNCF_deploy.jpg', but the target
+           'operations/security/assets/images/CNCF_deploy.jpg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/security/lifecycle.md' contains a link 'assets/images/CNCF_runtime.jpg', but the target
+           'operations/security/assets/images/CNCF_runtime.jpg' is not found among documentation files.
+INFO    -  mkdocs_swagger_ui_tag: Copying swagger ui assets.
+INFO    -  Documentation built in 4.34 seconds
+INFO    -  Cleaning site directory
+INFO    -  Building documentation to directory: /Volumes/SSD/Projects/Rackspace/genestack/site
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+             - attic/arch.md
+             - attic/features.md
+             - attic/genestack-architecture-orig.md
+             - attic/genestack-features.md
+             - deployment/welcome.md
+             - deployment/infrastructure/infrastructure/fluentbit.md
+             - deployment/infrastructure/infrastructure/libvirt.md
+             - deployment/infrastructure/infrastructure/loki.md
+             - deployment/infrastructure/infrastructure/memcached.md
+             - deployment/infrastructure/infrastructure/metallb.md
+             - deployment/infrastructure/infrastructure/namespace.md
+             - deployment/infrastructure/infrastructure/overview.md
+             - deployment/infrastructure/infrastructure/ovn.md
+             - deployment/infrastructure/infrastructure/sealed-secrets.md
+             - deployment/infrastructure/infrastructure/gateway/envoy.md
+             - deployment/infrastructure/infrastructure/gateway/nginx.md
+             - deployment/infrastructure/infrastructure/gateway/overview.md
+             - deployment/infrastructure/infrastructure/mariadb/mariadb.md
+             - deployment/infrastructure/infrastructure/rabbitmq/rabbitmq.md
+             - deployment/infrastructure/kubernetes/kube-config.md
+             - deployment/infrastructure/kubernetes/overview.md
+             - deployment/infrastructure/kubernetes/plugins.md
+             - deployment/infrastructure/kubernetes/prometheus.md
+             - deployment/infrastructure/kubernetes/cni/cni-kube-ovn.md
+             - deployment/infrastructure/kubernetes/post-deploy/dashboard.md
+             - deployment/infrastructure/kubernetes/post-deploy/labels.md
+             - deployment/infrastructure/kubernetes/post-deploy/taint.md
+             - deployment/infrastructure/kubernetes/providers/kubespray.md
+             - deployment/infrastructure/monitoring/blackbox.md
+             - deployment/infrastructure/monitoring/custom.md
+             - deployment/infrastructure/monitoring/getting-started.md
+             - deployment/infrastructure/monitoring/grafana.md
+             - deployment/infrastructure/monitoring/kube-event.md
+             - deployment/infrastructure/monitoring/kube-ovn.md
+             - deployment/infrastructure/monitoring/mariadb.md
+             - deployment/infrastructure/monitoring/memcached.md
+             - deployment/infrastructure/monitoring/nginx-gateway.md
+             - deployment/infrastructure/monitoring/openstack.md
+             - deployment/infrastructure/monitoring/overview.md
+             - deployment/infrastructure/monitoring/postgres.md
+             - deployment/infrastructure/monitoring/pushgateway.md
+             - deployment/infrastructure/monitoring/rabbitmq.md
+             - deployment/infrastructure/monitoring/snmp.md
+             - deployment/infrastructure/monitoring/alertmanager/pagerduty.md
+             - deployment/infrastructure/monitoring/alertmanager/slack.md
+             - deployment/infrastructure/monitoring/alertmanager/teams.md
+             - deployment/infrastructure/openstack/overview.md
+             - deployment/infrastructure/openstack/services/barbican.md
+             - deployment/infrastructure/openstack/services/glance.md
+             - deployment/infrastructure/openstack/services/heat.md
+             - deployment/infrastructure/openstack/services/keystone.md
+             - deployment/infrastructure/openstack/services/magnum.md
+             - deployment/infrastructure/openstack/services/octavia.md
+             - deployment/infrastructure/openstack/services/cinder/fips-encryption.md
+             - deployment/infrastructure/openstack/services/cinder/lvm-iscsi.md
+             - deployment/infrastructure/openstack/services/cinder/overview.md
+             - deployment/infrastructure/openstack/services/cinder/netapp/container.md
+             - deployment/infrastructure/openstack/services/cinder/netapp/worker.md
+             - deployment/infrastructure/openstack/services/compute/neutron.md
+             - deployment/infrastructure/openstack/services/compute/nova.md
+             - deployment/infrastructure/openstack/services/compute/overview.md
+             - deployment/infrastructure/openstack/services/compute/placement.md
+             - deployment/infrastructure/openstack/services/compute/secrets.md
+             - deployment/infrastructure/openstack/services/dashboards/horizon.md
+             - deployment/infrastructure/openstack/services/dashboards/skyline.md
+             - deployment/infrastructure/openstack/services/metering/ceilometer.md
+             - deployment/infrastructure/openstack/services/metering/gnocchi.md
+             - deployment/infrastructure/openstack/services/metering/postgresql.md
+             - deployment/infrastructure/storage/longhorn.md
+             - deployment/infrastructure/storage/overview.md
+             - deployment/infrastructure/storage/topolvm.md
+             - deployment/infrastructure/storage/ceph/external.md
+             - deployment/infrastructure/storage/ceph/internal.md
+             - deployment/infrastructure/storage/csi/csi-external-block.md
+             - deployment/infrastructure/storage/nfs/nfs-external.md
+             - deployment/start/genestack.md
+             - deployment/start/labs.md
+             - design/openstack-cloud-design-az.md
+             - design/openstack-cloud-design-ha.md
+             - design/openstack-cloud-design-intro.md
+             - design/openstack-cloud-design-regions.md
+             - design/openstack-cloud-design-topology.md
+             - design/accel/infrastructure.md
+             - design/accel/overview.md
+             - design/other/disaster-recovery.md
+             - design/other/genestack-infra.md
+             - design/sdlc/sdlc.md
+             - flex/api-status.md
+             - onboarding/cli.md
+             - onboarding/getting-started.md
+             - onboarding/welcome.md
+             - onboarding/openstack/floating-ips.md
+             - onboarding/openstack/images.md
+             - onboarding/openstack/keypairs.md
+             - onboarding/openstack/load-balancers.md
+             - onboarding/openstack/metrics.md
+             - onboarding/openstack/networks.md
+             - onboarding/openstack/quotas.md
+             - onboarding/openstack/routers.md
+             - onboarding/openstack/security-groups.md
+             - onboarding/openstack/servers.md
+             - onboarding/openstack/snapshots.md
+             - onboarding/openstack/volumes.md
+             - onboarding/openstack/object/3rdparty.md
+             - onboarding/openstack/object/openstack-cli.md
+             - onboarding/openstack/object/s3-cli.md
+             - onboarding/openstack/object/skyline.md
+             - onboarding/openstack/object/swift-cli.md
+             - operations/genestack/fernet-keys.md
+             - operations/genestack/multi-region.md
+             - operations/genestack/upgrades.md
+             - operations/infrastructure/gateway/nginx/custom.md
+             - operations/infrastructure/gateway/nginx/rackspace-gateway.md
+             - operations/infrastructure/gateway/nginx/self-signed-ca.md
+             - operations/infrastructure/kubernetes/adding-nodes.md
+             - operations/infrastructure/kubernetes/etcd-backup.md
+             - operations/infrastructure/kubernetes/kubespray-upgrades.md
+             - operations/infrastructure/mariadb/operations.md
+             - operations/infrastructure/ovn/alert-claim-storm.md
+             - operations/infrastructure/ovn/db-backup.md
+             - operations/infrastructure/ovn/helm-conversion.md
+             - operations/infrastructure/ovn/introduction.md
+             - operations/infrastructure/ovn/monitoring-intro.md
+             - operations/infrastructure/ovn/openstack-configuration.md
+             - operations/infrastructure/ovn/re-ip.md
+             - operations/infrastructure/ovn/traffic-flow-intro.md
+             - operations/infrastructure/ovn/troubleshooting.md
+             - operations/metering/billing.md
+             - operations/metering/ceilometer.md
+             - operations/metering/chargebacks.md
+             - operations/metering/gnocchi.md
+             - operations/metering/overview.md
+             - operations/observability/alerting.md
+             - operations/observability/logging.md
+             - operations/observability/monitoring.md
+             - operations/observability/overview.md
+             - operations/openstack/public-endpoints.md
+             - operations/openstack/resource-lookups.md
+             - operations/openstack/service-overrides.md
+             - operations/openstack/block/openstack-cinder-block-node-decommission-process.md
+             - operations/openstack/block/openstack-cinder-volume-provisioning-specs.md
+             - operations/openstack/block/openstack-cinder-volume-qos-policies.md
+             - operations/openstack/block/openstack-cinder-volume-type-specs.md
+             - operations/openstack/cli/openstack-clouds.md
+             - operations/openstack/compute/cpu-ratios.md
+             - operations/openstack/compute/data-disk-recovery.md
+             - operations/openstack/compute/flavors.md
+             - operations/openstack/compute/host-aggregates.md
+             - operations/openstack/compute/pci-passthrough.md
+             - operations/openstack/containers/magnum-kubernetes-cluster-setup-guide.md
+             - operations/openstack/identity/federation.md
+             - operations/openstack/identity/readonly.md
+             - operations/openstack/images/images.md
+             - operations/openstack/images/swift-store.md
+             - operations/openstack/lb/octavia-flavor-and-flavorprofile-guide.md
+             - operations/openstack/lb/octavia-loadbalancer-setup-guide.md
+             - operations/openstack/networking/networks.md
+             - operations/openstack/object/openstack-swift-operators-guide.md
+             - operations/openstack/quotas/quotas.md
+             - operations/security/introduction.md
+             - operations/security/lifecycle.md
+             - operations/security/stages.md
+             - operations/security/summary.md
+             - operations/security/sealed-secrets/introduction.md
+             - operations/security/vault/introduction.md
+             - operations/security/vault/secrets-operator.md
+             - overview/architecture.md
+             - overview/components.md
+             - overview/object-srorage.md
+             - overview/release-notes.md
+             - overview/documentation/mkdocs.md
+             - overview/documentation/modifications.md
+             - overview/documentation/standards.md
+             - unused/infrastructure-argocd.md
+[33mWARNING -  [0mA reference to 'overview' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'design' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'accel' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'deployment-guide-welcome.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'build-test-envs.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'genestack-getting-started.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'k8s-overview.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-kubespray.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-labels.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-dashboard.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-taint.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-tools.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-cni-kube-ovn.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-config.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'prometheus.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'storage-overview.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'storage-ceph-rook-internal.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'storage-ceph-rook-external.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'storage-nfs-external.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'storage-topolvm.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'storage-external-block.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'storage-longhorn.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-overview.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-namespace.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-metallb.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-gateway-api.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-envoy-gateway-api.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-nginx-gateway-api.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-mariadb.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-rabbitmq.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-memcached.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-libvirt.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-ovn-setup.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-fluentbit.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-loki.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-sealed-secrets.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-overview.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-keystone.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-glance.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-heat.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-barbican.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-lvmisci.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-netapp-worker.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-netapp-container.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-fips-encryption.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-compute-kit.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-compute-kit-secrets.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-compute-kit-placement.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-compute-kit-nova.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-compute-kit-neutron.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-horizon.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-skyline.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-octavia.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-magnum.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-postgresql.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-gnocchi.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-ceilometer.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'prometheus-monitoring-overview.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'monitoring-getting-started.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'grafana.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-kube-ovn.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-kube-event-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-nginx-gateway.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'prometheus-rabbitmq-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-memcached-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-mysql-exporter.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'prometheus-postgres-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-openstack-metrics-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-blackbox-exporter.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'prometheus-pushgateway.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'prometheus-snmp-exporter.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'prometheus-custom-node-metrics.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'alertmanager-slack.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'alertmanager-msteams.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'alertmanager-pagerduty.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'multi-region-support.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'sync-fernet-keys.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'genestack-upgrade.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'metering-overview.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'metering-ceilometer.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'metering-gnocchi.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'metering-billing.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'metering-chargebacks.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'etcd-backup.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'adding-new-node.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'k8s-kubespray-upgrade.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'ovn-intro.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'ovn-troubleshooting.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'ovn-traffic-flow-intro.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-ovn-db-backup.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'ovn-monitoring-introduction.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'ovn-alert-claim-storm.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'ovn-kube-ovn-openstack.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-kube-ovn-re-ip.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'k8s-cni-kube-ovn-helm-conversion.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-mariadb-ops.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'infrastructure-nginx-gateway-api-custom.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'rackspace-infrastructure-nginx-gateway-api.md' is included in the 'nav' configuration, which is not found in
+           the documentation files.
+[33mWARNING -  [0mA reference to 'infrastructure-nginx-gateway-api-ca-issuer.md' is included in the 'nav' configuration, which is not found in
+           the documentation files.
+[33mWARNING -  [0mA reference to 'observability-info.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'monitoring-info.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'alerting-info.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'genestack-logging.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-clouds.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-volume-provisioning-specs.md' is included in the 'nav' configuration, which is not found in
+           the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-volume-qos-policies.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-volume-type-specs.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cinder-block-node-decommission-process.md' is included in the 'nav' configuration, which is not
+           found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-flavors.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-cpu-allocation-ratio.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-pci-passthrough.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-host-aggregates.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-data-disk-recovery.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-quota-managment.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-glance-images.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-glance-swift-store.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-keystone-federation.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-keystone-readonly.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-neutron-networks.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'magnum-kubernetes-cluster-setup-guide.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'octavia-flavor-and-flavorprofile-guide.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'octavia-loadbalancer-setup-guide.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-swift-operators-guide.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-override-public-endpoint-fqdn.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-service-overrides.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-resource-lookups.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'mkdocs-howto.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'cloud-onboarding-welcome.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-deploy-cli.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-getting-started-cli.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-security-groups.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-floating-ips.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-keypairs.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-servers.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-router.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-images.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-metrics.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'storage-object-store-openstack-cli.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'storage-object-store-swift-cli.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'storage-object-store-s3-cli.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'storage-object-store-skyline-gui.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'storage-object-store-swift-3rd-party.md' is included in the 'nav' configuration, which is not found in the
+           documentation files.
+[33mWARNING -  [0mA reference to 'openstack-snapshot.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-volumes.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-load-balancer.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'openstack-networks.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'openstack-quota.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'security-introduction.md' is included in the 'nav' configuration, which is not found in the documentation
+           files.
+[33mWARNING -  [0mA reference to 'security-lifecycle.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'security-stages.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'security-summary.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mA reference to 'api-status.md' is included in the 'nav' configuration, which is not found in the documentation files.
+[33mWARNING -  [0mawesome-nav: 'nav' config from mkdocs.yml is being replaced with one generated by awesome-nav
+[33mWARNING -  [0mawesome-nav: The nav item 'graphana.md' doesn't match any files or directories [deployment/infrastructure/monitoring/.nav.yml]
+[33mWARNING -  [0mawesome-nav: The nav item 'sealed-secrets.md' doesn't match any files or directories [operations/security/.nav.yml]
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+             - attic/arch.md
+             - attic/features.md
+             - attic/genestack-architecture-orig.md
+             - attic/genestack-features.md
+             - deployment/infrastructure/monitoring/grafana.md
+             - design/openstack-cloud-design-intro.md
+             - operations/openstack/lb/octavia-flavor-and-flavorprofile-guide.md
+             - operations/openstack/lb/octavia-loadbalancer-setup-guide.md
+             - operations/security/sealed-secrets/introduction.md
+             - operations/security/vault/introduction.md
+             - operations/security/vault/secrets-operator.md
+             - unused/infrastructure-argocd.md
+[33mWARNING -  [0mDoc file 'index.md' contains a link 'overview-components.md', but the target is not found among documentation files.
+[33mWARNING -  [0mDoc file 'index.md' contains a link 'genestack-getting-started.md', but the target is not found among documentation files.
+[33mWARNING -  [0mDoc file 'attic/genestack-features.md' contains a link 'assets/images/refarch.svg', but the target
+           'attic/assets/images/refarch.svg' is not found among documentation files.
+INFO    -  Doc file 'deployment/welcome.md' contains an absolute link '/assets/images/ospc_flex_logo_red.svg', it was left as is. Did you
+           mean '../assets/images/ospc_flex_logo_red.svg'?
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/memcached.md' contains a link 'prometheus-memcached-exporter.md', but the
+           target 'deployment/infrastructure/infrastructure/prometheus-memcached-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/memcached.md' contains a link 'prometheus-monitoring-overview.md', but the
+           target 'deployment/infrastructure/infrastructure/prometheus-monitoring-overview.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/overview.md' contains a link 'assets/images/genstack-local-arch-k8s.svg',
+           but the target 'deployment/infrastructure/infrastructure/assets/images/genstack-local-arch-k8s.svg' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/ovn.md' contains a link 'ovn-kube-ovn-openstack.md', but the target
+           'deployment/infrastructure/infrastructure/ovn-kube-ovn-openstack.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/gateway/overview.md' contains a link 'infrastructure-envoy-gateway-api.md',
+           but the target 'deployment/infrastructure/infrastructure/gateway/infrastructure-envoy-gateway-api.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/infrastructure/gateway/overview.md' contains a link 'infrastructure-nginx-gateway-api.md',
+           but the target 'deployment/infrastructure/infrastructure/gateway/infrastructure-nginx-gateway-api.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/kubernetes/prometheus.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/kubernetes/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/kubernetes/cni/cni-kube-ovn.md' contains a link 'infrastructure-ovn-db-backup.md', but the
+           target 'deployment/infrastructure/kubernetes/cni/infrastructure-ovn-db-backup.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-mysql-exporter.md', but the
+           target 'deployment/infrastructure/monitoring/prometheus-mysql-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-rabbitmq-exporter.md', but the
+           target 'deployment/infrastructure/monitoring/prometheus-rabbitmq-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-postgres-exporter.md', but the
+           target 'deployment/infrastructure/monitoring/prometheus-postgres-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-memcached-exporter.md', but the
+           target 'deployment/infrastructure/monitoring/prometheus-memcached-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-openstack-metrics-exporter.md',
+           but the target 'deployment/infrastructure/monitoring/prometheus-openstack-metrics-exporter.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'prometheus-pushgateway.md', but the target
+           'deployment/infrastructure/monitoring/prometheus-pushgateway.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link 'alertmanager-slack.md', but the target
+           'deployment/infrastructure/monitoring/alertmanager-slack.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/getting-started.md' contains a link
+           'infrastructure-rabbitmq.md#rabbitmq-operator-monitoring', but the target
+           'deployment/infrastructure/monitoring/infrastructure-rabbitmq.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/grafana.md' contains a link 'infrastructure-gateway-api.md', but the target
+           'deployment/infrastructure/monitoring/infrastructure-gateway-api.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/kube-event.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/mariadb.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/memcached.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/openstack.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/openstack.md' contains a link 'openstack-clouds.md', but the target
+           'deployment/infrastructure/monitoring/openstack-clouds.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/overview.md' contains a link 'monitoring-getting-started.md', but the target
+           'deployment/infrastructure/monitoring/monitoring-getting-started.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/postgres.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/monitoring/rabbitmq.md' contains a link 'prometheus.md', but the target
+           'deployment/infrastructure/monitoring/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/overview.md' contains a link 'assets/images/genestack-logo.png', but the target
+           'deployment/infrastructure/openstack/assets/images/genestack-logo.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/barbican.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/glance.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/glance.md' contains a link 'openstack-glance-swift-store.md', but the
+           target 'deployment/infrastructure/openstack/services/openstack-glance-swift-store.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/heat.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/keystone.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/magnum.md' contains a link 'openstack-barbican.md', but the target
+           'deployment/infrastructure/openstack/services/openstack-barbican.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/magnum.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/octavia.md' contains a link 'multi-region-support.md', but the target
+           'deployment/infrastructure/openstack/services/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/lvm-iscsi.md' contains a link
+           'openstack-cinder-volume-qos-policies.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/openstack-cinder-volume-qos-policies.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/lvm-iscsi.md' contains a link
+           'openstack-cinder-volume-provisioning-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/openstack-cinder-volume-provisioning-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/lvm-iscsi.md' contains a link
+           'openstack-cinder-volume-type-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/openstack-cinder-volume-type-specs.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/overview.md' contains a link 'multi-region-support.md', but the
+           target 'deployment/infrastructure/openstack/services/cinder/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/container.md' contains a link
+           'openstack-cinder-netapp-worker.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-netapp-worker.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/container.md' contains a link
+           'openstack-cinder-volume-qos-policies.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-qos-policies.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/container.md' contains a link
+           'openstack-cinder-volume-provisioning-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-provisioning-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/container.md' contains a link
+           'openstack-cinder-volume-type-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-type-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-qos-policies.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-qos-policies.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-provisioning-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-provisioning-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-type-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-type-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-qos-policies.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-qos-policies.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-provisioning-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-provisioning-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/cinder/netapp/worker.md' contains a link
+           'openstack-cinder-volume-type-specs.md', but the target
+           'deployment/infrastructure/openstack/services/cinder/netapp/openstack-cinder-volume-type-specs.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/compute/neutron.md' contains a link 'multi-region-support.md', but the
+           target 'deployment/infrastructure/openstack/services/compute/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/compute/nova.md' contains a link 'multi-region-support.md', but the
+           target 'deployment/infrastructure/openstack/services/compute/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/compute/nova.md' contains a link 'multi-region-support.md', but the
+           target 'deployment/infrastructure/openstack/services/compute/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/compute/placement.md' contains a link 'multi-region-support.md', but
+           the target 'deployment/infrastructure/openstack/services/compute/multi-region-support.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/dashboards/horizon.md' contains a link 'multi-region-support.md', but
+           the target 'deployment/infrastructure/openstack/services/dashboards/multi-region-support.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/dashboards/skyline.md' contains a link 'infrastructure-gateway-api.md',
+           but the target 'deployment/infrastructure/openstack/services/dashboards/infrastructure-gateway-api.md' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/ceilometer.md' contains a link 'multi-region-support.md', but
+           the target 'deployment/infrastructure/openstack/services/metering/multi-region-support.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/gnocchi.md' contains a link 'openstack-ceilometer.md', but the
+           target 'deployment/infrastructure/openstack/services/metering/openstack-ceilometer.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/gnocchi.md' contains a link 'openstack-gnocchi.md', but the
+           target 'deployment/infrastructure/openstack/services/metering/openstack-gnocchi.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/gnocchi.md' contains a link
+           'assets/images/gnocchi-architecture.svg', but the target
+           'deployment/infrastructure/openstack/services/metering/assets/images/gnocchi-architecture.svg' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/gnocchi.md' contains a link 'multi-region-support.md', but the
+           target 'deployment/infrastructure/openstack/services/metering/multi-region-support.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/postgresql.md' contains a link 'openstack-gnocchi.md', but the
+           target 'deployment/infrastructure/openstack/services/metering/openstack-gnocchi.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/openstack/services/metering/postgresql.md' contains a link 'openstack-ceilometer.md', but
+           the target 'deployment/infrastructure/openstack/services/metering/openstack-ceilometer.md' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-ceph-rook-external.md', but the target
+           'deployment/infrastructure/storage/storage-ceph-rook-external.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-ceph-rook-internal.md', but the target
+           'deployment/infrastructure/storage/storage-ceph-rook-internal.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-external-block.md', but the target
+           'deployment/infrastructure/storage/storage-external-block.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-nfs-external.md', but the target
+           'deployment/infrastructure/storage/storage-nfs-external.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-topolvm.md', but the target
+           'deployment/infrastructure/storage/storage-topolvm.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'deployment/infrastructure/storage/overview.md' contains a link 'storage-longhorn.md', but the target
+           'deployment/infrastructure/storage/storage-longhorn.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-az.md' contains a link 'infrastructure-ovn-setup.md', but the target
+           'design/infrastructure-ovn-setup.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-ha.md' contains a link 'openstack-host-aggregates.md', but the target
+           'design/openstack-host-aggregates.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-intro.md' contains a link 'assets/images/OpenStack-Logo-Vertical.svg', but the target
+           'design/assets/images/OpenStack-Logo-Vertical.svg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-intro.md' contains a link 'index.md', but the target 'design/index.md' is not found
+           among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-intro.md' contains a link 'assets/images/kubernetes-stacked-color.svg', but the target
+           'design/assets/images/kubernetes-stacked-color.svg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/openstack-cloud-design-regions.md' contains a link 'openstack-keystone-federation.md', but the target
+           'design/openstack-keystone-federation.md' is not found among documentation files.
+INFO    -  Doc file 'design/accel/infrastructure.md' contains an absolute link '/assets/images/ospc_flex_logo_red.svg', it was left as
+           is. Did you mean '../../assets/images/ospc_flex_logo_red.svg'?
+INFO    -  Doc file 'design/accel/overview.md' contains an absolute link '/assets/images/ospc_flex_logo_red.svg', it was left as is. Did
+           you mean '../../assets/images/ospc_flex_logo_red.svg'?
+[33mWARNING -  [0mDoc file 'design/other/disaster-recovery.md' contains a link 'deployment-guide-welcome.md', but the target
+           'design/other/deployment-guide-welcome.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/other/disaster-recovery.md' contains a link 'openstack-cloud-design-ha.md', but the target
+           'design/other/openstack-cloud-design-ha.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/other/disaster-recovery.md' contains a link 'openstack-cloud-design-az.md', but the target
+           'design/other/openstack-cloud-design-az.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'design/other/genestack-infra.md' contains a link 'assets/images/leaf-spline.png', but the target
+           'design/other/assets/images/leaf-spline.png' is not found among documentation files.
+INFO    -  Doc file 'flex/api-status.md' contains an absolute link '/assets/images/cloud-anywhere.png', it was left as is. Did you mean
+           '../assets/images/cloud-anywhere.png'?
+[33mWARNING -  [0mDoc file 'onboarding/getting-started.md' contains a link 'openstack-deploy-cli.md', but the target
+           'onboarding/openstack-deploy-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/getting-started.md' contains a link 'openstack-clouds.md', but the target
+           'onboarding/openstack-clouds.md' is not found among documentation files.
+INFO    -  Doc file 'onboarding/welcome.md' contains an absolute link '/assets/images/ospc_flex_logo_red.svg', it was left as is. Did you
+           mean '../assets/images/ospc_flex_logo_red.svg'?
+[33mWARNING -  [0mDoc file 'onboarding/openstack/floating-ips.md' contains a link 'build-test-envs.md', but the target
+           'onboarding/openstack/build-test-envs.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/metrics.md' contains a link 'metering-gnocchi.md', but the target
+           'onboarding/openstack/metering-gnocchi.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/quotas.md' contains a link './assets/images/SkylineHomeQuota.png', but the target
+           'onboarding/openstack/assets/images/SkylineHomeQuota.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/quotas.md' contains a link './assets/images/quota_show.png', but the target
+           'onboarding/openstack/assets/images/quota_show.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/quotas.md' contains a link './assets/images/limits_show.png', but the target
+           'onboarding/openstack/assets/images/limits_show.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/servers.md' contains a link 'openstack-snapshot.md', but the target
+           'onboarding/openstack/openstack-snapshot.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/servers.md' contains a link 'openstack-volumes.md', but the target
+           'onboarding/openstack/openstack-volumes.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/servers.md' contains a link 'build-test-envs.md', but the target
+           'onboarding/openstack/build-test-envs.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/openstack-cli.md' contains a link 'openstack-getting-started-cli.md', but the target
+           'onboarding/openstack/object/openstack-getting-started-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/openstack-cli.md' contains a link 'storage-object-store-swift-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-swift-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/openstack-cli.md' contains a link 'storage-object-store-skyline-gui.md', but the target
+           'onboarding/openstack/object/storage-object-store-skyline-gui.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/openstack-cli.md' contains a link 'storage-object-store-swift-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-swift-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link
+           'assets/images/storage-object-store-skyline-gui-01-navigate.png', but the target
+           'onboarding/openstack/object/assets/images/storage-object-store-skyline-gui-01-navigate.png' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link
+           'assets/images/storage-object-store-skyline-gui-02-create-dialog.png', but the target
+           'onboarding/openstack/object/assets/images/storage-object-store-skyline-gui-02-create-dialog.png' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link
+           'assets/images/storage-object-store-skyline-gui-03-container-list.png', but the target
+           'onboarding/openstack/object/assets/images/storage-object-store-skyline-gui-03-container-list.png' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link
+           'assets/images/storage-object-store-skyline-gui-04-in-container.png', but the target
+           'onboarding/openstack/object/assets/images/storage-object-store-skyline-gui-04-in-container.png' is not found among
+           documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link
+           'assets/images/storage-object-store-skyline-gui-05-file-list.png', but the target
+           'onboarding/openstack/object/assets/images/storage-object-store-skyline-gui-05-file-list.png' is not found among documentation
+           files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link 'storage-object-store-openstack-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-openstack-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link 'storage-object-store-swift-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-swift-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link 'storage-object-store-openstack-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-openstack-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link 'storage-object-store-swift-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-swift-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'onboarding/openstack/object/skyline.md' contains a link 'storage-object-store-swift-cli.md', but the target
+           'onboarding/openstack/object/storage-object-store-swift-cli.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/genestack/multi-region.md' contains a link 'openstack-compute-kit.md', but the target
+           'operations/genestack/openstack-compute-kit.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/genestack/multi-region.md' contains a link 'openstack-compute-kit.md', but the target
+           'operations/genestack/openstack-compute-kit.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/gateway/nginx/rackspace-gateway.md' contains a link 'assets/images/flexingress.png', but
+           the target 'operations/infrastructure/gateway/nginx/assets/images/flexingress.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/kubernetes/adding-nodes.md' contains a link 'openstack-pci-passthrough.md', but the target
+           'operations/infrastructure/kubernetes/openstack-pci-passthrough.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/kubernetes/adding-nodes.md' contains a link 'openstack-host-aggregates.md', but the target
+           'operations/infrastructure/kubernetes/openstack-host-aggregates.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/kubernetes/adding-nodes.md' contains a link 'openstack-flavors.md', but the target
+           'operations/infrastructure/kubernetes/openstack-flavors.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/ovn/monitoring-intro.md' contains a link './prometheus-kube-ovn.md', but the target
+           'operations/infrastructure/ovn/prometheus-kube-ovn.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/infrastructure/ovn/openstack-configuration.md' contains a link 'infrastructure-ovn-setup.md', but the
+           target 'operations/infrastructure/ovn/infrastructure-ovn-setup.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/ceilometer.md' contains a link 'assets/images/metering-ceilometer.png', but the target
+           'operations/metering/assets/images/metering-ceilometer.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/gnocchi.md' contains a link 'assets/images/gnocchi-architecture.svg', but the target
+           'operations/metering/assets/images/gnocchi-architecture.svg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/gnocchi.md' contains a link 'openstack-metrics.md', but the target
+           'operations/metering/openstack-metrics.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/overview.md' contains a link 'metering-ceilometer.md', but the target
+           'operations/metering/metering-ceilometer.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/overview.md' contains a link 'metering-gnocchi.md', but the target
+           'operations/metering/metering-gnocchi.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/metering/overview.md' contains a link 'assets/images/metering-overview.svg', but the target
+           'operations/metering/assets/images/metering-overview.svg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'monitoring-info.md', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'monitoring-info.md', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'monitoring-info.md', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'prometheus.md', but the target
+           'operations/observability/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'assets/images/prometheus-architecture.png', but the target
+           'operations/observability/assets/images/prometheus-architecture.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'alertmanager-slack.md', but the target
+           'operations/observability/alertmanager-slack.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'alertmanager-pagerduty.md', but the target
+           'operations/observability/alertmanager-pagerduty.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/alerting.md' contains a link 'alertmanager-msteams.md', but the target
+           'operations/observability/alertmanager-msteams.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/logging.md' contains a link 'assets/images/grafana-explore.png', but the target
+           'operations/observability/assets/images/grafana-explore.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/logging.md' contains a link 'assets/images/grafana-search.png', but the target
+           'operations/observability/assets/images/grafana-search.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-monitoring-overview.md', but the target
+           'operations/observability/prometheus-monitoring-overview.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'grafana.md', but the target
+           'operations/observability/grafana.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'assets/images/prometheus-architecture.png', but the target
+           'operations/observability/assets/images/prometheus-architecture.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus.md', but the target
+           'operations/observability/prometheus.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-mariadb.md', but the target
+           'operations/observability/infrastructure-mariadb.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-mysql-exporter.md', but the target
+           'operations/observability/prometheus-mysql-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-mysql-exporter.md', but the target
+           'operations/observability/prometheus-mysql-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'openstack-gnocchi.md', but the target
+           'operations/observability/openstack-gnocchi.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-postgres-exporter.md', but the target
+           'operations/observability/prometheus-postgres-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-rabbitmq.md', but the target
+           'operations/observability/infrastructure-rabbitmq.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-rabbitmq-exporter.md', but the target
+           'operations/observability/prometheus-rabbitmq-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-memcached.md', but the target
+           'operations/observability/infrastructure-memcached.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-blackbox-exporter.md', but the target
+           'operations/observability/prometheus-blackbox-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-ovn-setup.md', but the target
+           'operations/observability/infrastructure-ovn-setup.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'ovn-monitoring-introduction.md', but the target
+           'operations/observability/ovn-monitoring-introduction.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-gateway-api.md', but the target
+           'operations/observability/infrastructure-gateway-api.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-nginx-gateway.md', but the target
+           'operations/observability/prometheus-nginx-gateway.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-openstack-metrics-exporter.md', but the target
+           'operations/observability/prometheus-openstack-metrics-exporter.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'storage-ceph-rook-internal.md', but the target
+           'operations/observability/storage-ceph-rook-internal.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'storage-ceph-rook-external.md', but the target
+           'operations/observability/storage-ceph-rook-external.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-pushgateway.md', but the target
+           'operations/observability/prometheus-pushgateway.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'prometheus-custom-node-metrics.md', but the target
+           'operations/observability/prometheus-custom-node-metrics.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'infrastructure-loki.md', but the target
+           'operations/observability/infrastructure-loki.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'grafana.md', but the target
+           'operations/observability/grafana.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/monitoring.md' contains a link 'grafana.md', but the target
+           'operations/observability/grafana.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'infrastructure-loki.md', but the target
+           'operations/observability/infrastructure-loki.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'genestack-logging.md', but the target
+           'operations/observability/genestack-logging.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'assets/images/prometheus-architecture.png', but the target
+           'operations/observability/assets/images/prometheus-architecture.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'monitoring-info.md', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'alerting-info.md', but the target
+           'operations/observability/alerting-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'alerting-info.md', but the target
+           'operations/observability/alerting-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'ovn-alert-claim-storm.md', but the target
+           'operations/observability/ovn-alert-claim-storm.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'assets/images/loki-alerting-rules-example.png', but the
+           target 'operations/observability/assets/images/loki-alerting-rules-example.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'assets/images/project-lookup-example.png', but the target
+           'operations/observability/assets/images/project-lookup-example.png' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'monitoring-info.md#visualization', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/observability/overview.md' contains a link 'monitoring-info.md', but the target
+           'operations/observability/monitoring-info.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/resource-lookups.md' contains a link 'openstack-clouds.md', but the target
+           'operations/openstack/openstack-clouds.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/service-overrides.md' contains a link 'openstack-pci-passthrough.md', but the target
+           'operations/openstack/openstack-pci-passthrough.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/compute/flavors.md' contains a link 'openstack-service-overrides.md', but the target
+           'operations/openstack/compute/openstack-service-overrides.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/compute/flavors.md' contains a link 'openstack-pci-passthrough.md', but the target
+           'operations/openstack/compute/openstack-pci-passthrough.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/compute/pci-passthrough.md' contains a link 'openstack-service-overrides.md', but the target
+           'operations/openstack/compute/openstack-service-overrides.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/compute/pci-passthrough.md' contains a link 'openstack-flavors.md', but the target
+           'operations/openstack/compute/openstack-flavors.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/openstack/images/swift-store.md' contains a link 'api-status.md', but the target
+           'operations/openstack/images/api-status.md' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/security/lifecycle.md' contains a link 'assets/images/CNCF_develop.jpg', but the target
+           'operations/security/assets/images/CNCF_develop.jpg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/security/lifecycle.md' contains a link 'assets/images/CNCF_distribute.jpg', but the target
+           'operations/security/assets/images/CNCF_distribute.jpg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/security/lifecycle.md' contains a link 'assets/images/CNCF_deploy.jpg', but the target
+           'operations/security/assets/images/CNCF_deploy.jpg' is not found among documentation files.
+[33mWARNING -  [0mDoc file 'operations/security/lifecycle.md' contains a link 'assets/images/CNCF_runtime.jpg', but the target
+           'operations/security/assets/images/CNCF_runtime.jpg' is not found among documentation files.
+INFO    -  mkdocs_swagger_ui_tag: Copying swagger ui assets.
+INFO    -  Documentation built in 4.32 seconds
