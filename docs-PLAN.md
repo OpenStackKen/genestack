@@ -32,21 +32,21 @@ This keeps navigation content-owned and portable for downstream use by
 
 ## Design Guide
 
-This section is the reference model for the rest of the site.
+This section is now the reference model for the rest of the site and is
+effectively complete for the current reorganization pass.
 
 Filesystem structure:
 
 - `/docs/content/design-guide/_index.md`
 - `/docs/content/design-guide/cloud-design/_index.md`
-- `/docs/content/design-guide/accelerated-computing/_index.md`
-- `/docs/content/design-guide/other/_index.md`
+- `/docs/content/design-guide/design-notes/_index.md`
 
 Target order:
 
 - `Genestack SDLC`
+- `Secure Development`
 - `Cloud Design`
-- `Accelerated Computing`
-- `Other Design Documentation`
+- `Infrastructure Design Notes`
 - `Genestack Documentation Standards and Style Guide`
 
 Within `cloud-design`, the order should be:
@@ -56,15 +56,16 @@ Within `cloud-design`, the order should be:
 - `Availability Zones`
 - `Host Aggregates`
 
+Within `design-notes`, the order should be:
+
+- `Accelerated Computing`
+- `Disaster Recovery`
+- `Bare-Metal Provisioning`
+
 Within `accelerated-computing`, the order should be:
 
 - `Overview`
 - `Infrastructure`
-
-Within `other-design`, the order should be:
-
-- `Disaster Recovery`
-- `Genestack Infrastructure Design`
 
 ## Cloud Onboarding
 
@@ -122,6 +123,28 @@ Recommended internal structure:
 - rename the current observability-style deployment grouping to `monitoring/`
   if the goal is to align more closely with the old MkDocs navigation language
 
+Immediate next steps from the current tree:
+
+1. Introduce an `open-infrastructure/` parent and move the current
+   `infrastructure/`, `kubernetes/`, `storage/`, `openstack/`, and
+   `observability/` subsections under it.
+2. Rename `observability/` to `monitoring/` so the top-level terminology
+   matches the old MkDocs information scent more closely.
+3. Decide whether `secrets/` remains a first-class subsection or gets folded
+   under `infrastructure/` as supporting platform material.
+4. Subdivide `kubernetes/` into:
+   - `providers/`
+   - `container-network-interface/`
+   - `post-deployment/`
+5. Subdivide `openstack/` into service groupings where the grouping adds
+   meaningful navigation value:
+   - `block-storage/`
+   - `compute-kit/`
+   - `dashboards/`
+   - `metering/`
+   - `dnsaas/`
+   - `trove/`
+
 ## Operations Guide
 
 This is the section that needs the largest reorganization if the goal is to
@@ -157,24 +180,6 @@ Recommended target hierarchy:
 This structure is more task-oriented and closer to the old MkDocs
 information scent than the current broader buckets.
 
-## Secure By Design
-
-Recommended structure:
-
-- `/docs/content/design-guide/security/_index.md`
-- order the leaf pages with `weight`
-
-Recommended placement within Design Guide:
-
-- after `Accelerated Computing`
-- before `Other Design Documentation`
-
-Recommended order within the subsection:
-
-- `Layered Security`
-- `Securing Private Cloud Infrastructure`
-- `Summary`
-
 ## Overview
 
 Keep this section mostly as-is.
@@ -198,10 +203,9 @@ from normal product-navigation emphasis.
 
 Recommended implementation order:
 
-1. Design Guide
+1. Deployment Guide
 2. Cloud Onboarding
-3. Deployment Guide
-4. Operations Guide
+3. Operations Guide
 
 This keeps the highest-risk and broadest restructuring last.
 

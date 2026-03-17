@@ -34,7 +34,7 @@ home_sections:
       - title: "Cloud Onboarding"
         url: "/cloud-onboarding/"
         description: "End-user onboarding for CLI setup, compute, networking, storage, and common OpenStack workflows."
-      - title: "Secure by Design"
+      - title: "Secure Development"
         url: "/design-guide/security/"
         description: "Secure development and layered security guidance that complements deployment and operations."
 external_resources:
