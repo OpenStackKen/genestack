@@ -58,11 +58,9 @@
         <div class="gs-home-band-header">
           <h2 class="gs-home-band-title">External Resources</h2>
         </div>
-        <div class="row row-cols-1 row-cols-md-2 g-3">
+        <div class="gs-home-actions">
           {{ range . }}
-            <div class="col">
-              <a class="gs-home-link" href="{{ .url }}">{{ .title }}</a>
-            </div>
+            <a class="btn btn-lg btn-outline-primary me-3 mb-3" href="{{ .url }}">{{ .title }}</a>
           {{ end }}
         </div>
       </div>
