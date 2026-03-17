@@ -1,9 +1,6 @@
 ---
 title: "Sealed Secrets Introduction and Installation Guide"
 weight: 820
-aliases:
-  - /deployment-guide/sealed-secrets/
-  - /sealed-secrets/
 ---
 > [!NOTE]
 > **This section is still underdevelopment and experimental**

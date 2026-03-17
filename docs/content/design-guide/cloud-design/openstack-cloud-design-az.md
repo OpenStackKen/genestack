@@ -1,9 +1,6 @@
 ---
 title: "Availability Zones"
 weight: 30
-aliases:
-  - /openstack-cloud-design-az/
-  - /design-guide/openstack-cloud-design-az/
 ---
 Availability Zones are one of the most arbitrary designed domains in a cloud.  In a large-scale cloud, they could be multiple data centers in the same geographical area, while in a smaller cloud they could be separate data halls in the same data center or separate racks in the same data hall.
 

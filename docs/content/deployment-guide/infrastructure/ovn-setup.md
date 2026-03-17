@@ -1,9 +1,6 @@
 ---
 title: "Deploy Open vSwitch OVN"
 weight: 200
-aliases:
-  - /deployment-guide/infrastructure-ovn-setup/
-  - /infrastructure-ovn-setup/
 ---
 > [!NOTE]
 >

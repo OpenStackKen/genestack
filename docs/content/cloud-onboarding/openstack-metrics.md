@@ -1,8 +1,6 @@
 ---
 title: "OpenStack Metrics"
 weight: 80
-aliases:
-  - /openstack-metrics/
 ---
 This page summarizes usage of common `openstack metric` commands, which are used
 to interact with the Telemetry service (_[Gnocchi](/operational-guide/metering-gnocchi/)_) for

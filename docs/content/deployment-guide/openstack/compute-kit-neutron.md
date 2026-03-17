@@ -1,9 +1,6 @@
 ---
 title: "Deploy Neutron"
 weight: 450
-aliases:
-  - /deployment-guide/openstack-compute-kit-neutron/
-  - /openstack-compute-kit-neutron/
 ---
 > [!IMPORTANT]
 > **Run the Neutron deployment Script `/opt/genestack/bin/install-neutron.sh`**

@@ -1,9 +1,6 @@
 ---
 title: "Deploy Blazar"
 weight: 370
-aliases:
-  - /deployment-guide/openstack-blazar/
-  - /openstack-blazar/
 ---
 OpenStack Blazar is the resource reservation service in OpenStack. It enables
 tenants and operators to reserve resources (such as compute hosts) for a

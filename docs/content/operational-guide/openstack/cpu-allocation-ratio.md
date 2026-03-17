@@ -1,9 +1,6 @@
 ---
 title: "Nova CPU allocation Guide"
 weight: 350
-aliases:
-  - /operational-guide/openstack-cpu-allocation-ratio/
-  - /openstack-cpu-allocation-ratio/
 ---
 By default openstack helm provide cpu allocation of 3:1. For a production deployment, cpu allocation ratio need to be decided based on multiple factors like:
 

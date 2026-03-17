@@ -1,8 +1,6 @@
 ---
 title: "Object Store Management using the S3 client"
 weight: 170
-aliases:
-  - /storage-object-store-s3-cli/
 ---
 ## Goal
 

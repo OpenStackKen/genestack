@@ -1,9 +1,6 @@
 ---
 title: "Adding New Worker Node"
 weight: 20
-aliases:
-  - /operational-guide/adding-new-node/
-  - /adding-new-node/
 ---
 ## Adding the node in k8s
 

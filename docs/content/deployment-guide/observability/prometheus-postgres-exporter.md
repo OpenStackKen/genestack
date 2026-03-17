@@ -1,9 +1,6 @@
 ---
 title: "PostgresSQL Exporter"
 weight: 770
-aliases:
-  - /deployment-guide/prometheus-postgres-exporter/
-  - /prometheus-postgres-exporter/
 ---
 PostgresSQL Exporter is used to expose metrics from a running PostgresSQL deployment.
 

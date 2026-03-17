@@ -1,8 +1,6 @@
 ---
 title: "Product Matrix"
 weight: 40
-aliases:
-  - /product-matrix/
 ---
 All release notes are automatically generated using the **Python script** found in [scripts/generate_product_matrix.py](https://github.com/rackerlabs/genestack/scripts/generate_product_matrix.py).
 

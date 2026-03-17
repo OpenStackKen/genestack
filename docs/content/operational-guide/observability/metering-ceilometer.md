@@ -1,9 +1,6 @@
 ---
 title: "Ceilometer (Metering and Event Collection)"
 weight: 180
-aliases:
-  - /operational-guide/metering-ceilometer/
-  - /metering-ceilometer/
 ---
 Ceilometer is the telemetry service in OpenStack responsible for collecting
 usage data related to different resources (_e.g., instances, volumes,

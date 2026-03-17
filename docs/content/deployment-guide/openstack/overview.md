@@ -1,9 +1,6 @@
 ---
 title: "Building the cloud"
 weight: 640
-aliases:
-  - /deployment-guide/openstack-overview/
-  - /openstack-overview/
 ---
 ![Genestack Logo](/assets/images/genestack-logo.png)
 

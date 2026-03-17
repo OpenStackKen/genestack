@@ -1,9 +1,6 @@
 ---
 title: "Blazar Reservation Splitter"
 weight: 270
-aliases:
-  - /operational-guide/openstack-blazar-reservation-splitter/
-  - /openstack-blazar-reservation-splitter/
 ---
 The Blazar Reservation Splitter is a companion service for OpenStack Blazar that automatically processes reservation events. It listens to RabbitMQ messages for lease events (specifically `lease.event.start_lease`) and splits out individual reservations from the payload, and publishes separate notification events for each reservation to Ceilometer. This enables Ceilometer to create individual Gnocchi metrics for each reservation in a lease.
 

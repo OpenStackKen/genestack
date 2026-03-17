@@ -1,8 +1,6 @@
 ---
 title: "Environment Architecture"
 weight: 10
-aliases:
-  - /genestack-architecture/
 ---
 Genestack is making use of some homegrown solutions, community operators, and OpenStack-Helm. Everything
 in Genestack comes together to form cloud in a new and exciting way; all built with opensource solutions

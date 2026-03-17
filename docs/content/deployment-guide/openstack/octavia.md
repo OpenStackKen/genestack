@@ -1,9 +1,6 @@
 ---
 title: "Deploy Octavia"
 weight: 630
-aliases:
-  - /deployment-guide/openstack-octavia/
-  - /openstack-octavia/
 ---
 OpenStack Octavia is the load balancing service within the OpenStack ecosystem, providing scalable and automated load
 balancing for cloud applications. Octavia is designed to ensure high availability and reliability by distributing

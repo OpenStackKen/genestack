@@ -1,9 +1,6 @@
 ---
 title: "Deployment Kubespray"
 weight: 280
-aliases:
-  - /deployment-guide/k8s-kubespray/
-  - /k8s-kubespray/
 ---
 Currently only the k8s provider kubespray is supported and included as submodule into the code base.
 

@@ -1,9 +1,6 @@
 ---
 title: "Create Flavors"
 weight: 380
-aliases:
-  - /operational-guide/openstack-flavors/
-  - /openstack-flavors/
 ---
 Flavors in OpenStack are pre-defined configurations of compute, memory, and storage resources for virtual machines. They allow administrators to offer a range of instance sizes to users. Below are the default flavors typically expected in an OpenStack cloud. These flavors can be customized based on your specific requirements. For more detailed information on managing flavors, refer to the [upstream admin documentation](https://docs.openstack.org/nova/latest/admin/flavors.html).
 

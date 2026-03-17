@@ -1,9 +1,6 @@
 ---
 title: "Create an OpenStack Cloud Config"
 weight: 330
-aliases:
-  - /operational-guide/openstack-clouds/
-  - /openstack-clouds/
 ---
 There are a lot of ways you can go to connect to your cluster. This example will use your cluster internals to generate a cloud config compatible with your environment using the Admin user.
 

@@ -1,9 +1,6 @@
 ---
 title: "Longhorn"
 weight: 860
-aliases:
-  - /deployment-guide/storage-longhorn/
-  - /storage-longhorn/
 ---
 Longhorn is a lightweight, reliable, and highly available distributed block storage solution designed for Kubernetes. By default, it stores
 its data in `/var/lib/longhorn` on each host node, keeping volumes close to where the workloads are running. This local-path approach can reduce

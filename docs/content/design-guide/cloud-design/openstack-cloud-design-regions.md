@@ -1,9 +1,6 @@
 ---
 title: "Regions"
 weight: 20
-aliases:
-  - /openstack-cloud-design-regions/
-  - /design-guide/openstack-cloud-design-regions/
 ---
 Regions are separate physical locations served by a single cloud.  In terms of our taxonomy, a Cloud can contain several Regions.
 

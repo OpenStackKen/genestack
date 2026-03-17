@@ -1,9 +1,6 @@
 ---
 title: "Helm Overriding public endpoint fqdn openstack services"
 weight: 470
-aliases:
-  - /operational-guide/openstack-override-public-endpoint-fqdn/
-  - /openstack-override-public-endpoint-fqdn/
 ---
 By default in Genestack the public endpoint fqdn for any openstack service is created with the cluster domain. For example if the cluster domain is "cluster.local" and keystone pods are in the "openstack" namespace then the fqdn for the keystone service would be "keystone-api.openstack.svc.cluster.local" which might not be ideal for production environments.
 

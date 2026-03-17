@@ -1,9 +1,6 @@
 ---
 title: "Fernet Key Synchronization in Keystone"
 weight: 610
-aliases:
-  - /operational-guide/sync-fernet-keys/
-  - /sync-fernet-keys/
 ---
 ## Overview
 With Genestack's multi region support, administrators might want to run multiple keystone servcies that can all validate the user token. In order to

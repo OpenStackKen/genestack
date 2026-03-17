@@ -1,9 +1,6 @@
 ---
 title: "Mariadb Exporter"
 weight: 750
-aliases:
-  - /deployment-guide/prometheus-mysql-exporter/
-  - /prometheus-mysql-exporter/
 ---
 Mysql Exporter is used to expose metrics from a running mysql/mariadb server. The type of metrics exposed is controlled
 by the exporter and expressed in values.yaml file.

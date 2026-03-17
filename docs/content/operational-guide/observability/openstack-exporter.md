@@ -1,9 +1,6 @@
 ---
 title: "OpenStack Exporter"
 weight: 370
-aliases:
-  - /operational-guide/openstack-exporter/
-  - /openstack-exporter/
 ---
 OpenStack Exporter is used to monitor and collect metrics from OpenStack services. It provides visibility into various OpenStack components and their performance metrics through Prometheus.
 

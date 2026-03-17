@@ -1,9 +1,6 @@
 ---
 title: "Genestack Alerting"
 weight: 30
-aliases:
-  - /operational-guide/alerting-info/
-  - /alerting-info/
 ---
 Genestack is made up of a vast array of components working away to provide a Kubernetes and OpenStack cloud infrastructure
 to serve our needs. Here we'll discuss in a bit more detail about how we configure and make use of our alerting mechanisms

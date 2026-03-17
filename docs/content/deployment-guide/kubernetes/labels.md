@@ -1,9 +1,6 @@
 ---
 title: "Label all of the nodes in the environment"
 weight: 290
-aliases:
-  - /deployment-guide/k8s-labels/
-  - /k8s-labels/
 ---
 To use the K8S environment for OpenStack all of the nodes MUST be labeled. The following Labels will be used within your environment. Make sure you label things accordingly.
 

@@ -1,9 +1,6 @@
 ---
 title: "Glance Images Overview"
 weight: 400
-aliases:
-  - /operational-guide/openstack-glance-images/
-  - /openstack-glance-images/
 ---
 The following page highlights how to retrieve various images and upload them into Glance.
 

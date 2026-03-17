@@ -1,9 +1,6 @@
 ---
 title: "Deploy K8S Dashboard RBAC"
 weight: 270
-aliases:
-  - /deployment-guide/k8s-dashboard/
-  - /k8s-dashboard/
 ---
 While the dashboard is installed you will have no ability to access it until we setup some basic RBAC.
 

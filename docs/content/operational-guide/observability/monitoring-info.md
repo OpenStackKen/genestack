@@ -1,9 +1,6 @@
 ---
 title: "Genestack Monitoring"
 weight: 220
-aliases:
-  - /operational-guide/monitoring-info/
-  - /monitoring-info/
 ---
 Genestack is made up of a vast array of components working away to provide a Kubernetes and OpenStack cloud infrastructure
 to serve our needs. Here we'll discuss in a bit more detail about how we're monitoring these components and what that

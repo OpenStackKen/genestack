@@ -1,9 +1,6 @@
 ---
 title: "Deploy the RabbitMQ Operator and a RabbitMQ Cluster"
 weight: 220
-aliases:
-  - /deployment-guide/infrastructure-rabbitmq/
-  - /infrastructure-rabbitmq/
 ---
 ## Deploy the RabbitMQ operator.
 

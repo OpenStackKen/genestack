@@ -1,8 +1,6 @@
 ---
 title: "Object Store Management using the Swift client"
 weight: 200
-aliases:
-  - /storage-object-store-swift-cli/
 ---
 ## Goal
 

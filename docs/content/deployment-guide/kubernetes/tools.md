@@ -1,9 +1,6 @@
 ---
 title: "Install Kubernetes Tools/Plugins"
 weight: 330
-aliases:
-  - /deployment-guide/k8s-tools/
-  - /k8s-tools/
 ---
 Once the environment is online, proceed to login to the environment and begin the deployment normally. You'll find the launch node has everything needed, in the places they belong, to get the environment online.
 

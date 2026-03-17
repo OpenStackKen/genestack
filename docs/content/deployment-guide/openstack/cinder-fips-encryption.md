@@ -1,9 +1,6 @@
 ---
 title: "FIPS Enabled Cinder Storage (LUKS)"
 weight: 390
-aliases:
-  - /deployment-guide/openstack-cinder-fips-encryption/
-  - /openstack-cinder-fips-encryption/
 ---
 > [!NOTE]
 >

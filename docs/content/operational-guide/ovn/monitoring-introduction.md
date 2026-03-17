@@ -1,9 +1,6 @@
 ---
 title: "Background"
 weight: 570
-aliases:
-  - /operational-guide/ovn-monitoring-introduction/
-  - /ovn-monitoring-introduction/
 ---
 - This page describes OVN monitoring in _Genestack_.
 - Most OVN monitoring in _Genestack_ comes from _Kube-OVN_'s model

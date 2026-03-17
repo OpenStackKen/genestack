@@ -1,8 +1,6 @@
 ---
 title: "Swift 3rd party clients, SDK's and API"
 weight: 190
-aliases:
-  - /storage-object-store-swift-3rd-party/
 ---
 ## Openstack Swift SDK and Projects
 

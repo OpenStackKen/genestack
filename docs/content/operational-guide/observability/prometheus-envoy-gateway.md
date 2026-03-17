@@ -1,9 +1,6 @@
 ---
 title: "Envoy Gateway Monitoring"
 weight: 600
-aliases:
-  - /operational-guide/prometheus-envoy-gateway/
-  - /prometheus-envoy-gateway/
 ---
 Envoy Gateway exposes metrics that can be used to monitor the behavior and health of the Envoy Gateway.
 

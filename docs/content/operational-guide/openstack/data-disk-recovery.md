@@ -1,9 +1,6 @@
 ---
 title: "Instance Data Disk Recovery"
 weight: 360
-aliases:
-  - /operational-guide/openstack-data-disk-recovery/
-  - /openstack-data-disk-recovery/
 ---
 Below is an operational guide for OpenStack operators who need to mount (and later unmount) a virtual machine’s data disk for recovery or data inspection. This procedure leverages the Linux Network Block Device (NBD) module (`nbd`) in conjunction with the `qemu-nbd` utility. It assumes intermediate Linux system administration skills and familiarity with OpenStack’s Nova instance storage locations.
 

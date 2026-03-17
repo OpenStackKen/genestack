@@ -1,9 +1,6 @@
 ---
 title: "Infrastructure Deployment Demo"
 weight: 190
-aliases:
-  - /deployment-guide/infrastructure-overview/
-  - /infrastructure-overview/
 ---
 ![Genestack Infra](/assets/images/genstack-local-arch-k8s.svg)
 

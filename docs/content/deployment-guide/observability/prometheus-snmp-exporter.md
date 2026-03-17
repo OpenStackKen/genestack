@@ -1,9 +1,6 @@
 ---
 title: "Prometheus SNMP Exporter"
 weight: 800
-aliases:
-  - /deployment-guide/prometheus-snmp-exporter/
-  - /prometheus-snmp-exporter/
 ---
 You will not generally need the Prometheus SNMP Exporter unless you have
 specific SNMP monitoring needs and take additional steps to configure the

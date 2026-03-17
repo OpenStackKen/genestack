@@ -1,9 +1,6 @@
 ---
 title: "Configuring PCI Passthrough in OpenStack"
 weight: 480
-aliases:
-  - /operational-guide/openstack-pci-passthrough/
-  - /openstack-pci-passthrough/
 ---
 PCI Passthrough in OpenStack allows you to assign physical PCI devices directly to virtual machine instances, enabling high-performance access to hardware resources such as GPUs and network cards. This guide walks you through the basic steps to configure PCI Passthrough.
 

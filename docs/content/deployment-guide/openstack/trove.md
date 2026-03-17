@@ -1,9 +1,6 @@
 ---
 title: "Deploy Trove"
 weight: 670
-aliases:
-  - /deployment-guide/openstack-trove/
-  - /openstack-trove/
 ---
 OpenStack Trove is the Database as a Service (DBaaS) component of the OpenStack cloud computing platform, providing scalable and reliable database provisioning and management capabilities. It enables users to deploy, manage, and scale database instances without the complexity of manual database administration. This document details the deployment of OpenStack Trove within Genestack.
 

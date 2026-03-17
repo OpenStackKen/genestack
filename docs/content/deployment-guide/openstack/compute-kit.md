@@ -1,9 +1,6 @@
 ---
 title: "Create Compute Kit"
 weight: 490
-aliases:
-  - /deployment-guide/openstack-compute-kit/
-  - /openstack-compute-kit/
 ---
 The Compute Kit in OpenStack encompasses critical services that power the computational infrastructure of a cloud environment.
 

@@ -1,9 +1,6 @@
 ---
 title: "Security Policies"
 weight: 90
-aliases:
-  - /deployment-guide/infrastructure-envoy-gateway-api-security/
-  - /infrastructure-envoy-gateway-api-security/
 ---
 From [Envoy documentation](https://gateway.envoyproxy.io/docs/concepts/introduction/gateway_api_extensions/security-policy/):
 

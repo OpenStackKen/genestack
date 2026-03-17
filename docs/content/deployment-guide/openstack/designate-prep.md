@@ -1,9 +1,6 @@
 ---
 title: "Add pools and RNDC key"
 weight: 520
-aliases:
-  - /deployment-guide/openstack-designate-prep/
-  - /openstack-designate-prep/
 ---
 ## Add designate pools file
 Edit /etc/genestack/helm-configs/designate/designate-pools-helm-overrides.yaml

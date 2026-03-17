@@ -1,6 +1,6 @@
 ---
 title: "Other Design Documentation"
-weight: 50
+weight: 60
 type: docs
 description: "Additional design guidance for disaster recovery and Genestack infrastructure planning."
 simple_list: true

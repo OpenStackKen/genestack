@@ -1,9 +1,6 @@
 ---
 title: "Host Aggregates"
 weight: 420
-aliases:
-  - /operational-guide/openstack-host-aggregates/
-  - /openstack-host-aggregates/
 ---
 In OpenStack host aggregates is a way to partition the cloud, or a region of OpenStack cloud into groups based on some characteristics.
 For example, we want a group of high performing SSD storage nodes into a group such that a specific ssd flavor can only be build into

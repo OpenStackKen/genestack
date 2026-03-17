@@ -1,8 +1,6 @@
 ---
 title: "Release Notes"
 weight: 50
-aliases:
-  - /release-notes/
 ---
 All release notes are generated using [reno](https://docs.openstack.org/reno/latest/).
 

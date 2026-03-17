@@ -1,9 +1,6 @@
 ---
 title: "Grafana"
 weight: 70
-aliases:
-  - /deployment-guide/grafana/
-  - /grafana/
 ---
 Grafana is installed with the upstream Helm Chart. Running the installation is simple and can be done with our integration script.
 

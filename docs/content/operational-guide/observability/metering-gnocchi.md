@@ -1,9 +1,6 @@
 ---
 title: "Gnocchi (Metric Storage API)"
 weight: 200
-aliases:
-  - /operational-guide/metering-gnocchi/
-  - /metering-gnocchi/
 ---
 Gnocchi is an open-source project designed to store and manage time series data.
 

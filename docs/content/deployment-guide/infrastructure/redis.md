@@ -1,9 +1,6 @@
 ---
 title: "Deploy Redis Operator, Redis Replication Cluster and Redis Sentinel"
 weight: 230
-aliases:
-  - /deployment-guide/infrastructure-redis/
-  - /infrastructure-redis/
 ---
 ## Deploy the Redis operator and replication cluster
 

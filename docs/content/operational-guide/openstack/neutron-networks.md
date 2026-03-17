@@ -1,9 +1,6 @@
 ---
 title: "Creating Different Neutron Network Types"
 weight: 460
-aliases:
-  - /operational-guide/openstack-neutron-networks/
-  - /openstack-neutron-networks/
 ---
 The following commands are examples of creating several different network types.
 NOTE: When creating the subnet we are specifically limiting neutrons ability to attach

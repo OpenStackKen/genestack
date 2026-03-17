@@ -1,9 +1,6 @@
 ---
 title: "Connecting Nova to External Ceph"
 weight: 340
-aliases:
-  - /operational-guide/openstack-compute-ceph-store/
-  - /openstack-compute-ceph-store/
 ---
 When operating a cloud environment, it is often necessary to use a shared storage system rather than the local compute node for virtual machine disk storage. This can be useful for a number of reasons, such as:
 

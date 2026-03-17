@@ -1,9 +1,6 @@
 ---
 title: "Kubernetes Event Exporter"
 weight: 710
-aliases:
-  - /deployment-guide/prometheus-kube-event-exporter/
-  - /prometheus-kube-event-exporter/
 ---
 Kubernetes Event Exporter is used to expose kubernetes events which provides useful information regarding the operation of
 the kubernetes system.

@@ -1,9 +1,6 @@
 ---
 title: "Background information"
 weight: 540
-aliases:
-  - /operational-guide/ovn-alert-claim-storm/
-  - /ovn-alert-claim-storm/
 ---
 This page explains the `OVN claim storm` alert in _Genestack_.
 

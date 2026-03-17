@@ -1,9 +1,6 @@
 ---
 title: "Deploy Cinder"
 weight: 430
-aliases:
-  - /deployment-guide/openstack-cinder/
-  - /openstack-cinder/
 ---
 OpenStack Cinder is a core component of the OpenStack cloud computing platform, responsible for providing scalable, persistent block storage to cloud instances. It allows users to manage volumes, snapshots, and backups, enabling efficient storage operations within both private and public cloud environments. This document details the deployment of OpenStack Cinder within Genestack.
 

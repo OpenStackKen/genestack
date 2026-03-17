@@ -1,9 +1,6 @@
 ---
 title: "Genestack Structure and Files"
 weight: 70
-aliases:
-  - /operational-guide/genestack-structure-and-files/
-  - /genestack-structure-and-files/
 ---
 This document outlines the structure and purpose of the `/etc/genestack` directory, which serves as a central configuration location for Genestack, a platform for deploying and managing OpenStack and related services using Helm charts. It includes descriptions of the key subdirectories and the `helm-chart-versions.yaml` file.
 

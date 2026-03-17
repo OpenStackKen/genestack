@@ -1,9 +1,6 @@
 ---
 title: "Cloud Topology"
 weight: 10
-aliases:
-  - /openstack-cloud-design-topology/
-  - /design-guide/openstack-cloud-design-topology/
 ---
 When building a cloud, the design of the cloud will not only reflect the type of services you are looking to provide but also inform the way that users of your cloud work to accomplish their goals.
 

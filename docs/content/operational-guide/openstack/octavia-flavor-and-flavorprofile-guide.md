@@ -1,9 +1,6 @@
 ---
 title: "Octavia Flavors"
 weight: 250
-aliases:
-  - /operational-guide/octavia-flavor-and-flavorprofile-guide/
-  - /octavia-flavor-and-flavorprofile-guide/
 ---
 This document is intended for users who want to use the command line interface (CLI) to create and manage Octavia flavors and flavor profiles for load balancing. Flavor profiles define specific configurations for the Octavia load balancer, allowing users to select from predefined flavors that match provider capabilities. This guide walks you through the process of creating and updating both flavors and flavor profiles. For instructions on creating other resources such as load balancers, listeners, monitors, and pools, please refer to the [Octavia CLI Load Balancer Setup Guide](https://docs.rackspacecloud.com/octavia-loadbalancer-setup-guide/)
 

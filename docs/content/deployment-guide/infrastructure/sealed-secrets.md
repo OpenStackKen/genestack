@@ -1,9 +1,6 @@
 ---
 title: "Deploy Sealed Secrets"
 weight: 240
-aliases:
-  - /deployment-guide/infrastructure-sealed-secrets/
-  - /infrastructure-sealed-secrets/
 ---
 ## Install sealed secrets
 

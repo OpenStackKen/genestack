@@ -1,9 +1,6 @@
 ---
 title: "Deploy Masakari"
 weight: 620
-aliases:
-  - /deployment-guide/openstack-masakari/
-  - /openstack-masakari/
 ---
 OpenStack Masakari is the High Availability (HA) service for instances (VMs) in OpenStack.
 Provides instance high availability by automatically recovering virtual machine workloads

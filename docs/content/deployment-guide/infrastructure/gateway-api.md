@@ -1,9 +1,6 @@
 ---
 title: "Gateway API"
 weight: 120
-aliases:
-  - /deployment-guide/infrastructure-gateway-api/
-  - /infrastructure-gateway-api/
 ---
 Gateway API is L4 and L7 layer routing project in Kubernetes. It represents next generation of k8s Ingress, LB and Service Mesh APIs.
 For more information on the project see: [Gateway API SIG.](https://gateway-api.sigs.k8s.io/)

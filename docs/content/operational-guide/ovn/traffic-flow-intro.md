@@ -1,9 +1,6 @@
 ---
 title: "Purpose"
 weight: 580
-aliases:
-  - /operational-guide/ovn-traffic-flow-intro/
-  - /ovn-traffic-flow-intro/
 ---
 This document introduces traffic flow in _Genestack_ using OVN with DVR
   (distributed virtual routing). _Genestack_ has DVR on by default.

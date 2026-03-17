@@ -65,8 +65,3 @@ enableRobotsTXT = true
     name = "Cloud Onboarding"
     url = "/cloud-onboarding/"
     weight = 50
-
-  [[menu.main]]
-    name = "Security Primer"
-    url = "/security-primer/"
-    weight = 60

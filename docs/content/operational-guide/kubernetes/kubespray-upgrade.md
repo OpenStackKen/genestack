@@ -1,9 +1,6 @@
 ---
 title: "Kubespray Upgrades"
 weight: 140
-aliases:
-  - /operational-guide/k8s-kubespray-upgrade/
-  - /k8s-kubespray-upgrade/
 ---
 ## Overview
 

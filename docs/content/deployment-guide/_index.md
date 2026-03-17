@@ -6,8 +6,6 @@ description: "Environment bring-up, platform prerequisites, and service deployme
 simple_list: true
 cascade:
   - type: docs
-aliases:
-  - /deployment-guide-welcome/
 ---
 Genestack is a complete operations and deployment ecosystem for Kubernetes and
 OpenStack. This section is the primary entry point for building a new

@@ -1,9 +1,6 @@
 ---
 title: "RabbitMQ Exporter"
 weight: 790
-aliases:
-  - /deployment-guide/prometheus-rabbitmq-exporter/
-  - /prometheus-rabbitmq-exporter/
 ---
 RabbitMQ Exporter is used to expose metrics from a running RabbitMQ deployment.
 

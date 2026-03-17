@@ -1,9 +1,6 @@
 ---
 title: "Deploy Libvirt"
 weight: 130
-aliases:
-  - /deployment-guide/infrastructure-libvirt/
-  - /infrastructure-libvirt/
 ---
 The first part of the compute kit is Libvirt.
 

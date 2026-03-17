@@ -6,8 +6,6 @@ description: "Cloud design decisions, topology, resiliency, and platform archite
 simple_list: true
 cascade:
   - type: docs
-aliases:
-  - /openstack-cloud-design-intro/
 ---
 Genestack combines OpenStack and Kubernetes into a unified cloud platform. The
 design guide helps you decide how to structure that platform before you start

@@ -1,9 +1,6 @@
 ---
 title: "Memcached Exporter"
 weight: 730
-aliases:
-  - /deployment-guide/prometheus-memcached-exporter/
-  - /prometheus-memcached-exporter/
 ---
 Memcached Exporter is used to expose metrics from a running Memcached deployment. The memcached exporter is an integrated part
 of the memcached deployment in Genestack but will need to be enabled.

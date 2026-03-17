@@ -1,9 +1,6 @@
 ---
 title: "Deploy Cloudkitty"
 weight: 440
-aliases:
-  - /deployment-guide/openstack-cloudkitty/
-  - /openstack-cloudkitty/
 ---
 OpenStack Cloudkitty is the rating and chargeback service for OpenStack 
 helps operators measure, rate, and bill tenants (projects) for the resources 

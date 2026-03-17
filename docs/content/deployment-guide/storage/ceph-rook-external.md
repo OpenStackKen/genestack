@@ -1,9 +1,6 @@
 ---
 title: "Cephadm/ceph-ansible/Rook (Ceph) - External"
 weight: 830
-aliases:
-  - /deployment-guide/storage-ceph-rook-external/
-  - /storage-ceph-rook-external/
 ---
 We can use an external ceph cluster and present it via rook-ceph to your cluster.
 

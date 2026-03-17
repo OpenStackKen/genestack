@@ -1,9 +1,6 @@
 ---
 title: "Building MySQL Images for Trove"
 weight: 660
-aliases:
-  - /deployment-guide/openstack-trove-mysql-images/
-  - /openstack-trove-mysql-images/
 ---
 This guide explains how to build and configure MySQL database images for use with OpenStack Trove Database as a Service.
 

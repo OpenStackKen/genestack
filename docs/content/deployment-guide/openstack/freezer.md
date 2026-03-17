@@ -1,9 +1,6 @@
 ---
 title: "Deploy Freezer"
 weight: 540
-aliases:
-  - /deployment-guide/openstack-freezer/
-  - /openstack-freezer/
 ---
 Freezer is a disaster recovery and backup-as-a-service component for OpenStack.
 It provides a way to back up various resources, such as virtual machine instances,

@@ -1,9 +1,6 @@
 ---
 title: "Metering Overview"
 weight: 210
-aliases:
-  - /operational-guide/metering-overview/
-  - /metering-overview/
 ---
 Metering in OpenStack involves collecting, tracking, and analyzing the
 usage data of various resource types within your cloud environment (_crucial

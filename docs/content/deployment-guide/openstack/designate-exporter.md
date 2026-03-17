@@ -1,9 +1,6 @@
 ---
 title: "Designate Prometheus and Alerting Rules"
 weight: 500
-aliases:
-  - /deployment-guide/openstack-designate-exporter/
-  - /openstack-designate-exporter/
 ---
 Add additional alerting rules in /etc/genestack/helm-configs/kube-prometheus-stack/rules/designate_prometheus_rules.yaml
  

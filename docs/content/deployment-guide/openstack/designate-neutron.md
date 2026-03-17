@@ -1,9 +1,6 @@
 ---
 title: "Placeholder"
 weight: 510
-aliases:
-  - /deployment-guide/openstack-designate-neutron/
-  - /openstack-designate-neutron/
 ---
 ## Add neutron overrides 
 

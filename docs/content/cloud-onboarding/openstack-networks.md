@@ -1,8 +1,6 @@
 ---
 title: "Openstack Networks"
 weight: 90
-aliases:
-  - /openstack-networks/
 ---
 To read more about Openstack networks please visit the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/network.html).
 

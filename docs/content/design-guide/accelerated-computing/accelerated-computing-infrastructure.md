@@ -1,9 +1,6 @@
 ---
 title: "How does Rackspace implement Accelerated Computing?"
 weight: 20
-aliases:
-  - /accelerated-computing-infrastructure/
-  - /design-guide/accelerated-computing-infrastructure/
 ---
 ![Rackspace OpenStack Flex Software](/assets/images/ospc_flex_logo_red.svg)
 
