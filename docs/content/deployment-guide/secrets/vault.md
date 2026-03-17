@@ -1,9 +1,6 @@
 ---
 title: "HashiCorp Vault Setup for Genestack Installation"
 weight: 910
-aliases:
-  - /deployment-guide/vault/
-  - /vault/
 ---
 > [!NOTE]
 > **This section is still underdevelopment and experimental**

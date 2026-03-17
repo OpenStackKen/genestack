@@ -1,9 +1,6 @@
 ---
 title: "Updating the Genestack"
 weight: 80
-aliases:
-  - /operational-guide/genestack-upgrade/
-  - /genestack-upgrade/
 ---
 Running a genestack upgrade is fairly simple and consists of mainly updating the `git` checkout and then running through the needed `helm` charts to deploy updated applications.
 

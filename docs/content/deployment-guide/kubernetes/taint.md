@@ -1,9 +1,6 @@
 ---
 title: "Post deployment Operations"
 weight: 310
-aliases:
-  - /deployment-guide/k8s-taint/
-  - /k8s-taint/
 ---
 ## Remove taint from our Controllers
 

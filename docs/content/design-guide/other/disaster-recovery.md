@@ -1,9 +1,6 @@
 ---
 title: "Disaster Recovery for OpenStack Clouds"
 weight: 10
-aliases:
-  - /openstack-cloud-design-dr/
-  - /design-guide/openstack-cloud-design-dr/
 ---
 ## Introduction
 

@@ -1,9 +1,6 @@
 ---
 title: "Connecting Glance to External Swift"
 weight: 410
-aliases:
-  - /operational-guide/openstack-glance-swift-store/
-  - /openstack-glance-swift-store/
 ---
 When operating a cloud environment, it is often necessary to store images in a separate storage system. This can be useful for a number of reasons, such as:
 

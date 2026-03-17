@@ -1,9 +1,6 @@
 ---
 title: "Deploy a Memcached"
 weight: 160
-aliases:
-  - /deployment-guide/infrastructure-memcached/
-  - /infrastructure-memcached/
 ---
 ## Deploy the Memcached Cluster
 

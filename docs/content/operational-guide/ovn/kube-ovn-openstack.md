@@ -1,9 +1,6 @@
 ---
 title: "OVN Post Deployment Updates"
 weight: 560
-aliases:
-  - /operational-guide/ovn-kube-ovn-openstack/
-  - /ovn-kube-ovn-openstack/
 ---
 Updates to the OVN environment can be made post deployment. All of the required OVN annotations are applied to the nodes in the cluster and can be changed at any time. However, in order to apply the changes, the label `ovn.openstack.org/configured` must be removed to permit the **ovn-setup** daemonset to reapply the configuration.
 

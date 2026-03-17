@@ -1,9 +1,6 @@
 ---
 title: "Deploy Gnocchi"
 weight: 560
-aliases:
-  - /deployment-guide/openstack-gnocchi/
-  - /openstack-gnocchi/
 ---
 Gnocchi is used by [Ceilometer](/deployment-guide/openstack-ceilometer/)
 to aggregate and index metric data from various OpenStack services. It

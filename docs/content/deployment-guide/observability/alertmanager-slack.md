@@ -1,9 +1,6 @@
 ---
 title: "Slack Alerts"
 weight: 40
-aliases:
-  - /deployment-guide/alertmanager-slack/
-  - /alertmanager-slack/
 ---
 The following example describes configuration options to send alerts via alertmanager to slack
 using a slack hook.

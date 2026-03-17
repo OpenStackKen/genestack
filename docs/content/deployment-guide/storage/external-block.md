@@ -1,9 +1,6 @@
 ---
 title: "External Block - Bring Your Own Storage"
 weight: 850
-aliases:
-  - /deployment-guide/storage-external-block/
-  - /storage-external-block/
 ---
 For some Topo/Ceph/NFS are not great fits, Genestack allows for external block devices to be used in the stand up and operation of Openstack.
 

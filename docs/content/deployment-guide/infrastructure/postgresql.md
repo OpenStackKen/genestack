@@ -1,9 +1,6 @@
 ---
 title: "Deploy PostgreSQL"
 weight: 210
-aliases:
-  - /deployment-guide/infrastructure-postgresql/
-  - /infrastructure-postgresql/
 ---
 PostgreSQL is used by [Gnocchi](/deployment-guide/openstack-gnocchi/) to index the data
 collected and sent by [Ceilometer](/deployment-guide/openstack-ceilometer/).

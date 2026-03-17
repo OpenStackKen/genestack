@@ -1,9 +1,6 @@
 ---
 title: "Setup the Keystone Federation Plugins"
 weight: 430
-aliases:
-  - /operational-guide/openstack-keystone-federation/
-  - /openstack-keystone-federation/
 ---
 ## Create the Rackspace Domain
 

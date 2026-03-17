@@ -1,9 +1,6 @@
 ---
 title: "Kube OVN Helm Conversion"
 weight: 130
-aliases:
-  - /operational-guide/k8s-cni-kube-ovn-helm-conversion/
-  - /k8s-cni-kube-ovn-helm-conversion/
 ---
 If you are using the Kube-OVN project, and it was deployed by hand or through another system you
 can convert your existing Kube-OVN deployment to a Helm chart. This will allow you to manage your

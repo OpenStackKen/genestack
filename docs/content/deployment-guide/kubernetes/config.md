@@ -1,9 +1,6 @@
 ---
 title: "Retrieve the kube config"
 weight: 260
-aliases:
-  - /deployment-guide/k8s-config/
-  - /k8s-config/
 ---
 Create the directory where the kube config will be stored.
 

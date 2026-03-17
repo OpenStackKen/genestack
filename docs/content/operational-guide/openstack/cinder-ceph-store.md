@@ -1,9 +1,6 @@
 ---
 title: "Connecting Cinder to External Ceph"
 weight: 290
-aliases:
-  - /operational-guide/openstack-cinder-ceph-store/
-  - /openstack-cinder-ceph-store/
 ---
 When operating a cloud environment, it is often necessary to use a shared storage system rather than the local compute node for virtual machine disk storage. This can be useful for a number of reasons, such as:
 

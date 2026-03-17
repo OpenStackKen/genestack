@@ -1,9 +1,6 @@
 ---
 title: "Rook (Ceph) - In Cluster"
 weight: 840
-aliases:
-  - /deployment-guide/storage-ceph-rook-internal/
-  - /storage-ceph-rook-internal/
 ---
 ## Deploy the Rook operator
 

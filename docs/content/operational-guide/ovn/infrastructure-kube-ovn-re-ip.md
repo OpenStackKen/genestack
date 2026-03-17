@@ -1,9 +1,6 @@
 ---
 title: "Re-IP Your Rackspace OpenStack Environment"
 weight: 100
-aliases:
-  - /operational-guide/infrastructure-kube-ovn-re-ip/
-  - /infrastructure-kube-ovn-re-ip/
 ---
 When running an OpenStack-based environment, especially one that includes Kubernetes—you may encounter
 scenarios where your existing IP space is too small or conflicts with other networks. In these cases,

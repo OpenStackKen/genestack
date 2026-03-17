@@ -1,9 +1,6 @@
 ---
 title: "Create our basic OpenStack namespace"
 weight: 180
-aliases:
-  - /deployment-guide/infrastructure-namespace/
-  - /infrastructure-namespace/
 ---
 The following command will generate our OpenStack namespace and ensure we have everything needed to proceed with the deployment.
 

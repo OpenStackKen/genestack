@@ -1,9 +1,6 @@
 ---
 title: "Retrieving Project and User Information from openstack --os-cloud default Resources"
 weight: 500
-aliases:
-  - /operational-guide/openstack-resource-lookups/
-  - /openstack-resource-lookups/
 ---
 As an OpenStack operator or administrator focused on support, it's essential to know how to retrieve project (tenant) and user information associated with various
 resources. This document provides detailed instructions on how to obtain this information using command-line interfaces (CLIs) for the following resources.

@@ -1,9 +1,6 @@
 ---
 title: "TopoLVM - In Cluster"
 weight: 890
-aliases:
-  - /deployment-guide/storage-topolvm/
-  - /storage-topolvm/
 ---
 [TopoLVM](https://github.com/topolvm/topolvm) is a capacity aware storage provisioner which can make use of physical volumes.
 

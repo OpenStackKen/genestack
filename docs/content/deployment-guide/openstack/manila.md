@@ -1,9 +1,6 @@
 ---
 title: "Deploy Manila"
 weight: 610
-aliases:
-  - /deployment-guide/openstack-manila/
-  - /openstack-manila/
 ---
 > [!IMPORTANT]
 > **TECH PREVIEW**

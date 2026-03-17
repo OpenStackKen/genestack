@@ -1,9 +1,6 @@
 ---
 title: "Handling Chargebacks"
 weight: 190
-aliases:
-  - /operational-guide/metering-chargebacks/
-  - /metering-chargebacks/
 ---
 Gnocchi is pivotal in tracking and managing resource consumption across projects
 within an OpenStack environment. The chargeback process aims to assign the

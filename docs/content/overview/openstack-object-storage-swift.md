@@ -1,8 +1,6 @@
 ---
 title: "What is Openstack Swift Object Storage?"
 weight: 30
-aliases:
-  - /openstack-object-storage-swift/
 ---
 Swift Object Storage is a component of the greater Openstack ecosystem.  It was one of the first core components of Openstack along side Nova in the "Austin" release.  It has been used internally by Rackspace for their Object Storage offering along with many other organizations.  It provides a scalable and durable storage solution for unstructured data such as backups, multimedia files and big data.
 

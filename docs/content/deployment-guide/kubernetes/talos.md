@@ -1,9 +1,6 @@
 ---
 title: "Deployment Talos Linux"
 weight: 320
-aliases:
-  - /deployment-guide/k8s-talos/
-  - /k8s-talos/
 ---
 ## Minimum system requirements
 

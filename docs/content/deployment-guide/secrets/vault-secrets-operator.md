@@ -1,9 +1,6 @@
 ---
 title: "HashiCorp Vault Secret Operators for Genestack Installation"
 weight: 900
-aliases:
-  - /deployment-guide/vault-secrets-operator/
-  - /vault-secrets-operator/
 ---
 > [!NOTE]
 > **This section is still underdevelopment and experimental**

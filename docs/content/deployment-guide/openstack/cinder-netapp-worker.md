@@ -1,9 +1,6 @@
 ---
 title: "NetApp Volume Worker – **Operator Guide**"
 weight: 420
-aliases:
-  - /deployment-guide/openstack-cinder-netapp-worker/
-  - /openstack-cinder-netapp-worker/
 ---
 This guide walks **cloud operators** through the end‑to‑end workflow for enabling the **NetApp ONTAP** backend in an OpenStack‑powered
 Kubernetes environment.  It is opinionated toward day‑to‑day operators who need fast, repeatable steps rather than deep driver theory.

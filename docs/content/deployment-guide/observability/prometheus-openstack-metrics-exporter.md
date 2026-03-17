@@ -1,9 +1,6 @@
 ---
 title: "Openstack Exporter"
 weight: 760
-aliases:
-  - /deployment-guide/prometheus-openstack-metrics-exporter/
-  - /prometheus-openstack-metrics-exporter/
 ---
 We are using Prometheus for monitoring and metrics collection along with the openstack exporter to gather openstack specific resource metrics.
 For more information see: [Prometheus docs](https://prometheus.io) and [Openstack Exporter](https://github.com/openstack-exporter/openstack-exporter)

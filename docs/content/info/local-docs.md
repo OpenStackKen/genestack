@@ -1,8 +1,6 @@
 ---
 title: "Working on docs locally"
 weight: 10
-aliases:
-  - /mkdocs-howto/
 ---
 Use the Hugo site rooted at `/docs` to preview documentation changes locally.
 

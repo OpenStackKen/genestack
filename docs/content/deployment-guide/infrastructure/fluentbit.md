@@ -1,9 +1,6 @@
 ---
 title: "Deploy Fluentbit"
 weight: 110
-aliases:
-  - /deployment-guide/infrastructure-fluentbit/
-  - /infrastructure-fluentbit/
 ---
 This guide will help you deploy fluentbit to your kubernetes cluster. Fluentbit is a lightweight log shipper that can be used to send logs to loki.
 

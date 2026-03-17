@@ -1,9 +1,6 @@
 ---
 title: "Microsoft Teams Alerts"
 weight: 20
-aliases:
-  - /deployment-guide/alertmanager-msteams/
-  - /alertmanager-msteams/
 ---
 The following example describes configuration options to send alerts via alertmanager to Microsoft Teams.
 

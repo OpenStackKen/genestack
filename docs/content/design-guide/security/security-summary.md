@@ -1,8 +1,6 @@
 ---
 title: "Summary"
 weight: 40
-aliases:
-  - /security-summary/
 ---
 GeneStack's multi-region and hybrid design, leveraging OpenStack and Kubernetes, provides a robust foundation for cloud-native workloads. By integrating layered security practices, you can enhance resilience against evolving threats. Regular audits, continuous improvement, and adherence to cloud-native security principles are vital for maintaining a secure environment.
 

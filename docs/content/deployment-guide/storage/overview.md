@@ -1,9 +1,6 @@
 ---
 title: "Persistent Storage Overview"
 weight: 880
-aliases:
-  - /deployment-guide/storage-overview/
-  - /storage-overview/
 ---
 For the basic needs of our Kubernetes environment, we need some basic persistent storage. Storage, like anything good in life,
 is a choose your own adventure ecosystem, so feel free to ignore this section if you have something else that satisfies the need.

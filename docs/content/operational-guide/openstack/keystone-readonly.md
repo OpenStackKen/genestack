@@ -1,9 +1,6 @@
 ---
 title: "Create a Platform Services Project"
 weight: 450
-aliases:
-  - /operational-guide/openstack-keystone-readonly/
-  - /openstack-keystone-readonly/
 ---
 The following commands will setup a readonly user which is able to read data across domains.
 

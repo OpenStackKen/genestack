@@ -12,7 +12,7 @@ Both the local Hugo site in this repository and downstream sites such as
 - Keep shared documentation content in Markdown files under `/docs/content`.
 - Keep shared documentation images and supporting assets under
   `/docs/content/assets`.
-- Use front matter for titles, ordering, aliases, and other portable metadata.
+- Use front matter for titles, ordering, and other portable metadata.
 - Prefer GFM-compatible Markdown in page bodies.
 - Use GFM alert blocks instead of MkDocs `!!!` admonitions.
 - Keep renderer-specific assumptions out of page bodies when a neutral Markdown

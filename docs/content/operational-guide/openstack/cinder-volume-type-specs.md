@@ -1,9 +1,6 @@
 ---
 title: "Set Volume Type Specifications"
 weight: 320
-aliases:
-  - /operational-guide/openstack-cinder-volume-type-specs/
-  - /openstack-cinder-volume-type-specs/
 ---
 ## Example: NetApp ONTAP driver volume specifications (deduplication and compression)
 

@@ -1,9 +1,6 @@
 ---
 title: "Getting Started with Genestack Monitoring"
 weight: 340
-aliases:
-  - /deployment-guide/monitoring-getting-started/
-  - /monitoring-getting-started/
 ---
 This guide walks you through setting up a complete monitoring stack for your Genestack deployment. The monitoring system consists of three main layers: metrics collection, visualization, and alerting.
 

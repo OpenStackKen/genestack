@@ -1,9 +1,6 @@
 ---
 title: "Prometheus Monitoring Overview"
 weight: 740
-aliases:
-  - /deployment-guide/prometheus-monitoring-overview/
-  - /prometheus-monitoring-overview/
 ---
 Genestack utilizes Prometheus for monitoring, alerting and metrics collection. To read more about Prometheus [Prometheus](/deployment-guide/prometheus/)
 

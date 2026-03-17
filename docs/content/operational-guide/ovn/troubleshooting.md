@@ -1,9 +1,6 @@
 ---
 title: "Purpose"
 weight: 590
-aliases:
-  - /operational-guide/ovn-troubleshooting/
-  - /ovn-troubleshooting/
 ---
 This page contains various troubleshooting tasks.
 

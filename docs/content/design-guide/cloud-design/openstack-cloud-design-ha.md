@@ -1,9 +1,6 @@
 ---
 title: "Host Aggregates"
 weight: 40
-aliases:
-  - /openstack-cloud-design-ha/
-  - /design-guide/openstack-cloud-design-ha/
 ---
 [Host Aggregates](https://docs.openstack.org/nova/latest/admin/aggregates.html)  are a way of grouping hosts in an OpenStack cloud.  This allows you to create groups of certain types of hosts and then steer certain classes of VM instances to them.
 

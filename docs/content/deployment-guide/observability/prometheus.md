@@ -1,9 +1,6 @@
 ---
 title: "Prometheus"
 weight: 810
-aliases:
-  - /deployment-guide/prometheus/
-  - /prometheus/
 ---
 We are taking advantage of the prometheus community kube-prometheus-stack as
 well as other various components for monitoring and alerting. For more

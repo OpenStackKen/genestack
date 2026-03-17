@@ -1,9 +1,6 @@
 ---
 title: "Supporting multiple regions with Genestack"
 weight: 230
-aliases:
-  - /operational-guide/multi-region-support/
-  - /multi-region-support/
 ---
 Genestack is fairly simple to get started with by just pulling down the code and following the basic set-up documentation with the base config files but there are instances where your deployment may get a bit more complicated.
 Genestack provides a reasonably sane set of base configs with default values that configure infrastructure and openstack services utilizing `helm` and `kustomize` and this works great for a simple lab setup or even a single production region.

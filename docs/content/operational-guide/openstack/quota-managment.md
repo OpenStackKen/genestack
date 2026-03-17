@@ -1,9 +1,6 @@
 ---
 title: "Quota Management"
 weight: 490
-aliases:
-  - /operational-guide/openstack-quota-managment/
-  - /openstack-quota-managment/
 ---
 Resouce quotas can be set in an OpenStack environment to ensure that we do not unintentionally exhaust
 the capacity. In OpenStack quotas can be set to give each resource some operational limit.

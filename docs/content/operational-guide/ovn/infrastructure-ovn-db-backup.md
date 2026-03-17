@@ -1,9 +1,6 @@
 ---
 title: "Background"
 weight: 120
-aliases:
-  - /operational-guide/infrastructure-ovn-db-backup/
-  - /infrastructure-ovn-db-backup/
 ---
 By default, _Genestack_ creates a pod that runs _OVN_ snapshots daily in the `kube-system` namespace where you find other centralized _OVN_ things. These get stored on a persistent storage volume associated with the `ovndb-backup` _PersistentVolumeClaim_. Snapshots older than 30 days get deleted.
 

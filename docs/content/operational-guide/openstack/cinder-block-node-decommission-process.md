@@ -1,9 +1,6 @@
 ---
 title: "Decommission a Cinder Block Node"
 weight: 280
-aliases:
-  - /operational-guide/openstack-cinder-block-node-decommission-process/
-  - /openstack-cinder-block-node-decommission-process/
 ---
 Reference this guide when decommissioning or cleaning off an existing
 Cinder block node.

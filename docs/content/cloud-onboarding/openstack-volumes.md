@@ -1,8 +1,6 @@
 ---
 title: "Additional Server Volume Commands"
 weight: 150
-aliases:
-  - /openstack-volumes/
 ---
 ## Openstack Volumes
 

@@ -1,9 +1,6 @@
 ---
 title: "Octavia CLI Load Balancer Setup Guide"
 weight: 260
-aliases:
-  - /operational-guide/octavia-loadbalancer-setup-guide/
-  - /octavia-loadbalancer-setup-guide/
 ---
 This document is intended for users who want to use the command line interface (CLI) to create/deploy a Cloud Load Balancer (CLB).  At Rackspace Technology, the default provider is Amphora.  Using the CLI is the only way to specify OVN as the provider instead of Amphora.  These instructions will help provide the necessary information to create a load balancer, listener, monitor, and pool.  This document assumes you are already familiar with creating/managing vms, networks, routers, and security groups and it assumes you already have this created.
 

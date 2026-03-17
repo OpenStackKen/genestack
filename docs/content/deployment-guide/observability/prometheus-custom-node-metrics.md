@@ -1,9 +1,6 @@
 ---
 title: "Deploy Custom Metrics"
 weight: 700
-aliases:
-  - /deployment-guide/prometheus-custom-node-metrics/
-  - /prometheus-custom-node-metrics/
 ---
 We can utilize the Node Exporter deployed by Prometheus to collect custom metrics that may not be available from other exporters.
 

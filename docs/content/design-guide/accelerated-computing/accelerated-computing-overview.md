@@ -1,9 +1,6 @@
 ---
 title: "What is Accelerated Computing?"
 weight: 10
-aliases:
-  - /accelerated-computing-overview/
-  - /design-guide/accelerated-computing-overview/
 ---
 ![Rackspace OpenStack Software](/assets/images/ospc_flex_logo_red.svg)
 

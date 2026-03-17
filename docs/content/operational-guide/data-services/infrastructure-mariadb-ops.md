@@ -1,9 +1,6 @@
 ---
 title: "MariaDB Operations"
 weight: 110
-aliases:
-  - /operational-guide/infrastructure-mariadb-ops/
-  - /infrastructure-mariadb-ops/
 ---
 Tips and tricks for managing and operating the MariaDB cluster within a Genestack environment.
 

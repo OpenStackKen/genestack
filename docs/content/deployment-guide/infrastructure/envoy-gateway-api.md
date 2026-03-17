@@ -1,9 +1,6 @@
 ---
 title: "Envoy Gateway API"
 weight: 100
-aliases:
-  - /deployment-guide/infrastructure-envoy-gateway-api/
-  - /infrastructure-envoy-gateway-api/
 ---
 The [Envoy Gateway](https://gateway.envoyproxy.io/) is an open-source project that provides an implementation
 of the Gateway API using Envoyproxy as the data plane. The Gateway API is a set of APIs that allow users to configure

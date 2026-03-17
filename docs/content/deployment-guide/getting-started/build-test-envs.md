@@ -1,9 +1,6 @@
 ---
 title: "Quick Start Guide"
 weight: 50
-aliases:
-  - /deployment-guide/build-test-envs/
-  - /build-test-envs/
 ---
 This guide will walk you through the process of deploying a test environment for Genestack. This is a great way to get started
 with the platform and to familiarize yourself with the deployment process. The following steps will guide you through the process

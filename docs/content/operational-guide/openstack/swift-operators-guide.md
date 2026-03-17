@@ -1,9 +1,6 @@
 ---
 title: "Openstack Swift Troubleshooting Guide"
 weight: 520
-aliases:
-  - /operational-guide/openstack-swift-operators-guide/
-  - /openstack-swift-operators-guide/
 ---
 ## Cluster Health using swift-recon:
 

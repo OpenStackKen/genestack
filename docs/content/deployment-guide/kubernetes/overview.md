@@ -1,9 +1,6 @@
 ---
 title: "Run The Genestack Kubernetes Deployment"
 weight: 300
-aliases:
-  - /deployment-guide/k8s-overview/
-  - /k8s-overview/
 ---
 Genestack assumes Kubernetes is present and available to run workloads on. We don't really
 care how your Kubernetes was deployed or what flavor of Kubernetes you're running. For our

@@ -1,9 +1,6 @@
 ---
 title: "Billing Design"
 weight: 170
-aliases:
-  - /operational-guide/metering-billing/
-  - /metering-billing/
 ---
 In a cloud billing system using Gnocchi as the source for metered usage data,
 Gnocchi stores and processes time series data related to resource consumption.

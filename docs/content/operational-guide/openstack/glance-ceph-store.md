@@ -1,9 +1,6 @@
 ---
 title: "Connecting Glance to External Ceph"
 weight: 390
-aliases:
-  - /operational-guide/openstack-glance-ceph-store/
-  - /openstack-glance-ceph-store/
 ---
 When operating a cloud environment, it is often necessary to store images in a separate storage system. This can be useful for a number of reasons, such as:
 

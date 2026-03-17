@@ -1,9 +1,6 @@
 ---
 title: "Creating the Compute Kit Secrets"
 weight: 480
-aliases:
-  - /deployment-guide/openstack-compute-kit-secrets/
-  - /openstack-compute-kit-secrets/
 ---
 Part of running Nova is also running placement. Setup all credentials now so we can use them across the nova and placement services.
 

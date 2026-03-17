@@ -1,9 +1,6 @@
 ---
 title: "Genestack Infrastructure Design"
 weight: 20
-aliases:
-  - /openstack-cloud-design-genestack-infra/
-  - /design-guide/openstack-cloud-design-genestack-infra/
 ---
 ## Genestack Infrastructure Design Notes
 

@@ -1,9 +1,6 @@
 ---
 title: "MariaDB Restore Procedures with Swift Tempauth"
 weight: 160
-aliases:
-  - /operational-guide/mariadb-backuprestore-from-tempauth/
-  - /mariadb-backuprestore-from-tempauth/
 ---
 This document provides procedures to restore MariaDB backups stored in Rackspace's Swift object storage with tempauth for the production environments: DFW, SJC, and IAD as part of Jira:OSPC-1141. It details two methods: using theKubernetes Restore CRD with the MariaDB Operator and a manual restore using AWS S3 commands. These procedures ensure recovery from backups in the mariadb-backups container, based on the reference document present.
 

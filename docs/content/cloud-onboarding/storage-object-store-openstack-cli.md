@@ -1,8 +1,6 @@
 ---
 title: "Object Store Management using the OpenStack client"
 weight: 160
-aliases:
-  - /storage-object-store-openstack-cli/
 ---
 ## Goal
 

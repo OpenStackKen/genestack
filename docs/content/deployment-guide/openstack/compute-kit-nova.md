@@ -1,9 +1,6 @@
 ---
 title: "Deploy Nova"
 weight: 460
-aliases:
-  - /deployment-guide/openstack-compute-kit-nova/
-  - /openstack-compute-kit-nova/
 ---
 > [!IMPORTANT]
 > **Run the Nova deployment Script `/opt/genestack/bin/install-nova.sh`**

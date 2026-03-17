@@ -1,9 +1,6 @@
 ---
 title: "Grafana Dashboard Import Script"
 weight: 90
-aliases:
-  - /operational-guide/import-grafana-dashboard/
-  - /import-grafana-dashboard/
 ---
 This script helps you **import Grafana dashboards** from a local directory that contains JSON files. Each file must contain a valid Grafana dashboard definition.
 

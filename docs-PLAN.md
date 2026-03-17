@@ -12,7 +12,6 @@ for navigation should be:
 - directory structure for hierarchy
 - `_index.md` for section identity and section order
 - front matter `weight` for ordering within each section
-- front matter `aliases` for preserving old URLs after moves
 
 This keeps navigation content-owned and portable for downstream use by
 `genestack-site`.
@@ -28,7 +27,6 @@ This keeps navigation content-owned and portable for downstream use by
 - Use each leaf page front matter to define:
   - `title`
   - `weight`
-  - `aliases` when canonical paths change
 - Keep ordinary article bodies plain Markdown.
 - Let Docsy render the sidebar from the content tree.
 
@@ -41,7 +39,7 @@ Filesystem structure:
 - `/docs/content/design-guide/_index.md`
 - `/docs/content/design-guide/cloud-design/_index.md`
 - `/docs/content/design-guide/accelerated-computing/_index.md`
-- `/docs/content/design-guide/other-design/_index.md`
+- `/docs/content/design-guide/other/_index.md`
 
 Target order:
 
@@ -159,23 +157,23 @@ Recommended target hierarchy:
 This structure is more task-oriented and closer to the old MkDocs
 information scent than the current broader buckets.
 
-## Security Primer
-
-Minimal change is needed.
+## Secure By Design
 
 Recommended structure:
 
-- keep the introduction in `/docs/content/security-primer/_index.md`
+- `/docs/content/design-guide/security/_index.md`
 - order the leaf pages with `weight`
 
-Recommended order:
+Recommended placement within Design Guide:
 
-- `Security In Phases`
-- `Cloud Security`
+- after `Accelerated Computing`
+- before `Other Design Documentation`
+
+Recommended order within the subsection:
+
+- `Layered Security`
+- `Securing Private Cloud Infrastructure`
 - `Summary`
-
-Only add a separate `introduction.md` if a standalone intro page is explicitly
-desired.
 
 ## Overview
 
@@ -209,7 +207,6 @@ This keeps the highest-risk and broadest restructuring last.
 
 ## Rules For Moves
 
-- Add `aliases` whenever a file move changes the canonical path.
 - Set `weight` explicitly on every `_index.md`.
 - Set `weight` explicitly on moved leaf pages inside grouped sections.
 - Keep article bodies plain Markdown and presentation-neutral.

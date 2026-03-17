@@ -1,9 +1,6 @@
 ---
 title: "Deploy the MariaDB Operator and Mariadb Cluster"
 weight: 150
-aliases:
-  - /deployment-guide/infrastructure-mariadb/
-  - /infrastructure-mariadb/
 ---
 ## Create secret
 

@@ -1,9 +1,6 @@
 ---
 title: "Openstack Vendordata"
 weight: 530
-aliases:
-  - /operational-guide/openstack-vendordata/
-  - /openstack-vendordata/
 ---
 To read more about Openstack Vendordata see [upstream docs](https://docs.openstack.org/nova/latest/admin/vendordata.html)
 

@@ -1,9 +1,6 @@
 ---
 title: "NetApp **Container** Volume Worker – Backend Options Guide"
 weight: 410
-aliases:
-  - /deployment-guide/openstack-cinder-netapp-container/
-  - /openstack-cinder-netapp-container/
 ---
 **Audience:** Cloud operators who will deploy the *containerised* NetApp Cinder volume worker (NFS‑only).
 

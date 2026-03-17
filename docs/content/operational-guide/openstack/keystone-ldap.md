@@ -1,9 +1,6 @@
 ---
 title: "Deploy Keystone"
 weight: 440
-aliases:
-  - /operational-guide/openstack-keystone-ldap/
-  - /openstack-keystone-ldap/
 ---
 The OpenStack Identity service supports integration with existing LDAP directories for authentication and authorization services. OpenStack Identity only supports read-only LDAP integration. Integrating Active Directory (AD) with OpenStack Keystone is usually done via LDAP backend. Keystone doesn’t talk to AD “natively” — it treats AD as an LDAP directory.
 

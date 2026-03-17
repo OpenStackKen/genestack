@@ -1,8 +1,6 @@
 ---
 title: "Openstack Servers"
 weight: 130
-aliases:
-  - /openstack-servers/
 ---
 To read more about Openstack Servers using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/server.html).
 

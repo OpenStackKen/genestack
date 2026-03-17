@@ -6,8 +6,6 @@ description: "End-user onboarding for CLI setup, compute, networking, storage, a
 simple_list: true
 cascade:
   - type: docs
-aliases:
-  - /cloud-onboarding-welcome/
 ---
 This section introduces the OpenStack client tooling and the most common
 end-user workflows used during a Genestack cloud experience.

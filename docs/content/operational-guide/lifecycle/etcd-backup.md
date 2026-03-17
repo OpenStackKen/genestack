@@ -1,9 +1,6 @@
 ---
 title: "Etcd Backup"
 weight: 40
-aliases:
-  - /operational-guide/etcd-backup/
-  - /etcd-backup/
 ---
 In order to backup etcd we create a backup CronJob resource. This constitues of 3 things:
 

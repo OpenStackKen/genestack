@@ -1,9 +1,6 @@
 ---
 title: "Volume QoS Policies"
 weight: 310
-aliases:
-  - /operational-guide/openstack-cinder-volume-qos-policies/
-  - /openstack-cinder-volume-qos-policies/
 ---
 ## LVM
 

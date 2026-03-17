@@ -1,8 +1,6 @@
 ---
 title: "Genestack SDLC"
 weight: 20
-aliases:
-  - /sdlc/
 ---
 ``` mermaid
 flowchart LR

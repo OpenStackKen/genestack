@@ -1,9 +1,6 @@
 ---
 title: "Genestack Observability"
 weight: 240
-aliases:
-  - /operational-guide/observability-info/
-  - /observability-info/
 ---
 Genestack is made up of a vast array of components working away to provide a Kubernetes and OpenStack cloud infrastructure
 to serve our needs. Here we'll discuss in a bit more detail about how we observe and visualize our Genestack operations.

@@ -1,9 +1,6 @@
 ---
 title: "Magnum Kubernetes Cluster Setup Guide"
 weight: 150
-aliases:
-  - /operational-guide/magnum-kubernetes-cluster-setup-guide/
-  - /magnum-kubernetes-cluster-setup-guide/
 ---
 > [!NOTE]
 >

@@ -1,9 +1,6 @@
 ---
 title: "Deploy Placement"
 weight: 470
-aliases:
-  - /deployment-guide/openstack-compute-kit-placement/
-  - /openstack-compute-kit-placement/
 ---
 > [!IMPORTANT]
 > **Run the Placement deployment Script `/opt/genestack/bin/install-placement.sh`**

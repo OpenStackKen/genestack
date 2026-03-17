@@ -1,9 +1,6 @@
 ---
 title: "Deploy Zaqar"
 weight: 680
-aliases:
-  - /deployment-guide/openstack-zaqar/
-  - /openstack-zaqar/
 ---
 > [!IMPORTANT]
 > **TECH PREVIEW**

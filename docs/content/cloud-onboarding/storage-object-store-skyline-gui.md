@@ -1,8 +1,6 @@
 ---
 title: "Object Store Management using the Skyline GUI"
 weight: 180
-aliases:
-  - /storage-object-store-skyline-gui/
 ---
 ## Goal
 

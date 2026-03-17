@@ -1,9 +1,6 @@
 ---
 title: "Deploy Designate"
 weight: 530
-aliases:
-  - /deployment-guide/openstack-designate/
-  - /openstack-designate/
 ---
 OpenStack Designate is a multi-tenant DNSaaS for OpenStack. auto-generate records based on
 Nova and Neutron actions. Designate supports a variety of DNS servers including Bind9 and PowerDNS 4.

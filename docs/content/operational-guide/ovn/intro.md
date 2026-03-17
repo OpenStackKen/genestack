@@ -1,9 +1,6 @@
 ---
 title: "The purpose of this introduction"
 weight: 550
-aliases:
-  - /operational-guide/ovn-intro/
-  - /ovn-intro/
 ---
 This introduction attempts to explain the basic operation of OVN and OVS,
 particularly in the context of _Genestack_. However, you should refer to the

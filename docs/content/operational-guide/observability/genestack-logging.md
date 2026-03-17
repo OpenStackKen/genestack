@@ -1,9 +1,6 @@
 ---
 title: "Genestack Logging"
 weight: 60
-aliases:
-  - /operational-guide/genestack-logging/
-  - /genestack-logging/
 ---
 [TOC]
 

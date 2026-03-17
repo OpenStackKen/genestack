@@ -1,9 +1,6 @@
 ---
 title: "Prometheus Blackbox Exporter"
 weight: 690
-aliases:
-  - /deployment-guide/prometheus-blackbox-exporter/
-  - /prometheus-blackbox-exporter/
 ---
 Using the blackbox exporter we can gather metrics around uptime, latency, cert expiry and more for our public endpoints.
 The blackbox exporter ideally would be ran outside the cluster but can still provide useful information when deployed within it when combined with alerting and visualizations.

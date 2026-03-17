@@ -1,9 +1,6 @@
 ---
 title: "NFS - External"
 weight: 870
-aliases:
-  - /deployment-guide/storage-nfs-external/
-  - /storage-nfs-external/
 ---
 While NFS in K8S works great, it's not suitable for use in all situations.
 

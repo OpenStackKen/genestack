@@ -1,8 +1,6 @@
 ---
 title: "Rackspace OpenStack Flex"
 weight: 10
-aliases:
-  - /api-status/
 ---
 Clouds Without Borders. Rackspace OpenStack Private goes public.
 

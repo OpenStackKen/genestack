@@ -1,9 +1,6 @@
 ---
 title: "Getting the Genestack Repository"
 weight: 60
-aliases:
-  - /deployment-guide/genestack-getting-started/
-  - /genestack-getting-started/
 ---
 Before you can do anything we need to get the code. Because we've sold our soul to the submodule devil, you're going to need to recursively clone the repo into your location.
 

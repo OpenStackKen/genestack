@@ -1,9 +1,6 @@
 ---
 title: "PagerDuty Alerts"
 weight: 30
-aliases:
-  - /deployment-guide/alertmanager-pagerduty/
-  - /alertmanager-pagerduty/
 ---
 The following example describes configuration options to send alerts via alertmanager to PagerDuty.
 

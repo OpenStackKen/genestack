@@ -1,8 +1,6 @@
 ---
 title: "Openstack Keypairs"
 weight: 60
-aliases:
-  - /openstack-keypairs/
 ---
 Read more about Openstack keypairs using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/keypair.html).
 

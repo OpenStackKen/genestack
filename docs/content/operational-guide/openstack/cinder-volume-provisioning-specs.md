@@ -1,9 +1,6 @@
 ---
 title: "Set Volume Type Provisioning Specifications"
 weight: 300
-aliases:
-  - /operational-guide/openstack-cinder-volume-provisioning-specs/
-  - /openstack-cinder-volume-provisioning-specs/
 ---
 *Before* creating a volume within any volume type, the provisioning specifications must be set.
 

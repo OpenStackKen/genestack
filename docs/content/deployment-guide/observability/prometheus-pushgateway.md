@@ -1,9 +1,6 @@
 ---
 title: "Prometheus Pushgateway"
 weight: 780
-aliases:
-  - /deployment-guide/prometheus-pushgateway/
-  - /prometheus-pushgateway/
 ---
 _Prometheus_ can use a _pushgateway_ to gather metrics from short-lived jobs, like
 Kubernetes _CronJobs_. The pushgateway stays up to allow _Promethus_ to gather

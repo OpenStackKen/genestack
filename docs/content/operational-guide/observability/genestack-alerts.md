@@ -1,9 +1,6 @@
 ---
 title: "Genestack Alerts"
 weight: 50
-aliases:
-  - /operational-guide/genestack-alerts/
-  - /genestack-alerts/
 ---
 ## Genestack Prometheus Alerts
 
