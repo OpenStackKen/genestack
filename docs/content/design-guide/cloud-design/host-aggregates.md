@@ -4,7 +4,7 @@ weight: 40
 ---
 [Host Aggregates](https://docs.openstack.org/nova/latest/admin/aggregates.html)  are a way of grouping hosts in an OpenStack cloud.  This allows you to create groups of certain types of hosts and then steer certain classes of VM instances to them.
 
-Host Aggregates[^1] are a mechanism for partitioning hosts in an OpenStack cloud, or a [Region](/design-guide/cloud-design/openstack-cloud-design-regions/) of an OpenStack cloud, based on arbitrary characteristics. Examples where an administrator may want to do this include where a group of hosts have additional hardware or performance characteristics.
+Host Aggregates[^1] are a mechanism for partitioning hosts in an OpenStack cloud, or a [Region](/design-guide/cloud-design/regions/) of an OpenStack cloud, based on arbitrary characteristics. Examples where an administrator may want to do this include where a group of hosts have additional hardware or performance characteristics.
 
 Each node can belong to multiple aggregates, each aggregate can have multiple key-value pairs, and the same key-value pair can be assigned to multiple aggregates. This information can be used in the scheduler to enable advanced scheduling or to define logical groups for migration.  In general, Host Aggregates can be thought of as a way to segregate compute resources _behind the scenes_ to control and influence where VM instances will be placed.
 
@@ -77,13 +77,13 @@ linkStyle 1 fill:none,stroke:none;
 
 ## Host Aggregates vs. Availability Zones
 
-While Host Aggregates themselves are hidden from OpenStack cloud users, Cloud administrators are able to optionally expose a host aggregate as an [Availability Zone](/design-guide/cloud-design/openstack-cloud-design-az/). Availability zones differ from host aggregates in that they are explicitly exposed to the user, and hosts membership is exclusive -- hosts can only be in a single availability zone.
+While Host Aggregates themselves are hidden from OpenStack cloud users, Cloud administrators are able to optionally expose a host aggregate as an [Availability Zone](/design-guide/cloud-design/availability-zones/). Availability zones differ from host aggregates in that they are explicitly exposed to the user, and hosts membership is exclusive -- hosts can only be in a single availability zone.
 
 ### This is Allowed
 
 > [!NOTE]
 >
-> Provided all other requirements are met (CPU type, availability, etc...) then migrating across Host Aggregates is possible within an [Availability Zone](/design-guide/cloud-design/openstack-cloud-design-az/).
+> Provided all other requirements are met (CPU type, availability, etc...) then migrating across Host Aggregates is possible within an [Availability Zone](/design-guide/cloud-design/availability-zones/).
 >
 
 ```mermaid

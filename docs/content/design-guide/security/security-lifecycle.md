@@ -348,7 +348,3 @@ The Runtime phase encompasses several key components that form the foundation of
 - Access Control
 
 Each of these components involves complex interdependencies and is critical to the stability and security of your cloud infrastructure. Ensuring their security not only requires adherence to best practices during the Develop, Distribute, and Deploy phases but also relies heavily on the overall cloud environment's design.
-
-## Building a Secure and Resilient Cloud Environment
-
-Our objective is to provide comprehensive guidelines for designing a secure and highly available cloud. Start by reviewing the recommendations outlined in our Cloud Design Documentation to understand best practices for structuring your cloud infrastructure. With this foundation, we can establish security principles tailored to each critical component, ensuring they are robust and resilient against potential threats.
