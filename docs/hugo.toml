@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "Genestack Local Docs"
+title = "Genestack Documentation"
 enableRobotsTXT = true
 
 [module]

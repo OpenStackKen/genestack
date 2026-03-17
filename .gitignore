@@ -93,6 +93,11 @@ docs/_build/
 docs/public/
 docs/resources/
 docs/.hugo_build.lock
+docs/.cache/
+docs/.npm-cache/
+docs/.playwright-browsers/
+docs/.tmp-home/
+docs/node_modules/
 
 # PyBuilder
 target/

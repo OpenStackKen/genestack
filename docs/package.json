@@ -1,0 +1,18 @@
+{
+  "name": "genestack-docs-tooling",
+  "private": true,
+  "scripts": {
+    "build": "hugo",
+    "serve": "hugo server --disableFastRender",
+    "lint": "markdownlint-cli2 \"content/**/*.md\"",
+    "setup:mcp": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/mcp": "^0.0.68",
+    "autoprefixer": "^10.4.27",
+    "markdownlint-cli2": "^0.21.0",
+    "playwright": "^1.58.2",
+    "postcss": "^8.5.8",
+    "postcss-cli": "^11.0.1"
+  }
+}
