@@ -9,32 +9,52 @@ aliases:
 
 Use the Hugo site rooted at `/docs` to preview documentation changes locally.
 
-Install the docs tooling dependencies from the repository root:
+Install the docs tooling dependencies from the `/docs` tree:
 
 ```shell
-npm install
-(cd docs && hugo mod tidy)
+cd docs
+make deps
 ```
 
 > [!TIP]
 >
-> Hugo module downloads happen from the `/docs` site configuration, while
-> markdownlint runs from the repository root.
+> The Makefile keeps all docs-local caches, browser downloads, and Node
+> tooling inside `/docs`, so `make mrproper` can restore the tree to a
+> source-only state.
 
 Start the local docs server:
 
 ```shell
-npm run docs:serve
+cd docs
+make serve
 ```
 
 Build the local docs site without starting a server:
 
 ```shell
-npm run docs:build
+cd docs
+make build
 ```
 
 Lint the shared Markdown sources:
 
 ```shell
-npm run docs:lint
+cd docs
+make lint
+```
+
+Prepare Playwright MCP and the browser payload used for agent-based docs
+development:
+
+```shell
+cd docs
+make setup
+```
+
+Remove build output, local dependency downloads, and agent-development
+artifacts:
+
+```shell
+cd docs
+make mrproper
 ```
