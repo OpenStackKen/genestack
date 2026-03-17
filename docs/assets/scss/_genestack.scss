@@ -6,3 +6,12 @@
   height: auto;
   max-width: 100%;
 }
+
+// Keep standard page content visually clear of the navbar even if upstream
+// spacing or page markup changes reduce the default first-block offset.
+.td-page .td-main > :first-child,
+.td-section .td-main > :first-child,
+.td-taxonomy .td-main > :first-child,
+.td-term .td-main > :first-child {
+  margin-top: 0;
+}

@@ -4,9 +4,6 @@ weight: 50
 aliases:
   - /release-notes/
 ---
-
-# Release Notes
-
 All release notes are generated using [reno](https://docs.openstack.org/reno/latest/).
 
 To manaually generate your release notes and see this file populated, run the following commands

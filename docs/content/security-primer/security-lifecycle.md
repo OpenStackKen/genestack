@@ -4,9 +4,6 @@ weight: 20
 aliases:
   - /security-lifecycle/
 ---
-
-# Layered Security
-
 Layered security in cloud-native environments involves applying protection measures across all lifecycle stages: development, distribution, deployment, and runtime. Each stage incorporates specific controls to address security risks and maintain a robust defense. For example, during development, practices like secure coding and dependency scanning are emphasized. The distribution stage focuses on verifying artifacts, such as container images, with cryptographic signatures. Deployment involves infrastructure hardening and policy enforcement, ensuring secure configuration. Finally, runtime security includes monitoring and detecting anomalies, enforcing least privilege, and safeguarding active workloads to mitigate threats dynamically.
 
 Lets look at each stage in detail.

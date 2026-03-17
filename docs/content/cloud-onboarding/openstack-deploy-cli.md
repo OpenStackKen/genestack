@@ -4,9 +4,6 @@ weight: 20
 aliases:
   - /openstack-deploy-cli/
 ---
-
-# Openstack Deploying the Command Line Tools
-
 Before we can get started we need to install a few things.
 
 ## Installing Python

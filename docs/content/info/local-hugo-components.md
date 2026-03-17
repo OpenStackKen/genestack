@@ -2,17 +2,13 @@
 title: "Local Hugo Components"
 weight: 30
 ---
-
-# Local Hugo Components
-
 The local docs site uses Hugo modules at the `/docs` site root so the shared
 content tree under `/docs/content` stays mechanism-light.
 
 ## Required Local Components
 
 - Docsy provides the local documentation theme.
-- `martignoni/hugo-notice` is available to support notice rendering and future
-  notice-compatible theme behavior in the local site.
+- GFM alert callouts are rendered by Docsy's built-in Markdown alert styling.
 
 ## Component Policy
 
