@@ -7,18 +7,18 @@ aliases:
 
 # Working on docs locally
 
-Use the Hugo site in `/local-docs` to preview documentation changes locally.
+Use the Hugo site rooted at `/docs` to preview documentation changes locally.
 
 Install the docs tooling dependencies from the repository root:
 
 ```shell
 npm install
-(cd local-docs && hugo mod tidy)
+(cd docs && hugo mod tidy)
 ```
 
 > [!TIP]
 >
-> Hugo module downloads happen from the `local-docs` site configuration, while
+> Hugo module downloads happen from the `/docs` site configuration, while
 > markdownlint runs from the repository root.
 
 Start the local docs server:

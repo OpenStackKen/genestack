@@ -13,44 +13,16 @@ enableRobotsTXT = true
   path = "github.com/martignoni/hugo-notice"
 
 [[module.mounts]]
-  source = "../docs/_index.md"
-  target = "content/_index.md"
+  source = "content"
+  target = "content"
 
 [[module.mounts]]
-  source = "../docs/overview"
-  target = "content/overview"
-
-[[module.mounts]]
-  source = "../docs/design-guide"
-  target = "content/design-guide"
-
-[[module.mounts]]
-  source = "../docs/deployment-guide"
-  target = "content/deployment-guide"
-
-[[module.mounts]]
-  source = "../docs/operational-guide"
-  target = "content/operational-guide"
-
-[[module.mounts]]
-  source = "../docs/cloud-onboarding"
-  target = "content/cloud-onboarding"
-
-[[module.mounts]]
-  source = "../docs/security-primer"
-  target = "content/security-primer"
-
-[[module.mounts]]
-  source = "../docs/regions"
-  target = "content/regions"
-
-[[module.mounts]]
-  source = "../docs/info"
-  target = "content/info"
-
-[[module.mounts]]
-  source = "../docs/assets"
+  source = "content/assets"
   target = "static/assets"
+
+[[module.mounts]]
+  source = "assets"
+  target = "assets"
 
 [markup]
   [markup.goldmark]

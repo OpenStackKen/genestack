@@ -3,17 +3,19 @@
 ## Summary
 
 Replace the MkDocs Material docs stack with a local Hugo site that uses the
-default Docsy theme while treating `/docs` as the canonical shared content tree
-for both this repository and `genestack-site`.
+default Docsy theme while treating `/docs/content` as the canonical shared
+content tree inside a single `/docs` Hugo site root for both this repository
+and `genestack-site`.
 
 ## Implemented Direction
 
-- `/docs` is the shared source of truth for Markdown, front matter, and assets.
-- The local Hugo mechanism lives in `/local-docs`.
-- Shared content is reorganized into section directories under `/docs`.
+- `/docs` is the Hugo site root.
+- `/docs/content` is the shared source of truth for Markdown, front matter, and
+  content assets.
+- Shared content is reorganized into section directories under `/docs/content`.
 - MkDocs-specific admonitions are migrated to GFM alerts.
-- `markdownlint` is the source-format compliance tool for `/docs`.
-- Internal renderer and contract notes live under `/docs/info`.
+- `markdownlint` is the source-format compliance tool for `/docs/content`.
+- Internal renderer and contract notes live under `/docs/content/info`.
 
 ## Workflow
 
@@ -28,4 +30,4 @@ for both this repository and `genestack-site`.
 - Keep content in Markdown and shared assets only.
 - Use front matter for ordering, titles, and aliases.
 - Keep source Markdown as close to GFM as practical.
-- Document any renderer-specific expectations in `/docs/info`.
+- Document any renderer-specific expectations in `/docs/content/info`.

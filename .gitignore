@@ -90,6 +90,9 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/public/
+docs/resources/
+docs/.hugo_build.lock
 
 # PyBuilder
 target/
@@ -118,6 +121,9 @@ roles/**/molecule/**/__pycache__/
 
 # Temp location used by our scripts
 scripts/tmp/
+.npm-cache/
+.tmp-home/
+node_modules/
 tmp.md
 
 # Ansible collection files
