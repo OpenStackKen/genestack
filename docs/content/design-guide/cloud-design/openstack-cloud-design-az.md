@@ -54,7 +54,7 @@ flowchart TD
 
 ## The Use Case for Availability Zones
 
-Typically, a [region](/design-guide/openstack-cloud-design-regions/) encompasses at least two, ideally more, availability zones (AZs). All AZs are fully independent, featuring redundant power, cooling, and networking resources, and are interconnected within a region via dedicated high-bandwidth, low-latency links. Connectivity between AZs in-Region are typically extremely fast[^1].
+Typically, a [region](/design-guide/cloud-design/openstack-cloud-design-regions/) encompasses at least two, ideally more, availability zones (AZs). All AZs are fully independent, featuring redundant power, cooling, and networking resources, and are interconnected within a region via dedicated high-bandwidth, low-latency links. Connectivity between AZs in-Region are typically extremely fast[^1].
 
 > [!IMPORTANT]
 >
@@ -87,7 +87,7 @@ It is not allowed to move instances between Availability Zones. If adding a host
 
 > [!NOTE]
 >
-> It is important to understand that Nova AZs in OpenStack are not a database-level construct.  They are defined by adding metadata to a [Host Aggregate](/design-guide/openstack-cloud-design-ha/).
+> It is important to understand that Nova AZs in OpenStack are not a database-level construct.  They are defined by adding metadata to a [Host Aggregate](/design-guide/cloud-design/openstack-cloud-design-ha/).
 >
 
 ### Availability Zones vs. Host Aggregates
@@ -100,7 +100,7 @@ The addition of this specific metadata to an aggregate makes the aggregate visib
 
 > [!NOTE]
 >
-> See [Host Aggregates](/design-guide/openstack-cloud-design-ha/) for more information.
+> See [Host Aggregates](/design-guide/cloud-design/openstack-cloud-design-ha/) for more information.
 >
 
 ### Availability Zones and Placement
@@ -151,7 +151,7 @@ If you’re using a third party storage appliances[^5], or are making use of sof
 
 ### Using Cinder and Nova Availability Zones Together
 
-As mentioned [above](/design-guide/openstack-cloud-design-az/#availability-zone-scoping), if not Availability Zones for multiple services are not implemented carefully, the combination of Nova and Cinder AZ features can allow users to not have the desired effect.  Confusion about different AZ types will happen, and you can have the following scenarios occur, depending on how your AZs are configured in Nova and Cinder:
+As mentioned [above](/design-guide/cloud-design/openstack-cloud-design-az/#availability-zone-scoping), if not Availability Zones for multiple services are not implemented carefully, the combination of Nova and Cinder AZ features can allow users to not have the desired effect.  Confusion about different AZ types will happen, and you can have the following scenarios occur, depending on how your AZs are configured in Nova and Cinder:
 
 1. **There is only a single compute AZ and a single Cinder AZ and they have the same name:** This is the default configuration if you use “stock” OpenStack: Nova’s default AZ is `nova` and Cinder has the same default value.
 
@@ -179,14 +179,14 @@ Additional [special configuration](https://docs.openstack.org/neutron/latest/adm
 ## Sharing Keystone Across Availability Zones
 
 Availability Zones are a subset of a Region. Previously, we defined the scope
-of Keystone to be [regional](/design-guide/openstack-cloud-design-regions/#keystone).
+of Keystone to be [regional](/design-guide/cloud-design/openstack-cloud-design-regions/#keystone).
 This means that all of the services in an AZ can be serviced by the
 Region-level Keystone deployment.
 
 ## Sharing Glance Across Availability Zones
 
 As with Keystone, Glance can also be shared across Availability Zones. The
-[Region-level Glance deployment](/design-guide/openstack-cloud-design-regions/#glance)
+[Region-level Glance deployment](/design-guide/cloud-design/openstack-cloud-design-regions/#glance)
 can be used across all the AZs defined in the region.
 
 [^1]: Typical speeds range from 10Gbps to 400Gbps in network throughput between AZs, with latencies as low as 1 to 2 milliseconds.

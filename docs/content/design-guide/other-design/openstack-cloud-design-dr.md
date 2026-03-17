@@ -122,7 +122,7 @@ If multiple compute node groups have different capabilities, such as CPU archite
 
 ### Host Aggregates and Availability Zones
 
-To effectively manage compute node redundancy, subdivide your nodes into multiple [Host Aggregates (HAs)](/design-guide/openstack-cloud-design-ha/) and assign one or more spare compute nodes with the same capabilities and resources to each aggregate. These spare nodes must be kept free of load to ensure they can accommodate instances from a failed compute node. WHen you are creating [Availability Zones (AZs)](/design-guide/openstack-cloud-design-az/) from host aggregates, you allow users to select where their instances are deployed based on their requirements. If a Compute Node fails within an AZ, the instances can be seamlessly evacuated to the spare node(s) within the same AZ. This minimizes disruptions and maintains service continuity.
+To effectively manage compute node redundancy, subdivide your nodes into multiple [Host Aggregates (HAs)](/design-guide/cloud-design/openstack-cloud-design-ha/) and assign one or more spare compute nodes with the same capabilities and resources to each aggregate. These spare nodes must be kept free of load to ensure they can accommodate instances from a failed compute node. WHen you are creating [Availability Zones (AZs)](/design-guide/cloud-design/openstack-cloud-design-az/) from host aggregates, you allow users to select where their instances are deployed based on their requirements. If a Compute Node fails within an AZ, the instances can be seamlessly evacuated to the spare node(s) within the same AZ. This minimizes disruptions and maintains service continuity.
 
 > [!TIP]
 >

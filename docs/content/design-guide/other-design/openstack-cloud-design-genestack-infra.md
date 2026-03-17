@@ -1,5 +1,5 @@
 ---
-title: "Openstack Cloud Design Genestack Infra"
+title: "Genestack Infrastructure Design"
 weight: 20
 aliases:
   - /openstack-cloud-design-genestack-infra/

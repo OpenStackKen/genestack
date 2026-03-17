@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "Design Guide"
 weight: 10
 type: docs
 description: "Cloud design decisions, topology, resiliency, and platform architecture guidance."
