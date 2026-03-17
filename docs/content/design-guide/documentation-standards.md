@@ -1,12 +1,9 @@
 ---
 title: "Genestack Documentation Standards and Style Guide"
-weight: 40
+weight: 60
 aliases:
   - /documentation-standards/
 ---
-
-# Genestack Documentation Standards and Style Guide
-
 This document is intended to help define common documentation standards and
 practices for the Genestack documentation set.
 
@@ -89,7 +86,7 @@ Code blocks are _fenced_ with triple backtick fences
 
 ````markdown
 ```
-# code block
+## code block
 ```
 ````
 

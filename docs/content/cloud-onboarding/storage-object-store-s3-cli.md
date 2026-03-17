@@ -4,9 +4,6 @@ weight: 170
 aliases:
   - /storage-object-store-s3-cli/
 ---
-
-# Object Store Management using the S3 client
-
 ## Goal
 
 Use the command-line utility `aws` to perform operations on your object store.

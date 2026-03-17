@@ -4,8 +4,7 @@ weight: 150
 aliases:
   - /openstack-volumes/
 ---
-
-#Openstack Volumes
+## Openstack Volumes
 
 #### Boot instance from volume
 
@@ -43,8 +42,6 @@ You can create a bootable volume from an existing image, volume, or snapshot. Th
     ``` shell
     openstack --os-cloud={cloud name} server volume list test-server
     ```
-# Additional Server Volume Commands
-
 #### Add Volume to Server
 
 ``` shell

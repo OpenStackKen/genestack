@@ -9,9 +9,6 @@ enableRobotsTXT = true
 [[module.imports]]
   path = "github.com/google/docsy"
 
-[[module.imports]]
-  path = "github.com/martignoni/hugo-notice"
-
 [[module.mounts]]
   source = "content"
   target = "content"
@@ -33,6 +30,10 @@ enableRobotsTXT = true
   github_repo = "https://github.com/rackerlabs/genestack"
   github_subdir = ""
   time_format_blog = "2006-01-02"
+
+  [params.mermaid]
+    version = "11.13.0"
+    theme = "default"
 
   [params.ui]
     breadcrumb_disable = false
@@ -56,7 +57,7 @@ enableRobotsTXT = true
     weight = 30
 
   [[menu.main]]
-    name = "Operational Guide"
+    name = "Operations Guide"
     url = "/operational-guide/"
     weight = 40
 
@@ -69,8 +70,3 @@ enableRobotsTXT = true
     name = "Security Primer"
     url = "/security-primer/"
     weight = 60
-
-  [[menu.main]]
-    name = "Regions"
-    url = "/regions/"
-    weight = 70

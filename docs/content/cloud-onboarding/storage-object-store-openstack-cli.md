@@ -4,9 +4,6 @@ weight: 160
 aliases:
   - /storage-object-store-openstack-cli/
 ---
-
-# Object Store Management using the OpenStack client
-
 ## Goal
 
 Use the command-line utility `openstack` to perform operations on your object store.

@@ -1,0 +1,20 @@
+---
+title: "Kube-OVN Monitoring"
+weight: 720
+aliases:
+  - /deployment-guide/prometheus-kube-ovn/
+  - /prometheus-kube-ovn/
+---
+Kube-OVN exposes a lot of important metrics about the controller, pinger and cni plugin. We simply
+create a service monitor to pull these metrics into Prometheus.
+
+## Installation
+
+``` shell
+kubectl apply -k /etc/genestack/kustomize/prometheus-ovn/base
+```
+
+> [!TIP]
+>
+> If the installation is successful, you should see metrics with `kube_ovn_*` in Prometheus.
+

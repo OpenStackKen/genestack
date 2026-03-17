@@ -2,9 +2,6 @@
 title: "Shared Content Contract"
 weight: 10
 ---
-
-# Shared Content Contract
-
 The `/docs/content` tree is the canonical shared source for Genestack
 documentation. The surrounding `/docs` directory is the local Hugo site root.
 Both the local Hugo site in this repository and downstream sites such as

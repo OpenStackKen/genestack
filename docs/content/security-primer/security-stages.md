@@ -4,9 +4,6 @@ weight: 30
 aliases:
   - /security-stages/
 ---
-
-# Securing Private Cloud Infrastructure
-
 To ensure a secure and highly available cloud, the security framework must address orchestration, compute, storage, and access control in the context of a larger cloud design. This guide builds on a multi-layered, defense-in-depth approach, incorporating best practices across physical, network, platform, and application layers, aligned with a region -> multi-DC -> availability zone (AZ) design. Each component is discussed below with actionable strategies for robust protection.
 
 ## Orchestration Security

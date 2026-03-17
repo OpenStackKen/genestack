@@ -4,9 +4,6 @@ weight: 120
 aliases:
   - /openstack-security-groups/
 ---
-
-# Openstack Security Groups
-
 To read more about Openstack Security Groups using the [upstream docs](https://docs.openstack.org/nova/queens/admin/security-groups.html).
 
 #### List and view current security groups
