@@ -132,3 +132,9 @@ site/
 
 # skyline secrets
 /etc/genestack/skylinesecrets.yaml
+.npm-cache/
+.docs-refactor-backup/
+.tmp-home/
+node_modules/
+local-docs/public/
+local-docs/.hugo_build.lock

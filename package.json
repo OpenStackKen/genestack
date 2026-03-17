@@ -1,0 +1,15 @@
+{
+  "name": "genestack-docs-tooling",
+  "private": true,
+  "scripts": {
+    "docs:build": "HOME=$PWD/.tmp-home NODE_PATH=$PWD/node_modules NPM_CONFIG_CACHE=$PWD/.npm-cache npm_config_cache=$PWD/.npm-cache hugo --source local-docs",
+    "docs:serve": "HOME=$PWD/.tmp-home NODE_PATH=$PWD/node_modules NPM_CONFIG_CACHE=$PWD/.npm-cache npm_config_cache=$PWD/.npm-cache hugo server --source local-docs --disableFastRender",
+    "docs:lint": "markdownlint-cli2 \"docs/**/*.md\""
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "markdownlint-cli2": "^0.18.1",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1"
+  }
+}
