@@ -10,10 +10,9 @@ Lets look at each stage in detail.
 
 The Develop phase in cloud-native security emphasizes integrating security into the early stages of application development. It involves secure coding practices, managing dependencies by scanning for vulnerabilities, and incorporating security testing into CI/CD pipelines. Developers adopt tools like static and dynamic analysis to identify risks in source code and applications. This proactive approach helps prevent vulnerabilities from progressing further down the lifecycle, reducing risks in later stages.
 
-<figure markdown="span">
-  ![CNCF Develop](/assets/images/CNCF_develop.jpg)
-  <figcaption>Ref: CNCF Cloud Native Security Develop Phase </figcaption>
-</figure>
+![CNCF Develop](/assets/images/CNCF_develop.jpg)
+
+*Ref: CNCF Cloud Native Security Develop Phase*
 
 
 
@@ -94,10 +93,9 @@ The Develop phase in cloud-native security emphasizes integrating security into 
 The Distribute phase in cloud-native security focuses on ensuring that all software artifacts, such as container images and binaries, are securely handled during distribution. Key practices include signing artifacts with cryptographic signatures to verify their integrity and authenticity, scanning artifacts for vulnerabilities, and employing policies to prevent the distribution of untrusted or non-compliant components. A secure artifact registry, access controls, and monitoring of repository activity are essential to maintain trust and protect the supply chain. These measures help reduce risks of tampered or malicious artifacts being deployed in production environments.
 
 
-<figure markdown="span">
-  ![CNCF Distribute](/assets/images/CNCF_distribute.jpg)
-  <figcaption>Ref: CNCF Cloud Native Security Distribute Phase </figcaption>
-</figure>
+![CNCF Distribute](/assets/images/CNCF_distribute.jpg)
+
+*Ref: CNCF Cloud Native Security Distribute Phase*
 
 
 
@@ -181,10 +179,9 @@ The Distribute phase in cloud-native security focuses on ensuring that all softw
 
 The Deploy phase in cloud-native security focuses on securely setting up and configuring workloads and infrastructure in production environments. This phase emphasizes using tools like Infrastructure as Code (IaC) to define secure, consistent configurations. Security controls include enforcing policies such as mandatory access controls, network segmentation, and compliance with deployment best practices. Additionally, ensuring that only trusted artifacts, verified in the "Distribute" phase, are deployed is critical. Continuous validation of deployments and automated scanning help maintain security posture and prevent misconfigurations or vulnerabilities from affecting the runtime environment.
 
-<figure markdown="span">
-  ![CNCF Deploy](/assets/images/CNCF_deploy.jpg)
-  <figcaption>Ref: CNCF Cloud Native Security Deploy Phase </figcaption>
-</figure>
+![CNCF Deploy](/assets/images/CNCF_deploy.jpg)
+
+*Ref: CNCF Cloud Native Security Deploy Phase*
 
 
 ### Infrastructure Layer
@@ -270,10 +267,9 @@ Ensure data protection before deploy. (Example: make sure database backup exist)
 
 The Runtime phase in cloud-native security focuses on protecting active workloads and infrastructure against threats while applications are operational. Key practices include continuous monitoring for anomalous behavior, enforcing runtime policies to restrict actions beyond predefined boundaries, and using tools like intrusion detection systems (IDS) and behavioral analytics. Securing runtime environments also involves employing least-privilege access controls, managing secrets securely, and isolating workloads to contain potential breaches. These proactive measures help maintain the integrity and confidentiality of applications in dynamic cloud-native ecosystems.
 
-<figure markdown="span">
-  ![CNCF Runtime](/assets/images/CNCF_runtime.jpg)
-  <figcaption>Ref: CNCF Cloud Native Security Runtime Phase </figcaption>
-</figure>
+![CNCF Runtime](/assets/images/CNCF_runtime.jpg)
+
+*Ref: CNCF Cloud Native Security Runtime Phase*
 
 
 
