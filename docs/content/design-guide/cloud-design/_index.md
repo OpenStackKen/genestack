@@ -1,6 +1,6 @@
 ---
 title: "Cloud Design"
-weight: 30
+weight: 40
 type: docs
 description: "Core cloud design concepts for topology, regions, availability zones, and host aggregates."
 simple_list: true

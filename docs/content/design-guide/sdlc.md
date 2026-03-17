@@ -8,7 +8,7 @@ flowchart LR
     IMP([Implement])
     DOC([Document])
     TST([Test])
-    DEP([Deployment])
+    DEP([Deploy])
     MTN([Maintain])
 
     PD  -->|Scope| IMP
@@ -23,7 +23,7 @@ Software Development Life Cycle (SDLC) is the process used to ensure high qualit
 
 The process is broken down into 6 distinct phases:
 
-__Scope__, __Implement__, __Document__, __Test__, __Deployment__, and __Maintain__.
+__Scope__, __Implement__, __Document__, __Test__, __Deploy__, and __Maintain__.
 
 ### Scope
 
@@ -47,9 +47,9 @@ The test phase is used to ensure that the deliverable is free from defects and m
 2. Unit testing against development environment
 3. Functional checks using [Rally](https://opendev.org/openstack/rally) against our Development and Staging environments
 
-### Deployment
+### Deploy
 
-In the deployment phase, the development team deploys deliverables using a multi-environment deployment process. This ensures deliverables are tested through a staging environment for functionality and reliability before reaching production.
+In the deploy phase, the development team deploys deliverables using a multi-environment deployment process. This ensures deliverables are tested through a staging environment for functionality and reliability before reaching production.
 
 ### Maintenance
 

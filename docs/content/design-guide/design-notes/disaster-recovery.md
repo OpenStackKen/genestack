@@ -1,6 +1,6 @@
 ---
-title: "Disaster Recovery for OpenStack Clouds"
-weight: 10
+title: "Disaster Recovery"
+weight: 40
 ---
 ## Introduction
 
