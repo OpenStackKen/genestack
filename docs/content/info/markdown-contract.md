@@ -5,9 +5,9 @@ weight: 20
 
 # Markdown Contract
 
-The source Markdown in `/docs` should stay close to GitHub Flavored Markdown.
-The goal is to keep the content broadly portable while still rendering cleanly
-in Hugo-based sites.
+The source Markdown in `/docs/content` should stay close to GitHub Flavored
+Markdown. The goal is to keep the content broadly portable while still
+rendering cleanly in Hugo-based sites.
 
 ## Preferred Syntax
 
