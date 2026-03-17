@@ -1,12 +1,7 @@
 ---
 title: "Openstack Snapshots"
 weight: 140
-aliases:
-  - /openstack-snapshot/
 ---
-
-# Openstack Snapshots
-
 #### Create a snapshot of the instance
 
 > [!NOTE]

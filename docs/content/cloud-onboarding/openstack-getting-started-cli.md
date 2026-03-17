@@ -1,12 +1,7 @@
 ---
 title: "OpenStack Getting Started with CLI"
 weight: 40
-aliases:
-  - /openstack-getting-started-cli/
 ---
-
-# OpenStack Getting Started with CLI
-
 After you have installed the OpenStack command-line tools, you can proceed with initializing your account. This guide will show you how to run a command with an unscoped and scoped token to set up your account.
 
 > [!NOTE]

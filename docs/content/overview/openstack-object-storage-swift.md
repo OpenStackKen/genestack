@@ -1,15 +1,10 @@
 ---
-title: "<u>What is Openstack Swift Object Storage?</u>"
+title: "What is Openstack Swift Object Storage?"
 weight: 30
-aliases:
-  - /openstack-object-storage-swift/
 ---
-
-# <u>What is Openstack Swift Object Storage?</u>
-
 Swift Object Storage is a component of the greater Openstack ecosystem.  It was one of the first core components of Openstack along side Nova in the "Austin" release.  It has been used internally by Rackspace for their Object Storage offering along with many other organizations.  It provides a scalable and durable storage solution for unstructured data such as backups, multimedia files and big data.
 
-## <u>Why Openstack Swift Object Storage?</u>
+## Why Openstack Swift Object Storage?
 
 **Scalability:** Swift is designed to handle vast amounts of data operating in a single or multi tenant environment.  Each of the core services can be scaled up and out independently of each other.  If hotspots start to happen on a single tier such as Object additional resources can be added mitigate the issue.  Each service can be broken out and scaled independently of each other depending on the use case and the data rate occurring on each tier.
 
@@ -27,7 +22,7 @@ Swift Object Storage is a component of the greater Openstack ecosystem.  It was 
 
 **Artifact Storage:** Swift Object Storage can serve as a robust storage solution for managing artifacts. It can handle large binaries and files efficiently, providing scalability and durability.  Swift allows for the storage of artifacts with associated metadata, making it easier to manage different versions of artifacts and track changes.  Many CI/CD (Continuous Integration/Continuous Deployment) pipelines utilize object storage like Swift to store build artifacts. After a successful build, the artifacts can be uploaded to Swift for deployment or further testing.
 
-# Getting Started with Swift Object Storage
+## Getting Started with Swift Object Storage
 
 Onboarding with Openstack Swift Object store is covered in the following trove of documents located here:
 
@@ -37,7 +32,7 @@ Topics include Swift CLI, S3cmd, rclone setup.
 
 ------
 
-# **Advanced Features**
+## **Advanced Features**
 
 
 ## **Object Versioning**:
@@ -438,7 +433,7 @@ S3 is a product of Amazon and AWS, Swift's S3 RESTful API is a middleware compon
 
 ------
 
-# **Best Practices**
+## **Best Practices**
 
 ## Performance:
 

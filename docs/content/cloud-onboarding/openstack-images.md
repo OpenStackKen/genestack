@@ -1,12 +1,7 @@
 ---
 title: "Openstack Images"
 weight: 50
-aliases:
-  - /openstack-images/
 ---
-
-# Openstack Images
-
 To read more about Openstack images please visit the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/image-v1.html#image-create).
 
 #### List and view images

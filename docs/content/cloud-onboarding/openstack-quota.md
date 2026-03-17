@@ -1,12 +1,7 @@
 ---
 title: "OpenStack Quotas"
 weight: 100
-aliases:
-  - /openstack-quota/
 ---
-
-# OpenStack Quotas
-
 To read more about Openstack quotas please visit the [upstream docs](https://docs.openstack.org/nova/rocky/admin/quotas.html).
 
 #### Viewing Your Quota

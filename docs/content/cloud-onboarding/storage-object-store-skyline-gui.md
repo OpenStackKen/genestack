@@ -1,12 +1,7 @@
 ---
 title: "Object Store Management using the Skyline GUI"
 weight: 180
-aliases:
-  - /storage-object-store-skyline-gui/
 ---
-
-# Object Store Management using the Skyline GUI
-
 ## Goal
 
 Use the `Skyline` GUI to perform operations on your object store.

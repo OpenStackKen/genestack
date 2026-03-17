@@ -1,12 +1,7 @@
 ---
 title: "Openstack Servers"
 weight: 130
-aliases:
-  - /openstack-servers/
 ---
-
-# Openstack Servers
-
 To read more about Openstack Servers using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/server.html).
 
 #### List and view servers
@@ -98,15 +93,15 @@ Read more about Openstack Config drives using the [upstream docs](https://docs.o
 openstack --os-cloud={cloud name} server delete [--wait] <server> [<server> ...]
 ```
 
-# Launch a server from a snapshot
+## Launch a server from a snapshot
 
 Please visit the Openstack Snapshot page [here](/cloud-onboarding/openstack-snapshot/).
 
-# Launch a server from a volume
+## Launch a server from a volume
 
 Please visit the Openstack Volumes page [here](/cloud-onboarding/openstack-volumes/).
 
-# Server Creation Example
+## Server Creation Example
 
 Below is a quick example of how one could set up a server.
 

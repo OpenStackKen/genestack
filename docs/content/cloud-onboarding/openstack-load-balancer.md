@@ -1,12 +1,7 @@
 ---
 title: "Openstack Load Balancers"
 weight: 70
-aliases:
-  - /openstack-load-balancer/
 ---
-
-# Openstack Load Balancers
-
 To read more about Openstack load balancers please visit the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/plugin-commands/octavia.html).
 
 ### Create a Load Balancer

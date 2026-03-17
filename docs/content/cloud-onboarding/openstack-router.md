@@ -1,12 +1,7 @@
 ---
 title: "Openstack Router"
 weight: 110
-aliases:
-  - /openstack-router/
 ---
-
-# Openstack Router
-
 Read more about Openstack Routers using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/router.html).
 
 #### Get List of Routers

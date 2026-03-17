@@ -1,14 +1,14 @@
 ---
 title: "Welcome to Rackspace OpenStack On Boarding"
 weight: 10
-aliases:
-  - /cloud-onboarding-welcome/
+type: docs
+description: "End-user onboarding for CLI setup, compute, networking, storage, and common OpenStack workflows."
+simple_list: true
+cascade:
+  - type: docs
 ---
+This section introduces the OpenStack client tooling and the most common
+end-user workflows used during a Genestack cloud experience.
 
-![Rackspace Cloud Software](/assets/images/ospc_flex_logo_red.svg)
-
-# Welcome to Rackspace OpenStack On Boarding
-
-In this section we will be showing you how to install the Openstack Command Line Tools along with some basic commands that may be helpful to you during your Genestack experience.
-
-For a full list up of Openstack client commands please visit the [upstream docs](https://docs.openstack.org/python-openstackclient/latest).
+For a full list of OpenStack client commands, refer to the
+[upstream OpenStack client documentation](https://docs.openstack.org/python-openstackclient/latest/).

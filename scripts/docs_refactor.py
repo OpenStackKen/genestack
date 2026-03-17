@@ -29,7 +29,7 @@ SECTION_FILES = {
         "openstack-cloud-design-ha.md",
         "openstack-cloud-design-dr.md",
         "openstack-cloud-design-genestack-infra.md",
-        "documentation-standards.md",
+        "standards.md",
     ],
     "cloud-onboarding": [
         "openstack-deploy-cli.md",

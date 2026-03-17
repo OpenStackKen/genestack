@@ -1,12 +1,7 @@
 ---
 title: "Genestack SDLC"
-weight: 110
-aliases:
-  - /sdlc/
+weight: 20
 ---
-
-# Genestack SDLC
-
 ``` mermaid
 flowchart LR
     PD([Plan & Design])

@@ -1,12 +1,7 @@
 ---
 title: "Product Component Matrix"
 weight: 20
-aliases:
-  - /genestack-components/
 ---
-
-# Product Component Matrix
-
 The following components are part of the initial product release
 and largely deployed with Helm+Kustomize against the K8s API (v1.28 and up).
 

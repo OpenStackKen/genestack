@@ -1,12 +1,7 @@
 ---
 title: "Openstack Floating Ips"
 weight: 30
-aliases:
-  - /openstack-floating-ips/
 ---
-
-# Openstack Floating Ips
-
 To read more about Openstack Floating Ips using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/floating-ip.html).
 
 #### List and view floating ips

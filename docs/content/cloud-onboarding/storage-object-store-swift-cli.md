@@ -1,12 +1,7 @@
 ---
 title: "Object Store Management using the Swift client"
 weight: 200
-aliases:
-  - /storage-object-store-swift-cli/
 ---
-
-# Object Store Management using the Swift client
-
 ## Goal
 
 Use the command-line utility `swift` to perform operations on your object store.
