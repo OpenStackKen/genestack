@@ -38,7 +38,8 @@ cd docs
 make lint
 ```
 
-Prepare Playwright MCP and the browser payload used for agent-based docs
+Prepare Playwright browser MCP tooling and the local Firefox payload used for
+agent-based docs
 development:
 
 ```shell

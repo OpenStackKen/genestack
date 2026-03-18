@@ -41,9 +41,9 @@ serve:
 	$(HUGO) server --disableFastRender
 
 # Prepare the docs tree for agent-driven browser work by installing the
-# Playwright MCP package and a local Chromium browser payload.
+# Playwright browser MCP package and a local Firefox browser payload.
 setup: deps
-	$(NPM) exec playwright install chromium
+	$(NPM) exec playwright install firefox
 
 # Remove every generated docs artifact, including dependency caches and
 # browser automation downloads, so /docs returns to a source-only state.
