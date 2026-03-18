@@ -1,11 +1,12 @@
 services:
   genestack-docs:
-    image: nginx:alpine
+    image: caddy:alpine
     container_name: genestack-docs
     ports:
       - "1313:80"
     volumes:
       # Serve the generated Hugo output directly so the container stays
       # mechanism-light and can be managed outside of Codex.
-      - ./public:/usr/share/nginx/html:ro
+      - ./public:/srv:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
     restart: unless-stopped
