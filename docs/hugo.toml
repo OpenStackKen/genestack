@@ -27,7 +27,7 @@ enableRobotsTXT = true
       unsafe = true
 
 [params]
-  github_repo = "https://github.com/rackerlabs/genestack"
+  github_repo = "https://github.com/OpenStackKen/genestack/tree/docs-refactor"
   github_subdir = ""
   time_format_blog = "2006-01-02"
 
