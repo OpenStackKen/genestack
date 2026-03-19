@@ -4,7 +4,7 @@ weight: 10
 description: "Reference, design, deployment, and operations documentation for Genestack."
 hero:
   eyebrow: "Shared Docs"
-  heading: "Build, operate, and extend Genestack"
+  heading: "Build, Operate, and Extend Genestack"
   lead: "Reference material for architecture, deployment, operations, and onboarding."
   primary:
     text: "Start with Overview"

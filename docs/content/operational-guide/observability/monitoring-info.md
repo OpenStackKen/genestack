@@ -9,7 +9,7 @@ looks like.
 ## Overview
 
 In this document we'll dive a bit deeper into the components and how they're being used, for a quick overview take a look
-at the [Monitoring Overview](/deployment-guide/prometheus-monitoring-overview/) documentation.
+at the [Monitoring Overview](/deployment-guide/open-infrastructure/observability/prometheus-monitoring-overview/) documentation.
 
 The following tooling are what was chosen as part of Genestack's default monitoring workflow primarily for their open-sourced nature and ease of integration.
 These tools are not an absolute requirement and can easily be replaced by tooling of the end users choice as they see fit.
@@ -41,7 +41,7 @@ At the time of writing the primary components Genestack is not making use of as 
 Thanos hasn't been a need or priority to setup by default in Genestack but is available to anyone utilizing Genestack by configuring the ThanosService section found in the [prometheus-helm-overrides.yaml](https://github.com/rackerlabs/genestack/blob/main/base-helm-configs/prometheus/prometheus-helm-overrides.yaml) in the Genestack repo.
 For configuration documentation of Thanos view the [Thanos Docs](https://thanos.io/tip/thanos/getting-started.md/).
 
-As for Grafana, we install this separately to fit our needs with datasources, custom routes, auth and certs. To see more information about how we're installing Grafana as part of the Genestack workflow see: [Grafana README](https://github.com/rackerlabs/genestack/blob/main/base-helm-configs/grafana/README.md) and the installation documentation found at [Install Grafana](/deployment-guide/grafana/).
+As for Grafana, we install this separately to fit our needs with datasources, custom routes, auth and certs. To see more information about how we're installing Grafana as part of the Genestack workflow see: [Grafana README](https://github.com/rackerlabs/genestack/blob/main/base-helm-configs/grafana/README.md) and the installation documentation found at [Install Grafana](/deployment-guide/open-infrastructure/observability/grafana/).
 
 Some of the components that we do take advantage of are the [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator), [AlertManager](https://prometheus.io/docs/alerting/latest/alertmanager/)
 and various custom resource definitions(CRD). These CRD's include the AlertManagerConfig, PrometheusRule and things like the ServiceMonitors, which allows for dynamic service monitoring configured outside the traditional Prometheus configuration methods.
@@ -50,7 +50,7 @@ For a more complete list and their definitions view: [Prometheus Operator Design
 The below diagram gives a good view of how these components are all connected.
 ![Prometheus Architecture](/assets/images/prometheus-architecture.png)
 
-To install the kube-prometheus-stack as part of Genestack's workflow view the [Installing Prometheus Doc](/deployment-guide/prometheus/).
+To install the kube-prometheus-stack as part of Genestack's workflow view the [Installing Prometheus Doc](/deployment-guide/open-infrastructure/observability/prometheus/).
 
 As for the metrics themselves they are largely provided by 'exporters' which simply export the data exposed by various services we wish to monitor in order for Prometheus to injest them.
 The kube-prometheus-stack provides a set of key exporters deployed by default, such as, node-exporter and kube-state-metrics, that Genestack relies on to monitor its infrastructure.
@@ -74,37 +74,37 @@ Beyond those two highly important ones installed by default are many more equall
 Kubernetes clusters are constantly sending events that contain potentially important data that should be captured.
 With the [Kubernetes Event Exporter](https://github.com/resmoio/kubernetes-event-exporter) we can capture these events to gain a better view of what our cluster is doing.
 This exporter also includes built in alerting mechanisms for things like Slack and MSTeams that can be configured to send messages when specific events are seen.
-View the [Kubernetes Event Exporter Install Instructions](/deployment-guide/prometheus-kube-event-exporter/) to get this exporter installed.
+View the [Kubernetes Event Exporter Install Instructions](/deployment-guide/open-infrastructure/observability/prometheus-kube-event-exporter/) to get this exporter installed.
 
 * ### MariaDB/MySQL Exporter:
 Genestack uses a couple different database solutions to run OpenStack or just for general storage capabilities, the most prominent of them is MySQL or more specifically within Genestack MariaDB and Galera.
-When installing [MariaDB](/deployment-guide/infrastructure-mariadb/) as part of Genestack's workflow it is default to enable metrics which deploys its own service monitor as part of the [mariadb-operator](https://mariadb-operator.github.io/mariadb-operator/latest/) helm charts.
-This is great if you have already installed Prometheus, if not the MariaDB deploy will fail and there may be other potential database disrupting issues if you have a need to update metrics settings alone. It is encouraged to install the [Mysql Exporter](/deployment-guide/prometheus-mysql-exporter/) as a separate exporter that can be updated without having to run MariaDB deploy/update commands.
-The [mysql-exporter](https://github.com/prometheus/mysqld_exporter) is provided by the prometheus organization and is also what's used within the MariaDB Operator. When installed separately via the Genestack [Mysql Exporter](/deployment-guide/prometheus-mysql-exporter/) installation instructions the [prometheus-mysql-exporter](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-mysql-exporter) helm charts are used.
+When installing [MariaDB](/deployment-guide/open-infrastructure/infrastructure/mariadb/) as part of Genestack's workflow it is default to enable metrics which deploys its own service monitor as part of the [mariadb-operator](https://mariadb-operator.github.io/mariadb-operator/latest/) helm charts.
+This is great if you have already installed Prometheus, if not the MariaDB deploy will fail and there may be other potential database disrupting issues if you have a need to update metrics settings alone. It is encouraged to install the [Mysql Exporter](/deployment-guide/open-infrastructure/observability/prometheus-mysql-exporter/) as a separate exporter that can be updated without having to run MariaDB deploy/update commands.
+The [mysql-exporter](https://github.com/prometheus/mysqld_exporter) is provided by the prometheus organization and is also what's used within the MariaDB Operator. When installed separately via the Genestack [Mysql Exporter](/deployment-guide/open-infrastructure/observability/prometheus-mysql-exporter/) installation instructions the [prometheus-mysql-exporter](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-mysql-exporter) helm charts are used.
 The mysql-exporter provides many important metrics related to the overall health and operation of your MariaDB/Galera cluster. You can view more details about what's exported in the [mysqld-exporter README](https://github.com/prometheus/mysqld_exporter?tab=readme-ov-file#mysql-server-exporter-).
 
 * ### Postgres Exporter:
-Genestack also makes use of PostgreSQL for a limited set of services. At the time of writing only [Gnocchi](/deployment-guide/openstack-gnocchi/) is making use of it. It's still an important part of the system and requires monitoring.
-To do so we make use of the Prometheus community helm charts [prometheus-postgres-exporter](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-postgres-exporter) and it's installed as part of Genestack's workflow by following the [Postgres Exporter](/deployment-guide/prometheus-postgres-exporter/).
+Genestack also makes use of PostgreSQL for a limited set of services. At the time of writing only [Gnocchi](/deployment-guide/open-infrastructure/openstack/metering/gnocchi/) is making use of it. It's still an important part of the system and requires monitoring.
+To do so we make use of the Prometheus community helm charts [prometheus-postgres-exporter](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-postgres-exporter) and it's installed as part of Genestack's workflow by following the [Postgres Exporter](/deployment-guide/open-infrastructure/observability/prometheus-postgres-exporter/).
 Further information about the exporter and the metrics it collects and exposes can be found in the [postgres_exporter](https://github.com/prometheus-community/postgres_exporter/blob/master/README.md) documentation.
 
 * ### RabbitMQ Exporter:
-Many OpenStack services require RabbitMQ to operate and is part of Genestack's infrastructure deployment. [RabbitMQ](/deployment-guide/infrastructure-rabbitmq/) cluster can be finicky at times and it's important to be able to monitor it.
-Genestack makes use of the Prometheus community's [prometheus-rabbitmq-exporter](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-rabbitmq-exporter) helm charts and is installed as part of Genestack's workflow via [RabbitMQ Exporter](/deployment-guide/prometheus-rabbitmq-exporter/).
+Many OpenStack services require RabbitMQ to operate and is part of Genestack's infrastructure deployment. [RabbitMQ](/deployment-guide/open-infrastructure/infrastructure/rabbitmq/) cluster can be finicky at times and it's important to be able to monitor it.
+Genestack makes use of the Prometheus community's [prometheus-rabbitmq-exporter](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-rabbitmq-exporter) helm charts and is installed as part of Genestack's workflow via [RabbitMQ Exporter](/deployment-guide/open-infrastructure/observability/prometheus-rabbitmq-exporter/).
 The RabbitMQ exporter provides many detailed metrics such as channels, connections and queues. View a complete list of the metrics exposed in the [RabbitMQ Exporter Docs](https://github.com/kbudde/rabbitmq_exporter/blob/main/metrics.md).
 
 * ### Memcached Exporter:
-Many OpenStack services make use of Memcached as a caching layer which is part of Genestack's infrastructure deployment found in the [Memcached Deployment Doc](/deployment-guide/infrastructure-memcached/).
+Many OpenStack services make use of Memcached as a caching layer which is part of Genestack's infrastructure deployment found in the [Memcached Deployment Doc](/deployment-guide/open-infrastructure/infrastructure/memcached/).
 We monitor Memcached utilizing Prometheus community's helm chart for the [prometheus-memcached-exporter](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-memcached-exporter).
 The memcached-exporter offers many metrics for things like uptime, connections and limits. For a full list view the [Memcached Exporter Docs](https://github.com/prometheus/memcached_exporter/blob/master/README.md#collectors).
 
 * ### BlackBox Exporter:
 The blackbox exporter allows blackbox probing of endpoints over HTTP, HTTPS, DNS, TCP, ICMP and gRPC. This exporter is ideally deployed cross region in order to check the service health across the network.
 Deploying it as part of the cluster it's monitoring does still have its benefits as it will reach out the gateways and back in to provide some context about the health of your services. This can also serve as a simple way to check endpoint cert expiration.
-Install this exporter following the documentation found at [BlackBox Deployment Doc](/deployment-guide/prometheus-blackbox-exporter/). For more information regarding the BlackBox exporter see the upstream [BlackBox Exporter Doc](https://github.com/prometheus/blackbox_exporter)
+Install this exporter following the documentation found at [BlackBox Deployment Doc](/deployment-guide/open-infrastructure/observability/prometheus-blackbox-exporter/). For more information regarding the BlackBox exporter see the upstream [BlackBox Exporter Doc](https://github.com/prometheus/blackbox_exporter)
 
 * ### OVN Monitoring:
-OVN is installed a bit differently compared to the rest of the services as you can see in the [OVN Deployment Doc](/deployment-guide/infrastructure-ovn-setup/). The installation ends up installing [Kube-OVN](https://github.com/kubeovn/kube-ovn) which exposes metrics about its operations.
+OVN is installed a bit differently compared to the rest of the services as you can see in the [OVN Deployment Doc](/deployment-guide/open-infrastructure/infrastructure/ovn-setup/). The installation ends up installing [Kube-OVN](https://github.com/kubeovn/kube-ovn) which exposes metrics about its operations.
 However, at this point, there's no way for Prometheus to scrape those metrics. The way Genestack achieves this is by applying ServiceMonitor CRD's so Prometheus knows how to find and scrape these services for metric collection.
 In the [Kube-OVN Deployment Doc](https://docs.rackspacecloud.com/prometheus-kube-ovn/) we see a simple command to apply the contents of [prometheus-ovn](https://github.com/rackerlabs/genestack/tree/main/base-kustomize/prometheus-ovn).
 The contents are a set of ServiceMonitor manifests that define labels, namespaces and names to match to a service to monitor which is percisely what a [ServiceMonitor](https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.ServiceMonitor) CRD is designed to do.
@@ -118,19 +118,19 @@ Once we've ran the apply command we will have installed ServiceMonitors for Kube
     You can view more information about OVN monitoring in the [OVN Monitoring Introduction Docs](/operational-guide/ovn-monitoring-introduction/).
 
 * ### Envoy Gateway Monitoring:
-Genestack makes use of the Envoy Gateway API for its implementation of [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/). Genestack deploys the Envoy Gateway as part of its infrastructure, view the [Envoy Gateway Deployment Doc](/deployment-guide/infrastructure-envoy-gateway-api/) for more information.
+Genestack makes use of the Envoy Gateway API for its implementation of [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/). Genestack deploys the Envoy Gateway as part of its infrastructure, view the [Envoy Gateway Deployment Doc](/deployment-guide/open-infrastructure/infrastructure/envoy-gateway-api/) for more information.
 Envoy Gateway is a Kubernetes-native API Gateway and reverse proxy control plane. It simplifies deploying and operating Envoy Proxy as a data plane by using the standard Gateway API and its own extensible APIs. For more information about Envoy Gateway in general view the [Envoy Gateway Documentation](https://gateway.envoyproxy.io/docs/concepts/introduction/).
 The Envoy Gateway serves Prometheus metrics by default and list of the metrics collected can be found at [Envoy Gateway Exported Metrics](https://gateway.envoyproxy.io/docs/tasks/observability/gateway-exported-metrics/).
 
 * ### OpenStack Metrics:
 OpenStack Metrics are a bit different compared to the rest of the exporters as there's no single service, pod or deployment that exposes Prometheus metrics for collection. Instead, Genestack uses the [OpenStack Exporter](https://github.com/openstack-exporter/openstack-exporter) to gather the metrics for us.
 The OpenStack exporter reaches out to all the configured OpenStack services, queries their API for stats and packages them as metrics Prometheus can then process. The OpenStack exporter is configurable and can collect metrics from just about every OpenStack service such as Keystone, Nova, Octavia etc..
-View the [OpenStack Exporter Deployment Doc](/deployment-guide/prometheus-openstack-metrics-exporter/) for more information on how to configure and deploy the exporter in the Genestack workflow.
+View the [OpenStack Exporter Deployment Doc](/deployment-guide/open-infrastructure/observability/prometheus-openstack-metrics-exporter/) for more information on how to configure and deploy the exporter in the Genestack workflow.
 You can view more information about the OpenStack exporter in general and what metrics are collected in the [OpenStack Exporter Doc](https://github.com/openstack-exporter/openstack-exporter?tab=readme-ov-file#metrics).
 
 * ### Ceph Monitoring:
-[Ceph](https://rook.io/docs/rook/latest-release/Getting-Started/intro/) comes with its own set of optimized collectors and exporters. In terms of deploying [Ceph Internally](/deployment-guide/storage-ceph-rook-internal/) there is nothing for us to do. The service and ServiceMonitor CRD's are created and metrics will be available in Prometheus assuming metric collection is enabled in the helm chart.
-If we are deploying [Ceph externally](/deployment-guide/storage-ceph-rook-external/) then we will want to add another Prometheus CRD, the [ScrapeConfig](https://prometheus-operator.dev/docs/getting-started/design/#scrapeconfig).
+[Ceph](https://rook.io/docs/rook/latest-release/Getting-Started/intro/) comes with its own set of optimized collectors and exporters. In terms of deploying [Ceph Internally](/deployment-guide/open-infrastructure/storage/ceph-rook-internal/) there is nothing for us to do. The service and ServiceMonitor CRD's are created and metrics will be available in Prometheus assuming metric collection is enabled in the helm chart.
+If we are deploying [Ceph externally](/deployment-guide/open-infrastructure/storage/ceph-rook-external/) then we will want to add another Prometheus CRD, the [ScrapeConfig](https://prometheus-operator.dev/docs/getting-started/design/#scrapeconfig).
 The ScrapeConfig allows us to define external sources for Prometheus to scrape.
 
 > [!IMPORTANT]
@@ -158,7 +158,7 @@ The ScrapeConfig allows us to define external sources for Prometheus to scrape.
 * ### Push Gateway:
 The [Prometheus Push Gateway](https://github.com/prometheus/pushgateway) is used to gather metrics from short-lived jobs, like Kubernetes CronJobs.
 It's not capable of turning Prometheus into a push-based monitoring system and should only be used when there is no other way to collect the desired metrics.
-Currently, in Genestack the push gateway is only being used to gather stats from the OVN-Backup CronJob as noted in the [Pushgateway Deployment Doc](/deployment-guide/prometheus-pushgateway/).
+Currently, in Genestack the push gateway is only being used to gather stats from the OVN-Backup CronJob as noted in the [Pushgateway Deployment Doc](/deployment-guide/open-infrastructure/observability/prometheus-pushgateway/).
 
 * ### SNMP Exporter:
 The [Prometheus SNMP Exporter](https://github.com/prometheus/snmp_exporter) is
@@ -172,7 +172,7 @@ The Barbican exporter is used for monitoring of OpenStack's Key Management Servi
 
 * ### Textfile Collector:
 It's possible to gather node/host metrics that aren't exposed by any of the above exporters by utilizing the [Node Exporter Textfile Collector](https://github.com/prometheus/node_exporter?tab=readme-ov-file#textfile-collector).
-Currently, in Genestack the textfile-collector is used to collect kernel-taint stats. To view more information about the textfile-collector and how to deploy your own custom exporter view the [Custom Metrics Deployment Doc](/deployment-guide/prometheus-custom-node-metrics/).
+Currently, in Genestack the textfile-collector is used to collect kernel-taint stats. To view more information about the textfile-collector and how to deploy your own custom exporter view the [Custom Metrics Deployment Doc](/deployment-guide/open-infrastructure/observability/prometheus-custom-node-metrics/).
 
 This is currently the complete list of exporters and monitoring callouts deployed within the Genestack workflow. That said, Genestack is constantly evolving and list may grow or change entirely as we look to further improve our systems!
 With all these metrics available we need a way to visualize them to get a better picture of our systems and their health, we'll discuss that next!
@@ -180,8 +180,8 @@ With all these metrics available we need a way to visualize them to get a better
 ## Visualization
 
 In Genestack we deploy [Grafana](https://grafana.com/) as our default visualization tool. Grafana is open-sourced tooling which aligns well with the Genestack ethos while providing seamless visualization of the metrics generated by our systems.
-Grafana also plays well with Prometheus and [Loki](/deployment-guide/infrastructure-loki/), the default logging tooling deployed in Genestacks workflow, with various datasource plugins making integration a breeze.
-Installing [Grafana](/deployment-guide/grafana/) within Genestack is fairly straight forward, just follow the [Grafana Deployment Doc](/deployment-guide/grafana/).
+Grafana also plays well with Prometheus and [Loki](/deployment-guide/open-infrastructure/infrastructure/loki/), the default logging tooling deployed in Genestacks workflow, with various datasource plugins making integration a breeze.
+Installing [Grafana](/deployment-guide/open-infrastructure/observability/grafana/) within Genestack is fairly straight forward, just follow the [Grafana Deployment Doc](/deployment-guide/open-infrastructure/observability/grafana/).
 
 The installation also takes care of installing the primary [datasources](https://grafana.com/docs/grafana/latest/datasources/) which are Grafana plugins used for querying specific datasets.
 For example in Genestack we install the [Prometheus and Loki datasources](https://github.com/rackerlabs/genestack/blob/8b90d22b19795acd364afb05f08617c326f6c8f6/base-helm-configs/grafana/datasources.yaml#L4) as part of Genestack's default workflow.
