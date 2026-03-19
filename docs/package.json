@@ -5,10 +5,10 @@
     "build": "hugo",
     "serve": "hugo server --disableFastRender",
     "lint": "markdownlint-cli2 \"content/**/*.md\"",
-    "setup:mcp": "playwright install firefox"
+    "setup:playwright-cli": "playwright install firefox"
   },
   "devDependencies": {
-    "@playwright/mcp": "^0.0.68",
+    "@playwright/cli": "^0.1.1",
     "autoprefixer": "^10.4.27",
     "markdownlint-cli2": "^0.21.0",
     "playwright": "^1.58.2",

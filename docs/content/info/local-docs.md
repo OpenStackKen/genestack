@@ -38,8 +38,8 @@ cd docs
 make lint
 ```
 
-Prepare the local Playwright package and Firefox browser payload used for docs
-automation:
+Prepare the local Playwright CLI package and Firefox browser payload used for
+docs automation:
 
 ```shell
 cd docs
@@ -48,11 +48,23 @@ make setup
 
 > [!NOTE]
 >
-> Codex MCP server names are configured outside this repository in the local
-> Codex config. In this environment the browser-specific server names are
-> `playwright_firefox`, `playwright_chrome`, and `playwright_webkit`, with
-> Firefox preferred by default. `make setup` prepares the local package and
-> browser payload only; it does not define or rename MCP servers.
+> This repository now treats browser automation as Playwright CLI work, not
+> MCP server setup. `make setup` installs the local `playwright-cli` package
+> and Firefox browser payload only.
+
+Use the local CLI through npm exec:
+
+```shell
+cd docs
+npm exec -- playwright-cli --help
+```
+
+Install the Firefox browser payload:
+
+```shell
+cd docs
+npm exec playwright install firefox
+```
 
 Remove build output, local dependency downloads, and agent-development
 artifacts:
