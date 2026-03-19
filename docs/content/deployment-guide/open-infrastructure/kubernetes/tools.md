@@ -1,5 +1,5 @@
 ---
-title: "Install Kubernetes Tools/Plugins"
+title: "Install Tools and Plugins"
 weight: 50
 ---
 Once the environment is online, proceed to login to the environment and begin the deployment normally. You'll find the launch node has everything needed, in the places they belong, to get the environment online.

@@ -1,5 +1,5 @@
 ---
-title: "Deployment Kubespray"
+title: "Kubespray"
 weight: 10
 ---
 Currently only the k8s provider kubespray is supported and included as submodule into the code base.

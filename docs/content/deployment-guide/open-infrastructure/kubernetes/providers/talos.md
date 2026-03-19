@@ -1,5 +1,5 @@
 ---
-title: "Deployment Talos Linux"
+title: "Talos Linux"
 weight: 20
 ---
 ## Minimum system requirements

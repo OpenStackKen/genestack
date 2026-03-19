@@ -1,5 +1,5 @@
 ---
-title: "Storage"
+title: "Deploy Persistent Storage"
 weight: 20
 type: docs
 simple_list: true

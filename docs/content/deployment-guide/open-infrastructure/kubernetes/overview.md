@@ -1,5 +1,5 @@
 ---
-title: "Run The Genestack Kubernetes Deployment"
+title: "Overview"
 weight: 10
 ---
 Genestack assumes Kubernetes is present and available to run workloads on. We don't really

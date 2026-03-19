@@ -1,6 +1,6 @@
 ---
-title: "Install Kube OVN"
-weight: 10
+title: "Install Kube-OVN"
+weight: 30
 ---
 The Kube-OVN project is a Kubernetes Network Plugin that uses OVN as the network provider. It
 is a CNI plugin that provides a network solution for Kubernetes. It is a lightweight, scalable,

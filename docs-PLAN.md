@@ -97,8 +97,11 @@ Ordering goal:
 Recommended target hierarchy:
 
 - `/docs/content/deployment-guide/_index.md`
-- `/docs/content/deployment-guide/getting-started/`
+- `/docs/content/deployment-guide/getting-the-code.md`
+- `/docs/content/deployment-guide/hyperconverged-lab.md`
 - `/docs/content/deployment-guide/open-infrastructure/`
+  - `bootstrap-the-environment.md`
+  - `secrets/`
   - `kubernetes/`
   - `storage/`
   - `infrastructure/`
@@ -107,8 +110,9 @@ Recommended target hierarchy:
 
 Recommended top-level order:
 
-- `What is Genestack?` or equivalent intro
-- `Getting Started`
+- `Deployment Guide`
+- `Getting the Code`
+- `Hyperconverged Lab Deployment`
 - `Open Infrastructure`
 
 Recommended internal structure:
@@ -116,7 +120,7 @@ Recommended internal structure:
 - under `kubernetes/`:
   - `overview.md`
   - `providers/`
-  - `container-network-interface/`
+  - `install-kube-ovn.md`
   - `post-deployment/`
 - under `openstack/`:
   - `overview.md`
@@ -133,8 +137,8 @@ Immediate next steps from the current tree:
 
 1. Evaluate whether `observability/` should be renamed to `monitoring/` after
    the larger parent/child restructuring is complete.
-2. Decide whether `secrets/` remains a first-class subsection or gets folded
-   under `infrastructure/` as supporting platform material.
+2. Evaluate later whether `secrets/` should remain its own subsection under
+   `open-infrastructure/` or be folded further under `infrastructure/`.
 3. Review the remaining root-level OpenStack pages after the current subgroup
    move and decide whether any of them should be grouped further, or kept flat.
 4. Repair the remaining stale internal Deployment Guide links that still point
