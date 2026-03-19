@@ -48,8 +48,9 @@ lint:
 serve:
 	$(HUGO) server --disableFastRender
 
-# Prepare the docs tree for agent-driven browser work by installing the
-# Playwright browser MCP package and a local Firefox browser payload.
+# Prepare the docs tree for local browser automation by installing the
+# Playwright package and a local Firefox browser payload. Codex MCP server
+# names such as `playwright_firefox` are configured outside this repo.
 setup: deps
 	$(NPM) exec playwright install firefox
 

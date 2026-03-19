@@ -38,14 +38,21 @@ cd docs
 make lint
 ```
 
-Prepare Playwright browser MCP tooling and the local Firefox payload used for
-agent-based docs
-development:
+Prepare the local Playwright package and Firefox browser payload used for docs
+automation:
 
 ```shell
 cd docs
 make setup
 ```
+
+> [!NOTE]
+>
+> Codex MCP server names are configured outside this repository in the local
+> Codex config. In this environment the browser-specific server names are
+> `playwright_firefox`, `playwright_chrome`, and `playwright_webkit`, with
+> Firefox preferred by default. `make setup` prepares the local package and
+> browser payload only; it does not define or rename MCP servers.
 
 Remove build output, local dependency downloads, and agent-development
 artifacts:
