@@ -1,6 +1,6 @@
 ---
-title: "Retrieve the kube config"
-weight: 60
+title: "Retrieve kubeconfig files"
+weight: 45
 ---
 Create the directory where the kube config will be stored.
 

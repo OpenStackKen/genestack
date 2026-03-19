@@ -1,6 +1,6 @@
 ---
-title: "Rook (Ceph) - In Cluster"
-weight: 20
+title: "Internal - Ceph Rook Operator"
+weight: 40
 ---
 ## Deploy the Rook operator
 

@@ -94,7 +94,7 @@ openstack --os-cloud={cloud name} floating ip delete $VIP
 
 Below is a quick example of how we can assign floating ips.
 
-You will need to get your cloud name from your `clouds.yaml`. More information on this can be found [here](/deployment-guide/getting-started/build-test-envs/). Underneath "clouds:" you will find your cloud name.
+You will need to get your cloud name from your `clouds.yaml`. More information on this can be found [here](/deployment-guide/hyperconverged-lab/). Underneath "clouds:" you will find your cloud name.
 
 First create a floating ip either from PUBLICNET or the public ip pool.
 

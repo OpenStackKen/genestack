@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes"
+title: "Deploy Kubernetes"
 weight: 10
 type: docs
 simple_list: true

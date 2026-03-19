@@ -1,6 +1,6 @@
 ---
 title: "Secrets and Key Management"
-weight: 30
+weight: 60
 type: docs
 simple_list: true
 description: "Secret management and secret delivery components."

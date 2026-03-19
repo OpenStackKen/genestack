@@ -1,6 +1,6 @@
 ---
 title: "Open Infrastructure"
-weight: 20
+weight: 30
 type: docs
 simple_list: true
 description: "Shared platform layers, Kubernetes, OpenStack, observability, and storage foundations."

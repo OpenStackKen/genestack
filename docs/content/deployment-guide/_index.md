@@ -1,5 +1,5 @@
 ---
-title: "What is Genestack?"
+title: "Deployment Guide"
 weight: 10
 type: docs
 description: "Environment bring-up, platform prerequisites, and service deployment workflows."

@@ -1,6 +1,6 @@
 ---
-title: "Post Deployment"
-weight: 40
+title: "Post-Deployment Configuration"
+weight: 60
 type: docs
 simple_list: true
 description: "Cluster access, node labeling, and post-bring-up operational tasks."

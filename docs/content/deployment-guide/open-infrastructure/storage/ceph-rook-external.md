@@ -1,6 +1,6 @@
 ---
-title: "Cephadm/ceph-ansible/Rook (Ceph) - External"
-weight: 30
+title: "External - Add a Ceph cluster with rook-ceph"
+weight: 60
 ---
 We can use an external ceph cluster and present it via rook-ceph to your cluster.
 
