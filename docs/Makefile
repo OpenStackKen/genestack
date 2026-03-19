@@ -13,12 +13,20 @@ export PATH := $(CURDIR)/node_modules/.bin:$(PATH)
 HUGO ?= hugo
 NPM ?= npm
 NPX ?= npx
+BUILD_SENTINEL := public/build.txt
 
 .PHONY: build clean deps lint mrproper serve setup
 
-# Build the static site from the Hugo root in /docs.
+# Build the static site from the Hugo root in /docs, then atomically write a
+# simple post-build sentinel that can be polled at `/build.txt`.
 build:
 	$(HUGO)
+	@mkdir -p public
+	@tmp_file="$$(mktemp public/.build.txt.XXXXXX)"; \
+	printf 'build_time_utc=%s\nbuild_epoch=%s\n' \
+	  "$$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+	  "$$(date -u +%s)" > "$$tmp_file"; \
+	mv "$$tmp_file" $(BUILD_SENTINEL)
 
 # Hugo does not provide a standalone `clean` subcommand for site output.
 # This target removes only the files Hugo generates for a local build.
