@@ -3,8 +3,14 @@ title: "Deploy Kubernetes"
 weight: 10
 type: docs
 simple_list: true
-description: "Cluster bring-up, node configuration, CNI, and supporting Kubernetes tooling."
+description: "Kubernetes bring-up, CNI, CSI, node configuration, and supporting Kubernetes tooling."
 cascade:
   - type: docs
 ---
-Cluster bring-up, node configuration, CNI, and supporting Kubernetes tooling.
+Kubernetes bring-up, CNI, CSI, node configuration, and supporting Kubernetes tooling.
+
+## Demo
+
+For a full end to end demo, see watching the following demonstration.
+
+[![asciicast](https://asciinema.org/a/629780.svg)](https://asciinema.org/a/629780)

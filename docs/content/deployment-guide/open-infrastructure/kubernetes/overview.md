@@ -19,9 +19,3 @@ a variety of Kubernetes deployments, it is important to note that the platform i
 to work with Kube-OVN and some form of persistent Storage. that all said, Genestack does
 provide methods to manage the dependencies the platform requires; however, it is
 important to understand that there will be some choices to be made.
-
-## Demo
-
-For a full end to end demo, see watching the following demonstration.
-
-[![asciicast](https://asciinema.org/a/629780.svg)](https://asciinema.org/a/629780)
