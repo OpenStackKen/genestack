@@ -105,7 +105,7 @@ Please visit the Openstack Volumes page [here](/cloud-onboarding/openstack-volum
 
 Below is a quick example of how one could set up a server.
 
-You will need to get your cloud name from your `clouds.yaml`. More information on this can be found [here](/deployment-guide/build-test-envs/). Underneath "clouds:" you will find your cloud name.
+You will need to get your cloud name from your `clouds.yaml`. More information on this can be found [here](/deployment-guide/getting-started/build-test-envs/). Underneath "clouds:" you will find your cloud name.
 
 First we are going to create our network "my_network"
 

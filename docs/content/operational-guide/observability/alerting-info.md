@@ -44,7 +44,7 @@ The alternative is to create the rules within your observability platform, in Ge
 
 You can view the rest of the default alerting rule configurations in the Genestack repo [alerting rules](https://github.com/rackerlabs/genestack/blob/main/base-helm-configs/prometheus/alerting_rules.yaml) yaml file.
 
-To deploy any new rules you would simply run the [Prometheus Deployment](/deployment-guide/prometheus/) and Helm/Prometheus will take care of updating the configurations from there.
+To deploy any new rules you would simply run the [Prometheus Deployment](/deployment-guide/open-infrastructure/observability/prometheus/) and Helm/Prometheus will take care of updating the configurations from there.
 > [!IMPORTANT]
 > **Run the Prometheus deployment**
 >
@@ -81,9 +81,9 @@ For a full list and further information view the [receiver information documenta
 
 The following list contains a few examples of these receivers as part of the [alertmanager_config](https://github.com/rackerlabs/genestack/blob/main/base-helm-configs/prometheus/alertmanager_config.yaml) found in Genestack.
 
-* [Slack Receiver](/deployment-guide/alertmanager-slack/)
-* [PagerDuty Receiver](/deployment-guide/alertmanager-pagerduty/)
-* [Microsoft Teams Receiver](/deployment-guide/alertmanager-msteams/)
+* [Slack Receiver](/deployment-guide/open-infrastructure/observability/alertmanager-slack/)
+* [PagerDuty Receiver](/deployment-guide/open-infrastructure/observability/alertmanager-pagerduty/)
+* [Microsoft Teams Receiver](/deployment-guide/open-infrastructure/observability/alertmanager-msteams/)
 
 We can now take all this information and build out an alerting workflow that suits our needs!
 

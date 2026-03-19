@@ -15,7 +15,7 @@ weight: 570
 
 ## Links
 
-- [_Genestack_ documentation on installing _Kube-OVN_ monitoring](/deployment-guide/prometheus-kube-ovn/)
+- [_Genestack_ documentation on installing _Kube-OVN_ monitoring](/deployment-guide/open-infrastructure/observability/prometheus-kube-ovn/)
   - As mentioned above, this simply installs the _ServiceMonitors_ so that
     _Prometheus_ in _Genestack_ can discover the metrics exported by _Kube-OVN_.
   - you can see the _ServiceMonitors_ installed

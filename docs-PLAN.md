@@ -3,8 +3,12 @@
 ## Summary
 
 Reorganize `/docs/content` so the Hugo/Docsy sidebar is driven by the
-filesystem and page metadata, while making the resulting navigation behave more
-like the old MkDocs site.
+filesystem and page metadata, with the primary goal of making the content more
+organized, more maintainable, and easier to navigate.
+
+Matching the old MkDocs site is no longer a primary requirement. Any suggestions
+that would make the navigation resemble the old MkDocs layout should be treated
+as optional follow-up evaluation after the major structural changes are done.
 
 This plan intentionally avoids a custom sidebar manifest. The source of truth
 for navigation should be:
@@ -99,7 +103,7 @@ Recommended target hierarchy:
   - `storage/`
   - `infrastructure/`
   - `openstack/`
-  - `monitoring/`
+  - `observability/`
 
 Recommended top-level order:
 
@@ -110,10 +114,12 @@ Recommended top-level order:
 Recommended internal structure:
 
 - under `kubernetes/`:
+  - `overview.md`
   - `providers/`
   - `container-network-interface/`
   - `post-deployment/`
-- under `openstack/`, optionally `openstack-services/` with subgroups:
+- under `openstack/`:
+  - `overview.md`
   - `block-storage/`
   - `compute-kit/`
   - `dashboards/`
@@ -121,34 +127,23 @@ Recommended internal structure:
   - `dnsaas/`
   - `trove/`
 - rename the current observability-style deployment grouping to `monitoring/`
-  if the goal is to align more closely with the old MkDocs navigation language
+  only if that proves clearer after the major structural changes are complete
 
 Immediate next steps from the current tree:
 
-1. Introduce an `open-infrastructure/` parent and move the current
-   `infrastructure/`, `kubernetes/`, `storage/`, `openstack/`, and
-   `observability/` subsections under it.
-2. Rename `observability/` to `monitoring/` so the top-level terminology
-   matches the old MkDocs information scent more closely.
-3. Decide whether `secrets/` remains a first-class subsection or gets folded
+1. Evaluate whether `observability/` should be renamed to `monitoring/` after
+   the larger parent/child restructuring is complete.
+2. Decide whether `secrets/` remains a first-class subsection or gets folded
    under `infrastructure/` as supporting platform material.
-4. Subdivide `kubernetes/` into:
-   - `providers/`
-   - `container-network-interface/`
-   - `post-deployment/`
-5. Subdivide `openstack/` into service groupings where the grouping adds
-   meaningful navigation value:
-   - `block-storage/`
-   - `compute-kit/`
-   - `dashboards/`
-   - `metering/`
-   - `dnsaas/`
-   - `trove/`
+3. Review the remaining root-level OpenStack pages after the current subgroup
+   move and decide whether any of them should be grouped further, or kept flat.
+4. Repair the remaining stale internal Deployment Guide links that still point
+   at historical flat paths outside the scope of the current move.
 
 ## Operations Guide
 
-This is the section that needs the largest reorganization if the goal is to
-make Docsy navigation behave like the old MkDocs site.
+This is the section that needs the largest reorganization to make it clearer
+and more task-oriented.
 
 Recommended target hierarchy:
 
@@ -177,8 +172,7 @@ Recommended target hierarchy:
   - `backup-restore/`
   - `databases/`
 
-This structure is more task-oriented and closer to the old MkDocs
-information scent than the current broader buckets.
+This structure is more task-oriented than the current broader buckets.
 
 ## Overview
 
@@ -208,6 +202,13 @@ Recommended implementation order:
 3. Operations Guide
 
 This keeps the highest-risk and broadest restructuring last.
+
+## Optional Follow-Up
+
+After the major structural changes are complete, review whether any remaining
+navigation should be adjusted to resemble the old MkDocs site more closely.
+Those parity-oriented changes are optional and should not block the main
+reorganization work.
 
 ## Rules For Moves
 

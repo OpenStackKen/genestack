@@ -168,7 +168,7 @@ By deploying HA nodes across different availability zones, it is guaranteed that
 
 > [!IMPORTANT]
 >
-> [Open Virtual Networking (OVN)](https://www.ovn.org/en/) is the networking fabric being used in [Genestack](/deployment-guide/infrastructure-ovn-setup/).
+> [Open Virtual Networking (OVN)](https://www.ovn.org/en/) is the networking fabric being used in [Genestack](/deployment-guide/open-infrastructure/infrastructure/ovn-setup/).
 >
 
 Additional [special configuration](https://docs.openstack.org/neutron/latest/admin/ovn/availability_zones.html) is necessary to enable Availability Zones when using OVN.

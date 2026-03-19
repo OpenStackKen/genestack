@@ -7,7 +7,7 @@ Updates to the OVN environment can be made post deployment. All of the required 
 > [!TIP]
 >
 >
-> Review the the OVN Deployment Guide for more information on how to manage your OVN environment post deployment. The guide can be found [here](/deployment-guide/infrastructure-ovn-setup/).
+> Review the the OVN Deployment Guide for more information on how to manage your OVN environment post deployment. The guide can be found [here](/deployment-guide/open-infrastructure/infrastructure/ovn-setup/).
 >
 
 ## Label Overview

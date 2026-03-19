@@ -28,7 +28,7 @@ Observability components used in Genestack that we'll discuss a bit further are 
 
 Logging is key to better understanding the health and performance of your systems. Logging gives insights into system events, errors and even security concerns.
 Logging in Genestack as part of its default workflow is handled by [Fluentbit](https://fluentbit.io/) and [Loki](https://grafana.com/oss/loki/) which takes care of collection, processing and aggregation of Genestack's system and service logs.
-You can view the [Fluentbit](https://github.com/rackerlabs/genestack/tree/main/base-helm-configs/fluentbit) and [Loki](/deployment-guide/infrastructure-loki/) installation docs to get an idea of how we're deploying it in the Genestack infrastructure.
+You can view the [Fluentbit](https://github.com/rackerlabs/genestack/tree/main/base-helm-configs/fluentbit) and [Loki](/deployment-guide/open-infrastructure/infrastructure/loki/) installation docs to get an idea of how we're deploying it in the Genestack infrastructure.
 You can view their source code at [Fluentbit Github](https://github.com/fluent/fluent-bit) and [Loki Github](https://github.com/grafana/loki/tree/main).
 
 Fluentbit is deployed as the log collector, processor and forwarder. It is configured and deployed across the system to gather logs from Kubernetes pods and the various OpenStack services.
