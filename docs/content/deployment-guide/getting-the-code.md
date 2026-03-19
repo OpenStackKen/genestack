@@ -18,4 +18,4 @@ Once the repository is present under `/opt/genestack`, you can proceed in two wa
 
 - Create an all-in-one Genestack cloud for test and proof-of-concept environments by building a [Hyperconverged Lab](/deployment-guide/hyperconverged-lab/)
 
-- Deploy a productunction-style Genestack cloud by deploying [Open Infrastructure](/deployment-guide/open-infrastructure/).
+- Deploy a production-style Genestack cloud by deploying [Open Infrastructure](/deployment-guide/open-infrastructure/)
