@@ -4,7 +4,7 @@ weight: 20
 ---
 Before you can do anything we need to get the code. Because we've sold our soul to the submodule devil, you're going to need to recursively clone the repo into your location.
 
-> [!NOTE]
+> [!genestack]
 >
 >
 > Throughout the all our documentation and examples the genestack code base will be assumed to be in `/opt`.
