@@ -55,7 +55,7 @@ flowchart TD
 
 Typically, a [region](/design-guide/cloud-design/regions/) encompasses at least two, ideally more, availability zones (AZs). All AZs are fully independent, featuring redundant power, cooling, and networking resources, and are interconnected within a region via dedicated high-bandwidth, low-latency links. Connectivity between AZs in-Region are typically extremely fast[^1].
 
-> [!IMPORTANT]
+> [!GENESTACK]
 >
 > See the [data center](https://www.rackspace.com/about/data-centers) pages on the Rackspace website for information on how Rackspace deploys and manages data centers to deliver these capabilities.
 >
@@ -168,7 +168,7 @@ By deploying HA nodes across different availability zones, it is guaranteed that
 
 ### Neutron Availability Zones and OVN
 
-> [!IMPORTANT]
+> [!GENESTACK]
 >
 > [Open Virtual Networking (OVN)](https://www.ovn.org/en/) is the networking fabric being used in [Genestack](/deployment-guide/open-infrastructure/infrastructure/ovn-setup/).
 >

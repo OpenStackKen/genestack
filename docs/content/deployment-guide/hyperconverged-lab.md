@@ -214,8 +214,7 @@ The build script is interactive and will prompt you for the following informatio
 
 All of the variables can be defined on the command line using environment variables.
 
-> [!IMPORTANT]
-> **Deploying a Hyper-converged Lab Environment with Environment Variables**
+> [!EXAMPLE] Deploying a Hyper-converged Lab Environment with Environment Variables
 >
 >
 > ``` shell
@@ -301,7 +300,7 @@ After the deployment is complete, the script will output the internal and extern
 
 With this information, operators can login to the Genestack instance and begin to explore the platform.
 
-> [!IMPORTANT]
+> [!GENESTACK]
 >
 > Genestack uses DNS to route services in Kubernetes, which may be a bit different from what you might be used to in other lab environments, where
 > IP addresses are used heavily.  To be able to access OpenStack externally from the jumpbox, set `GATEWAY_DOMAIN` to a DNS domain that you control.
