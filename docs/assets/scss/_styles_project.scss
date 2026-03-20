@@ -4,6 +4,15 @@
   padding-top: 0;
 }
 
+// Match Docsy's readable-width treatment for top-level prose blocks so
+// hugo-admonitions panels do not visually overrun adjacent body content.
+.td-content > .admonition,
+.td-content > details.admonition {
+  @media (min-width: 768px) {
+    max-width: 80%;
+  }
+}
+
 .gs-home-container {
   max-width: 1320px;
 }
