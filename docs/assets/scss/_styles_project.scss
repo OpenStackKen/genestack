@@ -13,6 +13,51 @@
   }
 }
 
+// Custom admonition types should follow the same visual contract as the
+// upstream module: one base accent color, an optional header/icon override,
+// and a lightly tinted panel derived from that accent. Define new types via
+// this mixin so each type stays structurally aligned with the built-in
+// admonition system and can opt into explicit dark-mode colors when needed.
+@mixin gs-custom-admonition-type(
+  $name,
+  $light-color,
+  $light-header: $light-color,
+  $dark-color: $light-color,
+  $dark-header: $dark-color,
+  $light-bg-opacity: 0.1,
+  $dark-bg-opacity: 0.1
+) {
+  .admonition.#{$name} {
+    --adm-type-color: #{$light-color};
+    --adm-type-header: #{$light-header};
+    border-left: 4px solid #{$light-color};
+    background-color: rgba($light-color, $light-bg-opacity);
+  }
+
+  html[data-theme="dark"] .admonition.#{$name},
+  body[data-theme="dark"] .admonition.#{$name},
+  html[data-bs-theme="dark"] .admonition.#{$name},
+  html[data-scheme="dark"] .admonition.#{$name},
+  body[data-scheme="dark"] .admonition.#{$name},
+  html[data-color-mode="dark"] .admonition.#{$name},
+  body[data-color-mode="dark"] .admonition.#{$name},
+  body.dark .admonition.#{$name},
+  body.dark-mode .admonition.#{$name},
+  body.dark-theme .admonition.#{$name},
+  body.theme-dark .admonition.#{$name},
+  html.dark .admonition.#{$name},
+  html.dark-mode .admonition.#{$name},
+  html.dark-theme .admonition.#{$name},
+  html.theme-dark .admonition.#{$name} {
+    --adm-type-color: #{$dark-color};
+    --adm-type-header: #{$dark-header};
+    border-left-color: #{$dark-color};
+    background-color: rgba($dark-color, $dark-bg-opacity);
+  }
+}
+
+@include gs-custom-admonition-type("genestack", #9e0001);
+
 .gs-home-container {
   max-width: 1320px;
 }

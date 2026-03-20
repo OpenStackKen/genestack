@@ -162,7 +162,7 @@ Admonitions are used to highlight certain information to make it stand-out to re
 
 It is important to have some documentation standards so that a user can understand how to process the information they read.
 
-> [!NOTE]
+> [!INFO]
 >
 > The "info" admonition type is to point out something particularly interesting.
 >
@@ -185,7 +185,7 @@ It is important to have some documentation standards so that a user can understa
 
 ### Custom Admonition Types
 
-> [!IMPORTANT]
+> [!GENESTACK]
 >
 > The "genestack" admonition type is for Genestack-specific information or to point how _how_ something is done in Genestack.
 >

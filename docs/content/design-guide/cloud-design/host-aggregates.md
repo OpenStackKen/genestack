@@ -76,7 +76,7 @@ linkStyle 1 fill:none,stroke:none;
 
 ### Host Aggregates in Genestack
 
-> [!IMPORTANT]
+> [!GENESTACK]
 >
 > Genestack is designed to use [Host Aggregates](/operational-guide/openstack-host-aggregates/) to take advantage of various compute host types.
 >
@@ -87,7 +87,7 @@ While Host Aggregates themselves are hidden from OpenStack cloud users, Cloud ad
 
 ### This is Allowed
 
-> [!NOTE]
+> [!INFO]
 >
 > Provided all other requirements are met (CPU type, availability, etc...) then migrating across Host Aggregates is possible within an [Availability Zone](/design-guide/cloud-design/availability-zones/).
 >
