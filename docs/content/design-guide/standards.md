@@ -167,8 +167,7 @@ It is important to have some documentation standards so that a user can understa
 > The "info" admonition type is to point out something particularly interesting.
 >
 
-> [!NOTE]
-> **To Do**
+> [!INFO] To Do:
 >
 > For "To Do" items, use the "info" admonition with a "To Do" title
 > ...
