@@ -9,14 +9,16 @@ Ultimately, because it has no set physical analogue, an Availability Zone become
 Availability Zones are a logical abstraction for partitioning a cloud without knowing the physical infrastructure. They can be used to partition a cloud on arbitrary factors, such as location (country, data center, rack), network layout, or power source.
 
 ```mermaid
-%%{ init: { "theme": "default",
-            'themeVariables': {
-            "fontSize": "20px"
-             },
-            "flowchart": { "curve": "basis", 
-            "nodeSpacing": 80, 
-            "rankSpacing": 160
-             } } }%%
+---
+config:
+  theme: neutral
+  themeVariables:
+    fontSize: 20px
+  flowchart:
+    curve: basis
+    nodeSpacing: 80
+    rankSpacing: 160
+---
 flowchart TD
 
 %% Node Defs

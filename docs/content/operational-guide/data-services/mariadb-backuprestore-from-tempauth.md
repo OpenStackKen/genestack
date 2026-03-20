@@ -18,6 +18,12 @@ This document provides procedures to restore MariaDB backups stored in Rackspace
 
 ## 2. Backup/Restore Flow
 ```mermaid
+---
+config:
+  theme: neutral
+  flowchart:
+    curve: basis
+---
 graph TD
 
     subgraph Locations

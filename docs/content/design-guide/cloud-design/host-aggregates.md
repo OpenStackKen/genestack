@@ -20,6 +20,12 @@ A common use case for host aggregates is when you want to support scheduling ins
 - Hosts with GPU compute resources
 
 ```mermaid
+---
+config:
+  theme: neutral
+  flowchart:
+    curve: basis
+---
 flowchart TB
     subgraph AZ [ Availability Zone ]
         direction TB
@@ -87,14 +93,16 @@ While Host Aggregates themselves are hidden from OpenStack cloud users, Cloud ad
 >
 
 ```mermaid
-%%{ init: { "theme": "neutral",
-            'themeVariables': {
-            "fontSize": "15px",
-             },
-            "flowchart": { "curve": "basis",
-            "nodeSpacing": 40,
-            "rankSpacing": 80
-             } } }%%
+---
+config:
+  theme: neutral
+  themeVariables:
+    fontSize: 15px
+  flowchart:
+    curve: basis
+    nodeSpacing: 40
+    rankSpacing: 80
+---
 flowchart TB
 
     subgraph AZ [ Availability Zone ]
@@ -142,6 +150,12 @@ class AZ az
 >
 
 ```mermaid
+---
+config:
+  theme: neutral
+  flowchart:
+    curve: basis
+---
 flowchart TB
     subgraph AZ1 [ Availability Zone 1 ]
         direction TB
