@@ -4,7 +4,7 @@ weight: 50
 ---
 All release notes are generated using [reno](https://docs.openstack.org/reno/latest/).
 
-To manaually generate your release notes and see this file populated, run the following commands
+To manually generate your release notes and see this file populated, run the following commands
 
 ``` shell
 pip install -r doc-requirements.txt -r dev-requirements.txt
