@@ -4,11 +4,21 @@ weight: 50
 ---
 All release notes are generated using [reno](https://docs.openstack.org/reno/latest/).
 
-To manually generate your release notes and see this file populated, run the following commands
+The containerized docs tooling already carries the required Python
+dependencies, `reno`, and `pandoc`.
 
-``` shell
-pip install -r doc-requirements.txt -r dev-requirements.txt
-apt update && apt install -y pandoc
-reno report -o /tmp/reno.rst
-pandoc /tmp/reno.rst -f rst -t markdown -o docs/release-notes.md
+To manually regenerate this page from the repo using the current docs tool
+image, run the following command from `genestack/docs`:
+
+```bash
+make container-generate-release-notes
 ```
+
+> [!info]
+>
+> Under the hood, the release notes generator:
+>
+> - changes to the repo root so `reno` can read the release-notes config and notes
+> - writes the intermediate ReStructuredText document to a temporary file
+> - converts that RST to Markdown with `pandoc`
+> - writes the final page to `/docs/content/overview/release-notes.md`
