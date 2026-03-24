@@ -1,7 +1,10 @@
 ---
-title: "Deploy Cert-Manager"
+title: "Cert Manager"
 weight: 20
 ---
+
+## Deploying Cert Manager
+
 Cert Manager integrates with the Envoy Gateway API to automate the issuance, renewal, and management of TLS/SSL certificates within a cluster. This installation includes envoy gateway-api support and custom DNS server forwarders in the helm chart config.
 
 ## Configure custom cert-manager DNS forwarders

@@ -1,19 +1,21 @@
 ---
-title: "Deploy the MariaDB Operator and Mariadb Cluster"
+title: "MariaDB"
 weight: 80
 ---
-## Create secret
 
-> [!NOTE]
-> **Information about the secretes used**
+Deploying the MariaDB Operator and Mariadb Cluster
+
+> [!NOTE] 
 >
+> **Information About the Secrets Used**
 >
 > Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 >
 
+### Creating Secrets
+
 > [!IMPORTANT]
 > **Example secret generation**
->
 >
 > ``` shell
 > kubectl --namespace openstack \

@@ -1,7 +1,12 @@
 ---
-title: "Create our basic OpenStack namespace"
+title: "Namespace"
 weight: 30
 ---
+
+
+
+## Create our Basic OpenStack Namespace
+
 The following command will generate our OpenStack namespace and ensure we have everything needed to proceed with the deployment.
 
 ``` shell
@@ -24,7 +29,7 @@ Then you can create all needed secrets by running the create-secrets.sh command 
 /opt/genestack/bin/create-secrets.sh
 ```
 
-That will create a kubesecrets.yaml file located in /etc/genestack
+That will create a `kubesecrets.yaml` file located in `/etc/genestack`.
 
 You can then apply it to kubernetes with the following command:
 

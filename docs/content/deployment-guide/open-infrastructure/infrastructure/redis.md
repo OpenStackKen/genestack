@@ -1,7 +1,10 @@
 ---
-title: "Deploy Redis Operator, Redis Replication Cluster and Redis Sentinel"
+title: "Redis"
 weight: 110
 ---
+
+Deploy Redis Operator, Redis Replication Cluster and Redis Sentinel
+
 ## Deploy the Redis operator and replication cluster
 
 Genestack primarily makes use of the popular opensource Redis in-memory database to support various services that utilize [Taskflow](https://wiki.openstack.org/wiki/TaskFlow) and [Jobboard](https://docs.openstack.org/taskflow/latest/user/jobs.html) functionality.

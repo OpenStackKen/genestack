@@ -1,8 +1,8 @@
 ---
-title: "Deploy PostgreSQL"
+title: "PostgreSQL"
 weight: 160
 ---
-PostgreSQL is used by [Gnocchi](/deployment-guide/open-infrastructure/openstack/metering/gnocchi/) to index the data
+[PostgreSQL](https://www.postgresql.org/) is used by [Gnocchi](/deployment-guide/open-infrastructure/openstack/metering/gnocchi/) to index the data
 collected and sent by [Ceilometer](/deployment-guide/open-infrastructure/openstack/metering/ceilometer/).
 
 ## Install the Postgres Operator

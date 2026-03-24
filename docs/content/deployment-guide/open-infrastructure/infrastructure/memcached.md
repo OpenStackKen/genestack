@@ -1,11 +1,11 @@
 ---
-title: "Deploy a Memcached"
+title: "Memcached"
 weight: 100
 ---
 ## Deploy the Memcached Cluster
 
 > [!IMPORTANT]
-> **Run the memcached deployment Script `/opt/genestack/bin/install-memcached.sh` You can include paramaters to deploy aio or base-monitoring. No paramaters deploys base**
+> **Run the memcached deployment Script `/opt/genestack/bin/install-memcached.sh` You can include parameters to deploy aio or base-monitoring. No parameters deploys base**
 >
 >
 > ``` shell

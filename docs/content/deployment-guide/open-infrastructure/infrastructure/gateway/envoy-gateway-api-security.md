@@ -1,5 +1,5 @@
 ---
-title: "Security Policies"
+title: "Envoy Security Policies"
 weight: 70
 ---
 From [Envoy documentation](https://gateway.envoyproxy.io/docs/concepts/introduction/gateway_api_extensions/security-policy/):

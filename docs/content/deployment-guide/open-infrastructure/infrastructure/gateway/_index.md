@@ -7,7 +7,6 @@ For more information on the project see: [Gateway API SIG.](https://gateway-api.
 
 > [!IMPORTANT]
 >
->
 > For each externally exposed service, example: keystone endpoint, we have a GatewayAPI resource setup to use listeners on services with matching rules based on
 > hostname, for example `keystone.your.domain.tld`. When a request comes in to the f5 vip for this the vip is setup to pass the traffic to the Metallb
 > external vip address. Metallb then forwards the traffic to the appropriate service endpoint for the gateway controller which matches the hostname and passes the
@@ -43,8 +42,4 @@ More information on cross namespace routing can be found [here](https://gateway-
 
 ## Choosing a Gateway API Implementation
 
-Within Genestack, multiple options are available for use as Gateway API implementations. The following table provides a comparison of the available options.
-
-| Backend Options | Status | <div style="width:256px">Overview</div> |
-| --------------- | ------ | --------------------------------------- |
-| [Envoy](/deployment-guide/open-infrastructure/infrastructure/envoy-gateway-api/) | Feature rich, large community, recommended for Production environments. |
+Within Genestack, multiple options are available for use as Gateway API implementations. 

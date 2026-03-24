@@ -1,8 +1,8 @@
 ---
-title: "Deploy Sealed Secrets"
+title: "Sealed Secrets"
 weight: 170
 ---
-## Install sealed secrets
+Installing [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets):
 
 > [!IMPORTANT]
 > **Run the deployment Script `/opt/genestack/bin/install-sealed-secrets.sh`**

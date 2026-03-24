@@ -1,8 +1,8 @@
 ---
-title: "Deploy Libvirt"
+title: "Libvirt"
 weight: 120
 ---
-The first part of the compute kit is Libvirt.
+The first part of the compute kit is [libvirt](https://libvirt.org/).
 
 ## Run the package deployment
 

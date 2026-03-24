@@ -1,7 +1,9 @@
 ---
-title: "Deploy Open vSwitch OVN"
+title: "OVN"
 weight: 130
 ---
+Deploy Open vSwitch [OVN](https://www.ovn.org/en/).
+
 > [!NOTE]
 >
 >

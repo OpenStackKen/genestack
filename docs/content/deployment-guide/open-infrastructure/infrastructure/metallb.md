@@ -1,7 +1,9 @@
 ---
-title: "Setup the MetalLB Loadbalancer"
+title: "MetalLB"
 weight: 40
 ---
+
+## Setup the MetalLB Load Balancer
 The MetalLb loadbalancer can be setup by editing the following file `metallb-openstack-service-lb.yml`, You will need to add
 your "external" VIP(s) to the loadbalancer so that they can be used within services. These IP addresses are unique and will
 need to be customized to meet the needs of your environment.
