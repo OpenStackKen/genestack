@@ -7,10 +7,10 @@ hero:
   heading: "Build, Operate, and Extend Genestack"
   lead: "Reference material for architecture, deployment, operations, and onboarding."
   primary:
-    text: "Start with Overview"
+    text: "Project Overview"
     url: "/overview/"
   secondary:
-    text: "Go to Deployment Guide"
+    text: "Deploy Genestack"
     url: "/deployment-guide/"
 home_sections:
   - title: "Core Guides"

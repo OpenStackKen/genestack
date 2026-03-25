@@ -28,10 +28,13 @@ enableRobotsTXT = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+  [markup.highlight]
+      style = "tango"
 
 [params]
-  github_repo = "https://github.com/OpenStackKen/genestack/tree/docs-refactor"
-  github_subdir = ""
+  github_repo = "https://github.com/OpenStackKen/genestack"
+  github_branch = "docs-refactor"
+  github_subdir = "docs"
   time_format_blog = "2006-01-02"
 
   [params.mermaid]

@@ -14,12 +14,19 @@ HUGO ?= hugo
 NPM ?= npm
 NPX ?= npx
 BUILD_SENTINEL := public/build.txt
+.DEFAULT_GOAL := build
 
-.PHONY: build clean deps lint mrproper serve setup
+.PHONY: deps build clean lint mrproper serve setup
+
+# Download everything required to build locally: Node-based asset tooling
+# and Hugo module dependencies.
+deps:
+	$(NPM) install
+	$(HUGO) mod tidy
 
 # Build the static site from the Hugo root in /docs, then atomically write a
 # simple post-build sentinel that can be polled at `/build.txt`.
-build:
+build: deps
 	$(HUGO)
 	@mkdir -p public
 	@tmp_file="$$(mktemp public/.build.txt.XXXXXX)"; \
@@ -33,14 +40,8 @@ build:
 clean:
 	rm -rf public resources .hugo_build.lock
 
-# Download everything required to build locally: Node-based asset tooling
-# and Hugo module dependencies.
-deps:
-	$(NPM) install
-	$(HUGO) mod tidy
-
 # Convenience target for validating the shared Markdown sources in
-# /docs/content using the docs-local markdownlint configuration.
+# /docs/content using the docs markdownlint configuration.
 lint:
 	$(NPM) exec markdownlint-cli2 "content/**/*.md"
 
