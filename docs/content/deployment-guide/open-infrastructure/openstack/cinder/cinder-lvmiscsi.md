@@ -1,5 +1,5 @@
 ---
-title: "Cinder LVM iSCSI – **Operator Guide**"
+title: "LVM iSCSI Backend"
 weight: 20
 ---
 This guide explains how a **cloud operator** can enable the **reference LVM backend** over iSCSI for OpenStack Cinder. It assumes you are running

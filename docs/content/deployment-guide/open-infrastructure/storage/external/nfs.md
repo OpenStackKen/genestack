@@ -1,5 +1,5 @@
 ---
-title: "External - NFS"
+title: "NFS"
 weight: 50
 ---
 While NFS in K8S works great, it's not suitable for use in all situations.

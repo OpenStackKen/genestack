@@ -1,6 +1,6 @@
 ---
 title: "Release Notes"
-weight: 50
+weight: 60
 ---
 All release notes are generated using [reno](https://docs.openstack.org/reno/latest/).
 

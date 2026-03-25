@@ -1,5 +1,5 @@
 ---
-title: "Internal - Longhorn"
+title: "Longhorn"
 weight: 20
 ---
 Longhorn is a lightweight, reliable, and highly available distributed block storage solution designed for Kubernetes. By default, it stores

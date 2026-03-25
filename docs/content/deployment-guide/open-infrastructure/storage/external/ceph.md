@@ -1,5 +1,5 @@
 ---
-title: "External - Add a Ceph cluster with rook-ceph"
+title: "Ceph"
 weight: 60
 ---
 We can use an external ceph cluster and present it via rook-ceph to your cluster.

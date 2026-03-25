@@ -1,5 +1,5 @@
 ---
-title: "Internal - TopoLVM"
+title: "TopoLVM"
 weight: 30
 ---
 [TopoLVM](https://github.com/topolvm/topolvm) is a capacity aware storage provisioner which can make use of physical volumes.

@@ -1,6 +1,6 @@
 ---
 title: "Documentation Standards and Style Guide"
-weight: 70
+weight: 30
 ---
 This document is intended to help define common documentation standards and
 practices for the Genestack documentation set.

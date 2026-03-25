@@ -1,16 +1,22 @@
 ---
-title: "What is Openstack Swift Object Storage?"
-weight: 30
+title: "Object Storage"
+weight: 20
 ---
-Swift Object Storage is a component of the greater Openstack ecosystem.  It was one of the first core components of Openstack along side Nova in the "Austin" release.  It has been used internally by Rackspace for their Object Storage offering along with many other organizations.  It provides a scalable and durable storage solution for unstructured data such as backups, multimedia files and big data.
+Swift Object Storage is a component of the greater Openstack ecosystem.  It was one of the first core components of Openstack alongside Nova in the original "Austin" release.  It has been used internally by Rackspace for their Object Storage offering along with many other organizations.  It provides a scalable and durable storage solution for unstructured data such as backups, multimedia files and big data.
 
-## Why Openstack Swift Object Storage?
+## Why do Object Storage with Openstack Swift?
 
-**Scalability:** Swift is designed to handle vast amounts of data operating in a single or multi tenant environment.  Each of the core services can be scaled up and out independently of each other.  If hotspots start to happen on a single tier such as Object additional resources can be added mitigate the issue.  Each service can be broken out and scaled independently of each other depending on the use case and the data rate occurring on each tier.
+### Scalability
 
-**Durability**: Data placement is controlled by the operator of the cluster and Swift supports two distinctive methods of storing data.  **Replica** is the most common, fastest and least efficient means to store objects.  Replicated count is configured based on durability and environmental needs.  Swift supports Replicated copies 2-N, and can be changed gradually on a cluster if the need arises (scale out, multi region, etc).  Swift also support erasure coding support in its object storage class, powered by liberasurecode, it supports multiple K+M values to store your data.  Benefits from using erasure coded objects include higher durability in the event of a disk failure, better storage efficiency of object but at the cost of higher CPU consumption.  Swift also performs background audits on all data, ensuring that your data is retrievable, readable and unaltered.
+Swift is designed to handle vast amounts of data operating in a single or multi tenant environment.  Each of the core services can be scaled up and out independently of each other.  If hotspots start to happen on a single tier such as Object additional resources can be added mitigate the issue.  Each service can be broken out and scaled independently of each other depending on the use case and the data rate occurring on each tier.
 
-**Total Cost of Ownership:** By combining Swift's scale up and out architecture of its services we can pinpoint hotspots in a Swift deployment and be highly prescriptive in how we tackle the issue.  Gone are the days of "throwing hardware" at the solution.  Understanding the pedigree of the data and the use case Swift can also use that same prescriptive methodology to architecting and maintaining the right durability of your data to meet your organizations needs.
+### Durability
+
+Data placement is controlled by the operator of the cluster and Swift supports two distinctive methods of storing data.  **Replica** is the most common, fastest and least efficient means to store objects.  Replicated count is configured based on durability and environmental needs.  Swift supports Replicated copies 2-N, and can be changed gradually on a cluster if the need arises (scale out, multi region, etc).  Swift also support erasure coding support in its object storage class, powered by liberasurecode, it supports multiple K+M values to store your data.  Benefits from using erasure coded objects include higher durability in the event of a disk failure, better storage efficiency of object but at the cost of higher CPU consumption.  Swift also performs background audits on all data, ensuring that your data is retrievable, readable and unaltered.
+
+### Total Cost of Ownership
+
+By combining Swift's scale up and out architecture of its services we can pinpoint hotspots in a Swift deployment and be highly prescriptive in how we tackle the issue.  Gone are the days of "throwing hardware" at the solution.  Understanding the pedigree of the data and the use case Swift can also use that same prescriptive methodology to architecting and maintaining the right durability of your data to meet your organizations needs.
 
 ## Use Cases for Swift Object
 

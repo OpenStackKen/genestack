@@ -1,5 +1,5 @@
 ---
-title: "Compute Kit"
+title: "Compute"
 weight: 70
 type: docs
 simple_list: true
@@ -7,4 +7,4 @@ description: "Nova, Placement, Neutron integration, and compute deployment compo
 cascade:
   - type: docs
 ---
-Nova, Placement, Neutron integration, and compute deployment components.
+Nova, Placement, Neutron integration, and compute component deployment.

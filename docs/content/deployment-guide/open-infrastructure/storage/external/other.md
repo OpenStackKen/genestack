@@ -1,5 +1,5 @@
 ---
-title: "External - Using other CSI drivers"
+title: "Other CSI Drivers"
 weight: 70
 ---
 For some Topo/Ceph/NFS are not great fits, Genestack allows for external block devices to be used in the stand up and operation of Openstack.

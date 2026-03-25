@@ -1,8 +1,8 @@
 ---
-title: "Internal - Ceph Rook Operator"
+title: "Ceph"
 weight: 40
 ---
-## Deploy the Rook operator
+## Deploy Ceph with the Rook operator
 
 ``` shell
 kubectl apply -k /etc/genestack/kustomize/rook-operator/base
