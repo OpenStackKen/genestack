@@ -1,6 +1,7 @@
 .vagrant
 *.retry
 **/vagrant_ansible_inventory
+**/package-lock.json
 *.iml
 temp
 contrib/offline/offline-files
