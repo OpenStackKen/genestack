@@ -4,70 +4,70 @@ title = "Genestack Documentation"
 enableRobotsTXT = true
 
 [module]
-  proxy = "direct"
+proxy = "direct"
 
 [[module.imports]]
-  path = "github.com/KKKZOZ/hugo-admonitions"
+path = "github.com/KKKZOZ/hugo-admonitions"
 
 [[module.imports]]
-  path = "github.com/google/docsy"
+path = "github.com/google/docsy"
 
 [[module.mounts]]
-  source = "content"
-  target = "content"
+source = "content"
+target = "content"
 
 [[module.mounts]]
-  source = "content/assets"
-  target = "static/assets"
+source = "content/assets"
+target = "static/assets"
 
 [[module.mounts]]
-  source = "assets"
-  target = "assets"
+source = "assets"
+target = "assets"
 
 [markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
-  [markup.highlight]
-      style = "tango"
+[markup.goldmark]
+[markup.goldmark.renderer]
+unsafe = true
+[markup.highlight]
+style = "tango"
 
 [params]
-  github_repo = "https://github.com/OpenStackKen/genestack"
-  github_branch = "docs-refactor"
-  github_subdir = "docs"
-  time_format_blog = "2006-01-02"
+github_repo = "https://github.com/OpenStackKen/genestack"
+github_branch = "docs-refactor"
+github_subdir = "docs"
+time_format_blog = "2006-01-02"
 
-  [params.mermaid]
-    version = "11.13.0"
-    theme = "default"
+[params.mermaid]
+version = "11.13.0"
+theme = "default"
 
-  [params.ui]
-    breadcrumb_disable = false
-    sidebar_menu_compact = true
-    navbar_logo = false
+[params.ui]
+breadcrumb_disable = false
+sidebar_menu_compact = true
+navbar_logo = true
 
 [menu]
-  [[menu.main]]
-    name = "Overview"
-    url = "/overview/"
-    weight = 10
+[[menu.main]]
+name = "Overview"
+url = "/overview/"
+weight = 10
 
-  [[menu.main]]
-    name = "Design Guide"
-    url = "/design-guide/"
-    weight = 20
+[[menu.main]]
+name = "Design Guide"
+url = "/design-guide/"
+weight = 20
 
-  [[menu.main]]
-    name = "Deployment Guide"
-    url = "/deployment-guide/"
-    weight = 30
+[[menu.main]]
+name = "Deployment Guide"
+url = "/deployment-guide/"
+weight = 30
 
-  [[menu.main]]
-    name = "Operations Guide"
-    url = "/operational-guide/"
-    weight = 40
+[[menu.main]]
+name = "Operations Guide"
+url = "/operational-guide/"
+weight = 40
 
-  [[menu.main]]
-    name = "Cloud Onboarding"
-    url = "/cloud-onboarding/"
-    weight = 50
+[[menu.main]]
+name = "Cloud Onboarding"
+url = "/cloud-onboarding/"
+weight = 50
