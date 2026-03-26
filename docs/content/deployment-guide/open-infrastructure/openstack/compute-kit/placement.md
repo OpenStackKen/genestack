@@ -1,5 +1,5 @@
 ---
-title: "Deploy Placement"
+title: "Placement"
 weight: 30
 ---
 > [!IMPORTANT]

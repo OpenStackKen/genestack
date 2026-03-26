@@ -1,5 +1,5 @@
 ---
-title: "Deploy Neutron"
+title: "Neutron"
 weight: 50
 ---
 > [!IMPORTANT]

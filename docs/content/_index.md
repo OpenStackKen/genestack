@@ -3,7 +3,7 @@ title: "Genestack Documentation"
 weight: 10
 description: "Reference, design, deployment, and operations documentation for Genestack."
 hero:
-  eyebrow: "Shared Docs"
+  eyebrow: "Genestack Reference Documentation"
   heading: "Build, Operate, and Extend Genestack"
   lead: "Reference material for architecture, deployment, operations, and onboarding."
   primary:
@@ -16,9 +16,6 @@ home_sections:
   - title: "Core Guides"
     description: "Primary documentation entry points."
     items:
-      - title: "Overview"
-        url: "/overview/"
-        description: "Platform concepts, architecture, and component overviews."
       - title: "Design Guide"
         url: "/design-guide/"
         description: "Cloud design decisions, regional structure, resiliency, and platform architecture guidance."
@@ -31,17 +28,19 @@ home_sections:
   - title: "Additional Guides"
     description: "Audience-specific entry points and supporting reference material."
     items:
+      - title: "Overview"
+        url: "/overview/"
+        description: "Platform concepts, architecture, and component overviews."
       - title: "Cloud Onboarding"
         url: "/cloud-onboarding/"
         description: "End-user onboarding for CLI setup, compute, networking, storage, and common OpenStack workflows."
 external_resources:
-  - title: "Join the community on Discord"
+  - title: "Discord"
     url: "https://discord.gg/2mN5yZvV3a"
-  - title: "Learn more about Rackspace OpenStack"
+  - title: "Rackspace OpenStack"
     url: "https://www.rackspace.com/solve/return-openstack"
 ---
 Genestack combines Kubernetes, OpenStack, and supporting infrastructure into a
-single operations and deployment workflow.
+single cloud operations and deployment workflow.
 
-The `/docs` tree is the canonical shared content source for both the local Hugo
-site and downstream consumers such as `genestack-site`.
+Browse the documentation and contribute on GitHub

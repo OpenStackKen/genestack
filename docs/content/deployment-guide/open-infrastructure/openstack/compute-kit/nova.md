@@ -1,5 +1,5 @@
 ---
-title: "Deploy Nova"
+title: "Nova"
 weight: 40
 ---
 > [!IMPORTANT]

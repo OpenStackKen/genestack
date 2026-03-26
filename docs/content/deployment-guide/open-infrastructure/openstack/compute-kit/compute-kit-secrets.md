@@ -1,15 +1,15 @@
 ---
-title: "Creating the Compute Kit Secrets"
+title: "Core Service Secrets"
 weight: 20
 ---
-Part of running Nova is also running placement. Setup all credentials now so we can use them across the nova and placement services.
+
+Setup all credentials now so we can use them across the Nova and Placement services.
 
 > [!NOTE]
-> **Information about the secretes used**
 >
+> **Information about the secrets used**
 >
 > Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
->
 
 > [!IMPORTANT]
 > **Example secret generation**
