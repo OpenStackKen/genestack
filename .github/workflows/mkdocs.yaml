@@ -7,12 +7,16 @@ on:
     paths:
       - mkdocs.yml
       - "docs/**"
+      - "helm-chart-versions.yaml"
+      - "docs/scripts/generate_product_matrix.sh"
       - ".github/workflows/mkdocs.yml"
       - "releasenotes/notes/**"
   pull_request:
     paths:
       - mkdocs.yml
       - "docs/**"
+      - "helm-chart-versions.yaml"
+      - "docs/scripts/generate_product_matrix.sh"
       - ".github/workflows/mkdocs.yml"
       - "releasenotes/notes/**"
   workflow_dispatch:
@@ -38,7 +42,7 @@ jobs:
       - run: sudo wget https://github.com/jgm/pandoc/releases/download/3.6.3/pandoc-3.6.3-1-amd64.deb && sudo apt install -y ./pandoc-3.6.3-1-amd64.deb
       - run: reno report -o /tmp/reno.rst
       - run: pandoc /tmp/reno.rst -f rst -t markdown -o docs/release-notes.md
-      - run: python scripts/generate_product_matrix.py
+      - run: ./docs/scripts/generate_product_matrix.sh
       - run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@main
         with:

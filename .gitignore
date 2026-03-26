@@ -99,6 +99,7 @@ docs/.npm-cache/
 docs/.playwright-browsers/
 docs/.tmp-home/
 docs/node_modules/
+docs/content/overview/product-matrix.md
 
 # PyBuilder
 target/

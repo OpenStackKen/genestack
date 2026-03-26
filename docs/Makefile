@@ -14,9 +14,11 @@ HUGO ?= hugo
 NPM ?= npm
 NPX ?= npx
 BUILD_SENTINEL := public/build.txt
+PRODUCT_MATRIX_PAGE := content/overview/product-matrix.md
+PRODUCT_MATRIX_STUB := scripts/product-matrix.stub.md
 .DEFAULT_GOAL := build
 
-.PHONY: deps build clean lint mrproper serve setup
+.PHONY: deps build clean ensure-doc-stubs lint mrproper serve setup
 
 # Download everything required to build locally: Node-based asset tooling
 # and Hugo module dependencies.
@@ -24,9 +26,13 @@ deps:
 	$(NPM) install
 	$(HUGO) mod tidy
 
+# Restore tracked docs stubs when generated pages are absent.
+ensure-doc-stubs:
+	@test -f $(PRODUCT_MATRIX_PAGE) || cp $(PRODUCT_MATRIX_STUB) $(PRODUCT_MATRIX_PAGE)
+
 # Build the static site from the Hugo root in /docs, then atomically write a
 # simple post-build sentinel that can be polled at `/build.txt`.
-build: deps
+build: deps ensure-doc-stubs
 	$(HUGO)
 	@mkdir -p public
 	@tmp_file="$$(mktemp public/.build.txt.XXXXXX)"; \
@@ -36,9 +42,11 @@ build: deps
 	mv "$$tmp_file" $(BUILD_SENTINEL)
 
 # Hugo does not provide a standalone `clean` subcommand for site output.
-# This target removes only the files Hugo generates for a local build.
+# This target removes local build output and restores generated docs pages
+# back to their checked-in stub form.
 clean:
 	rm -rf public resources .hugo_build.lock
+	cp $(PRODUCT_MATRIX_STUB) $(PRODUCT_MATRIX_PAGE)
 
 # Convenience target for validating the shared Markdown sources in
 # /docs/content using the docs markdownlint configuration.
