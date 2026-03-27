@@ -1,0 +1,10 @@
+{{ $url := or (.Get "url") (.Page.Param (.Get "param")) }}
+{{ $variant := or (.Get "variant") "outline-primary" }}
+{{ $size := or (.Get "size") "lg" }}
+{{ $icon := .Get "icon" }}
+{{ $iconFamily := or (.Get "icon_family") "brands" }}
+{{ $newTab := eq (.Get "new_tab") "true" }}
+<a class="btn btn-{{ $size }} btn-{{ $variant }} me-3 mb-3{{ with .Get "class" }} {{ . }}{{ end }}" href="{{ $url }}"{{ if $newTab }} target="_blank" rel="noopener noreferrer"{{ end }}>
+  {{ .Get "text" }}
+  {{ with $icon }}<i class="fa-{{ $iconFamily }} fa-{{ . }} px-1"></i>{{ end }}
+</a>

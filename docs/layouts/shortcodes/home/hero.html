@@ -1,0 +1,40 @@
+{{ $heading := or (.Get "heading") .Page.Title }}
+{{ $eyebrow := .Get "eyebrow" }}
+{{ $lead := .Get "lead" }}
+{{ $primaryText := .Get "primary_text" }}
+{{ $primaryURL := .Get "primary_url" }}
+{{ $secondaryText := .Get "secondary_text" }}
+{{ $secondaryURL := .Get "secondary_url" }}
+{{ $panelTitle := or (.Get "panel_title") "Shared Content Source" }}
+<section class="gs-home-hero">
+  <div class="container gs-home-container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-8">
+        {{ with $eyebrow }}<div class="gs-home-eyebrow">{{ . }}</div>{{ end }}
+        <h1 class="gs-home-title">{{ $heading }}</h1>
+        {{ with $lead }}<p class="gs-home-lead">{{ . }}</p>{{ end }}
+        {{ if or $primaryText $secondaryText }}
+          <div class="gs-home-actions">
+            {{ with $primaryText }}
+              <a class="btn btn-lg btn-primary me-3 mb-3" href="{{ $primaryURL }}">{{ . }}</a>
+            {{ end }}
+            {{ with $secondaryText }}
+              <a class="btn btn-lg btn-outline-primary mb-3" href="{{ $secondaryURL }}">{{ . }}</a>
+            {{ end }}
+          </div>
+        {{ end }}
+      </div>
+      <div class="col-lg-4">
+        <div class="gs-home-panel">
+          <h2 class="gs-home-panel-title">{{ $panelTitle }}</h2>
+          {{ with .Page.Description }}<p class="gs-home-panel-text">{{ . }}</p>{{ end }}
+          <div class="gs-home-panel-body">
+            {{ with .InnerDeindent }}
+              {{ . | $.Page.RenderString }}
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

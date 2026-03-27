@@ -1,0 +1,13 @@
+<section class="gs-home-band">
+  <div class="container gs-home-container">
+    <div class="gs-home-band-header">
+      <h2 class="gs-home-band-title">{{ .Get "title" }}</h2>
+      {{ with .Get "description" }}<p class="gs-home-band-description">{{ . }}</p>{{ end }}
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4">
+      {{ with .InnerDeindent }}
+        {{ . | $.Page.RenderString }}
+      {{ end }}
+    </div>
+  </div>
+</section>

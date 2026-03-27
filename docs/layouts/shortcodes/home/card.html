@@ -1,0 +1,8 @@
+<div class="col">
+  <a class="gs-home-card" href="{{ .Get "url" }}">
+    <div class="gs-home-card-body">
+      <h3 class="gs-home-card-title">{{ .Get "title" }}</h3>
+      {{ with .Get "description" }}<p class="gs-home-card-description">{{ . }}</p>{{ end }}
+    </div>
+  </a>
+</div>
