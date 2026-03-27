@@ -36,6 +36,9 @@ github_repo = "https://github.com/OpenStackKen/genestack"
 github_branch = "docs-refactor"
 github_subdir = "docs"
 time_format_blog = "2006-01-02"
+btn-lg = 'class="btn btn-lg btn-{1}" role="button"'
+FA = '<i class="fa-{1} fa-{2} text-{3} px-1"></i>'
+logo = "assets/images/genestack-logo.png"
 
 [params.mermaid]
 version = "11.13.0"
