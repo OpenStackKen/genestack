@@ -157,6 +157,60 @@ Useful local targets:
 - `make mrproper`
   Removes local generated artifacts and caches from `/docs`.
 
+### Containerized Build Tooling
+
+This repo also supports a dedicated docs build container. It is separate from
+the local web-serving container and is intended to provide a reproducible build
+environment with:
+
+- Hugo
+- Go for Hugo modules
+- Node/npm for docs-local asset and lint tooling
+- Python for docs helper scripts
+- `reno`
+- `pandoc`
+
+The image installs Python packages from:
+
+- `/docs/docs-requirements.txt`
+- `/dev-requirements.txt`
+
+Useful container targets from `/docs`:
+
+- `make container`
+  Builds the docs tool image.
+- `make container-clean`
+  Removes the local docs tool image and its local build stamp.
+- `make container-deps`
+  Ensures the image exists, then runs `npm install` and `hugo mod tidy`
+  inside the container.
+- `make container-generate-release-notes`
+  Ensures the image exists, then runs the repo-root `reno` to `pandoc`
+  generation flow and writes the Hugo-ready page to
+  `/docs/content/overview/release-notes.md`.
+- `make container-lint`
+  Ensures the image exists, then runs markdownlint inside the container.
+- `make container-build`
+  Ensures the image exists, then builds the site inside the container and
+  writes `/docs/public/build.txt`.
+- `make container-run CMD='...'`
+  Ensures the image exists, then runs an arbitrary command inside the docs
+  build container.
+- `make container-shell`
+  Ensures the image exists, then opens an interactive shell inside the docs
+  build container.
+
+The container intentionally mounts the repo and uses cache directories under
+`/docs`, including:
+
+- `/docs/.cache`
+- `/docs/.npm-cache`
+- `/docs/.tmp-home`
+- `/docs/node_modules`
+
+These locations are gitignored so container runs do not leak generated tooling
+state into version control.
+
 The build target writes:
 
 - `/docs/public/build.txt`
