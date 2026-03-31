@@ -7,11 +7,24 @@
   max-width: 100%;
 }
 
+.td-home .td-main {
+  padding-top: 0;
+}
+
 // Keep standard page content visually clear of the navbar even if upstream
 // spacing or page markup changes reduce the default first-block offset.
-.td-page .td-main > :first-child,
-.td-section .td-main > :first-child,
-.td-taxonomy .td-main > :first-child,
-.td-term .td-main > :first-child {
+.td-page .td-main> :first-child,
+.td-section .td-main> :first-child,
+.td-taxonomy .td-main> :first-child,
+.td-term .td-main> :first-child {
   margin-top: 0;
+}
+
+// Match Docsy's readable-width treatment for top-level prose blocks so
+// hugo-admonitions panels do not visually overrun adjacent body content.
+.td-content>.admonition,
+.td-content>details.admonition {
+  @media (min-width: 768px) {
+    max-width: 80%;
+  }
 }
