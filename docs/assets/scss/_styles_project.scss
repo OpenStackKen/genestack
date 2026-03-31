@@ -6,8 +6,8 @@
 
 // Match Docsy's readable-width treatment for top-level prose blocks so
 // hugo-admonitions panels do not visually overrun adjacent body content.
-.td-content > .admonition,
-.td-content > details.admonition {
+.td-content>.admonition,
+.td-content>details.admonition {
   @media (min-width: 768px) {
     max-width: 80%;
   }
@@ -18,15 +18,13 @@
 // and a lightly tinted panel derived from that accent. Define new types via
 // this mixin so each type stays structurally aligned with the built-in
 // admonition system and can opt into explicit dark-mode colors when needed.
-@mixin gs-custom-admonition-type(
-  $name,
+@mixin gs-custom-admonition-type($name,
   $light-color,
   $light-header: $light-color,
   $dark-color: $light-color,
   $dark-header: $dark-color,
   $light-bg-opacity: 0.1,
-  $dark-bg-opacity: 0.1
-) {
+  $dark-bg-opacity: 0.1) {
   .admonition.#{$name} {
     --adm-type-color: #{$light-color};
     --adm-type-header: #{$light-header};
@@ -127,7 +125,7 @@
   color: #475569;
 }
 
-.gs-home-panel-body > :last-child {
+.gs-home-panel-body> :last-child {
   margin-bottom: 0;
 }
 
