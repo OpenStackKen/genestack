@@ -74,7 +74,7 @@ Build, Operate, and Extend Genestack
 >}}
 {{< home/button
   text="Rackspace OpenStack"
-  url="https://www.rackspace.com/solve/return-openstack"
+  url="https://www.rackspace.com/cloud/openstack#platforms"
   variant="primary"
   class="gs-home-button-rackspace"
   icon="cloud"
