@@ -7,7 +7,7 @@ description: "Reference, design, deployment, and operations documentation for Ge
   heading="Welcome to Genestack!"
   lead="Genestack combines Kubernetes, OpenStack, and supporting infrastructure into a single cloud operations and deployment workflow."
   panel_title="Contribute"
-  primary_text="Overview"
+  primary_text="Learn More"
   primary_url="/overview/"
   secondary_text="Deploy a Lab"
   secondary_url="/deployment-guide/hyperconverged-lab/"
@@ -15,7 +15,16 @@ description: "Reference, design, deployment, and operations documentation for Ge
 
 Build, Operate, and Extend Genestack
 
-{{< home/button text="Get the code" param="github_repo" variant="secondary" icon="github" new_tab="true" >}}
+{{< home/button
+  text="Get the Code"
+  param="github_repo"
+  variant="primary"
+  class="gs-home-button-github"
+  icon="github"
+  icon_family="brands"
+  icon_position="before"
+  new_tab="true"
+>}}
 {{< /home/hero >}}
 
 {{< home/section
@@ -50,7 +59,27 @@ Build, Operate, and Extend Genestack
 >}}
 {{< /home/section >}}
 
-{{< home/actions title="External Resources" >}}
-{{< home/button text="Discord" url="https://discord.gg/2mN5yZvV3a" >}}
-{{< home/button text="Rackspace OpenStack" url="https://www.rackspace.com/solve/return-openstack" >}}
+{{< home/actions 
+  title="External Resources"
+>}}
+{{< home/button
+  text="Discord"
+  url="https://discord.gg/2mN5yZvV3a"
+  variant="primary"
+  class="gs-home-button-discord"
+  icon="discord"
+  icon_family="brands"
+  icon_position="before"
+  new_tab="true"
+>}}
+{{< home/button
+  text="Rackspace OpenStack"
+  url="https://www.rackspace.com/solve/return-openstack"
+  variant="primary"
+  class="gs-home-button-rackspace"
+  icon="cloud"
+  icon_family="solid"
+  icon_position="before"
+  new_tab="true"
+>}}
 {{< /home/actions >}}

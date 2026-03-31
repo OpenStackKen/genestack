@@ -54,6 +54,25 @@
   }
 }
 
+.td-default main section {
+  padding: 2.5rem;
+}
+
+.td-home {
+  --bs-gutter-x: 0;
+  --bs-gutter-y: 0;
+
+  .row {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .gs-home-actions {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
 @include gs-custom-admonition-type("genestack", #9e0001);
 
 .gs-home-container {
@@ -130,17 +149,17 @@
 }
 
 .gs-home-band {
-  padding: 3.5rem 0;
+  padding: 1.5rem 0;
 }
 
 .gs-home-band--compact {
-  padding-top: 1rem;
-  padding-bottom: 4rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .gs-home-band-header {
   max-width: 48rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .gs-home-band-title {
@@ -192,6 +211,55 @@
   margin-bottom: 0;
   color: #475569;
   line-height: 1.6;
+}
+
+.gs-home-button-rackspace {
+  border-color: #eb0001;
+  background-color: #eb0001;
+  color: #fff;
+}
+
+.gs-home-button-rackspace:hover,
+.gs-home-button-rackspace:focus,
+.gs-home-button-rackspace:focus-visible,
+.gs-home-button-rackspace:active {
+  border-color: #c40001;
+  background-color: #c40001;
+  color: #fff;
+}
+
+.gs-home-button-discord {
+  border-color: #5865f2;
+  background-color: #5865f2;
+  color: #fff;
+}
+
+.gs-home-button-discord:hover,
+.gs-home-button-discord:focus,
+.gs-home-button-discord:focus-visible,
+.gs-home-button-discord:active {
+  border-color: #4752c4;
+  background-color: #4752c4;
+  color: #fff;
+}
+
+.gs-home-button-github {
+  border-color: #2b404d;
+  background-color: #2b404d;
+  color: #fff;
+}
+
+.gs-home-button-github:hover,
+.gs-home-button-github:focus,
+.gs-home-button-github:focus-visible,
+.gs-home-button-github:active {
+  border-color: #24292f;
+  background-color: #24292f;
+  /*    
+  border-color: #1b1f23;
+  background-color: #1b1f23;
+  */
+  color: #fff;
 }
 
 @media (max-width: 991.98px) {

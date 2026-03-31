@@ -3,8 +3,10 @@
 {{ $size := or (.Get "size") "lg" }}
 {{ $icon := .Get "icon" }}
 {{ $iconFamily := or (.Get "icon_family") "brands" }}
+{{ $iconPosition := or (.Get "icon_position") "after" }}
 {{ $newTab := eq (.Get "new_tab") "true" }}
 <a class="btn btn-{{ $size }} btn-{{ $variant }} me-3 mb-3{{ with .Get "class" }} {{ . }}{{ end }}" href="{{ $url }}"{{ if $newTab }} target="_blank" rel="noopener noreferrer"{{ end }}>
+  {{ if and $icon (eq $iconPosition "before") }}<i class="fa-{{ $iconFamily }} fa-{{ $icon }} pe-2"></i>{{ end }}
   {{ .Get "text" }}
-  {{ with $icon }}<i class="fa-{{ $iconFamily }} fa-{{ . }} px-1"></i>{{ end }}
+  {{ if and $icon (eq $iconPosition "after") }}<i class="fa-{{ $iconFamily }} fa-{{ $icon }} ps-2"></i>{{ end }}
 </a>
