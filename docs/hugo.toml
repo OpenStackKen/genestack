@@ -29,7 +29,7 @@ target = "assets"
 [markup.goldmark.renderer]
 unsafe = true
 [markup.highlight]
-style = "tango"
+style = "hrdark"
 
 [params]
 github_repo = "https://github.com/OpenStackKen/genestack"
