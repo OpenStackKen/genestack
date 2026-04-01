@@ -1,0 +1,15 @@
+// Project CSS custom property layer.
+//
+// This file is loaded after Bootstrap/Docsy compile, so it is the right place
+// for runtime tokens that the final project selectors consume directly. Use
+// this for heading typography values that need an explicit site-owned contract.
+:root {
+  --gs-heading-font-family:
+    "Open Sans",
+    "Arial Narrow",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  --gs-heading-font-weight: 300;
+  --gs-heading-font-weight-strong: 400;
+}

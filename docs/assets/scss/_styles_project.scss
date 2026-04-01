@@ -1,16 +1,52 @@
 @import "genestack";
 
-.td-home .td-main {
-  padding-top: 0;
+// Final typography application layer.
+//
+// Use `_variables_project.scss` for compile-time body typography defaults.
+// Use `_variables_project_after_bs.scss` for the heading CSS custom properties
+// below. Only change selector behavior here when a variable alone is not
+// sufficient to affect the rendered site.
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: var(--gs-heading-font-family);
+  font-weight: var(--gs-heading-font-weight);
 }
 
-// Match Docsy's readable-width treatment for top-level prose blocks so
-// hugo-admonitions panels do not visually overrun adjacent body content.
-.td-content>.admonition,
-.td-content>details.admonition {
-  @media (min-width: 768px) {
-    max-width: 80%;
-  }
+h1 strong,
+h2 strong,
+h3 strong,
+h4 strong,
+h5 strong,
+h6 strong,
+.h1 strong,
+.h2 strong,
+.h3 strong,
+.h4 strong,
+.h5 strong,
+.h6 strong,
+h1 b,
+h2 b,
+h3 b,
+h4 b,
+h5 b,
+h6 b,
+.h1 b,
+.h2 b,
+.h3 b,
+.h4 b,
+.h5 b,
+.h6 b {
+  font-weight: var(--gs-heading-font-weight-strong);
 }
 
 // Custom admonition types should follow the same visual contract as the
@@ -51,6 +87,34 @@
     --adm-type-header: #{$dark-header};
     border-left-color: #{$dark-color};
     background-color: rgba($dark-color, $dark-bg-opacity);
+  }
+}
+
+.td-sidebar-toc .td-page-meta {
+  a {
+    font-weight: 400;
+  }
+}
+
+.td-toc li {
+  a {
+    font-weight: 500;
+  }
+}
+
+.td-navbar {
+  font-weight: 400;
+
+  .navbar-brand__name,
+  .navbar-nav,
+  .nav-link {
+    font-weight: 400;
+  }
+}
+
+.td-sidebar-nav {
+  .td-sidebar-link__page {
+    font-weight: 500;
   }
 }
 
