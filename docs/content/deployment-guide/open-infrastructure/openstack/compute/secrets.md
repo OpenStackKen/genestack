@@ -1,6 +1,6 @@
 ---
-title: "Core Service Secrets"
-weight: 20
+title: "Compute Secrets"
+weight: 60
 ---
 
 Setup all credentials now so we can use them across the Nova and Placement services.
@@ -12,6 +12,7 @@ Setup all credentials now so we can use them across the Nova and Placement servi
 > Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 
 > [!IMPORTANT]
+>
 > **Example secret generation**
 >
 >

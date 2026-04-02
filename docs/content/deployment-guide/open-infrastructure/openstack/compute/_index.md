@@ -1,14 +1,14 @@
 ---
-title: "Core Services"
+title: "Compute Services"
 weight: 70
 type: docs
 simple_list: true
-description: "Nova, Placement, Neutron integration, and compute deployment components."
+description: "Deploying Nova, Placement, Neutron integration, and other compute components."
 cascade:
   - type: docs
 ---
 
-The core services in OpenStack encompass a "Compute Kit" providing the critical services that power the computational infrastructure of a cloud environment.
+These core services make up a "Compute Kit"  in OpenStack providing the critical services that power the computational infrastructure of a cloud environment.
 
 - **Nova** is the compute service that manages and orchestrates the lifecycle of virtual machines (VMs), handling tasks such as instance creation, scheduling, and termination.
 - **Neutron** provides the networking service, enabling flexible network connectivity and addressing within the cloud, including support for complex networking configurations like VLANs, VXLANs, and advanced routing.
@@ -17,14 +17,15 @@ The core services in OpenStack encompass a "Compute Kit" providing the critical 
 Together, Nova, Neutron, and Placement form the backbone of the OpenStack Compute Kit, enabling the efficient and scalable operation of cloud instances. In this document, we will explore how these services can be deployed using Genestack.
 
 > [!IMPORTANT]
+>
 > **External Ceph Storage Backend**
 >
-> If Nova will be deployed with an external Ceph storage backend, review the
+> If you plan to deploy an external Ceph storage backend, review the
 > [OpenStack Compute Ceph Store](/operational-guide/openstack-compute-ceph-store/) operator
-> documentation for additional steps and setup.
+> documentation for additional steps and setup for Nova.
 
-## Demo
+## Compute Deployment Demo
 
 [![asciicast](https://asciinema.org/a/629813.svg)](https://asciinema.org/a/629813)
 
-## Services
+## Compute Services
