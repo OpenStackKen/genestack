@@ -1,34 +1,30 @@
 ---
-title: "Deploy Manila"
+title: "Manila"
+description: "OpenStack shared file sytstems as a service."
 weight: 165
+
 ---
-> [!IMPORTANT]
+
+[Manila](https://docs.openstack.org/manila/latest/) is the Shared File Systems service for OpenStack. Manila provides coordinated access to shared or distributed file systems.
+
+## Share Provisioning
+
+The method in which the share is provisioned and consumed is determined by the Shared File Systems driver, or drivers in the case of a multi-backend configuration. A variety of available Shared File Systems drivers work with proprietary backend storage arrays and appliances, open source distributed file systems, as well as Linux NFS or Samba server.
+
+This section outlines the deployment of OpenStack Manila using Genestack.
+
+> [!WARNING]
 > **TECH PREVIEW**
 >
->
+> Manila is currently a Tech Preview and is not yet recommended for deployment in production clouds.
 
-Manila is the Shared File Systems service for OpenStack. Manila provides
-coordinated access to shared or distributed file systems.
+## Tech Preview Scope
 
-This document outlines the deployment of OpenStack Manila using Genestack.
+This tech preview will focus predominantly on the NetApp Clustered Data ONTAP driver with share server management enabled. The driver interfaces between OpenStack Manila to NetApp Clustered Data ONTAP storage controllers to create new storage virtual machines (SVMs) for each tenant share server that is requested by the Manila service. The driver also creates new data logical interfaces (LIFs) that provide access for OpenStack tenants on a specific share network to their shared file systems exported from the share server.
 
-The method in which the share is provisioned and consumed is determined
-by the Shared File Systems driver, or drivers in the case of a multi-backend
-configuration. A variety of available Shared File Systems drivers work with
-proprietary backend storage arrays and appliances, open source distributed
-file systems, as well as Linux NFS or Samba server.
+Reference the full online [OpenStack Manila documentation](https://docs.openstack.org/manila/latest/) for more information.
 
-This tech preview will focus predominantly on the NetApp Clustered
-Data ONTAP driver with share server management enabled. The driver interfaces
-between OpenStack Manila to NetApp Clustered Data ONTAP storage controllers to
-create new storage virtual machines (SVMs) for each tenant share server that is
-requested by the Manila service. The driver also creates new data logical interfaces
-(LIFs) that provide access for OpenStack tenants on a specific share network to
-their shared file systems exported from the share server.
-
-Reference the full online [OpenStack Manila documentation](https://docs.openstack.org/manila/latest/) 
-
-## Create secrets
+## Create Secrets
 
 > [!NOTE]
 > **Information about the secrets used**

@@ -1,9 +1,11 @@
 ---
-title: "Designate Prometheus and Alerting Rules"
+title: "Metrics"
+description: "Designate Prometheus and Alerting Rules"
 weight: 40
 ---
-Add additional alerting rules in /etc/genestack/helm-configs/kube-prometheus-stack/rules/designate_prometheus_rules.yaml
- 
+
+Add additional alerting rules in `/etc/genestack/helm-configs/kube-prometheus-stack/rules/designate_prometheus_rules.yaml`
+
 
 ## Add extra rules for prometheus to scrape metrics
 

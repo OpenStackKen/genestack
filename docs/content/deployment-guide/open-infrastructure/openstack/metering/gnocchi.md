@@ -1,12 +1,10 @@
 ---
-title: "Deploy Gnocchi"
+title: "Gnocchi"
+description: "An open-source time series database used for OpenStack metrics."
 weight: 20
 ---
-Gnocchi is used by [Ceilometer](/deployment-guide/open-infrastructure/openstack/metering/ceilometer/)
-to aggregate and index metric data from various OpenStack services. It
-consists of several components: a HTTP REST API, an optional
-statsd-compatible daemon, and an asynchronous processing daemon (named
-gnocchi-metricd).
+
+[Gnocchi](https://gnocchi.osci.io) is used by [Ceilometer](/deployment-guide/open-infrastructure/openstack/metering/ceilometer/) to aggregate and index metric data from various OpenStack services. It consists of several components: a HTTP REST API, an optional statsd-compatible daemon, and an asynchronous processing daemon (named gnocchi-metricd).
 
 [![Gnocchi Architecture](/assets/images/gnocchi-architecture.svg)](/deployment-guide/open-infrastructure/openstack/metering/gnocchi/)
 

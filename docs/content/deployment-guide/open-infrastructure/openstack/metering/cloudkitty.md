@@ -1,10 +1,11 @@
 ---
-title: "Deploy Cloudkitty"
+title: "Cloudkitty"
+description: "OpenStack Rating and Charge-Back Service"
 weight: 40
 ---
-OpenStack Cloudkitty is the rating and chargeback service for OpenStack 
-helps operators measure, rate, and bill tenants (projects) for the resources 
-they consume in an OpenStack cloud. 
+
+[CloudKitty](https://docs.openstack.org/cloudkitty/latest/) is the rating and charge-back service for OpenStack  helps operators measure, rate, and bill tenants (projects) for the resources they consume in an OpenStack cloud. 
+
 This document outlines the deployment of OpenStack Cloudkitty using Genestack.
 
 ## Create secrets

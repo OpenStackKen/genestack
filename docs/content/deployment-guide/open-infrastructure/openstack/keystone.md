@@ -1,8 +1,12 @@
 ---
 title: "Keystone"
+description: "Identity management for OpenStack."
 weight: 20
 ---
-OpenStack Keystone is the identity service within the OpenStack ecosystem, serving as the central authentication and authorization hub for all OpenStack services. Keystone manages user accounts, roles, and permissions, enabling secure access control across the cloud environment. It provides token-based authentication and supports multiple authentication methods, including username/password, LDAP, and federated identity. Keystone also offers a catalog of services, allowing users and services to discover and communicate with other OpenStack components. In this document, we will discuss the deployment of OpenStack Keystone using Genestack. Genestack simplifies the deployment and scaling of Keystone, ensuring robust authentication and authorization across the OpenStack architecture, and enhancing the overall security and manageability of cloud resources.
+
+[Keystone](https://docs.openstack.org/keystone/latest/) is the identity service within the OpenStack ecosystem, serving as the central authentication and authorization hub for all OpenStack services. Keystone manages user accounts, roles, and permissions, enabling secure access control across the cloud environment. It provides token-based authentication and supports multiple authentication methods, including username/password, LDAP, and federated identity. Keystone also offers a catalog of services, allowing users and services to discover and communicate with other OpenStack components. 
+
+This section of the document will discuss the deployment of OpenStack Keystone using Genestack. Genestack simplifies the deployment and scaling of Keystone, ensuring robust authentication and authorization across the OpenStack architecture, and enhancing the overall security and manageability of cloud resources.
 
 ## Create secrets
 

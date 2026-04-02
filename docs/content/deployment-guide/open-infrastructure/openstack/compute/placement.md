@@ -1,7 +1,11 @@
 ---
 title: "Placement"
+description: "VM scheduling and placement in OpenStack"
 weight: 30
 ---
+
+[Placement](https://docs.openstack.org/placement/latest/) is the resource inventory and allocation service within the OpenStack ecosystem, tracking available compute-related resources and helping schedulers make accurate placement decisions. This document covers the deployment of OpenStack Placement using Genestack.
+
 > [!IMPORTANT]
 > **Run the Placement deployment Script `/opt/genestack/bin/install-placement.sh`**
 >

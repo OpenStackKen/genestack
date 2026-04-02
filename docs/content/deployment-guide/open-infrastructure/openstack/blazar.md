@@ -1,17 +1,17 @@
 ---
 title: "Blazar"
+description: "Resource reservations in OpenStack."
 weight: 120
 ---
-OpenStack Blazar is the resource reservation service in OpenStack. It enables
-tenants and operators to reserve resources (such as compute hosts) for a
-timeframe, supporting capacity planning and guaranteed availability use cases.
-This document outlines the deployment of OpenStack Blazar using Genestack.
+
+[Blazar](https://docs.openstack.org/blazar/latest/) is the resource reservation service in OpenStack. It enables tenants and operators to reserve resources (such as compute hosts) for a timeframe, supporting capacity planning and guaranteed availability use cases. 
+
+This document section outlines the deployment of OpenStack Blazar using Genestack.
 
 ## Create secrets
 
 > [!NOTE]
 > **Information about the secrets used**
->
 >
 > Manual secret generation is only required if you haven't run the
 > `create-secrets.sh` script located in `/opt/genestack/bin`.

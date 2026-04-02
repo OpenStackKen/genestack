@@ -1,8 +1,10 @@
 ---
-title: "Placeholder"
+title: "Neutron Integration"
+description: "Integrating Designate with Neutron networking."
 weight: 30
 ---
-## Add neutron overrides 
+
+## Add Neutron Overrides 
 
 Add the following to file in /etc/genestack/helm-configs/neutron/neutron-helm-designate-overrides.yaml
 

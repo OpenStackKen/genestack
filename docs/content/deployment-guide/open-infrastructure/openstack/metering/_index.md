@@ -3,8 +3,9 @@ title: "Metering"
 weight: 110
 type: docs
 simple_list: true
-description: "Telemetry, rating, and metrics aggregation services for OpenStack."
+description: "Deploying Ceilometer, Gnocci, and CloudKitty for OpenStack."
 cascade:
   - type: docs
 ---
-Telemetry, rating, and metrics aggregation services for OpenStack.
+
+This section covers deploying the OpenStack telemetry, rating, and metrics aggregation services for OpenStack.

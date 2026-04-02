@@ -1,7 +1,11 @@
 ---
 title: "Nova"
+description: "Virtualization Infrastructure as a Service (IaaS) in OpenStack"
 weight: 40
 ---
+
+[Nova](https://docs.openstack.org/nova/latest/) is the compute service within the OpenStack ecosystem, responsible for provisioning, scheduling, and managing virtual machine instances. This document covers the deployment of OpenStack Nova using Genestack.
+
 > [!IMPORTANT]
 > **Run the Nova deployment Script `/opt/genestack/bin/install-nova.sh`**
 >

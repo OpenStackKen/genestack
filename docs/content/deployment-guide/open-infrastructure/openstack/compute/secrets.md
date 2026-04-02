@@ -1,5 +1,6 @@
 ---
 title: "Compute Secrets"
+description: "Credentials so OpenStack compute components can communicate securely."
 weight: 60
 ---
 

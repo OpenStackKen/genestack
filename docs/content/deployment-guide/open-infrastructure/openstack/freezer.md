@@ -1,15 +1,13 @@
 ---
-title: "Deploy Freezer"
+title: "Freezer"
+description: "OpenStack distributed backup and restore as a service."
 weight: 140
 ---
-Freezer is a disaster recovery and backup-as-a-service component for OpenStack.
-It provides a way to back up various resources, such as virtual machine instances,
-databases, and file systems.
 
-It allows users to schedule backups, restore data, and manage the lifecycle of their
+[Freezer](https://docs.openstack.org/freezer/latest/) is a disaster recovery and backup-as-a-service component for OpenStack. It provides a way to back up various resources, such as virtual machine instances, databases, and file systems. Freezer allows users to schedule backups, restore data, and manage the lifecycle of their
 backups to ensure data protection and business continuity within an OpenStack cloud.
 
-This document outlines the deployment of OpenStack Freezer using Genestack.
+This section outlines the deployment of OpenStack Freezer using Genestack.
 
 ## Create secrets
 
