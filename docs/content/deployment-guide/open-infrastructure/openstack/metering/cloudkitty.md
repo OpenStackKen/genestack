@@ -1,5 +1,5 @@
 ---
-title: "Cloudkitty"
+title: "CloudKitty"
 description: "OpenStack Rating and Charge-Back Service"
 weight: 40
 ---
