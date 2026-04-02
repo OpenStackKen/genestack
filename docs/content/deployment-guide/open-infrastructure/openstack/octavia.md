@@ -1,15 +1,9 @@
 ---
-title: "Deploy Octavia"
+title: "Octavia"
 weight: 90
 ---
-OpenStack Octavia is the load balancing service within the OpenStack ecosystem, providing scalable and automated load
-balancing for cloud applications. Octavia is designed to ensure high availability and reliability by distributing
-incoming network traffic across multiple instances of an application, preventing any single instance from becoming a
-bottleneck or point of failure. It supports various load balancing algorithms, health monitoring, and SSL termination,
-making it a versatile tool for managing traffic within cloud environments. In this document, we will explore the
-deployment of OpenStack Octavia using Genestack. By leveraging Genestack, the deployment of Octavia is streamlined,
-ensuring that load balancing is seamlessly incorporated into both private and public cloud environments, enhancing
-the performance and resilience of cloud applications.
+
+OpenStack [Octavia](https://docs.openstack.org/octavia) is the load balancing service (LBaaS) within the OpenStack ecosystem, providing scalable and automated load balancing for cloud applications. Octavia is designed to ensure high availability and reliability by distributing incoming network traffic across multiple instances of an application, preventing any single instance from becoming a bottleneck or point of failure. It supports various load balancing algorithms, health monitoring, and SSL termination, making it a versatile tool for managing traffic within cloud environments. In this document, we will explore the deployment of OpenStack Octavia using Genestack. By leveraging Genestack, the deployment of Octavia is streamlined, ensuring that load balancing is seamlessly incorporated into both private and public cloud environments, enhancing the performance and resilience of cloud applications.
 
 ## Create secrets
 

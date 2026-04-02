@@ -1,5 +1,5 @@
 ---
-title: "Deploy Blazar"
+title: "Blazar"
 weight: 120
 ---
 OpenStack Blazar is the resource reservation service in OpenStack. It enables
