@@ -1,5 +1,5 @@
 ---
-title: "Exporter"
+title: "Metrics"
 description: "Monitoring and observation of Barbican metrics."
 weight: 2
 ---
