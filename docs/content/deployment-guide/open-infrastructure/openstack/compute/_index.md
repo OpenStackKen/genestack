@@ -1,9 +1,9 @@
 ---
-title: "Compute Services"
+title: "Compute"
 weight: 70
 type: docs
 simple_list: true
-description: "Deploying Nova, Placement, Neutron integration, and other compute components."
+description: "Deploying the Nova, Placement, and Neutron integration OpenStack compute components."
 cascade:
   - type: docs
 ---
