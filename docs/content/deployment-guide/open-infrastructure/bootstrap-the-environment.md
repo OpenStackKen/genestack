@@ -11,7 +11,6 @@ install Kubernetes and OpenStack Helm:
 
 > [!TIP]
 >
->
 > If running this command with `sudo`, be sure to run with `-E`.
 > `sudo -E /opt/genestack/bootstrap.sh`. This will ensure your active
 > environment is passed into the bootstrap command.
