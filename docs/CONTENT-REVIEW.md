@@ -17,7 +17,7 @@ artifact. The goal is to track the content areas where:
 
 - Branch: `docs-refactor`
 - `origin/main`: `502afb1`
-- Current branch tip: `b3d2e75`
+- Current branch tip: `105c3fd`
 
 ## How to update this file after a rebase
 
@@ -85,11 +85,17 @@ Representative path mappings from `main`:
 - [docs/security-introduction.md](/Users/ken/Dev/genestack/docs/security-introduction.md)
   -> [docs/content/design-guide/security/_index.md](/Users/ken/Dev/genestack/docs/content/design-guide/security/_index.md)
 - [docs/security-lifecycle.md](/Users/ken/Dev/genestack/docs/security-lifecycle.md)
-  -> [docs/content/design-guide/security/security-lifecycle.md](/Users/ken/Dev/genestack/docs/content/design-guide/security/security-lifecycle.md)
+  -> [docs/content/design-guide/security/lifecycle.md](/Users/ken/Dev/genestack/docs/content/design-guide/security/lifecycle.md)
 - [docs/security-stages.md](/Users/ken/Dev/genestack/docs/security-stages.md)
-  -> [docs/content/design-guide/security/security-stages.md](/Users/ken/Dev/genestack/docs/content/design-guide/security/security-stages.md)
+  -> [docs/content/design-guide/security/stages.md](/Users/ken/Dev/genestack/docs/content/design-guide/security/stages.md)
 - [docs/security-summary.md](/Users/ken/Dev/genestack/docs/security-summary.md)
-  -> [docs/content/design-guide/security/security-summary.md](/Users/ken/Dev/genestack/docs/content/design-guide/security/security-summary.md)
+  -> summary content folded into [docs/content/design-guide/security/_index.md](/Users/ken/Dev/genestack/docs/content/design-guide/security/_index.md)
+
+Security review note:
+- the branch no longer treats Security as a flat page set
+- `security-summary.md` no longer exists as its own page
+- standards now live under a dedicated subsection and should be reviewed as a
+  grouped subtree rather than as one flat article
 
 ## Deployment Guide
 

@@ -44,6 +44,8 @@ Filesystem structure:
 - `/docs/content/design-guide/_index.md`
 - `/docs/content/design-guide/cloud-design/_index.md`
 - `/docs/content/design-guide/design-notes/_index.md`
+- `/docs/content/design-guide/security/_index.md`
+- `/docs/content/design-guide/security/standards/_index.md`
 
 Target order:
 
@@ -70,6 +72,21 @@ Within `accelerated-computing`, the order should be:
 
 - `Overview`
 - `Infrastructure`
+
+Within `security`, the order should be:
+
+- `Layered Security`
+- `Securing Private Cloud Infrastructure`
+- `Security Standards`
+
+Within `security/standards`, the order should be:
+
+- `NIST SP 800-53`
+- `PCI DSS`
+- `CIS Controls`
+- `FedRAMP`
+- `GDPR`
+- `ISO 27001`
 
 ## Cloud Onboarding
 
