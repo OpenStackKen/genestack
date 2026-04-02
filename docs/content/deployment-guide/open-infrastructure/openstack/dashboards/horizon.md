@@ -1,13 +1,18 @@
 ---
-title: "Deploy Horizon"
-weight: 10
+title: "Horizon"
+weight: 20
 ---
-OpenStack Horizon is the web-based dashboard for the OpenStack ecosystem, providing users with a graphical interface to manage and interact with OpenStack services. Horizon simplifies the management of cloud resources by offering an intuitive and user-friendly platform where users can launch instances, manage storage, configure networks, and monitor the overall health of their cloud environment. It serves as the central point of interaction for administrators and users alike, providing visibility and control over the entire cloud infrastructure. In this document, we will detail the deployment of OpenStack Horizon using Genestack. By leveraging Genestack, the deployment of Horizon is made more efficient, ensuring that users have seamless access to a robust and responsive interface for managing their private and public cloud environments.
 
-## Create secrets
+OpenStack [Horizon](https://docs.openstack.org/horizon) is the web-based dashboard for the OpenStack ecosystem, providing users with a graphical interface to manage and interact with OpenStack services. Horizon simplifies the management of cloud resources by offering an intuitive and user-friendly platform where users can launch instances, manage storage, configure networks, and monitor the overall health of their cloud environment. It serves as the central point of interaction for administrators and users alike, providing visibility and control over the entire cloud infrastructure. In this document, we will detail the deployment of OpenStack Horizon using Genestack. By leveraging Genestack, the deployment of Horizon is made more efficient, ensuring that users have seamless access to a robust and responsive interface for managing their private and public cloud environments.
+
+> [!GENESTACK]
+>
+> [Skyline](../skyline) is the default dashboard used in Genestack.  If you want to use the Skyline console instead, see that section of the docs.
+
+## Create Secrets
 
 > [!NOTE]
-> **Information about the secretes used**
+> **Information about the secrets used**
 >
 >
 > Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
@@ -203,11 +208,9 @@ OpenStack Horizon is the web-based dashboard for the OpenStack ecosystem, provid
 
 > [!TIP]
 >
->
 > You may need to provide custom values to configure your openstack services, for a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
 > In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operational-guide/multi-region-support/) guide to for a workflow solution.
->
 
-## Demo
+## Horizon Deployment Demo
 
 [![asciicast](https://asciinema.org/a/629815.svg)](https://asciinema.org/a/629815)
