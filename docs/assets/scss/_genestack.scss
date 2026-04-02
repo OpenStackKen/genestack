@@ -11,6 +11,25 @@
   padding-top: 0;
 }
 
+.td-content {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6 {
+    font-family: var(--gs-heading-font-family);
+    font-weight: var(--gs-heading-font-weight);
+  }
+}
+
 // Keep standard page content visually clear of the navbar even if upstream
 // spacing or page markup changes reduce the default first-block offset.
 .td-page .td-main> :first-child,
