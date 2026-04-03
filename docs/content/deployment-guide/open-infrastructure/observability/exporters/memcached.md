@@ -1,22 +1,30 @@
 ---
-title: "Prometheus SNMP Exporter"
-weight: 140
+title: "Memcached Exporter"
+weight: 60
 ---
-You will not generally need the Prometheus SNMP Exporter unless you have
-specific SNMP monitoring needs and take additional steps to configure the
-Prometheus SNMP Exporter. The default Genestack configuration doesn't make
-immediate use of it without site-specific customization, such as writing an
-applicable snmp.conf
 
-Use the Prometheus SNMP exporter for getting metrics from monitoring with SNMP
-into Prometheus.
+The Memcached Exporter is used to expose metrics from a running Memcached deployment. The memcached exporter is an integrated part of the memcached deployment in Genestack and will need to be enabled.
 
-## Installation
+> [!NOTE]
+>
+> To deploy metric exporters you first need to deploy the [Prometheus Operator](/deployment-guide/open-infrastructure/observability/prometheus/).
 
-Install the SNMP Exporter
+## Deploy the Memcached Cluster With Monitoring Enabled
+
+Edit the Helm overrides file for memcached at `/etc/genestack/helm-configs/memcached/memcached-helm-overrides.yaml` and add the following values
+to enable the memcached exporter:
+
+``` yaml
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+```
+
+Once the changes have been made, apply the changes to the memcached deployment with the `/opt/genestack/bin/install-memcached.sh` script
 
 > [!IMPORTANT]
-> **`/opt/genestack/bin/install-prometheus-snmp-exporter.sh`**
+> **`/opt/genestack/bin/install-memcached.sh`**
 >
 >
 > ``` shell
@@ -28,12 +36,12 @@ Install the SNMP Exporter
 > # shellcheck disable=SC2124,SC2145,SC2294
 > 
 > # Service
-> SERVICE_NAME_DEFAULT="prometheus-snmp-exporter"
-> SERVICE_NAMESPACE="prometheus"
+> SERVICE_NAME_DEFAULT="memcached"
+> SERVICE_NAMESPACE="openstack"
 > 
 > # Helm
-> HELM_REPO_NAME_DEFAULT="prometheus-community"
-> HELM_REPO_URL_DEFAULT="https://prometheus-community.github.io/helm-charts"
+> HELM_REPO_NAME_DEFAULT="bitnami"
+> HELM_REPO_URL_DEFAULT="https://charts.bitnami.com/bitnami"
 > 
 > # Base directories provided by the environment
 > GENESTACK_BASE_DIR="${GENESTACK_BASE_DIR:-/opt/genestack}"
@@ -43,8 +51,10 @@ Install the SNMP Exporter
 > SERVICE_BASE_OVERRIDES="${GENESTACK_BASE_DIR}/base-helm-configs/${SERVICE_NAME_DEFAULT}"
 > SERVICE_CUSTOM_OVERRIDES="${GENESTACK_OVERRIDES_DIR}/helm-configs/${SERVICE_NAME_DEFAULT}"
 > 
+> # Define the Global Overrides directory used in the original script
+> GLOBAL_OVERRIDES_DIR="${GENESTACK_OVERRIDES_DIR}/helm-configs/global_overrides"
+> 
 > # Read the desired chart version from VERSION_FILE
-> # NOTE: Ensure this file exists and contains an entry for SERVICE_NAME_DEFAULT.
 > VERSION_FILE="${GENESTACK_OVERRIDES_DIR}/helm-chart-versions.yaml"
 > 
 > if [ ! -f "$VERSION_FILE" ]; then
@@ -101,30 +111,30 @@ Install the SNMP Exporter
 > # Include all YAML files from the BASE configuration directory
 > # NOTE: Files in this directory are included first.
 > if [[ -d "$SERVICE_BASE_OVERRIDES" ]]; then
->   echo "Including base overrides from directory: $SERVICE_BASE_OVERRIDES"
->   for file in "$SERVICE_BASE_OVERRIDES"/*.yaml; do
->     # Check that there is at least one match
->     if [[ -e "$file" ]]; then
->       echo " - $file"
->       overrides_args+=("-f" "$file")
->     fi
->   done
+>     echo "Including base overrides from directory: $SERVICE_BASE_OVERRIDES"
+>     for file in "$SERVICE_BASE_OVERRIDES"/*.yaml; do
+>         # Check that there is at least one match
+>         if [[ -e "$file" ]]; then
+>             echo " - $file"
+>             overrides_args+=("-f" "$file")
+>         fi
+>     done
 > else
->   echo "Warning: Base override directory not found: $SERVICE_BASE_OVERRIDES"
+>     echo "Warning: Base override directory not found: $SERVICE_BASE_OVERRIDES"
 > fi
 > 
 > # Include all YAML files from the custom SERVICE configuration directory
 > # NOTE: Files here have the highest precedence.
 > if [[ -d "$SERVICE_CUSTOM_OVERRIDES" ]]; then
->     echo "Including overrides from service config directory:"
->   for file in "$SERVICE_CUSTOM_OVERRIDES"/*.yaml; do
->     if [[ -e "$file" ]]; then
->       echo " - $file"
->       overrides_args+=("-f" "$file")
->     fi
->   done
+>     echo "Including overrides from service config directory: $SERVICE_CUSTOM_OVERRIDES"
+>     for file in "$SERVICE_CUSTOM_OVERRIDES"/*.yaml; do
+>         if [[ -e "$file" ]]; then
+>             echo " - $file"
+>             overrides_args+=("-f" "$file")
+>         fi
+>     done
 > else
->     echo "Warning: Service config directory not found: $SERVICE_CUSTOM_OVERRIDES"
+>     echo "Warning: Service overrides directory not found: $SERVICE_CUSTOM_OVERRIDES"
 > fi
 > 
 > echo
@@ -144,6 +154,8 @@ Install the SNMP Exporter
 >     "${set_args[@]}"
 > 
 >     # Post-renderer configuration
+>     # NOTE: Metallb doesn't typically require a post-renderer, but we keep it
+>     # for template compliance.
 >     --post-renderer "$GENESTACK_OVERRIDES_DIR/kustomize/kustomize.sh"
 >     --post-renderer-args "$SERVICE_NAME_DEFAULT/overlay"
 > 
@@ -157,7 +169,3 @@ Install the SNMP Exporter
 > # Execute the command directly from the array
 > "${helm_command[@]}"
 > ```
-> ```
->
-
-If the installation is successful, you should see the prometheus-snmp-exporter pod running in the prometheus namespace.

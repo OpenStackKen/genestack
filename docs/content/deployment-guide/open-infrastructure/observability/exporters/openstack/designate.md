@@ -1,15 +1,13 @@
 ---
-title: "Metrics"
-description: "Designate Prometheus and Alerting Rules"
-weight: 40
+title: "Designate Exporter"
+weight: 140
 ---
 
-Add additional alerting rules in `/etc/genestack/helm-configs/kube-prometheus-stack/rules/designate_prometheus_rules.yaml`
+The Designate Exporter allows monitoring of the OpenStack DNS as a Service (DNSaaS) by exposing metrics to Prometheus by adding additional alerting rules in `/etc/genestack/helm-configs/kube-prometheus-stack/rules/designate_prometheus_rules.yaml`.
 
+## Enable Designate Prometheus and alerting rules
 
-## Add extra rules for prometheus to scrape metrics
-
-```bash
+```yaml
 additionalPrometheusRulesMap:
   openstack-resource-alerts:
     groups:

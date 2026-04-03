@@ -1,48 +1,20 @@
 ---
-title: "Mariadb Exporter"
-weight: 90
+title: "Pushgateway Exporter"
+weight: 110
 ---
-Mysql Exporter is used to expose metrics from a running mysql/mariadb server. The type of metrics exposed is controlled
-by the exporter and expressed in values.yaml file.
 
-To deploy metric exporters you first need to deploy the Prometheus Operator. See
-[Deploy Prometheus](/deployment-guide/open-infrastructure/observability/prometheus/).
+Prometheus can use a [pushgateway](https://prometheus.io/docs/practices/pushing/) to gather metrics from short-lived jobs. The pushgateway stays up to allow Promethus to gather the metrics. The short-lived job can then push metrics to the gateway and terminate.
+
+> [!GENESTACK]
+>
+> Genestack uses pushgateway to collect metrics from the OVN backup `CronJob`.
 
 ## Installation
 
-> [!NOTE]
-> **Information about the secretes used**
->
->
-> Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
->
+Install the PushGateway Exporter
 
 > [!IMPORTANT]
-> **Example secret generation**
->
->
-> ``` shell
-> kubectl --namespace openstack \
->         create secret generic mariadb-monitoring \
->         --type Opaque \
->         --from-literal=username="monitoring" \
->         --from-literal=password="$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-64};echo;)"
-> ```
->
->
-
-Add the config to a secret that'll be used within the container for our shared services
-
-``` shell
-kubectl -n openstack create secret generic mariadb-monitor --type Opaque --from-literal=my.cnf="[client.mariadb-monitor]
-user=monitoring
-password=$(kubectl --namespace openstack get secret mariadb-monitoring -o jsonpath='{.data.password}' | base64 -d)"
-```
-
-Next, install the exporter
-
-> [!IMPORTANT]
-> **`/opt/genestack/bin/install-prometheus-mysql-exporter.sh`**
+> **`/opt/genestack/bin/install-prometheus-pushgateway.sh`**
 >
 >
 > ``` shell
@@ -54,8 +26,8 @@ Next, install the exporter
 > # shellcheck disable=SC2124,SC2145,SC2294
 > 
 > # Service
-> SERVICE_NAME_DEFAULT="prometheus-mysql-exporter"
-> SERVICE_NAMESPACE="openstack"
+> SERVICE_NAME_DEFAULT="prometheus-pushgateway"
+> SERVICE_NAMESPACE="prometheus"
 > 
 > # Helm
 > HELM_REPO_NAME_DEFAULT="prometheus-community"
@@ -127,28 +99,28 @@ Next, install the exporter
 > # Include all YAML files from the BASE configuration directory
 > # NOTE: Files in this directory are included first.
 > if [[ -d "$SERVICE_BASE_OVERRIDES" ]]; then
->     echo "Including base overrides from directory: $SERVICE_BASE_OVERRIDES"
->     for file in "$SERVICE_BASE_OVERRIDES"/*.yaml; do
->         # Check that there is at least one match
->         if [[ -e "$file" ]]; then
->             echo " - $file"
->             overrides_args+=("-f" "$file")
->         fi
->     done
+>   echo "Including base overrides from directory: $SERVICE_BASE_OVERRIDES"
+>   for file in "$SERVICE_BASE_OVERRIDES"/*.yaml; do
+>     # Check that there is at least one match
+>     if [[ -e "$file" ]]; then
+>       echo " - $file"
+>       overrides_args+=("-f" "$file")
+>     fi
+>   done
 > else
->     echo "Warning: Base override directory not found: $SERVICE_BASE_OVERRIDES"
+>   echo "Warning: Base override directory not found: $SERVICE_BASE_OVERRIDES"
 > fi
 > 
 > # Include all YAML files from the custom SERVICE configuration directory
 > # NOTE: Files here have the highest precedence.
 > if [[ -d "$SERVICE_CUSTOM_OVERRIDES" ]]; then
 >     echo "Including overrides from service config directory:"
->     for file in "$SERVICE_CUSTOM_OVERRIDES"/*.yaml; do
->         if [[ -e "$file" ]]; then
->             echo " - $file"
->             overrides_args+=("-f" "$file")
->         fi
->     done
+>   for file in "$SERVICE_CUSTOM_OVERRIDES"/*.yaml; do
+>     if [[ -e "$file" ]]; then
+>       echo " - $file"
+>       overrides_args+=("-f" "$file")
+>     fi
+>   done
 > else
 >     echo "Warning: Service config directory not found: $SERVICE_CUSTOM_OVERRIDES"
 > fi
@@ -156,7 +128,6 @@ Next, install the exporter
 > echo
 > 
 > # Collect all --set arguments, executing commands and quoting safely
-> 
 > set_args=()
 > 
 > 
@@ -187,10 +158,6 @@ Next, install the exporter
 > ```
 >
 
-> [!NOTE]
+> [!SUCCESS]
 >
->
-> Helm chart versions are defined in `opt/genestack/helm-chart-versions.yaml` and can be overridden in `/etc/genestack/helm-chart-versions.yaml`.
->
-
-If the installation is successful, you should see the exporter pod in the openstack namespace.
+> If the installation is successful, you should see the prometheus-pushgateway pod running in the prometheus namespace.

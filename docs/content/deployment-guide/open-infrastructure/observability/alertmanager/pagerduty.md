@@ -1,8 +1,12 @@
 ---
-title: "Microsoft Teams Alerts"
-weight: 170
+title: "PagerDuty"
+description: "Alertmanager support for PagerDuty."
+weight: 30
 ---
-The following example describes configuration options to send alerts via alertmanager to Microsoft Teams.
+
+> [!EXAMPLE]
+>
+> The following example describes configuration options to send alerts via alertmanager to PagerDuty.
 
 ``` yaml
 alertmanager:
@@ -14,6 +18,7 @@ alertmanager:
   config:
     global:
       resolve_timeout: 5m
+      pagerduty_url: 'https://events.pagerduty.com/v2/enqueue'
     inhibit_rules:
       - source_matchers:
           - 'severity = critical'
@@ -42,15 +47,15 @@ alertmanager:
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
-      receiver: msteams_config
+      receiver: 'pagerduty-notifications'
       routes:
         - receiver: 'null'
           matchers:
             - alertname = "Watchdog"
     receivers:
       - name: 'null'
-      - name: 'msteams_config'
-        msteams_configs:
-        - send_resolved: true
-          webhook_url: https://msteams.webhook_url.example
+      - name: 'pagerduty-notifications'
+        pagerduty_configs:
+        - service_key: 0c1cc665a594419b6d215e81f4e38f7
+          send_resolved: true
 ```

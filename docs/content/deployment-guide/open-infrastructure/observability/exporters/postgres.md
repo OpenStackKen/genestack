@@ -1,14 +1,20 @@
 ---
-title: "Prometheus Blackbox Exporter"
-weight: 120
+title: "PostgresSQL Exporter"
+weight: 80
 ---
-Using the blackbox exporter we can gather metrics around uptime, latency, cert expiry and more for our public endpoints.
-The blackbox exporter ideally would be ran outside the cluster but can still provide useful information when deployed within it when combined with alerting and visualizations.
+
+The PostgresSQL Exporter is used to expose metrics from a running PostgresSQL deployment.
+
+> [!NOTE]
+>
+> To deploy metric exporters you first need to deploy the [Prometheus Operator](/deployment-guide/open-infrastructure/observability/prometheus/).
 
 ## Installation
 
+Install the PostgresSQL Exporter
+
 > [!IMPORTANT]
-> **`/opt/genestack/bin/install-prometheus-blackbox-exporter.sh`**
+> **`/opt/genestack/bin/install-prometheus-postgres-exporter.sh`**
 >
 >
 > ``` shell
@@ -20,8 +26,8 @@ The blackbox exporter ideally would be ran outside the cluster but can still pro
 > # shellcheck disable=SC2124,SC2145,SC2294
 > 
 > # Service
-> SERVICE_NAME_DEFAULT="prometheus-blackbox-exporter"
-> SERVICE_NAMESPACE="prometheus"
+> SERVICE_NAME_DEFAULT="prometheus-postgres-exporter"
+> SERVICE_NAMESPACE="openstack"
 > 
 > # Helm
 > HELM_REPO_NAME_DEFAULT="prometheus-community"
@@ -152,4 +158,4 @@ The blackbox exporter ideally would be ran outside the cluster but can still pro
 > ```
 >
 
-If the installation is successful, you should see the related Blackbox exporter pods in the prometheus namespace.
+If the installation is successful, you should see the exporter pod in the openstack namespace.

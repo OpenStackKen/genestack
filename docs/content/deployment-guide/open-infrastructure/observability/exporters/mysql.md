@@ -1,26 +1,44 @@
 ---
-title: "Kubernetes Event Exporter"
-weight: 60
+title: "MySQL Exporter"
+weight: 70
 ---
-Kubernetes Event Exporter is used to expose kubernetes events which provides useful information regarding the operation of
-the kubernetes system.
+
+The MySQL Exporter is used to expose metrics from a running MySQL or MariaDB server. The type of metrics exposed is controlled by the exporter and expressed in the `values.yaml` file.
 
 > [!NOTE]
 >
->
-> To deploy metric exporters you first need to deploy the Prometheus Operator.
-> See [Deploy Prometheus](/deployment-guide/open-infrastructure/observability/prometheus/).
->
+> To deploy metric exporters you first need to deploy the [Prometheus Operator](/deployment-guide/open-infrastructure/observability/prometheus/).
 
 ## Installation
 
-Edit the Helm overrides file for the event exporter at `/etc/genestack/helm-configs/kubernetes-event-exporter/values.yaml`
-to add any event notification receivers you may wish to use. View the examples at [Kubernetes Event Exporter](https://github.com/resmoio/kubernetes-event-exporter).
+> [!NOTE]
+> **Information about Secrets**
+>
+> Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 
-Once the changes have been made, apply them by running the  `/opt/genestack/bin/install-kubernetes-event-exporter.sh` script:
+### Example Secret Generation
+
+``` shell
+kubectl --namespace openstack \
+    create secret generic mariadb-monitoring \
+    --type Opaque \
+    --from-literal=username="monitoring" \
+    --from-literal=password="$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-64};echo;)"
+```
+
+Add the configuration to a secret that will be used within the container for our shared services:
+
+``` shell
+kubectl -n openstack create secret generic mariadb-monitor --type Opaque \
+    --from-literal=my.cnf="[client.mariadb-monitor] \
+    user=monitoring \
+    password=$(kubectl --namespace openstack get secret mariadb-monitoring -o jsonpath='{.data.password}' | base64 -d)"
+```
+
+### Install the Exporter
 
 > [!IMPORTANT]
-> **`/opt/genestack/bin/install-kubernetes-event-exporter.sh`**
+> **`/opt/genestack/bin/install-prometheus-mysql-exporter.sh`**
 >
 >
 > ``` shell
@@ -32,12 +50,12 @@ Once the changes have been made, apply them by running the  `/opt/genestack/bin/
 > # shellcheck disable=SC2124,SC2145,SC2294
 > 
 > # Service
-> SERVICE_NAME_DEFAULT="kubernetes-event-exporter"
-> SERVICE_NAMESPACE="monitoring"
+> SERVICE_NAME_DEFAULT="prometheus-mysql-exporter"
+> SERVICE_NAMESPACE="openstack"
 > 
 > # Helm
-> HELM_REPO_NAME_DEFAULT="bitnami"
-> HELM_REPO_URL_DEFAULT="https://charts.bitnami.com/bitnami"
+> HELM_REPO_NAME_DEFAULT="prometheus-community"
+> HELM_REPO_URL_DEFAULT="https://prometheus-community.github.io/helm-charts"
 > 
 > # Base directories provided by the environment
 > GENESTACK_BASE_DIR="${GENESTACK_BASE_DIR:-/opt/genestack}"
@@ -48,6 +66,7 @@ Once the changes have been made, apply them by running the  `/opt/genestack/bin/
 > SERVICE_CUSTOM_OVERRIDES="${GENESTACK_OVERRIDES_DIR}/helm-configs/${SERVICE_NAME_DEFAULT}"
 > 
 > # Read the desired chart version from VERSION_FILE
+> # NOTE: Ensure this file exists and contains an entry for SERVICE_NAME_DEFAULT.
 > VERSION_FILE="${GENESTACK_OVERRIDES_DIR}/helm-chart-versions.yaml"
 > 
 > if [ ! -f "$VERSION_FILE" ]; then
@@ -105,11 +124,10 @@ Once the changes have been made, apply them by running the  `/opt/genestack/bin/
 > # NOTE: Files in this directory are included first.
 > if [[ -d "$SERVICE_BASE_OVERRIDES" ]]; then
 >     echo "Including base overrides from directory: $SERVICE_BASE_OVERRIDES"
->     # Include YAML files directly in the base directory (e.g., specific overrides)
 >     for file in "$SERVICE_BASE_OVERRIDES"/*.yaml; do
 >         # Check that there is at least one match
 >         if [[ -e "$file" ]]; then
->             echo " - $file (Base Config)"
+>             echo " - $file"
 >             overrides_args+=("-f" "$file")
 >         fi
 >     done
@@ -133,7 +151,8 @@ Once the changes have been made, apply them by running the  `/opt/genestack/bin/
 > 
 > echo
 > 
-> # Collect all --set arguments (none in the original script)
+> # Collect all --set arguments, executing commands and quoting safely
+> 
 > set_args=()
 > 
 > 
@@ -161,4 +180,13 @@ Once the changes have been made, apply them by running the  `/opt/genestack/bin/
 > # Execute the command directly from the array
 > "${helm_command[@]}"
 > ```
-> ```
+
+> [!NOTE]
+>
+>
+> Helm chart versions are defined in `opt/genestack/helm-chart-versions.yaml` and can be overridden in `/etc/genestack/helm-chart-versions.yaml`.
+>
+
+> [!SUCCESS]
+>
+> If the installation is successful, you should see the exporter pod in the openstack namespace.

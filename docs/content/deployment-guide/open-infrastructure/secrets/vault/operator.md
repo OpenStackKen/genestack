@@ -1,13 +1,14 @@
 ---
-title: "HashiCorp Vault Secret Operators for Genestack Installation"
-weight: 900
+title: "Vault Operator"
+description: "HashiCorp Vault Secret Operators for Genestack Installation"
+weight: 30
 ---
-> [!NOTE]
-> **This section is still underdevelopment and experimental**
+
+> [!WARNING]
 >
+> **EXPERIMENTAL: STILL UNDER DEVELOPMENT**
 >
 > None of the vault components are required to run a Genestack environment.
->
 
 The Vault Secrets Operator (VSO) enables Pods to seamlessly consume Vault secrets from Kubernetes Secrets. This guide outlines the process of consuming secrets stored in Vault for Genestack installation. This is continuation of [vault.md](https://docs.rackspacecloud.com/vault/) where we have created few secrets in the Vault
 
@@ -15,9 +16,7 @@ The Vault Secrets Operator (VSO) enables Pods to seamlessly consume Vault secret
 
 > [!NOTE]
 >
->
-> Before starting the installation, ensure HashiCorp Vault is installed in the cluster. You can refer [vault.md](https://docs.rackspacecloud.com/vault/) for more details.
->
+> Before starting the installation, ensure HashiCorp Vault is installed in the cluster.
 
 ## Installation
 

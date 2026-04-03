@@ -2,20 +2,32 @@
 title: "Grafana"
 weight: 40
 ---
+
+Grafana provides visualization dashboards for your metrics, alerts, and logs.
+
+Install Grafana to:
+
+- Create custom dashboards for monitoring OpenStack services
+- Visualize metrics collected by Prometheus
+- Set up alert notifications and integrations
+- Analyze logs and trace data
+
+For more information about Grafana's capabilities, visit the [Grafana website](/deployment-guide/open-infrastructure/observability/grafana/).
+
+## Installing Grafana
+
 Grafana is installed with the upstream Helm Chart. Running the installation is simple and can be done with our integration script.
 
 Before running the script, you will need to create a secret file with your database username and passwords.
 
 > [!NOTE]
-> **Information about the secretes used**
->
+> **Information about the secrets used**
 >
 > Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 >
 
 > [!IMPORTANT]
 > **Example secret generation**
->
 >
 > ``` shell
 > kubectl --namespace grafana \
@@ -43,16 +55,11 @@ Before running the deployment script, you must set the `custom_host` value `graf
 
 ## Installation
 
-
 ### Default
-
 
 The default installation is simple. The `grafana-helm-overrides.yaml` file is located at `/etc/genestack/helm-configs/grafana/` and overrides can be set there to customize the installation.
 
-
-
 ### Azure Integrated
-
 
 Before running installation when integrating with Azure AD, you must create te `azure-client-secret`
 

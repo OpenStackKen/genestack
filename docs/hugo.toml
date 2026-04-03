@@ -46,7 +46,7 @@ logo = "assets/images/genestack-logo.png"
 #  url = "https://docs.rackspacecloud.com/latest"
 
 [params.mermaid]
-version = "11.13.0"
+version = "11.14.0"
 theme = "default"
 
 [params.ui]

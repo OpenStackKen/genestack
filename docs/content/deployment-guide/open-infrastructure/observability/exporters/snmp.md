@@ -1,22 +1,24 @@
 ---
-title: "RabbitMQ Exporter"
-weight: 70
+title: "SNMP Exporter"
+weight: 120
 ---
-RabbitMQ Exporter is used to expose metrics from a running RabbitMQ deployment.
+
+> [!INFO]
+>
+> You will not generally need the Prometheus SNMP Exporter unless you have specific SNMP monitoring needs and take additional steps to configure the Prometheus SNMP Exporter. The default Genestack configuration doesn't make immediate use of it without site-specific customization, such as writing an applicable `snmp.conf`.
+
+The Prometheus SNMP exporter allows you to get metrics from an SNMP `mib` into Prometheus.  This exporter is the recommended way to expose SNMP data in a format which Prometheus can ingest.
 
 > [!NOTE]
 >
->
-> To deploy metric exporters you first need to deploy the Prometheus Operator.
-> See [Deploy Prometheus](/deployment-guide/open-infrastructure/observability/prometheus/).
->
+> To deploy metric exporters you first need to deploy the [Prometheus Operator](/deployment-guide/open-infrastructure/observability/prometheus/).
 
 ## Installation
 
-Install the RabbitMQ Exporter
+Install the SNMP Exporter
 
 > [!IMPORTANT]
-> **`/opt/genestack/bin/install-prometheus-rabbitmq-exporter.sh`**
+> **`/opt/genestack/bin/install-prometheus-snmp-exporter.sh`**
 >
 >
 > ``` shell
@@ -28,8 +30,8 @@ Install the RabbitMQ Exporter
 > # shellcheck disable=SC2124,SC2145,SC2294
 > 
 > # Service
-> SERVICE_NAME_DEFAULT="prometheus-rabbitmq-exporter"
-> SERVICE_NAMESPACE="openstack"
+> SERVICE_NAME_DEFAULT="prometheus-snmp-exporter"
+> SERVICE_NAMESPACE="prometheus"
 > 
 > # Helm
 > HELM_REPO_NAME_DEFAULT="prometheus-community"
@@ -101,28 +103,28 @@ Install the RabbitMQ Exporter
 > # Include all YAML files from the BASE configuration directory
 > # NOTE: Files in this directory are included first.
 > if [[ -d "$SERVICE_BASE_OVERRIDES" ]]; then
->     echo "Including base overrides from directory: $SERVICE_BASE_OVERRIDES"
->     for file in "$SERVICE_BASE_OVERRIDES"/*.yaml; do
->         # Check that there is at least one match
->         if [[ -e "$file" ]]; then
->             echo " - $file"
->             overrides_args+=("-f" "$file")
->         fi
->     done
+>   echo "Including base overrides from directory: $SERVICE_BASE_OVERRIDES"
+>   for file in "$SERVICE_BASE_OVERRIDES"/*.yaml; do
+>     # Check that there is at least one match
+>     if [[ -e "$file" ]]; then
+>       echo " - $file"
+>       overrides_args+=("-f" "$file")
+>     fi
+>   done
 > else
->     echo "Warning: Base override directory not found: $SERVICE_BASE_OVERRIDES"
+>   echo "Warning: Base override directory not found: $SERVICE_BASE_OVERRIDES"
 > fi
 > 
 > # Include all YAML files from the custom SERVICE configuration directory
 > # NOTE: Files here have the highest precedence.
 > if [[ -d "$SERVICE_CUSTOM_OVERRIDES" ]]; then
 >     echo "Including overrides from service config directory:"
->     for file in "$SERVICE_CUSTOM_OVERRIDES"/*.yaml; do
->         if [[ -e "$file" ]]; then
->             echo " - $file"
->             overrides_args+=("-f" "$file")
->         fi
->     done
+>   for file in "$SERVICE_CUSTOM_OVERRIDES"/*.yaml; do
+>     if [[ -e "$file" ]]; then
+>       echo " - $file"
+>       overrides_args+=("-f" "$file")
+>     fi
+>   done
 > else
 >     echo "Warning: Service config directory not found: $SERVICE_CUSTOM_OVERRIDES"
 > fi
@@ -160,4 +162,6 @@ Install the RabbitMQ Exporter
 > ```
 >
 
-If the installation is successful, you should see the exporter pod in the openstack namespace.
+> [!SUCCESS]
+>
+> If the installation is successful, you should see the prometheus-snmp-exporter pod running in the prometheus namespace.

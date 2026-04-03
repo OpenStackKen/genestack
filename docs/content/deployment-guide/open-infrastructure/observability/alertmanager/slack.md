@@ -1,8 +1,12 @@
 ---
-title: "Slack Alerts"
-weight: 160
+title: "Slack"
+description: "Alertmanager support for Slack."
+weight: 10
 ---
-The following example describes configuration options to send alerts via alertmanager to slack
+
+> [!EXAMPLE]
+>
+> The following example describes configuration options to send alerts via alertmanager to slack
 using a slack hook.
 
 ``` yaml

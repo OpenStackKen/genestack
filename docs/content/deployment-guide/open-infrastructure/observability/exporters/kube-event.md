@@ -1,33 +1,23 @@
 ---
-title: "Memcached Exporter"
-weight: 80
+title: "Kubernetes Event Exporter"
+weight: 40
 ---
-Memcached Exporter is used to expose metrics from a running Memcached deployment. The memcached exporter is an integrated part
-of the memcached deployment in Genestack but will need to be enabled.
+
+The Kubernetes Event Exporter is used to expose kubernetes events which provides useful information regarding the operation of the Kubernetes system.
 
 > [!NOTE]
 >
->
-> To deploy metric exporters you first need to deploy the Prometheus Operator.
-> See [Deploy Prometheus](/deployment-guide/open-infrastructure/observability/prometheus/).
->
+> To deploy metric exporters you first need to deploy the [Prometheus Operator](/deployment-guide/open-infrastructure/observability/prometheus/).
 
-## Deploy the Memcached Cluster With Monitoring Enabled
+## Installation
 
-Edit the Helm overrides file for memcached at `/etc/genestack/helm-configs/memcached/memcached-helm-overrides.yaml` and add the following values
-to enable the memcached exporter:
+Edit the Helm overrides file for the event exporter at `/etc/genestack/helm-configs/kubernetes-event-exporter/values.yaml`
+to add any event notification receivers you may wish to use. View the examples at [Kubernetes Event Exporter](https://github.com/resmoio/kubernetes-event-exporter).
 
-``` yaml
-metrics:
-  enabled: true
-  serviceMonitor:
-    enabled: true
-```
-
-Once the changes have been made, apply the changes to the memcached deployment with the `/opt/genestack/bin/install-memcached.sh` script
+Once the changes have been made, apply them by running the  `/opt/genestack/bin/install-kubernetes-event-exporter.sh` script:
 
 > [!IMPORTANT]
-> **`/opt/genestack/bin/install-memcached.sh`**
+> **`/opt/genestack/bin/install-kubernetes-event-exporter.sh`**
 >
 >
 > ``` shell
@@ -39,8 +29,8 @@ Once the changes have been made, apply the changes to the memcached deployment w
 > # shellcheck disable=SC2124,SC2145,SC2294
 > 
 > # Service
-> SERVICE_NAME_DEFAULT="memcached"
-> SERVICE_NAMESPACE="openstack"
+> SERVICE_NAME_DEFAULT="kubernetes-event-exporter"
+> SERVICE_NAMESPACE="monitoring"
 > 
 > # Helm
 > HELM_REPO_NAME_DEFAULT="bitnami"
@@ -53,9 +43,6 @@ Once the changes have been made, apply the changes to the memcached deployment w
 > # Define service-specific override directories based on the framework
 > SERVICE_BASE_OVERRIDES="${GENESTACK_BASE_DIR}/base-helm-configs/${SERVICE_NAME_DEFAULT}"
 > SERVICE_CUSTOM_OVERRIDES="${GENESTACK_OVERRIDES_DIR}/helm-configs/${SERVICE_NAME_DEFAULT}"
-> 
-> # Define the Global Overrides directory used in the original script
-> GLOBAL_OVERRIDES_DIR="${GENESTACK_OVERRIDES_DIR}/helm-configs/global_overrides"
 > 
 > # Read the desired chart version from VERSION_FILE
 > VERSION_FILE="${GENESTACK_OVERRIDES_DIR}/helm-chart-versions.yaml"
@@ -115,10 +102,11 @@ Once the changes have been made, apply the changes to the memcached deployment w
 > # NOTE: Files in this directory are included first.
 > if [[ -d "$SERVICE_BASE_OVERRIDES" ]]; then
 >     echo "Including base overrides from directory: $SERVICE_BASE_OVERRIDES"
+>     # Include YAML files directly in the base directory (e.g., specific overrides)
 >     for file in "$SERVICE_BASE_OVERRIDES"/*.yaml; do
 >         # Check that there is at least one match
 >         if [[ -e "$file" ]]; then
->             echo " - $file"
+>             echo " - $file (Base Config)"
 >             overrides_args+=("-f" "$file")
 >         fi
 >     done
@@ -129,7 +117,7 @@ Once the changes have been made, apply the changes to the memcached deployment w
 > # Include all YAML files from the custom SERVICE configuration directory
 > # NOTE: Files here have the highest precedence.
 > if [[ -d "$SERVICE_CUSTOM_OVERRIDES" ]]; then
->     echo "Including overrides from service config directory: $SERVICE_CUSTOM_OVERRIDES"
+>     echo "Including overrides from service config directory:"
 >     for file in "$SERVICE_CUSTOM_OVERRIDES"/*.yaml; do
 >         if [[ -e "$file" ]]; then
 >             echo " - $file"
@@ -137,12 +125,12 @@ Once the changes have been made, apply the changes to the memcached deployment w
 >         fi
 >     done
 > else
->     echo "Warning: Service overrides directory not found: $SERVICE_CUSTOM_OVERRIDES"
+>     echo "Warning: Service config directory not found: $SERVICE_CUSTOM_OVERRIDES"
 > fi
 > 
 > echo
 > 
-> # Collect all --set arguments, executing commands and quoting safely
+> # Collect all --set arguments (none in the original script)
 > set_args=()
 > 
 > 
@@ -157,8 +145,6 @@ Once the changes have been made, apply the changes to the memcached deployment w
 >     "${set_args[@]}"
 > 
 >     # Post-renderer configuration
->     # NOTE: Metallb doesn't typically require a post-renderer, but we keep it
->     # for template compliance.
 >     --post-renderer "$GENESTACK_OVERRIDES_DIR/kustomize/kustomize.sh"
 >     --post-renderer-args "$SERVICE_NAME_DEFAULT/overlay"
 > 
@@ -171,4 +157,5 @@ Once the changes have been made, apply the changes to the memcached deployment w
 > 
 > # Execute the command directly from the array
 > "${helm_command[@]}"
+> ```
 > ```
