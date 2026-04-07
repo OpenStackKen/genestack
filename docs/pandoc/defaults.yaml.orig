@@ -1,0 +1,28 @@
+from: gfm+yaml_metadata_block+pipe_tables+footnotes+attributes
+standalone: true
+toc: true
+toc-depth: 4
+resource-path:
+  - ..
+  - ../assets/icons
+  - ../content/assets/images
+  - ../content/assets/svg
+metadata:
+  documentclass: article
+  papersize: letter
+  fontsize: 11pt
+  colorlinks: true
+  linkcolor: gslink
+  urlcolor: gslink
+  geometry:
+    - margin=1in
+template: pandoc/templates/guide.tex
+pdf-engine: lualatex
+filters:
+  - pandoc/filters/pathing.lua
+  - pandoc/filters/hrule.lua
+  - pandoc/filters/callouts.lua
+  - pandoc/filters/diagrams.lua
+  - pandoc/filters/images.lua
+  - pandoc/filters/tables.lua
+  - pandoc/filters/headers.lua

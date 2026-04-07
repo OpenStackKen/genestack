@@ -1,0 +1,118 @@
+$document-metadata.latex()$
+$passoptions.latex()$
+\documentclass[
+$if(fontsize)$
+  $fontsize$,
+$endif$
+$if(papersize)$
+  $papersize$paper,
+$endif$
+]{$documentclass$}
+
+\usepackage{xcolor}
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
+\usepackage{amsmath,amssymb}
+$fonts.latex()$
+$font-settings.latex()$
+$common.latex()$
+\usepackage{bookmark}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage[most]{tcolorbox}
+\usepackage{xurl}
+\usepackage{graphicx}
+\usepackage{etoolbox}
+
+\definecolor{gslink}{HTML}{9E0001}
+\definecolor{gslight}{HTML}{F7F4F1}
+\definecolor{gsrule}{HTML}{D8CEC4}
+\definecolor{gsnote}{HTML}{22577A}
+\definecolor{gstip}{HTML}{3A7D44}
+\definecolor{gsimportant}{HTML}{8A5A00}
+\definecolor{gswarning}{HTML}{A61E2C}
+\definecolor{gsexample}{HTML}{5A3E8C}
+\definecolor{gsgenestack}{HTML}{9E0001}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=gslink,
+  urlcolor=gslink,
+  citecolor=gslink
+}
+
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}[Scale=0.92]
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{$if(version_label)$$version_label$$else$latest$endif$}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.7em}
+\setcounter{secnumdepth}{-\maxdimen}
+\renewcommand{\contentsname}{Contents}
+
+\newcommand{\GenestackAdmonitionColor}{gsnote}
+
+\NewDocumentEnvironment{GenestackAdmonition}{m m}
+{%
+  \renewcommand{\GenestackAdmonitionColor}{gsnote}%
+  \ifstrequal{#1}{tip}{\renewcommand{\GenestackAdmonitionColor}{gstip}}{}%
+  \ifstrequal{#1}{important}{\renewcommand{\GenestackAdmonitionColor}{gsimportant}}{}%
+  \ifstrequal{#1}{warning}{\renewcommand{\GenestackAdmonitionColor}{gswarning}}{}%
+  \ifstrequal{#1}{example}{\renewcommand{\GenestackAdmonitionColor}{gsexample}}{}%
+  \ifstrequal{#1}{genestack}{\renewcommand{\GenestackAdmonitionColor}{gsgenestack}}{}%
+  \begin{tcolorbox}[
+    enhanced,
+    sharp corners,
+    breakable,
+    colback=gslight,
+    colframe=\GenestackAdmonitionColor,
+    boxrule=0.8pt,
+    leftrule=2.4pt,
+    title={#2},
+    fonttitle=\bfseries,
+    coltitle=black,
+  ]
+}
+{%
+  \end{tcolorbox}
+}
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+$after-header-includes.latex()$
+
+$if(title)$
+\title{\Huge\bfseries $title$}
+$endif$
+$if(subtitle)$
+\makeatletter
+\providecommand{\subtitle}[1]{%
+  \apptocmd{\@title}{\par \Large #1}{}{}
+}
+\subtitle{$subtitle$}
+\makeatother
+$endif$
+\author{}
+\date{}
+
+\begin{document}
+$if(title)$
+\maketitle
+$endif$
+
+$if(toc)$
+\tableofcontents
+\newpage
+$endif$
+
+$body$
+\end{document}

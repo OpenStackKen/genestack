@@ -89,7 +89,7 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# Sphinx documentation
+# Documentation
 docs/_build/
 docs/public/
 docs/resources/
@@ -101,6 +101,7 @@ docs/.playwright-browsers/
 docs/.tmp-home/
 docs/node_modules/
 docs/content/overview/product-matrix.md
+docs/pdf/
 
 # PyBuilder
 target/
