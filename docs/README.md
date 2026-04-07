@@ -157,6 +157,11 @@ Useful local targets:
 - `make mrproper`
   Removes local generated artifacts and caches from `/docs`.
 
+Script layout under `/docs/scripts`:
+
+- build and generation entrypoints stay directly under `/docs/scripts`
+- content migration and refactoring helpers live under `/docs/scripts/refactoring`
+
 The build target writes:
 
 - `/docs/public/build.txt`
