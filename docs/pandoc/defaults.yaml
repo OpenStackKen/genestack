@@ -1,0 +1,41 @@
+from: markdown+wikilinks_title_after_pipe+hard_line_breaks+yaml_metadata_block
+standalone: true
+toc: true
+toc-depth: 4
+#shift-heading-level-by: -1
+resource-path:
+  - assets/images
+  - content/assets/images
+  - content/assets/svg
+metadata:
+  #  documentclass: article
+  #  book: true
+  #  chapters: true
+  papersize: letter
+  colorlinks: true
+  titlepage: true
+  titlepage-logo: Genestack-Wordmark.png
+  toc: true
+  pretty-footnotes: true
+  diagram:
+    cache: true
+    cache-dir: pdf/.cache/diagrams
+    engine:
+      mermaid:
+        mime-type: application/pdf
+        execpath: mmdc
+template: pandoc/templates/template.latex
+filters:
+  - pandoc/filters/pathing.lua
+  - pandoc/filters/hrule.lua
+  - pandoc/filters/callouts.lua
+  - pandoc/filters/mermaid.lua
+  - pandoc/filters/svg.lua
+  - pandoc/filters/images.lua
+  - pandoc/filters/tables.lua
+  - pandoc/filters/headers.lua
+pdf-engine: lualatex
+pdf-engine-opts:
+  - "-shell-escape"
+  #  - '-interaction=batchmode'
+  - "-halt-on-error"
