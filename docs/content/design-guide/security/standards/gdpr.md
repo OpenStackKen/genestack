@@ -3,7 +3,7 @@ title: "GDPR"
 weight: 70
 ---
 
-## General Data Protection Regulation
+#### General Data Protection Regulation
 
 GDPR is a European Union regulation focused on protecting personal data and ensuring privacy for EU citizens.
 It applies to all organizations processing or storing the personal data of individuals within the EU, regardless of location.
