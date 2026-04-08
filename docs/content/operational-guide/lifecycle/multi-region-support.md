@@ -29,25 +29,22 @@ our inventory and bootstrap type configs are found. We will make use of `/etc/ge
 For this workflow we want to utilize a git repo to store our changes and custom configs. We also want to clearly define regional specific directories within the repo that will contain everything from the custom inventory to our helm config overrides.
 The structure may look something like:
 
-> [!IMPORTANT]
->
-> ```
-> ├── my-genestack-configs
-> │  ├── region1
-> │  │  ├── inventory
-> │  │  │  ├── inventory.yaml
-> │  │  ├── helm-configs
-> │  │  │  ├── nova
-> │  │  │  │  ├── region1-custom-nova-helm-overrides.yaml
-> │  ├── region2
-> │  │  ├── inventory
-> │  │  │  ├── -inventory.yaml
-> │  │  ├── helm-configs
-> │  │  │  ├── nova
-> │  │  │  │  ├── region2-custom-nova-helm-overrides.yaml
-> └── .gitignore
-> ```
->
+```
+├── my-genestack-configs
+│  ├── region1
+│  │  ├── inventory
+│  │  │  ├── inventory.yaml
+│  │  ├── helm-configs
+│  │  │  ├── nova
+│  │  │  │  ├── region1-custom-nova-helm-overrides.yaml
+│  ├── region2
+│  │  ├── inventory
+│  │  │  ├── -inventory.yaml
+│  │  ├── helm-configs
+│  │  │  ├── nova
+│  │  │  │  ├── region2-custom-nova-helm-overrides.yaml
+└── .gitignore
+```
 
 The above example is just that and is kept short just to give an idea of what we'll be working with. You may have many additional openstack services you need to override and may decided to adjust the structure in your own way as needed.
 
@@ -63,7 +60,6 @@ See [Create a repo](https://docs.github.com/en/repositories/creating-and-managin
 > [!TIP]
 >
 > You may opt to not create a repo and simply keep it local but the directory structure and workflow will be the same for this example
->
 
 With the repo created and cloned to somewhere like `/opt/my-genestack-configs` we can then create the directory structure as noted above and add our custom helm overrides.
 
@@ -75,26 +71,24 @@ For our example we just want to override the cpu_allocation as they are differen
 Create the override files within the respective structure as noted above with the contents of:
 
 > [!IMPORTANT]
-> **region1-custom-nova-helm-overrides.yaml**
->
-> ```
-> conf:
->   nova:
->     DEFAULT:
->       cpu_allocation_ratio: 8.0
-> ```
->
+> [region1-custom-nova-helm-overrides.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/base-helm-configs/nova/nova-helm-overrides.yaml)
+
+```
+conf:
+  nova:
+    DEFAULT:
+      cpu_allocation_ratio: 8.0
+```
 
 > [!IMPORTANT]
-> **region2-custom-nova-helm-overrides.yaml**
->
-> ```
-> conf:
->   nova:
->     DEFAULT:
->       cpu_allocation_ratio: 4.0
-> ```
->
+> [region2-custom-nova-helm-overrides.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/base-helm-configs/nova/nova-helm-overrides.yaml)
+
+```
+conf:
+  nova:
+    DEFAULT:
+      cpu_allocation_ratio: 4.0
+```
 
 We now have the directory structure and override files needed so now we can run our helm upgrades!
 
@@ -105,27 +99,23 @@ To do that, we'll simply symlink our regional named directory that we created ab
 
 For the rest of the workflow example we'll be working with the `sjc` environment. The same instructions would apply for the different regions.
 
-> [!IMPORTANT]
-> **symlink the repo**
->
-> ``` shell
-> ln -s /opt/my-genestack-configs/region1 /etc/genestack
-> ```
->
+symlink the repo
+
+``` shell
+ln -s /opt/my-genestack-configs/region1 /etc/genestack
+```
 
 This will make our `/etc/genestack` directory look like:
 
-> [!IMPORTANT]
-> **/etc/genestack/**
->
-> ```
-> ├── inventory
-> │  │  ├── inventory.yaml
-> ├── helm-configs
-> │  ├── nova
-> │  │  ├── region1-custom-nova-helm-overrides.yaml
-> ```
->
+/etc/genestack/
+
+```
+├── inventory
+│  │  ├── inventory.yaml
+├── helm-configs
+│  ├── nova
+│  │  ├── region1-custom-nova-helm-overrides.yaml
+```
 
 #### Running helm
 

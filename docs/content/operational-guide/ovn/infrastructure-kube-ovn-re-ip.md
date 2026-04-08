@@ -10,7 +10,6 @@ minimize impact on production workloads.
 
 > [!NOTE]
 >
->
 > After changing the subnet CIDR, existing Pods will lose proper network access and must be rebuilt.
 > We strongly recommend planning downtime or scheduling this operation during a maintenance window to
 > avoid unexpected disruptions.
@@ -18,7 +17,6 @@ minimize impact on production workloads.
 > These instructions only cover changing the CIDR for a subnet. If you need to update the Join subnet,
 > please refer to [Change Join CIDR](https://kubeovn.github.io/docs/stable/en/ops/change-join-subnet)
 > from the Kube-OVN documentation.
->
 
 ## Steps & Considerations
 
@@ -52,10 +50,8 @@ This example shows how to delete all Pods that are not using host-networking.
 
 > [!IMPORTANT]
 >
->
 > This command will have a significant impact on your environment, impacting all service APIs; however,
 > none of the data will be lost and all of the dataplane traffic should not be impacted.
->
 
 ``` shell
 for ns in $(kubectl get ns --no-headers -o custom-columns=NAME:.metadata.name); do

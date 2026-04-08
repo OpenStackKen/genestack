@@ -8,197 +8,194 @@ of deploying a test environment on an OpenStack cloud in a simple three node con
 
 ## Build Script
 
-The following script will deploy a hyperconverged lab environment on an OpenStack cloud. The script can be found at
-[`scripts/hyperconverged-lab.sh`](https://raw.githubusercontent.com/rackerlabs/genestack/refs/heads/main/scripts/hyperconverged-lab.sh).
-
 > [!NOTE]
-> **View the  Hyper-converged Lab Script**
 >
->
-> ``` shell
-> #!/usr/bin/env bash
-> # shellcheck disable=SC2124,SC2145,SC2294,SC2086,SC2087,SC2155
-> #
-> # Hyperconverged Lab Deployment Selector
-> #
-> # This script provides a simple interface to deploy Genestack (OpenStack on Kubernetes)
-> # in a hyperconverged configuration using either:
-> #
-> #   1. Kubespray   - Traditional approach using Ubuntu VMs and Kubespray/Ansible
-> #   2. Talos Linux - Modern approach using Talos Linux immutable OS
-> #
-> # Usage:
-> #   ./hyperconverged-lab.sh                    # Interactive mode - prompts for platform
-> #   ./hyperconverged-lab.sh kubespray [args]   # Deploy using Kubespray
-> #   ./hyperconverged-lab.sh talos [args]       # Deploy using Talos Linux
-> #
-> # For uninstall, use the corresponding uninstall scripts:
-> #   ./hyperconverged-lab-kubespray-uninstall.sh
-> #   ./hyperconverged-lab-talos-uninstall.sh
-> #
-> 
-> set -o pipefail
-> set -e
-> 
-> SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-> 
-> function show_usage() {
->     cat <<EOF
-> Hyperconverged Lab Deployment Script
-> 
-> This script deploys Genestack (OpenStack on Kubernetes) in a hyperconverged
-> configuration on OpenStack infrastructure.
-> 
-> USAGE:
->     $(basename "$0") [PLATFORM] [OPTIONS]
-> 
-> PLATFORMS:
->     kubespray    Deploy using Kubespray on Ubuntu (traditional approach)
->                  - Uses Ubuntu VMs with SSH access
->                  - Kubernetes deployed via Kubespray/Ansible
->                  - Requires SSH keypair for node access
-> 
->     talos        Deploy using Talos Linux (modern approach)
->                  - Uses Talos Linux immutable OS
->                  - Kubernetes deployed via talosctl
->                  - No SSH - managed via Talos API
->                  - Includes Talos-specific configs for Longhorn, Kube-OVN, Ceph
-> 
->     help         Show this help message
-> 
-> OPTIONS:
->     -i <list>    Comma-separated list of OpenStack services to include
->     -e <list>    Comma-separated list of OpenStack services to exclude
->     -x           Run extra operations (k9s install, Octavia preconf, etc.)
-> 
-> ENVIRONMENT VARIABLES:
->     ACME_EMAIL          Email for ACME/Let's Encrypt certificates
->     GATEWAY_DOMAIN      Domain name for the gateway (default: cluster.local)
->     OS_CLOUD            OpenStack cloud configuration name (default: default)
->     OS_FLAVOR           Flavor to use for instances
->     OS_IMAGE            Image to use (platform-specific defaults apply)
->     LAB_NAME_PREFIX     Prefix for all created resources
->     LAB_NETWORK_MTU     MTU for lab networks (default: 1500)
->     HYPERCONVERGED_DEV  If set to "true", enables development mode which transports
->                         the local environment checkout into the hyperconverged lab
->                         for easier testing and debugging.
->     HYPERCONVERGED_CINDER_VOLUME
->                         If set to "true", enables iSCSI cinder volume support.
->     DISABLE_OPENSTACK
->                         if set to "true", no openstack services will be deployed.
-> 
-> EXAMPLES:
->     # Interactive mode - will prompt for platform choice
->     $(basename "$0")
-> 
->     # Deploy using Kubespray
->     $(basename "$0") kubespray
-> 
->     # Deploy using Talos Linux
->     $(basename "$0") talos
-> 
->     # Deploy Kubespray with extra services and extras enabled
->     $(basename "$0") kubespray -i heat,octavia -x
-> 
->     # Deploy Talos with specific services excluded
->     $(basename "$0") talos -e skyline
-> 
-> UNINSTALL:
->     Use the platform-specific uninstall scripts:
-> 
->     # Uninstall Kubespray deployment
->     ./hyperconverged-lab-kubespray-uninstall.sh
-> 
->     # Uninstall Talos deployment
->     ./hyperconverged-lab-talos-uninstall.sh
-> 
-> For more information, see the Genestack documentation.
-> EOF
-> }
-> 
-> function prompt_for_platform() {
->     echo ""
->     echo "Hyperconverged Lab Deployment"
->     echo "============================="
->     echo ""
->     echo "Select your deployment platform:"
->     echo ""
->     echo "  1) Kubespray"
->     echo "     - Traditional approach using Ubuntu VMs"
->     echo "     - Kubernetes deployed via Kubespray/Ansible"
->     echo "     - SSH-based node management"
->     echo ""
->     echo "  2) Talos Linux"
->     echo "     - Modern immutable Linux OS designed for Kubernetes"
->     echo "     - API-based management (no SSH)"
->     echo "     - Includes Talos-specific configurations for Longhorn, Kube-OVN, Ceph"
->     echo ""
-> 
->     read -rp "Enter your choice [1/2]: " choice
-> 
->     case "$choice" in
->         1|kubespray|Kubespray|KUBESPRAY)
->             echo ""
->             echo "Selected: Kubespray"
->             PLATFORM="kubespray"
->             ;;
->         2|talos|Talos|TALOS)
->             echo ""
->             echo "Selected: Talos Linux"
->             PLATFORM="talos"
->             ;;
->         *)
->             echo "Invalid choice. Please enter 1 or 2."
->             exit 1
->             ;;
->     esac
-> }
-> 
-> # Check for help flag first
-> if [[ "$1" == "help" || "$1" == "--help" || "$1" == "-h" ]]; then
->     show_usage
->     exit 0
-> fi
-> 
-> # Determine platform from first argument or prompt
-> if [[ -n "$1" && "$1" != -* ]]; then
->     case "$1" in
->         kubespray|Kubespray|KUBESPRAY)
->             PLATFORM="kubespray"
->             shift
->             ;;
->         talos|Talos|TALOS)
->             PLATFORM="talos"
->             shift
->             ;;
->         *)
->             echo "Unknown platform: $1"
->             echo ""
->             show_usage
->             exit 1
->             ;;
->     esac
-> else
->     prompt_for_platform
-> fi
-> 
-> # Execute the appropriate platform-specific script
-> case "$PLATFORM" in
->     kubespray)
->         echo ""
->         echo "Launching Kubespray deployment..."
->         echo ""
->         exec "${SCRIPT_DIR}/hyperconverged-lab-kubespray.sh" "$@"
->         ;;
->     talos)
->         echo ""
->         echo "Launching Talos Linux deployment..."
->         echo ""
->         exec "${SCRIPT_DIR}/hyperconverged-lab-talos.sh" "$@"
->         ;;
-> esac
-> ```
->
+> The following script will deploy a hyperconverged lab environment on an OpenStack cloud. The script can be found at [`scripts/hyperconverged-lab.sh`](https://raw.githubusercontent.com/rackerlabs/genestack/refs/heads/main/scripts/hyperconverged-lab.sh).
+
+
+``` shell
+#!/usr/bin/env bash
+# shellcheck disable=SC2124,SC2145,SC2294,SC2086,SC2087,SC2155
+#
+# Hyperconverged Lab Deployment Selector
+#
+# This script provides a simple interface to deploy Genestack (OpenStack on Kubernetes)
+# in a hyperconverged configuration using either:
+#
+#   1. Kubespray   - Traditional approach using Ubuntu VMs and Kubespray/Ansible
+#   2. Talos Linux - Modern approach using Talos Linux immutable OS
+#
+# Usage:
+#   ./hyperconverged-lab.sh                    # Interactive mode - prompts for platform
+#   ./hyperconverged-lab.sh kubespray [args]   # Deploy using Kubespray
+#   ./hyperconverged-lab.sh talos [args]       # Deploy using Talos Linux
+#
+# For uninstall, use the corresponding uninstall scripts:
+#   ./hyperconverged-lab-kubespray-uninstall.sh
+#   ./hyperconverged-lab-talos-uninstall.sh
+#
+
+set -o pipefail
+set -e
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
+function show_usage() {
+    cat <<EOF
+Hyperconverged Lab Deployment Script
+
+This script deploys Genestack (OpenStack on Kubernetes) in a hyperconverged
+configuration on OpenStack infrastructure.
+
+USAGE:
+    $(basename "$0") [PLATFORM] [OPTIONS]
+
+PLATFORMS:
+    kubespray    Deploy using Kubespray on Ubuntu (traditional approach)
+                 - Uses Ubuntu VMs with SSH access
+                 - Kubernetes deployed via Kubespray/Ansible
+                 - Requires SSH keypair for node access
+
+    talos        Deploy using Talos Linux (modern approach)
+                 - Uses Talos Linux immutable OS
+                 - Kubernetes deployed via talosctl
+                 - No SSH - managed via Talos API
+                 - Includes Talos-specific configs for Longhorn, Kube-OVN, Ceph
+
+    help         Show this help message
+
+OPTIONS:
+    -i <list>    Comma-separated list of OpenStack services to include
+    -e <list>    Comma-separated list of OpenStack services to exclude
+    -x           Run extra operations (k9s install, Octavia preconf, etc.)
+
+ENVIRONMENT VARIABLES:
+    ACME_EMAIL          Email for ACME/Let's Encrypt certificates
+    GATEWAY_DOMAIN      Domain name for the gateway (default: cluster.local)
+    OS_CLOUD            OpenStack cloud configuration name (default: default)
+    OS_FLAVOR           Flavor to use for instances
+    OS_IMAGE            Image to use (platform-specific defaults apply)
+    LAB_NAME_PREFIX     Prefix for all created resources
+    LAB_NETWORK_MTU     MTU for lab networks (default: 1500)
+    HYPERCONVERGED_DEV  If set to "true", enables development mode which transports
+                        the local environment checkout into the hyperconverged lab
+                        for easier testing and debugging.
+    HYPERCONVERGED_CINDER_VOLUME
+                        If set to "true", enables iSCSI cinder volume support.
+    DISABLE_OPENSTACK
+                        if set to "true", no openstack services will be deployed.
+
+EXAMPLES:
+    # Interactive mode - will prompt for platform choice
+    $(basename "$0")
+
+    # Deploy using Kubespray
+    $(basename "$0") kubespray
+
+    # Deploy using Talos Linux
+    $(basename "$0") talos
+
+    # Deploy Kubespray with extra services and extras enabled
+    $(basename "$0") kubespray -i heat,octavia -x
+
+    # Deploy Talos with specific services excluded
+    $(basename "$0") talos -e skyline
+
+UNINSTALL:
+    Use the platform-specific uninstall scripts:
+
+    # Uninstall Kubespray deployment
+    ./hyperconverged-lab-kubespray-uninstall.sh
+
+    # Uninstall Talos deployment
+    ./hyperconverged-lab-talos-uninstall.sh
+
+For more information, see the Genestack documentation.
+EOF
+}
+
+function prompt_for_platform() {
+    echo ""
+    echo "Hyperconverged Lab Deployment"
+    echo "============================="
+    echo ""
+    echo "Select your deployment platform:"
+    echo ""
+    echo "  1) Kubespray"
+    echo "     - Traditional approach using Ubuntu VMs"
+    echo "     - Kubernetes deployed via Kubespray/Ansible"
+    echo "     - SSH-based node management"
+    echo ""
+    echo "  2) Talos Linux"
+    echo "     - Modern immutable Linux OS designed for Kubernetes"
+    echo "     - API-based management (no SSH)"
+    echo "     - Includes Talos-specific configurations for Longhorn, Kube-OVN, Ceph"
+    echo ""
+
+    read -rp "Enter your choice [1/2]: " choice
+
+    case "$choice" in
+        1|kubespray|Kubespray|KUBESPRAY)
+            echo ""
+            echo "Selected: Kubespray"
+            PLATFORM="kubespray"
+            ;;
+        2|talos|Talos|TALOS)
+            echo ""
+            echo "Selected: Talos Linux"
+            PLATFORM="talos"
+            ;;
+        *)
+            echo "Invalid choice. Please enter 1 or 2."
+            exit 1
+            ;;
+    esac
+}
+
+# Check for help flag first
+if [[ "$1" == "help" || "$1" == "--help" || "$1" == "-h" ]]; then
+    show_usage
+    exit 0
+fi
+
+# Determine platform from first argument or prompt
+if [[ -n "$1" && "$1" != -* ]]; then
+    case "$1" in
+        kubespray|Kubespray|KUBESPRAY)
+            PLATFORM="kubespray"
+            shift
+            ;;
+        talos|Talos|TALOS)
+            PLATFORM="talos"
+            shift
+            ;;
+        *)
+            echo "Unknown platform: $1"
+            echo ""
+            show_usage
+            exit 1
+            ;;
+    esac
+else
+    prompt_for_platform
+fi
+
+# Execute the appropriate platform-specific script
+case "$PLATFORM" in
+    kubespray)
+        echo ""
+        echo "Launching Kubespray deployment..."
+        echo ""
+        exec "${SCRIPT_DIR}/hyperconverged-lab-kubespray.sh" "$@"
+        ;;
+    talos)
+        echo ""
+        echo "Launching Talos Linux deployment..."
+        echo ""
+        exec "${SCRIPT_DIR}/hyperconverged-lab-talos.sh" "$@"
+        ;;
+esac
+```
 
 The build script is interactive and will prompt you for the following information
 
@@ -212,21 +209,23 @@ The build script is interactive and will prompt you for the following informatio
 | `HYPERCONVERGED_DEV` | enable hyperconverged development mode. This will attempt to sync a local copy of Genestack to the development environment. | `false` |
 | `LAB_NAME_PREFIX` | Prefix for the lab environment. Useful when building multiple labs in a single project | "hyperconverged" |
 
-All of the variables can be defined on the command line using environment variables.
 
-> [!EXAMPLE] Deploying a Hyper-converged Lab Environment with Environment Variables
+> [!EXAMPLE]
 >
+> All of the variables can be defined on the command line using environment variables.
 >
-> ``` shell
-> export ACME_EMAIL="user@domain.com"
-> export GATEWAY_DOMAIN="cluster.local"
-> export OS_CLOUD="default"
-> export OS_FLAVOR="gp.0.8.16"
-> export OS_IMAGE="Ubuntu 24.04"
-> export HYPERCONVERGED_DEV="false"
-> /opt/genestack/scripts/hyperconverged-lab.sh
-> ```
->
+> The following snippet shows you how to set the variables:
+ 
+
+``` shell
+export ACME_EMAIL="user@domain.com"
+export GATEWAY_DOMAIN="cluster.local"
+export OS_CLOUD="default"
+export OS_FLAVOR="gp.0.8.16"
+export OS_IMAGE="Ubuntu 24.04"
+export HYPERCONVERGED_DEV="false"
+/opt/genestack/scripts/hyperconverged-lab.sh
+```
 
 ## Overview
 
@@ -304,7 +303,6 @@ With this information, operators can login to the Genestack instance and begin t
 >
 > Genestack uses DNS to route services in Kubernetes, which may be a bit different from what you might be used to in other lab environments, where
 > IP addresses are used heavily.  To be able to access OpenStack externally from the jumpbox, set `GATEWAY_DOMAIN` to a DNS domain that you control.
->
 
 ### Setting up DNS for a Hyper-Converged Lab
 
@@ -327,7 +325,6 @@ cluster.local               A       AA.BB.CC.DD
 > [!WARNING]
 >
 > Do **NOT** use `cluster.local` as your domain.  You will need to use a domain that you control and you will need to set the `GATEWAY_DOMAIN` variable to this prior to building your hyper-converged lab.
->
 
 ### Accessing your Hyper-Converged Lab
 
@@ -369,7 +366,6 @@ This can be used to login to the Skyline web console.  To access the Skyline web
 > [!NOTE]
 >
 > If you get SSL errors, wait a bit. Cert Manager takes time to generate all the SSL certs it using with Let's Encrypt.
->
 
 ## Demo
 

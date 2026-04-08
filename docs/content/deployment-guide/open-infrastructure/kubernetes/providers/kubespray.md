@@ -16,35 +16,27 @@ you will need to prepare your networking infrastructure and basic storage layout
 
 > [!NOTE]
 >
->
 > While we would expect the environment to be running with multiple bonds in a production cloud, two network interfaces is all that's required. This can be achieved with vlan
 > tagged devices, physical ethernet devices, macvlan, or anything else. Have a look at the netplan example file found
 > [here](https://github.com/rackerlabs/genestack/blob/main/etc/netplan/default.yaml) for an example of how you could setup the network.
->
 
 * Ensure we're running kernel 5.17+
 
 > [!TIP]
 >
->
 > While the default kernel on most modern operating systems will work, we recommend running with Kernel 6.2+.
->
 
 * Kernel modules
 
 > [!WARNING]
 >
->
 > The Kubespray tool chain will attempt to deploy a lot of things, one thing is a set of `sysctl` options which will include bridge tunings. Given the tooling will assume bridging is functional, you will need to ensure the `br_netfilter` module is loaded or you're using a kernel that includes that functionality as a built-in.
->
 
 * Executable `/tmp`
 
 > [!WARNING]
 >
->
 > The `/tmp` directory is used as a download and staging location within the environment. You will need to make sure that the `/tmp` is executable. By default, some kick-systems set the mount option **noexec**, if that is defined you should remove it before running the deployment.
->
 
 ### Create your Inventory
 
@@ -54,9 +46,7 @@ Checkout the [inventory.yaml.example](https://github.com/rackerlabs/genestack/bl
 
 > [!NOTE]
 >
->
 > Before you deploy the kubernetes cluster you should define the `kube_override_hostname` option in your inventory. This variable will set the node name which we will want to be an FQDN. When you define the option, it should have the same suffix defined in our `cluster_name` variable.
->
 
 However, any Kubespray compatible inventory will work with this deployment tooling. The official [Kubespray documentation](https://kubespray.io) can be used to better understand the inventory options and requirements.
 
@@ -72,10 +62,7 @@ ansible -m shell -a "grep 127.0.0.1 /etc/hosts | grep -q {{ inventory_hostname }
 
 > [!NOTE]
 >
->
-> In the above command I'm assuming the use of `cluster.local` this is the default **cluster_name** as defined in the group_vars k8s_cluster file. If you change that option, make sure to reset your domain name on your hosts accordingly.
->
->
+> In the above command I'm assuming the use of `cluster.local` this is the default `cluster_name` as defined in the group_vars k8s_cluster file. If you change that option, make sure to reset your domain name on your hosts accordingly.
 
 The ansible inventory is expected at `/etc/genestack/inventory` and automatically loaded once `genestack.rc` is sourced.
 
@@ -92,9 +79,7 @@ cd /opt/genestack/ansible/playbooks
 
 > [!NOTE]
 >
->
 > The rc file sets a number of environment variables that help ansible to run in a more easily to understand way.
->
 
 While the `ansible-playbook` command should work as-is with the sourced environment variables, sometimes it's necessary to set some overrides on the command line.
 The following example highlights a couple of overrides that are generally useful.
@@ -118,7 +103,6 @@ ansible-playbook host-setup.yml
 > [!NOTE]
 >
 > The RC file sets a number of environment variables that help ansible to run in a more easy to understand way.
->
 
 ### Run the cluster deployment
 
@@ -140,8 +124,6 @@ ansible-playbook cluster.yml --become
 
 > [!TIP]
 >
->
 > Given the use of a venv, when running with `sudo` be sure to use the full path and pass through your environment variables; `sudo -E /home/ubuntu/.venvs/genestack/bin/ansible-playbook`.
->
 
 Once the cluster is online, you can run `kubectl` to interact with the environment.

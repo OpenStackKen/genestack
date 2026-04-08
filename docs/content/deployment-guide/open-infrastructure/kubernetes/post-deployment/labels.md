@@ -6,10 +6,8 @@ To use the K8S environment for OpenStack all of the nodes MUST be labeled. The f
 
 > [!NOTE]
 >
->
 > The following example assumes the node names can be used to identify their purpose within our environment.
 > That may not be the case in reality. Adapt the following commands to meet your needs.
->
 
 ## Genestack Labels
 
@@ -22,30 +20,27 @@ To use the K8S environment for OpenStack all of the nodes MUST be labeled. The f
 | **node-role.kubernetes.io/worker** |str| `worker` | Defines which nodes are designated kubernetes workers |
 
 > [!IMPORTANT]
->
->
 > Here's an example labeling all of the nodes: the subshell commands are using the node name to identify how to appropriately distribute the workloads throughout the environment.
->
-> ``` shell
-> # Label the openstack controllers
-> kubectl label node $(kubectl get nodes | awk '/controller/ {print $1}') openstack-control-plane=enabled
->
-> # Label the openstack compute nodes
-> kubectl label node $(kubectl get nodes | awk '/compute/ {print $1}') openstack-compute-node=enabled
->
-> # Label the openstack network nodes
-> kubectl label node $(kubectl get nodes | awk '/network/ {print $1}') openstack-network-node=enabled
->
-> # Label the openstack storage nodes
-> kubectl label node $(kubectl get nodes | awk '/storage/ {print $1}') openstack-storage-node=enabled
->
-> # With OVN we need the compute nodes to be "network" nodes as well. While they will be configured for networking, they wont be gateways.
-> kubectl label node $(kubectl get nodes | awk '/compute/ {print $1}') openstack-network-node=enabled
->
-> # Label all workers - Recommended and used when deploying Kubernetes specific services
-> kubectl label node $(kubectl get nodes | awk '/worker/ {print $1}')  node-role.kubernetes.io/worker=worker
-> ```
->
+
+``` shell
+# Label the openstack controllers
+kubectl label node $(kubectl get nodes | awk '/controller/ {print $1}') openstack-control-plane=enabled
+
+# Label the openstack compute nodes
+kubectl label node $(kubectl get nodes | awk '/compute/ {print $1}') openstack-compute-node=enabled
+
+# Label the openstack network nodes
+kubectl label node $(kubectl get nodes | awk '/network/ {print $1}') openstack-network-node=enabled
+
+# Label the openstack storage nodes
+kubectl label node $(kubectl get nodes | awk '/storage/ {print $1}') openstack-storage-node=enabled
+
+# With OVN we need the compute nodes to be "network" nodes as well. While they will be configured for networking, they wont be gateways.
+kubectl label node $(kubectl get nodes | awk '/compute/ {print $1}') openstack-network-node=enabled
+
+# Label all workers - Recommended and used when deploying Kubernetes specific services
+kubectl label node $(kubectl get nodes | awk '/worker/ {print $1}')  node-role.kubernetes.io/worker=worker
+```
 
 ### Validate node labels
 
@@ -56,11 +51,9 @@ After labeling everything it's good to check the layout and ensure correctness.
 kubectl get nodes -o wide --show-labels=true
 ```
 
-> [!TIP]
-> **Make the node layout pretty**
->
->
-> ``` shell
-> # Here is a way to make it look a little nicer:
-> kubectl get nodes -o json | jq '[.items[] | {"NAME": .metadata.name, "LABELS": .metadata.labels}]'
-> ```
+Make the node layout pretty
+
+``` shell
+# Here is a way to make it look a little nicer:
+kubectl get nodes -o json | jq '[.items[] | {"NAME": .metadata.name, "LABELS": .metadata.labels}]'
+```

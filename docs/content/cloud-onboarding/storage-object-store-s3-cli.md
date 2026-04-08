@@ -8,9 +8,7 @@ Use the command-line utility `aws` to perform operations on your object store.
 
 > [!NOTE]
 >
->
 > Before getting started, generate credentials that will be used to authenticate the S3 API provided by OpenStack Flex Object Storage.
->
 
 ## Install the `awscli` package
 
@@ -28,58 +26,49 @@ The following credentials will be used to authenticate the S3 API provided by Op
 openstack --os-cloud default ec2 credentials create
 ```
 
-> [!IMPORTANT]
-> **The output should look similar to the following**
->
->
-> ``` shell
-> +------------+---------------------------------------------------------------------------------------------------------+
-> | Field      | Value                                                                                                   |
-> +------------+---------------------------------------------------------------------------------------------------------+
-> | access     | $ACCESS_ID                                                                                              |
-> | links      | {'self': 'http://keystone.api.sjc3.rackspacecloud.com/v3/users/$USER_ID/credentials/OS-EC2/$ACCESS_ID'} |
-> | project_id | $PROJECT_ID                                                                                             |
-> | secret     | $SECRET_VALUE                                                                                           |
-> | trust_id   | None                                                                                                    |
-> | user_id    | $USER_ID                                                                                                |
-> +------------+---------------------------------------------------------------------------------------------------------+
-> ```
->
+The output should look similar to the following
+
+``` shell
++------------+---------------------------------------------------------------------------------------------------------+
+| Field      | Value                                                                                                   |
++------------+---------------------------------------------------------------------------------------------------------+
+| access     | $ACCESS_ID                                                                                              |
+| links      | {'self': 'http://keystone.api.sjc3.rackspacecloud.com/v3/users/$USER_ID/credentials/OS-EC2/$ACCESS_ID'} |
+| project_id | $PROJECT_ID                                                                                             |
+| secret     | $SECRET_VALUE                                                                                           |
+| trust_id   | None                                                                                                    |
+| user_id    | $USER_ID                                                                                                |
++------------+---------------------------------------------------------------------------------------------------------+
+```
 
 ## Create the AWS CLI Configuration Files
 
 Create an aws-config file. Be sure to replace `sjc3` with the region of your object store.
 
-> [!IMPORTANT]
-> **`~/aws-config` file**
->
->
-> ``` conf
-> [plugins]
-> endpoint = awscli_plugin_endpoint
->
-> [profile default]
-> region = sjc3
-> s3 =
-> endpoint_url = https://swift.api.sjc3.rackspacecloud.com
-> signature_version = s3v4
-> s3api =
-> endpoint_url = https://swift.api.sjc3.rackspacecloud.com
-> ```
->
+`~/aws-config` file
+
+``` conf
+[plugins]
+endpoint = awscli_plugin_endpoint
+
+[profile default]
+region = sjc3
+s3 =
+endpoint_url = https://swift.api.sjc3.rackspacecloud.com
+signature_version = s3v4
+s3api =
+endpoint_url = https://swift.api.sjc3.rackspacecloud.com
+```
 
 Create an aws-credentials file. Be sure to replace `ACCESS` and `SECRET` with the values from the credential generation command.
 
-> [!IMPORTANT]
-> **`~/aws-credentials` file**
->
->
-> ``` conf
-> [default]
-> aws_access_key_id = $ACCESS_ID
-> aws_secret_access_key = $SECRET_VALUE
-> ```
->
+`~/aws-credentials` file
+
+``` conf
+[default]
+aws_access_key_id = $ACCESS_ID
+aws_secret_access_key = $SECRET_VALUE
+```
 
 ## Using the `aws` CLI and Validating the Configuration
 
@@ -95,25 +84,24 @@ Ensure the new bucket exists by listing all buckets.
 aws --profile default s3api list-buckets
 ```
 
-> [!IMPORTANT]
-> **Output**
->
->
-> ``` json
-> {
->     "Buckets": [
->         {
->             "Name": "newbucket",
->             "CreationDate": "2009-02-03T16:45:09.000Z"
->         }
->     ],
->     "Owner": {
->         "DisplayName": "$USER_ID:$USER_NAME",
->         "ID": "$USER_ID:$USER_NAME"
->     },
->     "Prefix": null
-> }
->
+Output
+
+``` json
+{
+    "Buckets": [
+        {
+            "Name": "newbucket",
+            "CreationDate": "2009-02-03T16:45:09.000Z"
+        }
+    ],
+    "Owner": {
+        "DisplayName": "$USER_ID:$USER_NAME",
+        "ID": "$USER_ID:$USER_NAME"
+    },
+    "Prefix": null
+}
+
+```
 
 For more information on the `awscli` tooling use the `help` flag for a detailed breakdown.
 

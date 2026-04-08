@@ -30,12 +30,12 @@ should work fine.
 | Volume‑type policies drafted         | QoS, provisioning, and extra specs prepared                     |
 
 > [!WARNING]
+>
 > **VG name must match driver stanza**
 >
 >
 > The reference driver hard‑codes `lvmdriver-1` (volume type) and `cinder-volumes-1` (volume group). Keep these names unless you also
 > edit the playbook templates.
->
 
 ## 2  Storage‑Node Preparation
 
@@ -112,27 +112,21 @@ Use the hybrid playbook to install `cinder-volume` as a **systemd** service:
 ansible-playbook -i inventory.yaml playbooks/deploy-cinder-volumes-reference.yaml
 ```
 
-> [!IMPORTANT]
-> **Runtime with CLI flags**
->
->
-> ``` console
-> ansible-playbook -i /etc/genestack/inventory/inventory.yaml deploy-cinder-volumes-reference.yaml \
->                 -e "cinder_storage_network_interface=ansible_br_storage_a cinder_storage_network_interface_secondary=ansible_br_storage_b storage_network_multipath=true cinder_backend_name=lvmdriver-1" \
->                 --user ubuntu \
->                 --become 'cinder_storage_nodes'
-> ```
->
+Runtime with CLI flags
+
+``` console
+ansible-playbook -i /etc/genestack/inventory/inventory.yaml deploy-cinder-volumes-reference.yaml \
+                -e "cinder_storage_network_interface=ansible_br_storage_a cinder_storage_network_interface_secondary=ansible_br_storage_b storage_network_multipath=true cinder_backend_name=lvmdriver-1" \
+                --user ubuntu \
+                --become 'cinder_storage_nodes'
+```
 
 > [!NOTE]
->
 >
 > Consider the **storage** network on your Cinder hosts that will be accessible to Nova compute hosts. By default, the playbook uses
 > `ansible_default_ipv4.address` to configure the target address, which may or may not work for your environment. Append var, i.e.,
 > `-e cinder_storage_network_interface=ansible_br_mgmt` to use the specified iface address in `cinder.conf` for `my_ip` and
 > `target_ip_address` in `cinder/backends.conf`. **Interface names with a `-` must be entered with a `_` and be prefixed with `ansible`**
->
->
 
 The playbook will:
 
@@ -146,21 +140,18 @@ The playbook will:
 openstack --os-cloud default volume type create lvmdriver-1
 ```
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> +-------------+--------------------------------------+
-> | Field       | Value                                |
-> +-------------+--------------------------------------+
-> | description | None                                 |
-> | id          | 6af6ade2-53ca-4260-8b79-1ba2f208c91d |
-> | is_public   | True                                 |
-> | name        | lvmdriver-1                          |
-> +-------------+--------------------------------------+
-> ```
->
+Expected Output
+
+``` shell
++-------------+--------------------------------------+
+| Field       | Value                                |
++-------------+--------------------------------------+
+| description | None                                 |
+| id          | 6af6ade2-53ca-4260-8b79-1ba2f208c91d |
+| is_public   | True                                 |
+| name        | lvmdriver-1                          |
++-------------+--------------------------------------+
+```
 
 Refer to:
 
@@ -176,20 +167,17 @@ Refer to:
 kubectl -n openstack exec -ti openstack-admin-client -- openstack volume service list
 ```
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> root@openstack-node-0:~# kubectl --namespace openstack exec -ti openstack-admin-client -- openstack volume service list
-> +------------------+--------------------------------------------+------+---------+-------+----------------------------+
-> | Binary           | Host                                       | Zone | Status  | State | Updated At                 |
-> +------------------+--------------------------------------------+------+---------+-------+----------------------------+
-> | cinder-scheduler | cinder-volume-worker                       | nova | enabled | up    | 2023-12-26T17:43:07.000000 |
-> | cinder-volume    | openstack-node-4.cluster.local@lvmdriver-1 | nova | enabled | up    | 2023-12-26T17:43:04.000000 |
-> +------------------+--------------------------------------------+------+---------+-------+----------------------------+
-> ```
->
+Expected Output
+
+``` shell
+root@openstack-node-0:~# kubectl --namespace openstack exec -ti openstack-admin-client -- openstack volume service list
++------------------+--------------------------------------------+------+---------+-------+----------------------------+
+| Binary           | Host                                       | Zone | Status  | State | Updated At                 |
++------------------+--------------------------------------------+------+---------+-------+----------------------------+
+| cinder-scheduler | cinder-volume-worker                       | nova | enabled | up    | 2023-12-26T17:43:07.000000 |
+| cinder-volume    | openstack-node-4.cluster.local@lvmdriver-1 | nova | enabled | up    | 2023-12-26T17:43:04.000000 |
++------------------+--------------------------------------------+------+---------+-------+----------------------------+
+```
 
 Should show `openstack-node‑X@lvmdriver-1` **enabled/up**.
 
@@ -199,37 +187,34 @@ Should show `openstack-node‑X@lvmdriver-1` **enabled/up**.
 openstack --os-cloud default volume create --size 1 --type lvmdriver-1 smoke-test-lvm
 ```
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> +---------------------+--------------------------------------+
-> | Field               | Value                                |
-> +---------------------+--------------------------------------+
-> | attachments         | []                                   |
-> | availability_zone   | az1                                  |
-> | bootable            | false                                |
-> | consistencygroup_id | None                                 |
-> | created_at          | 2023-12-26T17:46:15.639697           |
-> | description         | None                                 |
-> | encrypted           | False                                |
-> | id                  | c744af27-fb40-4ffa-8a84-b9f44cb19b2b |
-> | migration_status    | None                                 |
-> | multiattach         | False                                |
-> | name                | test                                 |
-> | properties          |                                      |
-> | replication_status  | None                                 |
-> | size                | 1                                    |
-> | snapshot_id         | None                                 |
-> | source_volid        | None                                 |
-> | status              | creating                             |
-> | type                | lvmdriver-1                          |
-> | updated_at          | None                                 |
-> | user_id             | 2ddf90575e1846368253474789964074     |
-> +---------------------+--------------------------------------+
-> ```
->
+Expected Output
+
+``` shell
++---------------------+--------------------------------------+
+| Field               | Value                                |
++---------------------+--------------------------------------+
+| attachments         | []                                   |
+| availability_zone   | az1                                  |
+| bootable            | false                                |
+| consistencygroup_id | None                                 |
+| created_at          | 2023-12-26T17:46:15.639697           |
+| description         | None                                 |
+| encrypted           | False                                |
+| id                  | c744af27-fb40-4ffa-8a84-b9f44cb19b2b |
+| migration_status    | None                                 |
+| multiattach         | False                                |
+| name                | test                                 |
+| properties          |                                      |
+| replication_status  | None                                 |
+| size                | 1                                    |
+| snapshot_id         | None                                 |
+| source_volid        | None                                 |
+| status              | creating                             |
+| type                | lvmdriver-1                          |
+| updated_at          | None                                 |
+| user_id             | 2ddf90575e1846368253474789964074     |
++---------------------+--------------------------------------+
+```
 
 ### 5.3  Validate the test volume
 
@@ -237,18 +222,15 @@ openstack --os-cloud default volume create --size 1 --type lvmdriver-1 smoke-tes
 root@openstack-node-0:~# kubectl --namespace openstack exec -ti openstack-admin-client -- openstack volume list
 ```
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> +--------------------------------------+------+-----------+------+-------------+
-> | ID                                   | Name | Status    | Size | Attached to |
-> +--------------------------------------+------+-----------+------+-------------+
-> | c744af27-fb40-4ffa-8a84-b9f44cb19b2b | test | available |    1 |             |
-> +--------------------------------------+------+-----------+------+-------------+
-> ```
->
+Expected Output
+
+``` shell
++--------------------------------------+------+-----------+------+-------------+
+| ID                                   | Name | Status    | Size | Attached to |
++--------------------------------------+------+-----------+------+-------------+
+| c744af27-fb40-4ffa-8a84-b9f44cb19b2b | test | available |    1 |             |
++--------------------------------------+------+-----------+------+-------------+
+```
 
 Check on the storage node:
 
@@ -258,15 +240,12 @@ lvs
 
 You can validate the environment is operational by logging into the storage nodes to validate the LVM targets are being created.
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> LV                                   VG               Attr       LSize Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
-> c744af27-fb40-4ffa-8a84-b9f44cb19b2b cinder-volumes-1 -wi-a----- 1.00g
-> ```
->
+Expected Output
+
+``` shell
+LV                                   VG               Attr       LSize Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+c744af27-fb40-4ffa-8a84-b9f44cb19b2b cinder-volumes-1 -wi-a----- 1.00g
+```
 
 If the LV exists, Cinder is provisioning correctly.
 
@@ -298,11 +277,11 @@ storage:
 ```
 
 > [!TIP]
+>
 > **When using Multipath**
 >
 >
 > Deploy two storage VLANs (`network_storage_address` and `network_storage_a_address`, `network_storage_b_address`) for path redundancy.
->
 
 ## 7  Verify Multipath Operations
 
@@ -312,59 +291,56 @@ If multipath is enabled on compute nodes, you can verify dual iscsi targets on t
 tgtadm --mode target --op show
 ```
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> Target 4: iqn.2010-10.org.openstack:dd88d4b9-1297-44c1-b9bc-efd6514be035
->     System information:
->         Driver: iscsi
->         State: ready
->     I_T nexus information:
->         I_T nexus: 4
->             Initiator: iqn.2004-10.com.ubuntu:01:8392e3447710 alias: genestack-compute2.cluster.local
->             Connection: 0
->                 IP Address: 10.1.2.213
->         I_T nexus: 5
->             Initiator: iqn.2004-10.com.ubuntu:01:8392e3447710 alias: genestack-compute2.cluster.local
->             Connection: 0
->                 IP Address: 10.1.1.213
->     LUN information:
->         LUN: 0
->             Type: controller
->             SCSI ID: IET     00040000
->             SCSI SN: beaf40
->             Size: 0 MB, Block size: 1
->             Online: Yes
->             Removable media: No
->             Prevent removal: No
->             Readonly: No
->             SWP: No
->             Thin-provisioning: No
->             Backing store type: null
->             Backing store path: None
->             Backing store flags:
->         LUN: 1
->             Type: disk
->             SCSI ID: IET     00040001
->             SCSI SN: beaf41
->             Size: 10737 MB, Block size: 512
->             Online: Yes
->             Removable media: No
->             Prevent removal: No
->             Readonly: No
->             SWP: No
->             Thin-provisioning: No
->             Backing store type: rdwr
->             Backing store path: /dev/cinder-volumes-1/dd88d4b9-1297-44c1-b9bc-efd6514be035
->             Backing store flags:
->     Account information:
->         sRs8FV73FeaF2LFnPb4j
->     ACL information:
->         ALL
-> ```
->
+Expected Output
+
+``` shell
+Target 4: iqn.2010-10.org.openstack:dd88d4b9-1297-44c1-b9bc-efd6514be035
+    System information:
+        Driver: iscsi
+        State: ready
+    I_T nexus information:
+        I_T nexus: 4
+            Initiator: iqn.2004-10.com.ubuntu:01:8392e3447710 alias: genestack-compute2.cluster.local
+            Connection: 0
+                IP Address: 10.1.2.213
+        I_T nexus: 5
+            Initiator: iqn.2004-10.com.ubuntu:01:8392e3447710 alias: genestack-compute2.cluster.local
+            Connection: 0
+                IP Address: 10.1.1.213
+    LUN information:
+        LUN: 0
+            Type: controller
+            SCSI ID: IET     00040000
+            SCSI SN: beaf40
+            Size: 0 MB, Block size: 1
+            Online: Yes
+            Removable media: No
+            Prevent removal: No
+            Readonly: No
+            SWP: No
+            Thin-provisioning: No
+            Backing store type: null
+            Backing store path: None
+            Backing store flags:
+        LUN: 1
+            Type: disk
+            SCSI ID: IET     00040001
+            SCSI SN: beaf41
+            Size: 10737 MB, Block size: 512
+            Online: Yes
+            Removable media: No
+            Prevent removal: No
+            Readonly: No
+            SWP: No
+            Thin-provisioning: No
+            Backing store type: rdwr
+            Backing store path: /dev/cinder-volumes-1/dd88d4b9-1297-44c1-b9bc-efd6514be035
+            Backing store flags:
+    Account information:
+        sRs8FV73FeaF2LFnPb4j
+    ACL information:
+        ALL
+```
 
 The multipath output can also be validated on the compute nodes.
 
@@ -372,18 +348,15 @@ The multipath output can also be validated on the compute nodes.
 multipath -ll
 ```
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> 360000000000000000e00000000010001 dm-0 IET,VIRTUAL-DISK
-> size=10G features='0' hwhandler='0' wp=rw
-> `-+- policy='queue-length 0' prio=1 status=active
-> |- 2:0:0:1 sda 8:0  active ready running
-> `- 3:0:0:1 sdb 8:16 active ready running
-> ```
->
+Expected Output
+
+``` shell
+360000000000000000e00000000010001 dm-0 IET,VIRTUAL-DISK
+size=10G features='0' hwhandler='0' wp=rw
+`-+- policy='queue-length 0' prio=1 status=active
+|- 2:0:0:1 sda 8:0  active ready running
+`- 3:0:0:1 sdb 8:16 active ready running
+```
 
 ## Appendix
 

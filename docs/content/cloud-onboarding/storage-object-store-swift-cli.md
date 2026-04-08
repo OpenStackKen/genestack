@@ -31,38 +31,34 @@ For a more detailed explanation of any specific command, add `--help` after it:
 swift list --help
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ swift list --help
->
-> Usage: swift list [--long] [--lh] [--totals] [--prefix <prefix>]
->                   [--delimiter <delimiter>] [--header <header:value>]
->                   [--versions] [<container>]
->
-> Lists the containers for the account or the objects for a container.
->
-> Positional arguments:
->   [<container>]           Name of container to list object in.
->
-> Optional arguments:
->   -l, --long            Long listing format, similar to ls -l.
->   --lh                  Report sizes in human readable format similar to
->                         ls -lh.
->   -t, --totals          Used with -l or --lh, only report totals.
->   -p <prefix>, --prefix <prefix>
->                         Only list items beginning with the prefix.
->   -d <delim>, --delimiter <delim>
->                         Roll up items with the given delimiter. For containers
->                         only. See OpenStack Swift API documentation for what
->                         this means.
->   -j, --json            Display listing information in json
->   --versions            Display listing information for all versions
->   -H, --header <header:value>
->                         Adds a custom request header to use for listing.
-> ```
->
+``` shell
+$ swift list --help
+
+Usage: swift list [--long] [--lh] [--totals] [--prefix <prefix>]
+                  [--delimiter <delimiter>] [--header <header:value>]
+                  [--versions] [<container>]
+
+Lists the containers for the account or the objects for a container.
+
+Positional arguments:
+  [<container>]           Name of container to list object in.
+
+Optional arguments:
+  -l, --long            Long listing format, similar to ls -l.
+  --lh                  Report sizes in human readable format similar to
+                        ls -lh.
+  -t, --totals          Used with -l or --lh, only report totals.
+  -p <prefix>, --prefix <prefix>
+                        Only list items beginning with the prefix.
+  -d <delim>, --delimiter <delim>
+                        Roll up items with the given delimiter. For containers
+                        only. See OpenStack Swift API documentation for what
+                        this means.
+  -j, --json            Display listing information in json
+  --versions            Display listing information for all versions
+  -H, --header <header:value>
+                        Adds a custom request header to use for listing.
+```
 
 ### Create an object container
 
@@ -88,50 +84,38 @@ Upload the entire contents of a folder to the container:
 swift upload flex-container01 example-files/
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ swift upload flex-container01 example-files/
-> example-docs/readme.md
-> example-docs/image01.jpg
-> example-docs/image02.png
-> ```
->
+``` shell
+$ swift upload flex-container01 example-files/
+example-docs/readme.md
+example-docs/image01.jpg
+example-docs/image02.png
+```
 
 Uploading an entire folder will add that prefix to your filenames inside the container.
 ``` shell
 swift list flex-container01
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ swift list flex-container01
-> example-docs/readme.md
-> example-docs/image01.jpg
-> example-docs/image02.png
-> document01.rtf
-> document02.rtf
-> ```
->
+``` shell
+$ swift list flex-container01
+example-docs/readme.md
+example-docs/image01.jpg
+example-docs/image02.png
+document01.rtf
+document02.rtf
+```
 
 Filter the display of files only with the prefix by using the `--prefix` argument:
 ``` shell
 swift list flex-container01 --prefix example-docs
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ swift list flex-container01 --prefix example-docs
-> example-docs/readme.md
-> example-docs/image01.jpg
-> example-docs/image02.png
-> ```
->
+``` shell
+$ swift list flex-container01 --prefix example-docs
+example-docs/readme.md
+example-docs/image01.jpg
+example-docs/image02.png
+```
 
 ### Downloading files
 When the container is public, you can access each file using a specific URL, made up of your region's endpoint, the name of your container, the prefix (if any) of your object, and finally, the object name.
@@ -154,45 +138,33 @@ swift download flex-container01 --prefix example-docs
 swift delete flex-container01 document01.rtf
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ swift delete flex-container01 document01.rtf
-> document01.rtf
-> ```
->
+``` shell
+$ swift delete flex-container01 document01.rtf
+document01.rtf
+```
 
 Similar to downloading, you can delete multiple files with the same prefix:
 ``` shell
 swift delete flex-container01 example-docs/*
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ swift delete flex-container01 example-docs/*
-> example-docs/readme.md
-> example-docs/image01.jpg
-> example-docs/image02.png
-> ```
->
+``` shell
+$ swift delete flex-container01 example-docs/*
+example-docs/readme.md
+example-docs/image01.jpg
+example-docs/image02.png
+```
 
 Deleting a container:
 ``` shell
 swift delete flex-container01
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ swift delete flex-container01
-> document01.rtf
-> document02.rtf
-> ```
->
+``` shell
+$ swift delete flex-container01
+document01.rtf
+document02.rtf
+```
 
 Deleting a container will delete all files in the container.
 
@@ -209,13 +181,9 @@ Set an object to expire at an absolute Unix epoch timestamp:
 swift post flex-container01 document01.rtf -H "X-Delete-At:UNIX_EPOCH_TIMESTAMP"
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ swift post flex-container01 document01.rtf -H "X-Delete-At:1711732649"
-> ```
->
+``` shell
+$ swift post flex-container01 document01.rtf -H "X-Delete-At:1711732649"
+```
 
 Verify the header has been applied to the object:
 ``` shell
@@ -228,13 +196,9 @@ Set an object to expire after a relative amount of time, in seconds:
 swift post flex-container01 document01.rtf -H "X-Delete-After:SECONDS"
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ swift post flex-container01 document01.rtf -H "X-Delete-After:42"
-> ```
->
+``` shell
+$ swift post flex-container01 document01.rtf -H "X-Delete-After:42"
+```
 
 The `X-Delete-After` header will be converted to `X-Delete-At`.
 

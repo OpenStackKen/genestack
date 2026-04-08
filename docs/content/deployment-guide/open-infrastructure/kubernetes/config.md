@@ -12,9 +12,7 @@ Retrieve the kube config from our first controller.
 
 > [!NOTE]
 >
->
 > In the following example, X.X.X.X is expected to be the first controller and the user is assumed to be Ubuntu.
->
 
 ``` shell
 rsync -e "ssh -F ${HOME}/.ssh/openstack-keypair.config" \

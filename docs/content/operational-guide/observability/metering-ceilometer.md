@@ -33,48 +33,45 @@ match one or more event definitions that describe what the incoming payload
 should be flattened to. See the [telemetry-events][ceilometer-events]
 section of Ceilometer's documentation for more information.
 
-> [!IMPORTANT]
-> **Example event definitions for cinder volumes**
->
->
-> ```
-> - event_type: ['volume.exists', 'volume.retype', 'volume.create.*', 'volume.delete.*', 'volume.resize.*', 'volume.attach.*', 'volume.detach.*', 'volume.update.*', 'snapshot.exists', 'snapshot.create.*', 'snapshot.delete.*', 'snapshot.update.*', 'volume.transfer.accept.end', 'snapshot.transfer.accept.end']
->   traits: &cinder_traits
->     user_id:
->       fields: payload.user_id
->     project_id:
->       fields: payload.tenant_id
->     availability_zone:
->       fields: payload.availability_zone
->     display_name:
->       fields: payload.display_name
->     replication_status:
->       fields: payload.replication_status
->     status:
->       fields: payload.status
->     created_at:
->       type: datetime
->       fields: payload.created_at
->     image_id:
->       fields: payload.glance_metadata[?key=image_id].value
->     instance_id:
->       fields: payload.volume_attachment[0].instance_uuid
-> - event_type: ['volume.transfer.*', 'volume.exists', 'volume.retype', 'volume.create.*', 'volume.delete.*', 'volume.resize.*', 'volume.attach.*', 'volume.detach.*', 'volume.update.*', 'snapshot.transfer.accept.end']
->   traits:
->     <<: *cinder_traits
->     resource_id:
->       fields: payload.volume_id
->     host:
->       fields: payload.host
->     size:
->       type: int
->       fields: payload.size
->     type:
->       fields: payload.volume_type
->     replication_status:
->       fields: payload.replication_status
-> ```
->
+Example event definitions for cinder volumes
+
+```
+- event_type: ['volume.exists', 'volume.retype', 'volume.create.*', 'volume.delete.*', 'volume.resize.*', 'volume.attach.*', 'volume.detach.*', 'volume.update.*', 'snapshot.exists', 'snapshot.create.*', 'snapshot.delete.*', 'snapshot.update.*', 'volume.transfer.accept.end', 'snapshot.transfer.accept.end']
+  traits: &cinder_traits
+    user_id:
+      fields: payload.user_id
+    project_id:
+      fields: payload.tenant_id
+    availability_zone:
+      fields: payload.availability_zone
+    display_name:
+      fields: payload.display_name
+    replication_status:
+      fields: payload.replication_status
+    status:
+      fields: payload.status
+    created_at:
+      type: datetime
+      fields: payload.created_at
+    image_id:
+      fields: payload.glance_metadata[?key=image_id].value
+    instance_id:
+      fields: payload.volume_attachment[0].instance_uuid
+- event_type: ['volume.transfer.*', 'volume.exists', 'volume.retype', 'volume.create.*', 'volume.delete.*', 'volume.resize.*', 'volume.attach.*', 'volume.detach.*', 'volume.update.*', 'snapshot.transfer.accept.end']
+  traits:
+    <<: *cinder_traits
+    resource_id:
+      fields: payload.volume_id
+    host:
+      fields: payload.host
+    size:
+      type: int
+      fields: payload.size
+    type:
+      fields: payload.volume_type
+    replication_status:
+      fields: payload.replication_status
+```
 
 ### Resources
 
@@ -88,44 +85,41 @@ resource type in Gnocchi (_which stores it as time-series data_). This
 structure allows for efficient monitoring, aggregation, and analysis of resource
 usage over time in a scalable way.
 
-> [!IMPORTANT]
-> **Example resource definition for cinder volumes**
->
->
-> ```
-> - resource_type: volume
->   metrics:
->     volume:
->     volume.size:
->     snapshot.size:
->     volume.snapshot.size:
->     volume.backup.size:
->     backup.size:
->     volume.manage_existing.start:
->     volume.manage_existing.end:
->     volume.manage_existing_snapshot.start:
->     volume.manage_existing_snapshot.end:
->   attributes:
->     display_name: resource_metadata.(display_name|name)
->     volume_type: resource_metadata.volume_type
->     image_id: resource_metadata.image_id
->     instance_id: resource_metadata.instance_id
->   event_create:
->     - volume.create.end
->   event_delete:
->     - volume.delete.end
->     - snapshot.delete.end
->   event_update:
->     - volume.attach.end
->     - volume.transfer.accept.end
->     - snapshot.transfer.accept.end
->   event_attributes:
->     id: resource_id
->     project_id: project_id
->     image_id: image_id
->     instance_id: instance_id
-> ```
->
+Example resource definition for cinder volumes
+
+```
+- resource_type: volume
+  metrics:
+    volume:
+    volume.size:
+    snapshot.size:
+    volume.snapshot.size:
+    volume.backup.size:
+    backup.size:
+    volume.manage_existing.start:
+    volume.manage_existing.end:
+    volume.manage_existing_snapshot.start:
+    volume.manage_existing_snapshot.end:
+  attributes:
+    display_name: resource_metadata.(display_name|name)
+    volume_type: resource_metadata.volume_type
+    image_id: resource_metadata.image_id
+    instance_id: resource_metadata.instance_id
+  event_create:
+    - volume.create.end
+  event_delete:
+    - volume.delete.end
+    - snapshot.delete.end
+  event_update:
+    - volume.attach.end
+    - volume.transfer.accept.end
+    - snapshot.transfer.accept.end
+  event_attributes:
+    id: resource_id
+    project_id: project_id
+    image_id: image_id
+    instance_id: instance_id
+```
 
 ### Meters
 
@@ -135,34 +129,32 @@ definitions can be added to suit almost every need. To read more about
 measurements and how they are captured, see the [telemetry-measurements][ceilometer-telemetry]
 section of Ceilometer documentation.
 
-> [!IMPORTANT]
-> **Example metric definition for volume.size**
->
-> ```
-> - name: 'volume.size'
-> event_type:
->   - 'volume.exists'
->   - 'volume.retype'
->   - 'volume.create.*'
->   - 'volume.delete.*'
->   - 'volume.resize.*'
->   - 'volume.attach.*'
->   - 'volume.detach.*'
->   - 'volume.update.*'
->   - 'volume.manage.*'
-> type: 'gauge'
-> unit: 'GB'
-> volume: $.payload.size
-> user_id: $.payload.user_id
-> project_id: $.payload.tenant_id
-> resource_id: $.payload.volume_id
-> metadata:
->   display_name: $.payload.display_name
->   volume_type: $.payload.volume_type
->   image_id: $.payload.glance_metadata[?key=image_id].value
->   instance_id: $.payload.volume_attachment[0].instance_uuid
-> ```
->
+Example metric definition for volume.size
+
+```
+- name: 'volume.size'
+event_type:
+  - 'volume.exists'
+  - 'volume.retype'
+  - 'volume.create.*'
+  - 'volume.delete.*'
+  - 'volume.resize.*'
+  - 'volume.attach.*'
+  - 'volume.detach.*'
+  - 'volume.update.*'
+  - 'volume.manage.*'
+type: 'gauge'
+unit: 'GB'
+volume: $.payload.size
+user_id: $.payload.user_id
+project_id: $.payload.tenant_id
+resource_id: $.payload.volume_id
+metadata:
+  display_name: $.payload.display_name
+  volume_type: $.payload.volume_type
+  image_id: $.payload.glance_metadata[?key=image_id].value
+  instance_id: $.payload.volume_attachment[0].instance_uuid
+```
 
 [ceilometer-telemetry]: https://docs.openstack.org/ceilometer/latest/admin/telemetry-measurements.html "The Telemetry service collects meters within an OpenStack deployment. This section provides a brief summary about meters format, their origin, and also contains the list of available meters."
 

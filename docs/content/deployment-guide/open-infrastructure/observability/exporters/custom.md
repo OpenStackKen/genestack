@@ -24,13 +24,10 @@ Confirm `inventory.yaml` matches what is in `/etc/genestack/inventory`. If it do
 source /opt/genestack/scripts/genestack.rc
 ```
 
-> [!IMPORTANT]
->
-> **Run the playbook**
->
-> ```shell
-> ansible-playbook custom_exporters.yml --private-key ${HOME}/.ssh/openstack-keypair.key
-> ```
->
+Run the playbook
+
+```shell
+ansible-playbook custom_exporters.yml --private-key ${HOME}/.ssh/openstack-keypair.key
+```
 
 Once the scripts run the node exporter will collect your metrics and supply them to prometheus for you to view.

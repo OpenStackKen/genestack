@@ -30,7 +30,6 @@ kubectl  kustomize . --enable-helm | kubectl apply -f -
 > [!NOTE]
 >
 > Ensure to take a backup of the `sealed-secrets-keyxxxx` Kubernetes Secret from the sealed-secrets namespace, as it will be required for the restoration process if needed.
->
 
 ```
 kubectl get secret -n sealed-secrets -l sealedsecrets.bitnami.com/sealed-secrets-key=active -o yaml  > sealed-secrets-key.yaml

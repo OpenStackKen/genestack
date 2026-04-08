@@ -43,48 +43,44 @@ For a more detailed explanation of any specific command, add `--help`:
 openstack --help --os-cloud $CLOUD object $COMMAND
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ openstack --help --os-cloud $CLOUD object list
->
-> usage: openstack object list [-h] [-f {csv,df-to-csv,json,table,value,yaml}]
->                              [-c COLUMN] [--format-config-file FORMAT_CONFIG]
->                              [--quote {all,minimal,none,nonnumeric}] [--noindent]
->                              [--max-width <integer>] [--fit-width] [--print-empty]
->                              [--sort-column SORT_COLUMN] [--sort-ascending |
->                              --sort-descending] [--prefix <prefix>]
->                              [--delimiter <delimiter>] [--limit <limit>]
->                              [--marker <marker>] [--end-marker <end-marker>] [--long]
->                              [--all]
->                              <container>
->
-> List objects
->
-> positional arguments:
->   <container>   Container to list
->
-> options:
->   -h, --help            show this help message and exit
->   --prefix <prefix>
->                         Filter list using <prefix>
->   --delimiter <delimiter>
->                         Roll up items with <delimiter>
->   --limit <limit>
->                         The maximum number of entries to return. If the value exceeds the server-
->                         defined maximum, then the maximum value will be used.
->   --marker <marker>
->                         The first position in the collection to return results from. This should be a
->                         value that was returned in a previous request.
->   --end-marker <end-marker>
->                         End anchor for paging
->   --long                List additional fields in output
->   --all                 List all objects in container (default is 10000)
-> ... (continues)
->
-> ```
->
+``` shell
+$ openstack --help --os-cloud $CLOUD object list
+
+usage: openstack object list [-h] [-f {csv,df-to-csv,json,table,value,yaml}]
+                             [-c COLUMN] [--format-config-file FORMAT_CONFIG]
+                             [--quote {all,minimal,none,nonnumeric}] [--noindent]
+                             [--max-width <integer>] [--fit-width] [--print-empty]
+                             [--sort-column SORT_COLUMN] [--sort-ascending |
+                             --sort-descending] [--prefix <prefix>]
+                             [--delimiter <delimiter>] [--limit <limit>]
+                             [--marker <marker>] [--end-marker <end-marker>] [--long]
+                             [--all]
+                             <container>
+
+List objects
+
+positional arguments:
+  <container>   Container to list
+
+options:
+  -h, --help            show this help message and exit
+  --prefix <prefix>
+                        Filter list using <prefix>
+  --delimiter <delimiter>
+                        Roll up items with <delimiter>
+  --limit <limit>
+                        The maximum number of entries to return. If the value exceeds the server-
+                        defined maximum, then the maximum value will be used.
+  --marker <marker>
+                        The first position in the collection to return results from. This should be a
+                        value that was returned in a previous request.
+  --end-marker <end-marker>
+                        End anchor for paging
+  --long                List additional fields in output
+  --all                 List all objects in container (default is 10000)
+... (continues)
+
+```
 
 ### Create an object container
 
@@ -97,9 +93,7 @@ If you like, make the container public:
 
 > [!NOTE]
 >
->
 > Note that it's much simpler to create a public container than to attempt to set it public after it's created.
->
 
 However, you can use either the [swift client](/cloud-onboarding/storage-object-store-swift-cli/), or the [skyline GUI](/cloud-onboarding/storage-object-store-skyline-gui/) to accomplish this.
 
@@ -119,55 +113,43 @@ Upload the entire contents of a folder to the container:
 openstack --os-cloud $CLOUD object create flex-container01 example/*
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ openstack --os-cloud $CLOUD object create flex-container01 example/*
-> +---------------------+------------------+------------------------------------+
-> | obje                | container        | etag                               |
-> +---------------------+------------------+------------------------------------+
-> | example/example.txt | flex-container01 | "f5222fe12bc675311e17201856a10219" |
-> +---------------------+------------------+------------------------------------+
-> ```
->
+``` shell
+$ openstack --os-cloud $CLOUD object create flex-container01 example/*
++---------------------+------------------+------------------------------------+
+| obje                | container        | etag                               |
++---------------------+------------------+------------------------------------+
+| example/example.txt | flex-container01 | "f5222fe12bc675311e17201856a10219" |
++---------------------+------------------+------------------------------------+
+```
 
 Uploading an entire folder will add that prefix to your filenames inside the container.
 ``` shell
 openstack --os-cloud $CLOUD object list flex-container01
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ openstack --os-cloud $CLOUD object list flex-container01
-> +---------------------+
-> | Name                |
-> +---------------------+
-> | example.rtf         |
-> | example/example.txt |
-> +---------------------+
-> ```
->
+``` shell
+$ openstack --os-cloud $CLOUD object list flex-container01
++---------------------+
+| Name                |
++---------------------+
+| example.rtf         |
+| example/example.txt |
++---------------------+
+```
 
 Filter the display of files only with the prefix by using the `--prefix` argument:
 ``` shell
 openstack --os-cloud $CLOUD object list flex-container01 --prefix example
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ openstack --os-cloud $CLOUD object list flex-container01 --prefix example
-> +---------------------+
-> | Name                |
-> +---------------------+
-> | example/example.txt |
-> +---------------------+
-> ```
->
+``` shell
+$ openstack --os-cloud $CLOUD object list flex-container01 --prefix example
++---------------------+
+| Name                |
++---------------------+
+| example/example.txt |
++---------------------+
+```
 
 ### Downloading files
 When the container is public, you can access each file using a specific URL, made up of your region's endpoint, the name of your container, the prefix (if any) of your object, and finally, the object name.
@@ -185,36 +167,24 @@ openstack --os-cloud $CLOUD object save flex-container01 example.rtf
 openstack --os-cloud $CLOUD object delete flex-container01 example.rtf
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ openstack --os-cloud $CLOUD object delete flex-container01 example.rtf
-> ```
->
+``` shell
+$ openstack --os-cloud $CLOUD object delete flex-container01 example.rtf
+```
 
 Deleting a container:
 ``` shell
 openstack --os-cloud $CLOUD container delete flex-container01
 ```
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ openstack --os-cloud $CLOUD container delete flex-container01
-> ```
->
+``` shell
+$ openstack --os-cloud $CLOUD container delete flex-container01
+```
 
 If you need to delete a non-empty container, you'll need to issue the `--recursive` flag. Without this flag, the container must already be empty.
 
-> [!IMPORTANT]
->
->
-> ``` shell
-> $ openstack --os-cloud $CLOUD container --recursive delete flex-container01
-> ```
->
+``` shell
+$ openstack --os-cloud $CLOUD container --recursive delete flex-container01
+```
 
 ### Setting and removing object expiration
 At this time, setting and removing object expiration can be done using the the [swift client](/cloud-onboarding/storage-object-store-swift-cli/).

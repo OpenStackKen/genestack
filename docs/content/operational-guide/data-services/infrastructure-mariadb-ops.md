@@ -16,9 +16,7 @@ mysql -h $(kubectl -n openstack get service mariadb-cluster-primary -o jsonpath=
 
 > [!NOTE]
 >
->
 > The following command will leverage your kube configuration and dynamically source the needed information to connect to the MySQL cluster. You will need to ensure you have installed the mysql client tools on the system you're attempting to connect from.
->
 
 ## Manually dumping and restoring databases
 
@@ -44,79 +42,75 @@ mysqldump --host=$(kubectl -n openstack get service mariadb-cluster -o jsonpath=
 >
 >
 > With some versions of `mysqldump` the `--column-statistics=0` flag maybe be required. If required the following error will be thrown:
->
-> ``` sql
-> Unknown table 'COLUMN_STATISTICS' in information_schema (1109)
-> ```
->
+
+``` sql
+Unknown table 'COLUMN_STATISTICS' in information_schema (1109)
+```
 
 ### All Databases Backup
 
 Run the `/opt/genestack/bin/backup-mariadb.sh` script to dump all databases as individual files in `~/backup/mariadb/$(date +%s)`.
 
-> [!IMPORTANT]
-> **Database Backup Script: `/opt/genestack/scripts/backup-mariadb.sh`**
->
->
-> ``` shell
-> # -----------------------------------------------
-> #                             _             _
-> #                            | |           | |
-> #   __ _  ___ _ __   ___  ___| |_ __ _  ___| | __
-> #  / _` |/ _ \ '_ \ / _ \/ __| __/ _` |/ __| |/ /
-> # | (_| |  __/ | | |  __/\__ \ || (_| | (__|   <
-> #  \__, |\___|_| |_|\___||___/\__\__,_|\___|_|\_\
-> #   __/ |           ops scripts
-> #  |___/
-> # -----------------------------------------------
-> #!/bin/bash
-> # shellcheck disable=SC2124,SC2145,SC2294,SC2086
-> 
-> # The script is used to backup the mariadb database in the openstack namespace
-> # The script will create a backup directory in the HOME directory with the current timestamp
-> # The script will dump all the databases except the performance_schema and information_schema
-> # The script will use the root password from the mariadb secret to connect to the database
-> # The script will use the clusterIP of the mariadb-cluster service to connect to the database
-> # The script will use the --column-statistics=0 option if available in the mysqldump command
-> # The script will create a separate dump file for each database
-> 
-> set -e
-> set -o pipefail
-> 
-> BACKUP_DIR="${HOME}/backup/mariadb/$(date +%s)"
-> MYSQL_PASSWORD="$(kubectl --namespace openstack get secret mariadb -o jsonpath='{.data.root-password}' | base64 -d)"
-> MYSQL_HOST=$(kubectl -n openstack get service mariadb-cluster-primary -o jsonpath='{.spec.clusterIP}')
-> 
-> if mysqldump --help | grep -q column-statistics; then
->     MYSQL_DUMP_COLLUMN_STATISTICS="--column-statistics=0"
-> else
->     MYSQL_DUMP_COLLUMN_STATISTICS=""
-> fi
-> 
-> mkdir -p "${BACKUP_DIR}"
-> 
-> pushd "${BACKUP_DIR}"
->     mysql -h ${MYSQL_HOST} \
->         -u root \
->         -p${MYSQL_PASSWORD} \
->         -e 'show databases;' \
->         --column-names=false \
->         --vertical | \
->             awk '/[:alnum:]/ && ! /performance_schema/ && ! /information_schema/' | \
->                 xargs -i mysqldump --host=${MYSQL_HOST} ${MYSQL_DUMP_COLLUMN_STATISTICS} \
->                                     --user=root \
->                                     --password=${MYSQL_PASSWORD} \
->                                     --single-transaction \
->                                     --routines \
->                                     --triggers \
->                                     --events \
->                                     --result-file={} \
->                                     {}
-> popd
-> 
-> echo -e "backup complete and available at ${BACKUP_DIR}"
-> ```
->
+Database Backup Script: `/opt/genestack/scripts/backup-mariadb.sh`
+
+``` shell
+# -----------------------------------------------
+#                             _             _
+#                            | |           | |
+#   __ _  ___ _ __   ___  ___| |_ __ _  ___| | __
+#  / _` |/ _ \ '_ \ / _ \/ __| __/ _` |/ __| |/ /
+# | (_| |  __/ | | |  __/\__ \ || (_| | (__|   <
+#  \__, |\___|_| |_|\___||___/\__\__,_|\___|_|\_\
+#   __/ |           ops scripts
+#  |___/
+# -----------------------------------------------
+#!/bin/bash
+# shellcheck disable=SC2124,SC2145,SC2294,SC2086
+
+# The script is used to backup the mariadb database in the openstack namespace
+# The script will create a backup directory in the HOME directory with the current timestamp
+# The script will dump all the databases except the performance_schema and information_schema
+# The script will use the root password from the mariadb secret to connect to the database
+# The script will use the clusterIP of the mariadb-cluster service to connect to the database
+# The script will use the --column-statistics=0 option if available in the mysqldump command
+# The script will create a separate dump file for each database
+
+set -e
+set -o pipefail
+
+BACKUP_DIR="${HOME}/backup/mariadb/$(date +%s)"
+MYSQL_PASSWORD="$(kubectl --namespace openstack get secret mariadb -o jsonpath='{.data.root-password}' | base64 -d)"
+MYSQL_HOST=$(kubectl -n openstack get service mariadb-cluster-primary -o jsonpath='{.spec.clusterIP}')
+
+if mysqldump --help | grep -q column-statistics; then
+    MYSQL_DUMP_COLLUMN_STATISTICS="--column-statistics=0"
+else
+    MYSQL_DUMP_COLLUMN_STATISTICS=""
+fi
+
+mkdir -p "${BACKUP_DIR}"
+
+pushd "${BACKUP_DIR}"
+    mysql -h ${MYSQL_HOST} \
+        -u root \
+        -p${MYSQL_PASSWORD} \
+        -e 'show databases;' \
+        --column-names=false \
+        --vertical | \
+            awk '/[:alnum:]/ && ! /performance_schema/ && ! /information_schema/' | \
+                xargs -i mysqldump --host=${MYSQL_HOST} ${MYSQL_DUMP_COLLUMN_STATISTICS} \
+                                    --user=root \
+                                    --password=${MYSQL_PASSWORD} \
+                                    --single-transaction \
+                                    --routines \
+                                    --triggers \
+                                    --events \
+                                    --result-file={} \
+                                    {}
+popd
+
+echo -e "backup complete and available at ${BACKUP_DIR}"
+```
 
 ### Automated All Database Backups
 
@@ -141,23 +135,19 @@ This command will create a job that runs the backup process immediately, creatin
 > database with the correct charset and collate values. Failing to do so can
 > result in errors such as `Foreign Key Constraint is Incorrectly Formed`
 > during DB upgrades.
->
-> ```
-> CREATE DATABASE ${DATABASE_NAME} DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-> ```
->
 
-> [!IMPORTANT]
-> **Restoring a database**
->
->
-> ``` shell
-> mysql -h $(kubectl -n openstack get service mariadb-cluster-primary -o jsonpath='{.spec.clusterIP}') \
->     -u root \
->     -p$(kubectl --namespace openstack get secret mariadb -o jsonpath='{.data.root-password}' | base64 -d) \
->     ${DATABASE_NAME} < /tmp/${DATABASE_FILE}
-> ```
->
+```
+CREATE DATABASE ${DATABASE_NAME} DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+```
+
+Restoring a database
+
+``` shell
+mysql -h $(kubectl -n openstack get service mariadb-cluster-primary -o jsonpath='{.spec.clusterIP}') \
+    -u root \
+    -p$(kubectl --namespace openstack get secret mariadb -o jsonpath='{.data.root-password}' | base64 -d) \
+    ${DATABASE_NAME} < /tmp/${DATABASE_FILE}
+```
 
 ## Restore using the MariaDB CRD
 
@@ -169,6 +159,7 @@ Refer to the mariadb-operator [restore documentation](https://github.com/mariadb
 for more information.
 
 > [!TIP]
+>
 > **Operator Restore Tips**
 >
 >
@@ -180,66 +171,56 @@ for more information.
 > 3. The mariadb CLI invoked by the operator under the hood only supports
 > selecting a single database to restore via the `--one-database` option,
 > restoration of multiple specific databases is not supported.
->
 
 ### Restore All Databases
 
-> [!NOTE]
-> **The following command may lead to data loss**
->
->
-> ``` shell
-> cat <<EOF | kubectl -n openstack apply -f -
-> apiVersion: k8s.mariadb.com/v1alpha1
-> kind: Restore
-> metadata:
->   name: maria-restore
-> spec:
->   mariaDbRef:
->     name: mariadb-cluster
->   backupRef:
->     name: mariadb-backup
-> EOF
-> ```
->
+The following command may lead to data loss
+
+``` shell
+cat <<EOF | kubectl -n openstack apply -f -
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Restore
+metadata:
+  name: maria-restore
+spec:
+  mariaDbRef:
+    name: mariadb-cluster
+  backupRef:
+    name: mariadb-backup
+EOF
+```
 
 ### Restore Single Database
 
-> [!NOTE]
-> **The following command may lead to data loss**
->
->
-> ``` shell
-> cat <<EOF | kubectl -n openstack apply -f -
-> apiVersion: k8s.mariadb.com/v1alpha1
-> kind: Restore
-> metadata:
->   name: maria-restore
-> spec:
->   mariaDbRef:
->     name: mariadb-cluster
->   backupRef:
->     name: mariadb-backup
->   databases: db1
-> EOF
-> ```
->
+The following command may lead to data loss
+
+``` shell
+cat <<EOF | kubectl -n openstack apply -f -
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Restore
+metadata:
+  name: maria-restore
+spec:
+  mariaDbRef:
+    name: mariadb-cluster
+  backupRef:
+    name: mariadb-backup
+  databases: db1
+EOF
+```
 
 ### Check Restore Progress
 
-> [!TIP]
-> **Simply _get_ the restore object previously created**
->
->
-> ``` shell
-> kubectl -n openstack get restore maria-restore
-> ```
->
-> ``` { .no-copy }
-> NAME            COMPLETE   STATUS    MARIADB           AGE
-> maria-restore   True       Success   mariadb-cluster   26s
-> ```
->
+Simply _get_ the restore object previously created
+
+``` shell
+kubectl -n openstack get restore maria-restore
+```
+
+``` { .no-copy }
+NAME            COMPLETE   STATUS    MARIADB           AGE
+maria-restore   True       Success   mariadb-cluster   26s
+```
 
 ## Fixing Master-Slave Replication
 
@@ -348,16 +329,15 @@ The procedure below will rebuild the entire database and restore the database fr
 the most recent backup.
 
 > [!WARNING]
->
 > Please ensure that you create a database backup before deleting the cluster
 > and that your mariadb operator is running with the version 0.38.1 and higher [see pr #1250](https://github.com/rackerlabs/genestack/pull/1250),
 > before switching the replication mode. Otherwise no automatic failover will work for the galera cluster.
 >
 > Check the operator versions with
-> ``` shell
-> kubectl -n mariadb-system get pods -o="custom-columns=NAME:.spec.containers[0].name,IMAGE:.spec.containers[0].image"
-> ```
->
+
+``` shell
+kubectl -n mariadb-system get pods -o="custom-columns=NAME:.spec.containers[0].name,IMAGE:.spec.containers[0].image"
+```
 
 ``` shell
 # Delete the database and persistent volumes

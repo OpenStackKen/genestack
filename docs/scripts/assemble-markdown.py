@@ -69,6 +69,14 @@ class Page:
 
 
 @dataclass(frozen=True)
+class HeadingPlan:
+    """One rewritten heading plus the local fragment aliases that should hit it."""
+
+    rendered_line: str
+    aliases: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class PipelineConfig:
     """Tracked pipeline settings loaded from docs/pdf.toml."""
 
@@ -446,7 +454,7 @@ def assemble_guide_markdown(
         # The document title already comes from the aggregate YAML metadata, so
         # the root landing page should not repeat that same guide title as the
         # first visible heading in the combined Markdown.
-        suppress_heading = index == 0 and page.level == 1 and page.anchor_id == guide.slug
+        suppress_heading = index == 0 and page.level == 0 and page.anchor_id == guide.slug
         rendered_pages.append(render_page(page, body=normalized_body, suppress_heading=suppress_heading))
     content = "\n\n".join(rendered_pages)
     metadata = textwrap.dedent(
@@ -468,15 +476,23 @@ def collect_pages(guide: GuideConfig, guide_root: Path) -> list[Page]:
     """Walk the guide tree and return pages in the final document order."""
 
     pages: list[Page] = []
-    # The walk starts at `.` so depth calculation can map the filesystem tree
-    # onto heading levels without any special case for the guide root.
-    walk_directory(guide_root, Path("."), guide.slug, pages)
+    # The walk starts at heading level 0 because the guide title lives in YAML
+    # metadata rather than as a visible Markdown heading. Every later section
+    # and page heading is derived explicitly from this tree position.
+    walk_directory(guide_root, Path("."), guide.slug, section_level=0, pages=pages)
     if not pages:
         raise SystemExit(f"guide '{guide.slug}' does not contain any Markdown pages")
     return pages
 
 
-def walk_directory(directory: Path, rel_dir: Path, guide_slug: str, pages: list[Page]) -> None:
+def walk_directory(
+    directory: Path,
+    rel_dir: Path,
+    guide_slug: str,
+    *,
+    section_level: int,
+    pages: list[Page],
+) -> None:
     """Traverse a guide tree using Hugo-style section semantics where present.
 
     `_index.md` is treated as the section opener for a directory. Sibling
@@ -484,12 +500,12 @@ def walk_directory(directory: Path, rel_dir: Path, guide_slug: str, pages: list[
     flattened PDF stays stable when metadata is incomplete.
     """
 
-    current_depth = 0 if rel_dir == Path(".") else len(rel_dir.parts)
     index_path = directory / "_index.md"
     if index_path.is_file():
-        # `_index.md` behaves like a Hugo section landing page, so it becomes
-        # the first heading for that directory level.
-        pages.append(parse_page(index_path, guide_slug, current_depth + 1))
+        # `_index.md` is the section node for this directory itself. At the
+        # guide root that means level 0, which is rendered as an anchor-only
+        # marker because the visible guide title already comes from metadata.
+        pages.append(parse_page(index_path, guide_slug, section_level))
 
     entries = [entry for entry in directory.iterdir() if not entry.name.startswith(".")]
     entries = [entry for entry in entries if entry.name != "_index.md"]
@@ -501,9 +517,12 @@ def walk_directory(directory: Path, rel_dir: Path, guide_slug: str, pages: list[
 
     for entry in entries:
         if entry.is_dir():
-            walk_directory(entry, rel_dir / entry.name, guide_slug, pages)
+            walk_directory(entry, rel_dir / entry.name, guide_slug, section_level=section_level + 1, pages=pages)
         elif entry.suffix == ".md":
-            pages.append(parse_page(entry, guide_slug, current_depth + 2))
+            # Standalone pages live one level below the section that contains
+            # them. Root-level pages therefore become H1; pages within a
+            # top-level section become H2, and so on.
+            pages.append(parse_page(entry, guide_slug, section_level + 1))
 
 
 def preview_for_entry(entry: Path) -> PagePreview:
@@ -533,15 +552,22 @@ def parse_page(path: Path, guide_slug: str, level: int) -> Page:
     # titles, anchors, and adjusted heading bodies.
     metadata, body = parse_markdown_file(path)
     title = metadata.get("title") or fallback_title(path)
+    description = metadata.get("description")
     site_path = hugo_site_path(path, guide_slug)
     anchor_id = anchor_for_site_path(site_path)
+    # Some Hugo section pages repeat their front matter description as the
+    # first body paragraph. In the assembled PDF that reads like a subtitle
+    # attached to the generated heading, so keep the description metadata-only
+    # when the body starts with the exact same paragraph.
+    body = strip_leading_description_paragraph(body, description)
     return Page(
         source_path=path,
         level=level,
         title=title,
-        # In-page headings are rewritten before aggregation so every heading id
-        # is already stable when Pandoc resolves links and LaTeX labels.
-        body=annotate_headings(body, anchor_id),
+        # In-page headings and same-page fragment links are both normalized
+        # before aggregation so authors can keep writing page-local anchors in
+        # isolated source files without caring about aggregate guide scoping.
+        body=normalize_page_body(body, anchor_id, level),
         anchor_id=anchor_id,
     )
 
@@ -598,6 +624,47 @@ def parse_scalar(raw_value: str) -> Any:
     return raw_value
 
 
+def strip_leading_description_paragraph(body: str, description: Any) -> str:
+    """Drop a top-of-body paragraph that exactly duplicates front matter description."""
+
+    if not body or not isinstance(description, str):
+        return body
+
+    description_text = normalize_paragraph_text(description)
+    if not description_text:
+        return body
+
+    lines = body.splitlines()
+    index = 0
+    while index < len(lines) and not lines[index].strip():
+        index += 1
+    if index >= len(lines):
+        return body
+
+    first_line = lines[index].lstrip()
+    if first_line.startswith(("#", ">", "-", "*")) or re.match(r"^\d+\.\s", first_line):
+        return body
+    if re.match(r"^(```+|~~~+)", first_line):
+        return body
+
+    paragraph_end = index
+    while paragraph_end < len(lines) and lines[paragraph_end].strip():
+        paragraph_end += 1
+
+    paragraph_text = normalize_paragraph_text(" ".join(line.strip() for line in lines[index:paragraph_end]))
+    if paragraph_text != description_text:
+        return body
+
+    remainder = "\n".join(lines[paragraph_end:]).lstrip("\n")
+    return remainder
+
+
+def normalize_paragraph_text(text: str) -> str:
+    """Normalize prose paragraphs for conservative equality checks."""
+
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def parse_weight(value: Any) -> int:
     """Normalize `weight` so unweighted entries sort after weighted ones."""
 
@@ -649,35 +716,83 @@ def slugify(text: str) -> str:
     return lowered.strip("-") or "section"
 
 
-def promote_heading_level(level: int) -> int:
-    """Promote one aggregate heading level, with `#` as the ceiling.
+def dedupe_preserve_order(values: Iterable[str]) -> list[str]:
+    """Return unique strings in first-seen order."""
 
-    The flattened PDF tends to accumulate one extra level of indentation
-    because section opener pages and their in-page headings are both rendered
-    into the same document. Promoting all emitted headings by one level keeps
-    the aggregate structure tighter without introducing an impossible heading
-    level above `#`.
-    """
+    seen: set[str] = set()
+    deduped: list[str] = []
+    for value in values:
+        if value in seen:
+            continue
+        seen.add(value)
+        deduped.append(value)
+    return deduped
 
-    return max(level - 1, 1)
 
+def normalize_page_body(body: str, page_anchor: str, page_level: int) -> str:
+    """Rewrite page-local headings and fragment links for aggregate scoping.
 
-def annotate_headings(body: str, page_anchor: str) -> str:
-    """Rewrite in-page headings with stable, page-scoped anchor ids.
-
-    Pandoc will happily accept duplicate identifiers, but LaTeX then emits
-    multiply-defined label warnings. Keeping anchor generation page-scoped and
-    de-duplicated avoids that class of noisy and fragile PDF output.
+    Source pages are authored in isolation, so same-page links such as
+    `[Details](#details)` should keep working after the assembler prefixes
+    every heading id with a page-specific anchor base. This normalization pass
+    therefore plans scoped heading ids first, then rewrites local fragment
+    links against that exact map while leaving fenced code and inline code
+    untouched. Heading depth is also recalculated relative to the page's place
+    in the assembled tree instead of using a flat global promotion pass.
     """
 
     if not body:
         return ""
 
-    annotated: list[str] = []
-    heading_counts: dict[str, int] = {}
+    heading_plans = plan_page_headings(body, page_anchor, page_level)
+    alias_map = build_heading_alias_map(heading_plans)
+    normalized: list[str] = []
     in_fence = False
     fence_marker = ""
-    for raw_line in body.splitlines():
+    for line_number, raw_line in enumerate(body.splitlines()):
+        line = raw_line.rstrip()
+        fence_match = re.match(r"^(```+|~~~+)", line)
+        if fence_match:
+            marker = fence_match.group(1)
+            if not in_fence:
+                in_fence = True
+                fence_marker = marker[0]
+            elif marker[0] == fence_marker:
+                in_fence = False
+                fence_marker = ""
+            normalized.append(line)
+            continue
+
+        if in_fence:
+            normalized.append(line)
+            continue
+
+        if line_number in heading_plans:
+            normalized.append(heading_plans[line_number].rendered_line)
+            continue
+
+        normalized.append(rewrite_local_fragment_links(line, alias_map))
+
+    return "\n".join(normalized).strip()
+
+
+def plan_page_headings(body: str, page_anchor: str, page_level: int) -> dict[int, HeadingPlan]:
+    """Plan one scoped heading rewrite per source heading line.
+
+    Pandoc will happily accept duplicate identifiers, but LaTeX then emits
+    multiply-defined label warnings. Keeping anchor generation page-scoped and
+    de-duplicated avoids that class of noisy and fragile PDF output. Source
+    pages are authored with the front matter title acting as the page heading,
+    so the entire in-page outline needs to be shifted downward until it nests
+    under the rendered page title while preserving all relative spacing within
+    that outline.
+    """
+
+    heading_counts: dict[str, int] = {}
+    heading_plans: dict[int, HeadingPlan] = {}
+    in_fence = False
+    fence_marker = ""
+    for line_number, raw_line in enumerate(body.splitlines()):
         line = raw_line.rstrip()
         fence_match = re.match(r"^(```+|~~~+)", line)
         if fence_match:
@@ -690,31 +805,113 @@ def annotate_headings(body: str, page_anchor: str) -> str:
             elif marker[0] == fence_marker:
                 in_fence = False
                 fence_marker = ""
-            annotated.append(line)
             continue
 
         if in_fence:
-            annotated.append(line)
             continue
 
         heading_match = re.match(r"^(#{1,6})\s+(.*?)\s*$", line)
-        if not heading_match or "{#" in line:
-            annotated.append(line)
+        if not heading_match:
             continue
 
-        # Each source page is still nested under a generated page heading in
-        # the aggregate document, so the source heading level is first shifted
-        # down by one. The aggregate-level promotion pass then pulls the whole
-        # combined outline back up by one level, with `#` as the ceiling.
-        level = promote_heading_level(min(len(heading_match.group(1)) + 1, 6))
-        heading_text = strip_closing_hashes(heading_match.group(2))
-        base_id = f"{page_anchor}--{slugify(strip_inline_markdown(heading_text))}"
+        # Treat the front matter title as the implied H1 for the source page.
+        # The rendered page title already occupies `page_level`, so every
+        # source heading is shifted by `page_level - 1` while keeping the
+        # page's internal hierarchy intact. Example: on an H3 page, source H2
+        # and H3 become H4 and H5 respectively.
+        source_level = len(heading_match.group(1))
+        level = min(source_level + max(page_level - 1, 0), 6)
+        heading_text, source_anchor = parse_heading_text_and_anchor(heading_match.group(2))
+        local_anchor = source_anchor or slugify(strip_inline_markdown(heading_text))
+        base_id = f"{page_anchor}--{slugify(local_anchor)}"
         occurrence = heading_counts.get(base_id, 0) + 1
         heading_counts[base_id] = occurrence
         heading_id = base_id if occurrence == 1 else f"{base_id}-{occurrence}"
-        annotated.append(f"{'#' * level} {heading_text} {{#{heading_id}}}")
+        heading_plans[line_number] = HeadingPlan(
+            rendered_line=f"{'#' * level} {heading_text} {{#{heading_id}}}",
+            aliases=tuple(local_anchor_aliases(local_anchor, source_anchor, occurrence)),
+        )
 
-    return "\n".join(annotated).strip()
+    return heading_plans
+
+
+def parse_heading_text_and_anchor(raw_heading: str) -> tuple[str, str | None]:
+    """Split rendered heading text from an optional explicit `{#id}` suffix."""
+
+    heading_text = strip_closing_hashes(raw_heading)
+    explicit_id_match = re.match(r"^(.*?)\s*\{#([^\s}]+)\}\s*$", heading_text)
+    if not explicit_id_match:
+        return heading_text, None
+    return explicit_id_match.group(1).rstrip(), explicit_id_match.group(2)
+
+
+def local_anchor_aliases(local_anchor: str, explicit_anchor: str | None, occurrence: int) -> Iterable[str]:
+    """Yield page-local fragment spellings that should resolve to one heading.
+
+    The source tree is authored as standalone pages, so links may use either
+    the author-written explicit id or the implicit slug Pandoc would derive
+    from the heading text. Duplicate headings are also commonly referenced with
+    Pandoc's `-1`, `-2`, ... suffixing, so those spellings are accepted too.
+    """
+
+    aliases: list[str] = []
+    for candidate in (local_anchor, explicit_anchor):
+        if not candidate:
+            continue
+        aliases.append(candidate)
+        aliases.append(slugify(candidate))
+        if occurrence > 1:
+            aliases.append(f"{candidate}-{occurrence - 1}")
+            aliases.append(f"{slugify(candidate)}-{occurrence - 1}")
+    return dedupe_preserve_order(aliases)
+
+
+def build_heading_alias_map(heading_plans: dict[int, HeadingPlan]) -> dict[str, str]:
+    """Build a lookup from author-facing local fragments to scoped heading ids."""
+
+    alias_map: dict[str, str] = {}
+    for line_number in sorted(heading_plans):
+        plan = heading_plans[line_number]
+        heading_id = extract_rendered_heading_id(plan.rendered_line)
+        for alias in plan.aliases:
+            alias_map.setdefault(alias, heading_id)
+    return alias_map
+
+
+def extract_rendered_heading_id(rendered_heading: str) -> str:
+    """Extract the final id from a rendered ATX heading line."""
+
+    match = re.search(r"\{#([^\s}]+)\}\s*$", rendered_heading)
+    if not match:
+        raise ValueError(f"rendered heading does not contain an id: {rendered_heading}")
+    return match.group(1)
+
+
+def rewrite_local_fragment_links(line: str, alias_map: dict[str, str]) -> str:
+    """Rewrite inline Markdown same-page links against the scoped heading map."""
+
+    if "](#" not in line:
+        return line
+
+    segments = re.split(r"(`+[^`]*`+)", line)
+
+    def replace_match(match: re.Match[str]) -> str:
+        fragment = match.group(1)
+        scoped_fragment = alias_map.get(fragment) or alias_map.get(slugify(fragment))
+        if not scoped_fragment:
+            return match.group(0)
+        return f"](#{scoped_fragment}{match.group(2)})"
+
+    rewritten: list[str] = []
+    pattern = re.compile(r"\]\(#([^\s)]+)([^)]*)\)")
+    for segment in segments:
+        if not segment:
+            continue
+        if segment.startswith("`"):
+            rewritten.append(segment)
+            continue
+        rewritten.append(pattern.sub(replace_match, segment))
+    return "".join(rewritten)
 
 
 def strip_closing_hashes(text: str) -> str:
@@ -824,12 +1021,12 @@ def render_page(page: Page, *, body: str | None = None, suppress_heading: bool =
     """Render one normalized page into its final aggregate Markdown fragment."""
 
     page_body = page.body if body is None else body
-    heading = f"{'#' * promote_heading_level(page.level)} {page.title} {{#{page.anchor_id}}}"
-    if suppress_heading:
+    if suppress_heading or page.level < 1:
         anchor = f"[]{{#{page.anchor_id}}}"
         if not page_body:
             return anchor
         return f"{anchor}\n\n{page_body}"
+    heading = f"{'#' * page.level} {page.title} {{#{page.anchor_id}}}"
     if not page_body:
         return heading
     return f"{heading}\n\n{page_body}"

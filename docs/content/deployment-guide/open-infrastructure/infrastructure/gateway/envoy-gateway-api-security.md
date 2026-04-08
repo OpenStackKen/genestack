@@ -8,17 +8,11 @@ SecurityPolicy is an Envoy Gateway extension to the Kubernetes Gateway API that 
 
 In this section we will be implementing [oidc](https://gateway.envoyproxy.io/docs/tasks/security/oidc/) authentication to auth using Azure AD.
 
-> [!NOTE]
-> **You must have deployed Envoy Gateway already and installed the CRDs before this will work**
->
->
+You must have deployed Envoy Gateway already and installed the CRDs before this will work
 
 ## Create the HTTPRoute
 
-> [!NOTE]
-> **The examples used here reference alertmanager.  You will change the settings as necessary for your application/s**
->
->
+The examples used here reference alertmanager.  You will change the settings as necessary for your application/s
 
 ``` yaml title="alertmanager-gw-route.yaml"
 apiVersion: gateway.networking.k8s.io/v1
@@ -138,5 +132,4 @@ spec:
 
 `kubectl -f apply alertmanager-sp.yaml`
 
-> [!NOTE]
-> **Your redirect URL in the SecurityPolicy must match what you configured in your OIDC application**
+Your redirect URL in the SecurityPolicy must match what you configured in your OIDC application

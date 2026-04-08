@@ -36,6 +36,7 @@ The following information is needed to configure Glance to use Swift as an exter
 | CLOUD_USERNAME | STRING | The username of that will be accessing the cloud project |
 
 > [!NOTE]
+>
 > **For Rackspace OpenStack Flex Users**
 >
 >
@@ -44,7 +45,6 @@ The following information is needed to configure Glance to use Swift as an exter
 > * `KEYSTONE_AUTH_URL` will be defined as "https://keystone.api.${REGION}.rackspacecloud.com/v3"
 >   * Replace `${REGION}` with the region where the Swift object storage is located, See [Rackspace Cloud Regions](/regions/api-status/) for more information on available regions.
 > * `CLOUD_DOMAIN_NAME` will be defined as "rackspace_cloud_domain"
->
 
 ### Step 1: Configure Glance to use Swift
 

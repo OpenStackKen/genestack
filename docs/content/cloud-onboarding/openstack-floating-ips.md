@@ -34,10 +34,7 @@ openstack --os-cloud={cloud name} floating ip create
 
 > [!NOTE]
 >
->
 > Ip address or ID can be used to specify which ip to delete.
->
->
 
 ``` shell
 openstack --os-cloud={cloud name} floating ip delete <floating-ip> [<floating-ip> ...]

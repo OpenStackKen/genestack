@@ -77,6 +77,7 @@ $ openstack loadbalancer flavorprofile set --flavor-data '{"loadbalancer_topolog
 ```
 
 > [!NOTE]
+>
 > **Loadbalancer Topologies**
 >
 >
@@ -85,7 +86,6 @@ $ openstack loadbalancer flavorprofile set --flavor-data '{"loadbalancer_topolog
 >
 > - `SINGLE`: One Amphora per load balancer.
 > - `ACTIVE_STANDBY`: Two Amphora per load balancer.
->
 
 ## Flavors
 

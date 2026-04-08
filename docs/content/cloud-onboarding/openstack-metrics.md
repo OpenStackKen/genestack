@@ -292,14 +292,14 @@ openstack resource-type update image -a os_version:string:false:max_length=255
 > definitions. For the `image` resource_type, we do that in the ceilometer
 > helm chart overrides here (for example), appending the keys and populate
 > the values using the related resource_metadata payload:
->
-> ```yaml
-> conf:
->   gnocchi_resources:
-> 	resources:
->       - resource_type: image
->         attributes:
->           os_type: resource_metadata.properties.os_type
->           os_distro: resource_metadata.properties.os_distro
->           os_version: resource_metadata.properties.os_version
-> ```
+
+```yaml
+conf:
+  gnocchi_resources:
+	resources:
+      - resource_type: image
+        attributes:
+          os_type: resource_metadata.properties.os_type
+          os_distro: resource_metadata.properties.os_distro
+          os_version: resource_metadata.properties.os_version
+```

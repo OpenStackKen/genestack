@@ -38,9 +38,7 @@ kubectl label node -l node-role.kubernetes.io/control-plane longhorn.io/storage-
 
 > [!NOTE]
 >
->
 > It is possible to replace `-l node-role.kubernetes.io/control-plane` with the name of your node. If you have multiple storage nodes, that are not also controllers.
->
 
 ### Create the Helm Values File
 
@@ -51,63 +49,58 @@ its services and components—in this case, on nodes that have the label `longho
 2. Copy the following YAML content into that file. (Adapt as needed.)
 
 > [!IMPORTANT]
-> **longhorn.yaml**
->
->
-> ``` yaml
-> ---
-> longhornDriver:
->   nodeSelector:
->     longhorn.io/storage-node: "enabled"
-> longhornUI:
->   nodeSelector:
->     longhorn.io/storage-node: "enabled"
-> longhornConversionWebhook:
->   nodeSelector:
->     longhorn.io/storage-node: "enabled"
-> longhornAdmissionWebhook:
->   nodeSelector:
->     longhorn.io/storage-node: "enabled"
-> longhornRecoveryBackend:
->   nodeSelector:
->     longhorn.io/storage-node: "enabled"
-> ```
->
+> [longhorn.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/base-helm-configs/longhorn/longhorn-helm-overrides.yaml)
+
+``` yaml
+---
+longhornDriver:
+  nodeSelector:
+    longhorn.io/storage-node: "enabled"
+longhornUI:
+  nodeSelector:
+    longhorn.io/storage-node: "enabled"
+longhornConversionWebhook:
+  nodeSelector:
+    longhorn.io/storage-node: "enabled"
+longhornAdmissionWebhook:
+  nodeSelector:
+    longhorn.io/storage-node: "enabled"
+longhornRecoveryBackend:
+  nodeSelector:
+    longhorn.io/storage-node: "enabled"
+```
+
+> [!IMPORTANT]
 > - `nodeSelector` ensures that the respective component is only scheduled onto nodes labeled `longhorn.io/storage-node=enabled`.
 > - This configuration helps separate storage responsibilities from other workloads if you have a mixed cluster.
->
 
 For additional customization, you can review the full list of supported values in Longhorn’s
 [values.yaml](https://raw.githubusercontent.com/longhorn/charts/master/charts/longhorn/values.yaml).
 
 > [!TIP]
 >
->
 > While Longhorn can be used as a isolated storage cluster, it is also possible, and in some cases recommended, to run Longhorn on the same nodes as your worker nodes. To run Longhorn everywhere, remove the `nodeSelector` fields from the `longhorn.yaml` file.
->
 
 ### Create The Longhorn Namespace
 
 > [!IMPORTANT]
-> **longhorn-namespace.yaml**
->
->
-> ``` yaml
-> ---
-> apiVersion: v1
-> kind: Namespace
-> metadata:
->   labels:
->     kubernetes.io/metadata.name: longhorn-system
->     pod-security.kubernetes.io/audit: privileged
->     pod-security.kubernetes.io/audit-version: latest
->     pod-security.kubernetes.io/enforce: privileged
->     pod-security.kubernetes.io/enforce-version: latest
->     pod-security.kubernetes.io/warn: privileged
->     pod-security.kubernetes.io/warn-version: latest
->   name: longhorn-system
-> ```
->
+> [longhorn-namespace.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/manifests/longhorn/longhorn-namespace.yaml)
+
+``` yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: longhorn-system
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/audit-version: latest
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/enforce-version: latest
+    pod-security.kubernetes.io/warn: privileged
+    pod-security.kubernetes.io/warn-version: latest
+  name: longhorn-system
+```
 
 ``` shell
 kubectl apply -f /etc/genestack/manifests/longhorn/longhorn-namespace.yaml
@@ -137,167 +130,168 @@ command. This command will install Longhorn if it is not installed yet, or upgra
 already present.
 
 > [!IMPORTANT]
-> **Run the Longhorn deployment Script `/opt/genestack/bin/install-longhorn.sh`**
->
->
-> ``` shell
-> #!/bin/bash
-> # Description: Fetches the version for SERVICE_NAME_DEFAULT from the specified
-> # YAML file and executes a helm upgrade/install command with dynamic values files.
-> 
-> # Disable SC2124 (unused array), SC2145 (array expansion issue), SC2294 (eval)
-> # shellcheck disable=SC2124,SC2145,SC2294
-> 
-> # Service
-> SERVICE_NAME_DEFAULT="longhorn"
-> SERVICE_NAMESPACE="longhorn-system"
-> 
-> # Helm
-> HELM_REPO_NAME_DEFAULT="longhorn"
-> HELM_REPO_URL_DEFAULT="https://charts.longhorn.io"
-> 
-> # Base directories provided by the environment
-> GENESTACK_BASE_DIR="${GENESTACK_BASE_DIR:-/opt/genestack}"
-> GENESTACK_OVERRIDES_DIR="${GENESTACK_OVERRIDES_DIR:-/etc/genestack}"
-> 
-> # Define service-specific override directories based on the framework
-> SERVICE_BASE_OVERRIDES="${GENESTACK_BASE_DIR}/base-helm-configs/${SERVICE_NAME_DEFAULT}"
-> SERVICE_CUSTOM_OVERRIDES="${GENESTACK_OVERRIDES_DIR}/helm-configs/${SERVICE_NAME_DEFAULT}"
-> 
-> # Define the Global Overrides directory used in the original script
-> GLOBAL_OVERRIDES_DIR="${GENESTACK_OVERRIDES_DIR}/helm-configs/global_overrides"
-> 
-> # Read the desired chart version from VERSION_FILE
-> VERSION_FILE="${GENESTACK_OVERRIDES_DIR}/helm-chart-versions.yaml"
-> 
-> if [ ! -f "$VERSION_FILE" ]; then
->     echo "Error: helm-chart-versions.yaml not found at $VERSION_FILE" >&2
->     exit 1
-> fi
-> 
-> # Extract version dynamically using the SERVICE_NAME_DEFAULT variable
-> SERVICE_VERSION=$(grep "^[[:space:]]*${SERVICE_NAME_DEFAULT}:" "$VERSION_FILE" | sed "s/.*${SERVICE_NAME_DEFAULT}: *//")
-> 
-> if [ -z "$SERVICE_VERSION" ]; then
->     echo "Error: Could not extract version for '$SERVICE_NAME_DEFAULT' from $VERSION_FILE" >&2
->     exit 1
-> fi
-> 
-> echo "Found version for $SERVICE_NAME_DEFAULT: $SERVICE_VERSION"
-> 
-> # Load chart metadata from custom override YAML if defined
-> for yaml_file in "${SERVICE_CUSTOM_OVERRIDES}"/*.yaml; do
->     if [ -f "$yaml_file" ]; then
->         HELM_REPO_URL=$(yq eval '.chart.repo_url // ""' "$yaml_file")
->         HELM_REPO_NAME=$(yq eval '.chart.repo_name // ""' "$yaml_file")
->         SERVICE_NAME=$(yq eval '.chart.service_name // ""' "$yaml_file")
->         break  # use the first match and stop
->     fi
-> done
-> 
-> # Fallback to defaults if variables not set
-> : "${HELM_REPO_URL:=$HELM_REPO_URL_DEFAULT}"
-> : "${HELM_REPO_NAME:=$HELM_REPO_NAME_DEFAULT}"
-> : "${SERVICE_NAME:=$SERVICE_NAME_DEFAULT}"
-> 
-> 
-> # Determine Helm chart path
-> if [[ "$HELM_REPO_URL" == oci://* ]]; then
->     # OCI registry path
->     HELM_CHART_PATH="$HELM_REPO_URL/$HELM_REPO_NAME/$SERVICE_NAME"
-> else
->     # --- Helm Repository and Execution ---
->     helm repo add "$HELM_REPO_NAME" "$HELM_REPO_URL"
->     helm repo update
->     HELM_CHART_PATH="$HELM_REPO_NAME/$SERVICE_NAME"
-> fi
-> 
-> # Debug output
-> echo "[DEBUG] HELM_REPO_URL=$HELM_REPO_URL"
-> echo "[DEBUG] HELM_REPO_NAME=$HELM_REPO_NAME"
-> echo "[DEBUG] SERVICE_NAME=$SERVICE_NAME"
-> echo "[DEBUG] HELM_CHART_PATH=$HELM_CHART_PATH"
-> 
-> # Prepare an array to collect -f arguments
-> overrides_args=()
-> 
-> # Include all YAML files from the BASE configuration directory
-> # NOTE: Files in this directory are included first.
-> if [[ -d "$SERVICE_BASE_OVERRIDES" ]]; then
->     echo "Including base overrides from directory: $SERVICE_BASE_OVERRIDES"
->     for file in "$SERVICE_BASE_OVERRIDES"/*.yaml; do
->         # Check that there is at least one match
->         if [[ -e "$file" ]]; then
->             echo " - $file"
->             overrides_args+=("-f" "$file")
->         fi
->     done
-> else
->     echo "Warning: Base override directory not found: $SERVICE_BASE_OVERRIDES"
-> fi
-> 
-> # Include all YAML files from the GLOBAL configuration directory
-> # NOTE: Files here override base settings and are applied before service-specific ones.
-> if [[ -d "$GLOBAL_OVERRIDES_DIR" ]]; then
->     echo "Including global overrides from directory: $GLOBAL_OVERRIDES_DIR"
->     for file in "$GLOBAL_OVERRIDES_DIR"/*.yaml; do
->         if [[ -e "$file" ]]; then
->             echo " - $file"
->             overrides_args+=("-f" "$file")
->         fi
->     done
-> else
->     echo "Warning: Global override directory not found: $GLOBAL_OVERRIDES_DIR"
-> fi
-> 
-> # Include all YAML files from the custom SERVICE configuration directory
-> # NOTE: Files here have the highest precedence.
-> if [[ -d "$SERVICE_CUSTOM_OVERRIDES" ]]; then
->     echo "Including overrides from service config directory:"
->     for file in "$SERVICE_CUSTOM_OVERRIDES"/*.yaml; do
->         if [[ -e "$file" ]]; then
->             echo " - $file"
->             overrides_args+=("-f" "$file")
->         fi
->     done
-> else
->     echo "Warning: Service config directory not found: $SERVICE_CUSTOM_OVERRIDES"
-> fi
-> 
-> echo
-> 
-> # Collect all --set arguments, executing commands and quoting safely
-> set_args=(
->     --set "persistence.defaultClass=false"
->     --set "defaultSettings.createDefaultDiskAndStorageClass=false"
-> )
-> 
-> helm_command=(
->     helm upgrade --install "$SERVICE_NAME_DEFAULT" "$HELM_CHART_PATH"
->     --version "${SERVICE_VERSION}"
->     --namespace="$SERVICE_NAMESPACE"
->     --timeout 120m
->     --create-namespace
-> 
->     "${overrides_args[@]}"
->     "${set_args[@]}"
-> 
->     # Post-renderer configuration (Longhorn generally doesn't use this, but keeping for template adherence)
->     --post-renderer "$GENESTACK_OVERRIDES_DIR/kustomize/kustomize.sh"
->     --post-renderer-args "$SERVICE_NAME_DEFAULT/overlay"
-> 
->     "$@"
-> )
-> 
-> echo "Executing Helm command (arguments are quoted safely):"
-> printf '%q ' "${helm_command[@]}"
-> echo
-> 
-> # Execute the command directly from the array
-> "${helm_command[@]}"
-> ```
-> ```
->
+> Run the Longhorn deployment script [`/opt/genestack/bin/install-longhorn.sh`](https://raw.githubusercontent.com/rackerlabs/genestack/main/bin/install-longhorn.sh)
+
+``` shell
+#!/bin/bash
+# Description: Fetches the version for SERVICE_NAME_DEFAULT from the specified
+# YAML file and executes a helm upgrade/install command with dynamic values files.
+
+# Disable SC2124 (unused array), SC2145 (array expansion issue), SC2294 (eval)
+# shellcheck disable=SC2124,SC2145,SC2294
+
+# Service
+SERVICE_NAME_DEFAULT="longhorn"
+SERVICE_NAMESPACE="longhorn-system"
+
+# Helm
+HELM_REPO_NAME_DEFAULT="longhorn"
+HELM_REPO_URL_DEFAULT="https://charts.longhorn.io"
+
+# Base directories provided by the environment
+GENESTACK_BASE_DIR="${GENESTACK_BASE_DIR:-/opt/genestack}"
+GENESTACK_OVERRIDES_DIR="${GENESTACK_OVERRIDES_DIR:-/etc/genestack}"
+
+# Define service-specific override directories based on the framework
+SERVICE_BASE_OVERRIDES="${GENESTACK_BASE_DIR}/base-helm-configs/${SERVICE_NAME_DEFAULT}"
+SERVICE_CUSTOM_OVERRIDES="${GENESTACK_OVERRIDES_DIR}/helm-configs/${SERVICE_NAME_DEFAULT}"
+
+# Define the Global Overrides directory used in the original script
+GLOBAL_OVERRIDES_DIR="${GENESTACK_OVERRIDES_DIR}/helm-configs/global_overrides"
+
+# Read the desired chart version from VERSION_FILE
+VERSION_FILE="${GENESTACK_OVERRIDES_DIR}/helm-chart-versions.yaml"
+
+if [ ! -f "$VERSION_FILE" ]; then
+    echo "Error: helm-chart-versions.yaml not found at $VERSION_FILE" >&2
+    exit 1
+fi
+
+# Extract version dynamically using the SERVICE_NAME_DEFAULT variable
+SERVICE_VERSION=$(grep "^[[:space:]]*${SERVICE_NAME_DEFAULT}:" "$VERSION_FILE" | sed "s/.*${SERVICE_NAME_DEFAULT}: *//")
+
+if [ -z "$SERVICE_VERSION" ]; then
+    echo "Error: Could not extract version for '$SERVICE_NAME_DEFAULT' from $VERSION_FILE" >&2
+    exit 1
+fi
+
+echo "Found version for $SERVICE_NAME_DEFAULT: $SERVICE_VERSION"
+
+# Load chart metadata from custom override YAML if defined
+for yaml_file in "${SERVICE_CUSTOM_OVERRIDES}"/*.yaml; do
+    if [ -f "$yaml_file" ]; then
+        HELM_REPO_URL=$(yq eval '.chart.repo_url // ""' "$yaml_file")
+        HELM_REPO_NAME=$(yq eval '.chart.repo_name // ""' "$yaml_file")
+        SERVICE_NAME=$(yq eval '.chart.service_name // ""' "$yaml_file")
+        break  # use the first match and stop
+    fi
+done
+
+# Fallback to defaults if variables not set
+: "${HELM_REPO_URL:=$HELM_REPO_URL_DEFAULT}"
+: "${HELM_REPO_NAME:=$HELM_REPO_NAME_DEFAULT}"
+: "${SERVICE_NAME:=$SERVICE_NAME_DEFAULT}"
+
+
+# Determine Helm chart path
+if [[ "$HELM_REPO_URL" == oci://* ]]; then
+    # OCI registry path
+    HELM_CHART_PATH="$HELM_REPO_URL/$HELM_REPO_NAME/$SERVICE_NAME"
+else
+    # --- Helm Repository and Execution ---
+    helm repo add "$HELM_REPO_NAME" "$HELM_REPO_URL"
+    helm repo update
+    HELM_CHART_PATH="$HELM_REPO_NAME/$SERVICE_NAME"
+fi
+
+# Debug output
+echo "[DEBUG] HELM_REPO_URL=$HELM_REPO_URL"
+echo "[DEBUG] HELM_REPO_NAME=$HELM_REPO_NAME"
+echo "[DEBUG] SERVICE_NAME=$SERVICE_NAME"
+echo "[DEBUG] HELM_CHART_PATH=$HELM_CHART_PATH"
+
+# Prepare an array to collect -f arguments
+overrides_args=()
+
+# Include all YAML files from the BASE configuration directory
+# NOTE: Files in this directory are included first.
+if [[ -d "$SERVICE_BASE_OVERRIDES" ]]; then
+    echo "Including base overrides from directory: $SERVICE_BASE_OVERRIDES"
+    for file in "$SERVICE_BASE_OVERRIDES"/*.yaml; do
+        # Check that there is at least one match
+        if [[ -e "$file" ]]; then
+            echo " - $file"
+            overrides_args+=("-f" "$file")
+        fi
+    done
+else
+    echo "Warning: Base override directory not found: $SERVICE_BASE_OVERRIDES"
+fi
+
+# Include all YAML files from the GLOBAL configuration directory
+# NOTE: Files here override base settings and are applied before service-specific ones.
+if [[ -d "$GLOBAL_OVERRIDES_DIR" ]]; then
+    echo "Including global overrides from directory: $GLOBAL_OVERRIDES_DIR"
+    for file in "$GLOBAL_OVERRIDES_DIR"/*.yaml; do
+        if [[ -e "$file" ]]; then
+            echo " - $file"
+            overrides_args+=("-f" "$file")
+        fi
+    done
+else
+    echo "Warning: Global override directory not found: $GLOBAL_OVERRIDES_DIR"
+fi
+
+# Include all YAML files from the custom SERVICE configuration directory
+# NOTE: Files here have the highest precedence.
+if [[ -d "$SERVICE_CUSTOM_OVERRIDES" ]]; then
+    echo "Including overrides from service config directory:"
+    for file in "$SERVICE_CUSTOM_OVERRIDES"/*.yaml; do
+        if [[ -e "$file" ]]; then
+            echo " - $file"
+            overrides_args+=("-f" "$file")
+        fi
+    done
+else
+    echo "Warning: Service config directory not found: $SERVICE_CUSTOM_OVERRIDES"
+fi
+
+echo
+
+# Collect all --set arguments, executing commands and quoting safely
+set_args=(
+    --set "persistence.defaultClass=false"
+    --set "defaultSettings.createDefaultDiskAndStorageClass=false"
+)
+
+helm_command=(
+    helm upgrade --install "$SERVICE_NAME_DEFAULT" "$HELM_CHART_PATH"
+    --version "${SERVICE_VERSION}"
+    --namespace="$SERVICE_NAMESPACE"
+    --timeout 120m
+    --create-namespace
+
+    "${overrides_args[@]}"
+    "${set_args[@]}"
+
+    # Post-renderer configuration (Longhorn generally doesn't use this, but keeping for template adherence)
+    --post-renderer "$GENESTACK_OVERRIDES_DIR/kustomize/kustomize.sh"
+    --post-renderer-args "$SERVICE_NAME_DEFAULT/overlay"
+
+    "$@"
+)
+
+echo "Executing Helm command (arguments are quoted safely):"
+printf '%q ' "${helm_command[@]}"
+echo
+
+# Execute the command directly from the array
+"${helm_command[@]}"
+```
+
+```
+
+```
 
 ## Validate the Deployment
 
@@ -335,15 +329,12 @@ After the Helm deployment finishes, you’ll want to verify that everything is r
 
 You should see an entry for the newly created volume, and it should be in an attached, healthy state if everything is working.
 
-> [!IMPORTANT]
-> **Example Output**
->
->
-> ``` shell
-> NAME                                       DATA ENGINE   STATE      ROBUSTNESS   SCHEDULED   SIZE         NODE                                  AGE
-> pvc-42c89b53-f08e-4d69-9d4d-cd2297f2c280   v1            attached   healthy                  2147483648   compute-0.cloud.cloudnull.dev.local   54s
-> ```
->
+Example Output
+
+``` shell
+NAME                                       DATA ENGINE   STATE      ROBUSTNESS   SCHEDULED   SIZE         NODE                                  AGE
+pvc-42c89b53-f08e-4d69-9d4d-cd2297f2c280   v1            attached   healthy                  2147483648   compute-0.cloud.cloudnull.dev.local   54s
+```
 
 Once you verify the test deployment, you can remove the Pod and related resources if you like. This helps keep your cluster clean if the test is no longer needed.
 
@@ -361,7 +352,6 @@ for more information on StorageClasses.
 
 > [!NOTE]
 >
->
 > The Longhorn StorageClass created here will use two custom parameters: `numberOfReplicas` and `dataLocality`. While these have default values, they can be adjusted to better suit the needs of the cloud environment.
 >
 > - The `numberOfReplicas` parameter specifies the number of replicas for built PVC. While the common default is "3" for redundancy, you can adjust this value
@@ -371,7 +361,6 @@ for more information on StorageClasses.
 >     - For "**disabled**", replicas are placed on different nodes.
 >     - For "**best-effort**", a replica will be co-located if possible, but is permitted to find another node if not.
 >     - For "**strict-local**" the Replica count should be **1**, or volume creation will fail with a parameter validation error. This option enforces Longhorn keep the only one replica on the same node as the attached volume, and therefore, it offers higher IOPS and lower latency performance.
->
 
 ### General StorageClass
 
@@ -384,32 +373,30 @@ Longhorn will provide two default StorageClasses: `longhorn` and `longhorn-stati
 For the purposes of Genestack, it is recommended that you create the `general` StorageClass to avoid deployment confusion.
 
 > [!IMPORTANT]
-> **longhorn-general-storageclass.yaml**
->
->
-> ``` yaml
-> ---
-> kind: StorageClass
-> apiVersion: storage.k8s.io/v1
-> metadata:
->   name: general
->   annotations:
->     storageclass.kubernetes.io/is-default-class: "true"
->     helm.sh/hook: "pre-install"
->     helm.sh/hook-delete-policy: "before-hook-creation"
->     helm.sh/resource-policy: "keep"
-> provisioner: driver.longhorn.io
-> allowVolumeExpansion: true
-> reclaimPolicy: Delete
-> volumeBindingMode: Immediate
-> parameters:
->   numberOfReplicas: "2"
->   dataLocality: "best-effort"
->   staleReplicaTimeout: "2880"
->   fromBackup: ""
->   fsType: "ext4"
-> ```
->
+> [longhorn-general-storageclass.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/manifests/longhorn/longhorn-general-storageclass.yaml)
+
+``` yaml
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: general
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+    helm.sh/hook: "pre-install"
+    helm.sh/hook-delete-policy: "before-hook-creation"
+    helm.sh/resource-policy: "keep"
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+parameters:
+  numberOfReplicas: "2"
+  dataLocality: "best-effort"
+  staleReplicaTimeout: "2880"
+  fromBackup: ""
+  fsType: "ext4"
+```
 
 Apply the general storage class manifest to create the StorageClass.
 
@@ -424,29 +411,27 @@ With the `general` StorageClass in place, you can now create PVCs that reference
 For the purposes of Genestack, it is recommended that you create the `general-multi-attach` StorageClass to avoid deployment confusion.
 
 > [!IMPORTANT]
-> **longhorn-general-multi-attach-storageclass.yaml**
->
->
-> ``` yaml
-> ---
-> kind: StorageClass
-> apiVersion: storage.k8s.io/v1
-> metadata:
->   name: general-multi-attach
->   annotations:
->     storageclass.kubernetes.io/is-default-class: "false"
-> provisioner: driver.longhorn.io
-> allowVolumeExpansion: true
-> reclaimPolicy: Delete
-> volumeBindingMode: Immediate
-> parameters:
->   numberOfReplicas: "2"  # This example uses a single replica, but you can adjust this value as needed
->   dataLocality: "best-effort"
->   staleReplicaTimeout: "2880"
->   fromBackup: ""
->   fsType: "ext4"
-> ```
->
+> [longhorn-general-multi-attach-storageclass.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/manifests/longhorn/longhorn-general-multi-attach-storageclass.yaml)
+
+``` yaml
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: general-multi-attach
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+parameters:
+  numberOfReplicas: "2"  # This example uses a single replica, but you can adjust this value as needed
+  dataLocality: "best-effort"
+  staleReplicaTimeout: "2880"
+  fromBackup: ""
+  fsType: "ext4"
+```
 
 Apply the general-multi-attach storage class manifest to create the StorageClass.
 
@@ -469,49 +454,48 @@ encryption feature, your data remains secure and encrypted on the underlying dis
 Below is an example combined manifest. Save this content to `/etc/genestack/manifests/longhorn-encrypted-storageclass.yaml`.
 
 > [!IMPORTANT]
-> **longhorn-encrypted-storageclass.yaml**
->
->
-> ``` yaml
-> ---
-> apiVersion: v1
-> kind: Secret
-> metadata:
->   name: longhorn-crypto
->   namespace: longhorn-system
-> stringData:
->   CRYPTO_KEY_VALUE: "Your encryption passphrase"  # Be sure to replace this with your own passphrase
->   CRYPTO_KEY_PROVIDER: "secret"
->   CRYPTO_KEY_CIPHER: "aes-xts-plain64"
->   CRYPTO_KEY_HASH: "sha256"
->   CRYPTO_KEY_SIZE: "256"
->   CRYPTO_PBKDF: "argon2i"
-> ---
-> kind: StorageClass
-> apiVersion: storage.k8s.io/v1
-> metadata:
->   name: general-encrypted
-> provisioner: driver.longhorn.io
-> allowVolumeExpansion: true
-> reclaimPolicy: Delete
-> volumeBindingMode: Immediate
-> parameters:
->   numberOfReplicas: "3"
->   dataLocality: "best-effort"
->   staleReplicaTimeout: "2880"
->   fromBackup: ""
->   fsType: "ext4"
->   encrypted: "true"
->   csi.storage.k8s.io/provisioner-secret-name: "longhorn-crypto"
->   csi.storage.k8s.io/provisioner-secret-namespace: "longhorn-system"
->   csi.storage.k8s.io/node-publish-secret-name: "longhorn-crypto"
->   csi.storage.k8s.io/node-publish-secret-namespace: "longhorn-system"
->   csi.storage.k8s.io/node-stage-secret-name: "longhorn-crypto"
->   csi.storage.k8s.io/node-stage-secret-namespace: "longhorn-system"
-> ```
->
+> [longhorn-encrypted-storageclass.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/manifests/longhorn/longhorn-encrypted-storageclass.yaml)
+
+``` yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: longhorn-crypto
+  namespace: longhorn-system
+stringData:
+  CRYPTO_KEY_VALUE: "Your encryption passphrase"  # Be sure to replace this with your own passphrase
+  CRYPTO_KEY_PROVIDER: "secret"
+  CRYPTO_KEY_CIPHER: "aes-xts-plain64"
+  CRYPTO_KEY_HASH: "sha256"
+  CRYPTO_KEY_SIZE: "256"
+  CRYPTO_PBKDF: "argon2i"
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: general-encrypted
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+parameters:
+  numberOfReplicas: "3"
+  dataLocality: "best-effort"
+  staleReplicaTimeout: "2880"
+  fromBackup: ""
+  fsType: "ext4"
+  encrypted: "true"
+  csi.storage.k8s.io/provisioner-secret-name: "longhorn-crypto"
+  csi.storage.k8s.io/provisioner-secret-namespace: "longhorn-system"
+  csi.storage.k8s.io/node-publish-secret-name: "longhorn-crypto"
+  csi.storage.k8s.io/node-publish-secret-namespace: "longhorn-system"
+  csi.storage.k8s.io/node-stage-secret-name: "longhorn-crypto"
+  csi.storage.k8s.io/node-stage-secret-namespace: "longhorn-system"
+```
 
 > [!NOTE]
+>
 > **Explanation of Key Fields**
 >
 >
@@ -531,7 +515,6 @@ Below is an example combined manifest. Save this content to `/etc/genestack/mani
 > - `allowVolumeExpansion: true`: Allows you to resize volumes after creation.
 > - `reclaimPolicy: Delete`: Automatically deletes the underlying volume when the PVC is deleted.
 > - `encrypted: "true"`: Ensures volumes are encrypted.
->
 
 Apply the encrypted storage class manifest to create the StorageClass.
 

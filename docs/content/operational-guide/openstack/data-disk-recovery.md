@@ -22,9 +22,7 @@ The following instructions outline how to attach a VM disk image as a block devi
 
 > [!NOTE]
 >
->
 > Always confirm the instance UUID (`00000000-0000-0000-0000-000000000000` in the examples) corresponds to the target VM.
->
 
 ## Mounting the VM Disk (Attach Procedure)
 

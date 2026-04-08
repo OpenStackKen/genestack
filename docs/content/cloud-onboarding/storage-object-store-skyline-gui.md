@@ -59,9 +59,7 @@ Upload a file to the container:
 
 > [!NOTE]
 >
->
 > Note that at this time, the Skyline GUI cannot upload entire folders.
->
 
 To accomplish this you can use either the [openstack client](/cloud-onboarding/storage-object-store-openstack-cli/) or the [swift client](/cloud-onboarding/storage-object-store-swift-cli/).
 
@@ -96,9 +94,7 @@ Download a single file from the container:
 
 > [!NOTE]
 >
->
 > Note that at this time, the Skyline GUI cannot delete non-empty containers.
->
 
 To accomplish this you can use either the [openstack client](/cloud-onboarding/storage-object-store-openstack-cli/) or the [swift client](/cloud-onboarding/storage-object-store-swift-cli/).
 

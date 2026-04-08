@@ -16,14 +16,11 @@ openstack --os-cloud default project create --description 'platform-services ena
 
 #### Create a new zamboni user
 
-> [!TIP]
-> **Make sure to set the password accordingly**
->
->
-> ``` shell
-> PASSWORD=SuperSecrete
-> ```
->
+Make sure to set the password accordingly
+
+``` shell
+PASSWORD=SuperSecrete
+```
 
 ``` shell
 openstack --os-cloud default user create --project platform-services --password ${PASSWORD} zamboni --domain default
@@ -55,14 +52,11 @@ openstack --os-cloud default role add --user zamboni --system all reader
 
 #### Create a new member user
 
-> [!TIP]
-> **Make sure to set the password accordingly**
->
->
-> ``` shell
-> PASSWORD=SuperSecrete
-> ```
->
+Make sure to set the password accordingly
+
+``` shell
+PASSWORD=SuperSecrete
+```
 
 ``` shell
 openstack --os-cloud default user create --project platform-services --password ${PASSWORD} platform-services --domain default
@@ -77,14 +71,11 @@ openstack --os-cloud default role add --user platform-services --domain default 
 
 #### Create a new core user
 
-> [!TIP]
-> **Make sure to set the password accordingly**
->
->
-> ``` shell
-> PASSWORD=SuperSecrete
-> ```
->
+Make sure to set the password accordingly
+
+``` shell
+PASSWORD=SuperSecrete
+```
 
 ``` shell
 openstack --os-cloud default user create --project platform-services --password ${PASSWORD} platform-services-core --domain default
@@ -116,14 +107,11 @@ openstack --os-cloud default role add --user platform-services-core --system all
 
 #### Create a new alt user
 
-> [!TIP]
-> **Make sure to set the password accordingly**
->
->
-> ``` shell
-> PASSWORD=SuperSecrete
-> ```
->
+Make sure to set the password accordingly
+
+``` shell
+PASSWORD=SuperSecrete
+```
 
 ``` shell
 openstack --os-cloud default user create --project platform-services --password ${PASSWORD} platform-services-core-alt --domain default

@@ -11,12 +11,11 @@ For more information on the project see: [Gateway API SIG.](https://gateway-api.
 > hostname, for example `keystone.your.domain.tld`. When a request comes in to the f5 vip for this the vip is setup to pass the traffic to the Metallb
 > external vip address. Metallb then forwards the traffic to the appropriate service endpoint for the gateway controller which matches the hostname and passes the
 > traffic onto the right service. The same applies to internal services. Anything that matches `your.domain.tld` hostname can be considered internal and handled accordingly.
->
-> ``` mermaid
-> flowchart LR
->     External --> External_VIP_Address --> MetalLB_VIP_Address --> Gateway_Service
-> ```
->
+
+``` mermaid
+flowchart LR
+    External --> External_VIP_Address --> MetalLB_VIP_Address --> Gateway_Service
+```
 
 The k8s Gateway API is NOT the same an API Gateway. While both sound the same, API Gateway is a more of a general
 concept that defines a set of resources that exposes capabilities of a backend service but also provide other

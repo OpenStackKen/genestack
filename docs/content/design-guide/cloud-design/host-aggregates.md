@@ -79,7 +79,6 @@ linkStyle 1 fill:none,stroke:none;
 > [!GENESTACK]
 >
 > Genestack is designed to use [Host Aggregates](/operational-guide/openstack-host-aggregates/) to take advantage of various compute host types.
->
 
 ## Host Aggregates vs. Availability Zones
 
@@ -90,7 +89,6 @@ While Host Aggregates themselves are hidden from OpenStack cloud users, Cloud ad
 > [!INFO]
 >
 > Provided all other requirements are met (CPU type, availability, etc...) then migrating across Host Aggregates is possible within an [Availability Zone](/design-guide/cloud-design/availability-zones/).
->
 
 ```mermaid
 ---
@@ -147,7 +145,6 @@ class AZ az
 > [!WARNING]
 >
 > It is not allowed to move instances between Availability Zones. If adding a host to an aggregate or removing a host from an aggregate would cause an instance to move between Availability Zones (including moving from or moving to the default AZ) then the operation will be fail.
->
 
 ```mermaid
 ---
@@ -211,6 +208,5 @@ You can map flavors and images to Host Aggregates by setting metadata on the Hos
 > [!NOTE]
 >
 > Metadata that you specify in a Host Aggregate limits the use of that host to any instance that has the same metadata specified in its flavor or image.
->
 
 [^1]: Host aggregates started out as a way to use Xen hypervisor resource pools, but have since been generalized to provide a mechanism to allow administrators to assign key-value pairs to groups of machines.

@@ -133,27 +133,27 @@ You can view more information about the OpenStack exporter in general and what m
 If we are deploying [Ceph externally](/deployment-guide/open-infrastructure/storage/ceph-rook-external/) then we will want to add another Prometheus CRD, the [ScrapeConfig](https://prometheus-operator.dev/docs/getting-started/design/#scrapeconfig).
 The ScrapeConfig allows us to define external sources for Prometheus to scrape.
 
-> [!IMPORTANT]
-> **Example ScrapeConfig for external Ceph monitoring**
->
-> ``` yaml
-> apiVersion: monitoring.coreos.com/v1alpha1
-> kind: ScrapeConfig
-> metadata:
->   name: external-ceph-monitor
->   namespace: prometheus
->   labels:
->     prometheus: sys\em-monitoring-prometheus
-> spec:
->   staticConfigs:
->     - labels:
->         job: prometheus
->       targets:
->         - 192.12.34.567:9283
->         ```
-> With this example we can simply apply it to the cluster and Prometheus will soon begin scraping metrics for our external Ceph cluster.
-> We can see additional information about the Ceph exporter at the [Ceph Github Docs](https://github.com/rook/rook/blob/master/design/ceph/ceph-exporter.md).
-> For additional information regarding the metrics collected and exposed from Ceph clusters view the [Ceph Telemetry Doc](https://github.com/rook/rook/blob/master/design/ceph/ceph-telemetry.md?plain=1).
+Example ScrapeConfig for external Ceph monitoring
+
+``` yaml
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: external-ceph-monitor
+  namespace: prometheus
+  labels:
+    prometheus: sys\em-monitoring-prometheus
+spec:
+  staticConfigs:
+    - labels:
+        job: prometheus
+      targets:
+        - 192.12.34.567:9283
+        ```
+With this example we can simply apply it to the cluster and Prometheus will soon begin scraping metrics for our external Ceph cluster.
+We can see additional information about the Ceph exporter at the [Ceph Github Docs](https://github.com/rook/rook/blob/master/design/ceph/ceph-exporter.md).
+For additional information regarding the metrics collected and exposed from Ceph clusters view the [Ceph Telemetry Doc](https://github.com/rook/rook/blob/master/design/ceph/ceph-telemetry.md?plain=1).
+```
 
 * ### Push Gateway:
 The [Prometheus Push Gateway](https://github.com/prometheus/pushgateway) is used to gather metrics from short-lived jobs, like Kubernetes CronJobs.

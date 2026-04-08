@@ -1,12 +1,14 @@
 ---
 title: "PCI DSS"
 weight: 30
+description: "Payment Card Industry Data Security Standard"
 ---
 
-#### Payment Card Industry Data Security Standard
-
 PCI DSS is a security standard designed to ensure that organizations processing, storing, or transmitting credit card information maintain a secure environment.
-It is mandatory for entities handling payment card data.
+
+> [!NOTE]
+>
+> PCI DSS is mandatory for entities handling payment card data.
 
 Main Focus Areas:
 

@@ -16,9 +16,7 @@ general (default)      org.democratic-csi.iscsi        Delete          Immediate
 
 > [!NOTE]
 >
->
 > OSD placement is done on nodes with label ‘openstack-control-plane’, a minimum of 3 nodes is required for a healthy Ceph cluster.
->
 
 Deploy Ceph operator
 

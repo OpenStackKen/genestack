@@ -58,7 +58,6 @@ Typically, a [region](/design-guide/cloud-design/regions/) encompasses at least 
 > [!GENESTACK]
 >
 > See the [data center](https://www.rackspace.com/about/data-centers) pages on the Rackspace website for information on how Rackspace deploys and manages data centers to deliver these capabilities.
->
 
 There is no standard for quantifying distance between AZs.  What constitutes "in-Region" is defined by a the cloud provider, so when designing a cloud there is a lot of latitude.Distance between AZs depends on the region and the specific cloud provider[^2].
 
@@ -87,7 +86,6 @@ It is not allowed to move instances between Availability Zones. If adding a host
 > [!NOTE]
 >
 > It is important to understand that Nova AZs in OpenStack are not a database-level construct.  They are defined by adding metadata to a [Host Aggregate](/design-guide/cloud-design/host-aggregates/).
->
 
 ### Availability Zones vs. Host Aggregates
 
@@ -100,7 +98,6 @@ The addition of this specific metadata to an aggregate makes the aggregate visib
 > [!NOTE]
 >
 > See [Host Aggregates](/design-guide/cloud-design/host-aggregates/) for more information.
->
 
 ### Availability Zones and Placement
 
@@ -115,7 +112,6 @@ OpenStack block storage – [Cinder](https://docs.openstack.org/cinder/latest/) 
 > [!NOTE]
 >
 > You can only set the availability zone to one value. This is consistent with availability zones in the other OpenStack projects that do not allow for the notion of overlapping failure domains.
->
 
 In Cinder, AZs should not be confused with storage types, either stated as explicit technologies (NVMe, SSD, HDD) or as different SLAs (commodity, performance.)  However, storage backends, storage drivers, and storage architecture may affect how you set up Availability Zones.
 
@@ -124,27 +120,25 @@ You will want to have the same Availability Zone criteria for storage as you do 
 > [!WARNING]
 >
 > If you are not going to provide each storage type (NVMe/SSD/HDD) or (commodity/performance) in each AZ, you may have users end-up running into scheduler errors as they try to construct parallel environments for HA in different AZs.
->
 
 This matching includes naming of Availability Zones.  If your AZs don't match, it can cause problems when Nova makes API calls to Cinder. For example, when performing a Boot from Volume API call through Nova, if Nova decided to provision your VM in an AZ called _name_, it will tell Cinder to provision a boot volume in an AZ also called _name_.  If  Cinder doesn’t have an AZ called _name_, this API call will fail.
 
 > [!TIP]
 >
-> You can prevent this from happening by setting the following parameter in `cinder.conf` the nodes running the `cinder-api` service:
->
-> ```
-> [DEFAULT]
-> allow_availability_zone_fallback=True
-> ```
+> You can prevent this from happening by setting the `allow_availability_zone_fallback` parameter in `cinder.conf` to `true` on the nodes running the `cinder-api` service.
 >
 > This parameter prevents the API call from failing, because if the AZ _name_ does not exist, Cinder will fallback to another availability zone (whichever you defined as the `default_availability_zone` parameter or in the `storage_availability_zone` parameter.)
+
+```ini
+[DEFAULT]
+allow_availability_zone_fallback=True
+```
 
 The Cinder multi-backend feature allows you to configure multiple storage backends in the same `cinder.conf` (for the same `cinder-volume` service), but Cinder Availability Zones can only be defined _once_ per `cinder-volume` service, and not per-backend per-cinder-volume service.
 
 > [!NOTE]
 >
 > Even if you define multiple backends in one `cinder.conf` they will all inherit the same availability zone.
->
 
 If you’re using a third party storage appliances[^5], or are making use of software-defined storage solutions like [Ceph](https://docs.ceph.com/en/latest/rbd/rbd-openstack/), then these systems typically have their own built-in redundancy that exist outside of OpenStack.
 
@@ -171,7 +165,6 @@ By deploying HA nodes across different availability zones, it is guaranteed that
 > [!GENESTACK]
 >
 > [Open Virtual Networking (OVN)](https://www.ovn.org/en/) is the networking fabric being used in [Genestack](/deployment-guide/open-infrastructure/infrastructure/ovn-setup/).
->
 
 Additional [special configuration](https://docs.openstack.org/neutron/latest/admin/ovn/availability_zones.html) is necessary to enable Availability Zones when using OVN.
 

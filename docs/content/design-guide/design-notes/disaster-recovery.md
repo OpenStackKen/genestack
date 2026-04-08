@@ -1,8 +1,8 @@
 ---
 title: "Disaster Recovery"
 weight: 40
+description: "Introduction"
 ---
-## Introduction
 
 When designing and deploying clouds using OpenStack, Disaster Recovery (DR) needs to be forefront in your mind. DR needs to be a part of the design and architecture from the start.  Disasters can strike in various forms, ranging from the failure of a single node to a complete site outage.  While built-in redundancy measures are essential for maintaining the resilience of production-scale OpenStack environments, the effectiveness of the recovery process largely depends on careful planning and a well-defined approach.
 
@@ -23,7 +23,6 @@ Hardware failures can lead to the complete outage of a Controller Node, whether 
 > [!NOTE]
 >
 > This is a different scenario than a Control Plane Failure.  The impact of the failure of a Controller Node will usually be mitigated through Controller Node redundancy in the control plane.  As long as there is no data corruption, service should be uninterrupted during recovery.
->
 
 ### Compute Node Failures
 
@@ -32,7 +31,6 @@ Compute Node failures are the most prevalent issue in OpenStack clouds – mostl
 > [!NOTE]
 >
 > This risk is not unique to OpenStack.  Any cloud (or any compute environment at all) where storage is co-located with compute[^2] has this risk.
->
 
 ### Network Failures
 
@@ -96,7 +94,6 @@ The backup strategy for Controller Nodes should consist of periodic snapshots of
 > [!WARNING]
 >
 > You must backup _all_ controller nodes at the same time.  Having "state skew" between the controllers has the potential to render the entire OpenStack deployment inoperable. Additionally, if you need to restore the control plane from a backup, it has the potential to differ from what is _currently running_ in terms of instances, networks, storage allocation, etc.
->
 
 Implementing robust controller redundancy strategies can enable you to significantly enhance the resilience and fault tolerance of your OpenStack deployment, minimizing the impact of controller failures, and ensuring the smooth operation of their cloud infrastructure.
 
@@ -113,7 +110,6 @@ When designing compute node redundancy, it is essential to consider the capacity
 > [!TIP]
 >
 > A best practice is to always maintain at least one spare compute node to accommodate the evacuation of instances from a node that has failed or that requires maintenance. This is often referred to as the _**N+1**_ strategy.
->
 
 If multiple compute node groups have different capabilities, such as CPU architectures, SR-IOV, or DPDK, the redundancy design must be more granular to address the specific requirements of each component.
 
@@ -124,7 +120,6 @@ To effectively manage compute node redundancy, subdivide your nodes into multipl
 > [!TIP]
 >
 > You will want to implement _**N+1**_ for all Host Aggregates and Availability Zones so that each group of compute resources has some redundancy and spare capacity.
->
 
 ### Fencing Mechanism and Instance High-Availability Policies
 
@@ -133,7 +128,6 @@ For mission-critical deployed services that cannot tolerate any downtime due to 
 > [!NOTE]
 >
 > OpenStack provides the [Masakari](https://docs.openstack.org/masakari/latest/) project to provide Instance High Availability.
->
 
 Defining specific High Availability (HA) policies for instances enables you to determine the actions to be taken if the underlying host goes down, or the instance crashes. For example, for instances that cannot tolerate downtime, the applicable HA policy in Masakari is "ha-offline," which triggers the evacuation of the instance to another compute node (the spare node.) To enable this functionality, the fencing agent must be enabled in Nova.
 
