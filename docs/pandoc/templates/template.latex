@@ -756,10 +756,6 @@ $--$if(graphics)$
 %%
 \usepackage{svg}
 \svgsetup{inkscape=true}
-$--$if(svg)$
-$--\usepackage{svg}
-$--$endif$
-$--$endif$
 
 %%
 %% END Graphics
@@ -1301,12 +1297,10 @@ $else$
 
 \pagestyle{eisvogel-header-footer}
 
-$if(chapters)$
+$if(book)$
+
 \usepackage{titlesec}
 \newcommand{\sectionbreak}{\clearpage}
-$endif$
-
-$if(book)$
 
 %%
 % Book

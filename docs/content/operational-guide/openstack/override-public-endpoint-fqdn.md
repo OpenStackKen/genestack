@@ -39,48 +39,44 @@ this file needs to be moved into /etc/genestack/helm-configs/keystone/ directory
 > [!NOTE]
 >
 > The fqdn in the httproute and helm overrides must be the same
->
 
 This is an example overrides file for nova:
 
-> [!IMPORTANT]
-> **`host_fqdn_overrides.yaml`**
->
->
-> ``` yaml
-> endpoints:
->   compute:
->     host_fqdn_override:
->       public:
->         tls: {}
->         host: nova.cluster.local
->     port:
->       api:
->         public: 443
->     scheme:
->       public: https
->   compute_metadata:
->     host_fqdn_override:
->       public:
->         tls: {}
->         host: metadata.nova.cluster.local
->     port:
->       metadata:
->         public: 443
->     scheme:
->       public: https
->   compute_novnc_proxy:
->     host_fqdn_override:
->       public:
->         tls: {}
->         host: novnc.nova.cluster.local
->     port:
->       novnc_proxy:
->         public: 443
->     scheme:
->       public: https
-> ```
->
+`host_fqdn_overrides.yaml`
+
+``` yaml
+endpoints:
+  compute:
+    host_fqdn_override:
+      public:
+        tls: {}
+        host: nova.cluster.local
+    port:
+      api:
+        public: 443
+    scheme:
+      public: https
+  compute_metadata:
+    host_fqdn_override:
+      public:
+        tls: {}
+        host: metadata.nova.cluster.local
+    port:
+      metadata:
+        public: 443
+    scheme:
+      public: https
+  compute_novnc_proxy:
+    host_fqdn_override:
+      public:
+        tls: {}
+        host: novnc.nova.cluster.local
+    port:
+      novnc_proxy:
+        public: 443
+    scheme:
+      public: https
+```
 
 > [!NOTE]
 >

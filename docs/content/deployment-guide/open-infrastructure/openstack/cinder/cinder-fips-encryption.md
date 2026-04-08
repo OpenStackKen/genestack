@@ -24,7 +24,6 @@ To create a FIPS-enabled Cinder front end to be consumed by clients the folllowi
 > [!NOTE]
 >
 > These set of commands is ran against our standard LVM iSCSI deployment covered in the [LVM iSCSI](cinder-lvmisci) backend documentation. With modified commands to be run after cinder service is deployed on your storage nodes.
->
 
 ```shell
 # kubectl --namespace openstack exec -ti openstack-admin-client -- openstack volume type create --encryption-provider luks \

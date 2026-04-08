@@ -6,9 +6,7 @@ Deploy Open vSwitch [OVN](https://www.ovn.org/en/).
 
 > [!NOTE]
 >
->
 > We're not deploying Openvswitch, however, we are using it. The implementation on Genestack is assumed to be done with Kubespray which deploys OVN as its networking solution. Because those components are handled by our infrastructure there's nothing for us to manage / deploy in this environment. OpenStack will leverage OVN within Kubernetes following the scaling/maintenance/management practices of kube-ovn.
->
 
 ## Configure OVN for OpenStack
 
@@ -32,11 +30,11 @@ Post deployment we need to setup neutron to work with our integrated OVN environ
 Set the annotations needed within the environment to meet the needs of your workloads on the hardware you have.
 
 > [!TIP]
+>
 > **Post Deployment**
 >
 >
 > Review the OVN Operations Guide for more information on how to manage your OVN environment post deployment. The guide can be found [here](/operational-guide/ovn-kube-ovn-openstack/). The guide will help you understand how to manage your OVN environment and how to troubleshoot issues that may arise.
->
 
 ### Set `ovn.openstack.org/int_bridge`
 
@@ -55,9 +53,7 @@ Set the name of the OVS bridges we'll use. These are the bridges you will use on
 
 > [!NOTE]
 >
->
 > The functional example here annotates all nodes; however, not all nodes have to have the same setup.
->
 
 ``` shell
 kubectl annotate \
@@ -72,9 +68,7 @@ Set the port mapping for OVS interfaces to a local physical interface on a given
 
 > [!NOTE]
 >
->
 > If using bonds, the port mapping should reference the bond name (e.g., `br-ex:bond0`) instead of individual physical interfaces. See the bonds section below for configuring bonded interfaces.
->
 
 ``` shell
 kubectl annotate \
@@ -144,6 +138,7 @@ kubectl annotate \
 ```
 
 > [!TIP]
+>
 > **OVS Bond Modes**
 >
 >
@@ -151,7 +146,6 @@ kubectl annotate \
 > - **balance-tcp**: Balances based on L3/L4 headers (IP addresses and TCP/UDP ports). Requires LACP (`lacp=active` or `lacp=passive`).
 >
 > For 802.3ad LACP bonding, use `mode=balance-tcp` with `lacp=active`.
->
 
 ### Set `ovn.openstack.org/mappings`
 
@@ -159,9 +153,7 @@ Set the Neutron bridge mapping. This maps the Neutron interfaces to the ovs brid
 
 > [!NOTE]
 >
->
 > Neutron interfaces are string value and can be anything you want. The `NEUTRON_INTERFACE` value defined will be used when you create provider type networks after the cloud is online.
->
 
 ``` shell
 kubectl annotate \
@@ -183,11 +175,9 @@ kubectl annotate \
 
 > [!NOTE]
 >
->
-> Any availability zone defined here should also be defined within your **neutron.conf**. The "az1" availability zone is assumed by Genestack; however, because we're running in a mixed OVN environment, we define where we're allowed to execute OpenStack workloads ensuring we're not running workloads in an environment that doesn't have the network resources to support it.
+> Any availability zone defined here should also be defined within your `neutron.conf`. The "az1" availability zone is assumed by Genestack; however, because we're running in a mixed OVN environment, we define where we're allowed to execute OpenStack workloads ensuring we're not running workloads in an environment that doesn't have the network resources to support it.
 >
 > Additionally, an availability zone can be used on different nodes and used to define where gateways reside. If you have multiple availability zones, you will need to define where the gateways will reside within your environment.
->
 
 ### Set `ovn.openstack.org/gateway`
 
@@ -255,6 +245,7 @@ kubectl label node node1 ovn.openstack.org/configured-
 The setup will remove any existing single interface ports and create the bond configuration.
 
 > [!TIP]
+>
 > **Setup your OVN backup**
 >
 >
@@ -264,19 +255,20 @@ The setup will remove any existing single interface ports and create the bond co
 > appropriately (i.e., set the CONTAINER) and fill the ST_AUTH, ST_USER, and
 > ST_KEY as appropriate for the Swift CLI client in the `swift-tempauth.env`
 > file and then run:
->
-> ``` shell
-> kubectl apply -k /etc/genestack/kustomize/ovn-backup/base \
-> --prune -l app=ovn-backup \
-> --prune-allowlist=core/v1/Secret \
-> --prune-allowlist=core/v1/ConfigMap
-> ```
+
+``` shell
+kubectl apply -k /etc/genestack/kustomize/ovn-backup/base \
+--prune -l app=ovn-backup \
+--prune-allowlist=core/v1/Secret \
+--prune-allowlist=core/v1/ConfigMap
+```
+
+> [!TIP]
 >
 > If you need to change variables in the future, you can edit the relevant
 > files and use `kubectl` with these prune options to avoid accumulating
 > old ConfigMaps and Secrets from successive `kubectl apply` operations, but
 > you can omit the pruning options if desired.
->
 
 ### Centralize `kube-ovn-controller` pods
 

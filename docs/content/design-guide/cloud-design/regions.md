@@ -53,11 +53,9 @@ or a separate `openrc` file.
 
 > [!TIP]
 >
->
 > For discoverability, you may elect to have "generic" DNS names for some services that use geo-IP or other context clues to direct user to the appropriate endpoint.
 >
 > For example, if you have an internal cloud that has geographic regions on continents or countries, "cloud.company.corp" may just direct user to their in-region Horizon or Keystone instance, like "us.cloud.company.corp" for North America or "apac.cloud.company.corp" for Asia.
->
 
 ## Designing Services for Multiple Regions
 
@@ -80,7 +78,6 @@ OpenStack currently does not have any multi-region capability with the dashboard
 > [!IMPORTANT]
 >
 > [ManageIQ](https://docs.openstack.org/horizon/latest/) is an open-source [Cloud Management Platform (CMP)](https://en.wikipedia.org/wiki/Cloud_management#Cloud_Management_Platforms_(CMP)) that is capable of managing multiple OpenStack clouds or regions.  ManageIQ has excellent support via it's [OpenStack provider](https://www.manageiq.org/docs/reference/latest/managing_providers/cloud_providers/openstack_providers.html) and multiple OpenStack API endpoints can be added to provide common management through the ManageIQ web interface and [API](https://www.manageiq.org/docs/api).
->
 
 ### Nova
 
@@ -104,15 +101,11 @@ These kind of "existential questions" should always raise a red flag – the mai
 
 > [!TIP]
 >
->
 > While it may seem like Neutron's [VPN as a Service (VPNaaS)](https://docs.openstack.org/neutron-vpnaas/latest/user/index.html) is a good fit for something like this, VPNaaS is primarily designed for client-server VPNs.  This application is better suited for point-to-point VPNs.
->
 
 > [!IMPORTANT]
 >
->
 > You may even want your cloud users to look at something like [Tailscale](https://tailscale.com/) or even just plain [Wireguard](https://www.wireguard.com/) to create their own site-to-site VPN overlay networks.
->
 
 ### Cinder
 
@@ -123,7 +116,6 @@ As with Neutron, the key is designing services that can be put together with oth
 > [!NOTE]
 >
 > Currently, Cinder [replication](https://docs.openstack.org/cinder/latest/contributor/replication.html) is limited to in-region backend failure scenarios where volumes can be saved to multiple backends.
->
 
 Replicating Cinder volumes from one Region to another is more complicated in the sense that not only does the actual volume storage need to be replicated, but both regions would need to have the metadata in sync for those volumes.  Ultimately, there would need to be a way to synchronize the _state_ of those volumes so that both Regions understand the local and the remote to be the _same volume_.  This is much more complex.
 
@@ -140,7 +132,6 @@ A good way to do this is to have a shared Glance service with distributed backen
 > One way to accomplish this would be to use a Glance backend on top of replicated storage.  Then, you can replicate the Glace storage backend across multiple regions and expose the service from a single IP in the service catalog.  That service IP could resolve to localized endpoints via geo-IP.
 >
 > Remember – your glance back-end does not necessarily need to be shared with Cinder or Swift or any other services, so using an existing storage backend with replication capabilities that you already deploy could be a economically-efficient way to achieve this goal.
->
 
 [^1]:
     LDAP integration can also be used to [integrate Keystone with Active Directory](https://wiki.openstack.org/wiki/HowtoIntegrateKeystonewithAD).

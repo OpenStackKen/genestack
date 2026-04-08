@@ -31,8 +31,6 @@ To set a default limit for a resource:
 >
 > Once the default limit is set via the API, it takes precedence over config limits. Once it is set, we can only
 > modify the limit, but it can not be deleted via the API. It can however be deleted manually from the database.
->
->
 
 * Config provided limits
 

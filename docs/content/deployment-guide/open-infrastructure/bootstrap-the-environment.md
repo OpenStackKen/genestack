@@ -14,7 +14,6 @@ install Kubernetes and OpenStack Helm:
 > If running this command with `sudo`, be sure to run with `-E`.
 > `sudo -E /opt/genestack/bootstrap.sh`. This will ensure your active
 > environment is passed into the bootstrap command.
->
 
 Once the bootstrap is completed the default Kubernetes provider will be
 configured inside `/etc/genestack/provider` and currently defaults to

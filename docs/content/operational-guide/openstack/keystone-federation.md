@@ -20,75 +20,72 @@ openstack --os-cloud default identity provider create --remote-id rackspace --do
 
 You're also welcome to generate your own mapping to suit your needs; however, if you want to use the example mapping (which is suitable for production) you can.
 
-> [!NOTE]
-> **Example keystone `mapping.json` file**
->
->
-> ``` json
-> [
->     {
->         "local": [
->             {
->                 "user": {
->                     "name": "{0}",
->                     "email": "{1}",
->                     "domain": {
->                         "name": "rackspace_cloud_domain"
->                     }
->                 }
->             },
->             {
->                 "projects": [
->                     {
->                         "name": "{2}",
->                         "domain": {
->                             "name": "rackspace_cloud_domain"
->                         },
->                         "description": "Project for DDI {3}",
->                         "metadata": [
->                             {
->                                 "key": "ddi",
->                                 "value": "{3}"
->                             }
->                         ],
->                         "tags": [
->                             {
->                                 "project_tag": "{3}"
->                             }
->                         ],
->                         "roles": []
->                     }
->                 ]
->             }
->         ],
->         "remote": [
->             {
->                 "type": "RXT_UserName"
->             },
->             {
->                 "type": "RXT_Email"
->             },
->             {
->                 "type": "RXT_TenantName"
->             },
->             {
->                 "type": "RXT_DomainID"
->             },
->             {
->                 "type": "RXT_orgPersonType",
->                 "any_one_of": [
->                     "creator",
->                     "member",
->                     "reader"
->                 ]
->             }
->         ]
->     }
-> ]
-> ```
->
+Example keystone `mapping.json` file
 
-The example mapping **JSON** file can be found within the genestack repository at `/opt/genestack/etc/keystone/mapping.json`.
+``` json
+[
+    {
+        "local": [
+            {
+                "user": {
+                    "name": "{0}",
+                    "email": "{1}",
+                    "domain": {
+                        "name": "rackspace_cloud_domain"
+                    }
+                }
+            },
+            {
+                "projects": [
+                    {
+                        "name": "{2}",
+                        "domain": {
+                            "name": "rackspace_cloud_domain"
+                        },
+                        "description": "Project for DDI {3}",
+                        "metadata": [
+                            {
+                                "key": "ddi",
+                                "value": "{3}"
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "project_tag": "{3}"
+                            }
+                        ],
+                        "roles": []
+                    }
+                ]
+            }
+        ],
+        "remote": [
+            {
+                "type": "RXT_UserName"
+            },
+            {
+                "type": "RXT_Email"
+            },
+            {
+                "type": "RXT_TenantName"
+            },
+            {
+                "type": "RXT_DomainID"
+            },
+            {
+                "type": "RXT_orgPersonType",
+                "any_one_of": [
+                    "creator",
+                    "member",
+                    "reader"
+                ]
+            }
+        ]
+    }
+]
+```
+
+The example mapping `JSON` file can be found within the genestack repository at `/opt/genestack/etc/keystone/mapping.json`.
 
 > [!TIP]
 > **Creating the `creator` role**
@@ -97,11 +94,10 @@ The example mapping **JSON** file can be found within the genestack repository a
 > The creator role does not exist by default, but is included in the example
 > mapping. One must create the creator role in order to prevent authentication
 > errors if using the mapping "as is".
->
-> ``` shell
-> openstack --os-cloud default role create creator
-> ```
->
+
+``` shell
+openstack --os-cloud default role create creator
+```
 
 ### Register the Global Auth mapping within Keystone
 
@@ -164,7 +160,7 @@ they are not required. You can also use the `shibd` command directly on the host
 
 #### Retrieve the SAML2 files
 
-A example *keystone-sp* configuration is provided under `/opt/genestack/etc/keystone-sp` and needs to be copied to the local configuration directory
+A example `keystone-sp` configuration is provided under `/opt/genestack/etc/keystone-sp` and needs to be copied to the local configuration directory
 
 ``` shell
 cp -r /opt/genestack/etc/keystone-sp /etc/genestack
@@ -174,14 +170,13 @@ cp -r /opt/genestack/etc/keystone-sp /etc/genestack
 > **Extracting the configuration from the original source**
 >
 >
-> Using the `docker` command and the shibd image, retrieve the SAML2 files from the container and place them in a local directory.
->
-> ``` shell
-> docker run -v /etc/genestack/keystone-sp:/mnt \
->     ghcr.io/rackerlabs/genestack-images/shibd:latest \
->     cp -R /etc/shibboleth /mnt/
-> ```
->
+> Using the `docker` command and the `shibd` image, retrieve the SAML2 files from the container and place them in a local directory.
+
+``` shell
+docker run -v /etc/genestack/keystone-sp:/mnt \
+    ghcr.io/rackerlabs/genestack-images/shibd:latest \
+    cp -R /etc/shibboleth /mnt/
+```
 
 #### Update the `shibboleth2.xml` file
 
@@ -191,96 +186,93 @@ Store the SAML metadata and configure the SAML identity provider at `/etc/genest
 
 Before you can upload the secrets to the kubernetes cluster, you need to edit the `shibboleth2.xml` file.
 
-> [!IMPORTANT]
-> **shibboleth2.xml file**
->
->
-> ``` xml
-> <SPConfig xmlns="urn:mace:shibboleth:3.0:native:sp:config"
->     xmlns:conf="urn:mace:shibboleth:3.0:native:sp:config"
->     clockSkew="180">
->     <OutOfProcess logger="shibd.logger"
->         tranLogFormat="%u|%s|%IDP|%i|%ac|%t|%attr|%n|%b|%E|%S|%SS|%L|%UA|%a">
->         <Extensions>
->             <Library path="memcache-store.so" fatal="true" />
->         </Extensions>
->     </OutOfProcess>
->     <StorageService type="MEMCACHE"
->         id="mc"
->         prefix="shib:">
->         <Hosts>
->             memcached.openstack.svc.cluster.local:11211
->         </Hosts>
->     </StorageService>
->     <StorageService type="MEMCACHE"
->         id="mc-ctx"
->         prefix="shib:"
->         buildMap="1">
->         <Hosts>
->             memcached.openstack.svc.cluster.local:11211
->         </Hosts>
->     </StorageService>
->     <SessionCache type="StorageService"
->         StorageService="mc-ctx"
->         StorageServiceLite="mc"
->         cacheAllowance="3600"
->         inprocTimeout="900"
->         cleanupInterval="900" />
->     <ReplayCache StorageService="mc" />
->     <ArtifactMap StorageService="mc" artifactTTL="180" />
->     <!-- The following is a sample configuration for the SP.
->          You will need to replace the entityID and the metadata URL with your own values.
->          For the REMOTE_USER, common values are "eppn" "persistent-id" "targeted-id"
->          The example "uid" value is a custom mapping comming from the IDP -->
->     <ApplicationDefaults
->         entityID="https://skyline.api.example.com/api/openstack/skyline/api/v1/websso"
->         REMOTE_USER="eppn persistent-id targeted-id uid"
->         cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1">
->         <Sessions lifetime="28800"
->             timeout="3600"
->             relayState="ss:mc"
->             checkAddress="false"
->             handlerSSL="true"
->             cookieProps="https"
->             redirectLimit="exact">
->             <SSO entityID="EXAMPLE_ENTITY_ID_REPLACED_WITH_THE_ENTITY_ID_OF_THE_IDP">
->                 SAML2
->             </SSO>
->             <Logout>
->                 SAML2 Local
->             </Logout>
->             <LogoutInitiator type="Admin" Location="/Logout/Admin" acl="127.0.0.1 ::1" />
->             <Handler type="MetadataGenerator" Location="/Metadata" signing="false" />
->             <Handler type="Status" Location="/Status" acl="127.0.0.1 ::1" />
->             <Handler type="Session" Location="/Session" showAttributeValues="false" />
->             <Handler type="DiscoveryFeed" Location="/DiscoFeed" />
->         </Sessions>
->         <Errors supportContact="admin@example.com"
->             helpLocation="https://example.com/about.html"
->             styleSheet="/shibboleth-sp/main.css" />
->         <MetadataProvider type="XML" path="idp-metadata.xml" />
->         <AttributeExtractor type="XML"
->             validate="true"
->             reloadChanges="false"
->             path="attribute-map.xml" />
->         <AttributeFilter type="XML" validate="true" path="attribute-policy.xml" />
->         <CredentialResolver type="File"
->             use="signing"
->             key="sp-key.pem"
->             certificate="sp-cert.pem" />
->         <CredentialResolver type="File"
->             use="encryption"
->             key="sp-key.pem"
->             certificate="sp-cert.pem" />
->     </ApplicationDefaults>
->     <SecurityPolicyProvider type="XML" validate="true" path="security-policy.xml" />
->     <ProtocolProvider type="XML"
->         validate="true"
->         reloadChanges="false"
->         path="protocols.xml" />
-> </SPConfig>
-> ```
->
+shibboleth2.xml file
+
+``` xml
+<SPConfig xmlns="urn:mace:shibboleth:3.0:native:sp:config"
+    xmlns:conf="urn:mace:shibboleth:3.0:native:sp:config"
+    clockSkew="180">
+    <OutOfProcess logger="shibd.logger"
+        tranLogFormat="%u|%s|%IDP|%i|%ac|%t|%attr|%n|%b|%E|%S|%SS|%L|%UA|%a">
+        <Extensions>
+            <Library path="memcache-store.so" fatal="true" />
+        </Extensions>
+    </OutOfProcess>
+    <StorageService type="MEMCACHE"
+        id="mc"
+        prefix="shib:">
+        <Hosts>
+            memcached.openstack.svc.cluster.local:11211
+        </Hosts>
+    </StorageService>
+    <StorageService type="MEMCACHE"
+        id="mc-ctx"
+        prefix="shib:"
+        buildMap="1">
+        <Hosts>
+            memcached.openstack.svc.cluster.local:11211
+        </Hosts>
+    </StorageService>
+    <SessionCache type="StorageService"
+        StorageService="mc-ctx"
+        StorageServiceLite="mc"
+        cacheAllowance="3600"
+        inprocTimeout="900"
+        cleanupInterval="900" />
+    <ReplayCache StorageService="mc" />
+    <ArtifactMap StorageService="mc" artifactTTL="180" />
+    <!-- The following is a sample configuration for the SP.
+         You will need to replace the entityID and the metadata URL with your own values.
+         For the REMOTE_USER, common values are "eppn" "persistent-id" "targeted-id"
+         The example "uid" value is a custom mapping comming from the IDP -->
+    <ApplicationDefaults
+        entityID="https://skyline.api.example.com/api/openstack/skyline/api/v1/websso"
+        REMOTE_USER="eppn persistent-id targeted-id uid"
+        cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1">
+        <Sessions lifetime="28800"
+            timeout="3600"
+            relayState="ss:mc"
+            checkAddress="false"
+            handlerSSL="true"
+            cookieProps="https"
+            redirectLimit="exact">
+            <SSO entityID="EXAMPLE_ENTITY_ID_REPLACED_WITH_THE_ENTITY_ID_OF_THE_IDP">
+                SAML2
+            </SSO>
+            <Logout>
+                SAML2 Local
+            </Logout>
+            <LogoutInitiator type="Admin" Location="/Logout/Admin" acl="127.0.0.1 ::1" />
+            <Handler type="MetadataGenerator" Location="/Metadata" signing="false" />
+            <Handler type="Status" Location="/Status" acl="127.0.0.1 ::1" />
+            <Handler type="Session" Location="/Session" showAttributeValues="false" />
+            <Handler type="DiscoveryFeed" Location="/DiscoFeed" />
+        </Sessions>
+        <Errors supportContact="admin@example.com"
+            helpLocation="https://example.com/about.html"
+            styleSheet="/shibboleth-sp/main.css" />
+        <MetadataProvider type="XML" path="idp-metadata.xml" />
+        <AttributeExtractor type="XML"
+            validate="true"
+            reloadChanges="false"
+            path="attribute-map.xml" />
+        <AttributeFilter type="XML" validate="true" path="attribute-policy.xml" />
+        <CredentialResolver type="File"
+            use="signing"
+            key="sp-key.pem"
+            certificate="sp-cert.pem" />
+        <CredentialResolver type="File"
+            use="encryption"
+            key="sp-key.pem"
+            certificate="sp-cert.pem" />
+    </ApplicationDefaults>
+    <SecurityPolicyProvider type="XML" validate="true" path="security-policy.xml" />
+    <ProtocolProvider type="XML"
+        validate="true"
+        reloadChanges="false"
+        path="protocols.xml" />
+</SPConfig>
+```
 
 * The entity ID in the `SSO` field is the same value as the `EXAMPLE_ENTITY_ID_REPLACED_WITH_THE_ENTITY_ID_OF_THE_IDP` used when
   defining the OpenStack Identity provider.
@@ -305,10 +297,7 @@ The `attribute-map.xml` file is used to configure the attribute mapping for the 
 attribute mapping. The default attribute mapping is set to use the `urn:oid:` values. The `urn:oid:` values are the standard values
 used by the SAML2 identity provider.
 
-> [!IMPORTANT]
-> **Example `attribute-map.xml` configurations**
->
->
+Example `attribute-map.xml` configurations
 
 ### Auth-0
 
@@ -326,21 +315,21 @@ within keystone.
 ```
 Within the Auth-0 portal you can find the `project_ids` and `roles` attributes. The `project_ids` attribute
 is used to map the project name to the project ID. The `roles` attribute is used to map the roles to the user.
-> [!IMPORTANT]
-> **User Metadata**
-> ``` json
-> {
->     "roles": [
->         "observer",
->         "creator",
->         "member"
->     ],
->     "project_ids": [
->         "project_id_1",
->         "project_id_2"
->     ]
-> }
-> ```
+User Metadata
+
+``` json
+{
+    "roles": [
+        "observer",
+        "creator",
+        "member"
+    ],
+    "project_ids": [
+        "project_id_1",
+        "project_id_2"
+    ]
+}
+```
 
 
 
@@ -361,28 +350,28 @@ within keystone.
 Within the OKTA portal you can find the `project_ids` and `person_type` attributes. The `project_ids`
 attribute is used to map the project name to the project ID. The `person_type` attribute is used to map
 the roles to the user.
-> [!IMPORTANT]
-> **User Metadata**
-> ``` json
-> {
->     "roles": [
->         "observer",
->         "creator",
->         "member"
->     ],
->     "project_ids": [
->         "project_id_1",
->         "project_id_2"
->     ]
-> }
-> ```
+User Metadata
+
+``` json
+{
+    "roles": [
+        "observer",
+        "creator",
+        "member"
+    ],
+    "project_ids": [
+        "project_id_1",
+        "project_id_2"
+    ]
+}
+```
 
 
 
 ### Rackspace
 
 When using the Rackspace the `shibboleth2.xml` file must be updated to include signing for all requests and responses.
-The *shibboleth2.xml* file must be updated to include the following options, commonly the URLs of the entities
+The `shibboleth2.xml` file must be updated to include the following options, commonly the URLs of the entities
 ``` xml
 <ApplicationDefaults entityID="https://keystone.api.example.com/v3"
                      REMOTE_USER="eppn persistent-id targeted-id uid"
@@ -447,46 +436,54 @@ within keystone.
 <Attribute name="Role" nameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic" id="REMOTE_ROLE"/>
 ```
 The most simplest form of user mapping with Keycloak is to pass-through attributes and map to existing
-Keystone groups inside a domain. Those groups would inherit OpenStack roles such as *admin* or *member*
+Keystone groups inside a domain. Those groups would inherit OpenStack roles such as `admin` or `member`
 > [!NOTE]
+>
 > By default Keycloak exports group names with a path prefix such as **/** and this behavior can be turned off
-> with creating a mapping rule for a attribute such **group** and configure the option as shown below.
+> with creating a mapping rule for a attribute such `group` and configure the option as shown below.
 > In addition to disabling **Full Group Path** option, enable the **Single Group Attribute** option.
 > Select your realm > Configure > User Federation > Provider (such as LDAP) > Mappers > Add Mapper
 > ![Attribute mapping](/assets/images/keycloak-group-mapping.png)
-> When using the Keycloak the *shibboleth2.xml* file must be updated to include signing for all requests and responses.
-> The *shibboleth2.xml* file must be updated to include the following options, commonly the URLs marked with `example.com`.
-> In this example the username attribute 
-> ``` xml
-> <ApplicationDefaults entityID="https://keystone.api.example.com/v3"
->                  REMOTE_USER="username"
->                  cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1"
->                  signing="true"
->                  encryption="false"
->                  signingAlg="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
->                  digestAlg="http://www.w3.org/2001/04/xmlenc#sha256"
->                  NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">
-> ```
-> The `MetadataProvider` should be made dynamic, where *openstack* designates the created realm inside keycloak.
-> ``` xml
-> <MetadataProvider type="XML"
->               validate="true"
->               url="https://keycloak.example.com/realms/openstack/protocol/saml/descriptor"
->               maxRefreshDelay="7200"
->               backingFile="idp-metadata.xml">
-> <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
-> </MetadataProvider>
-> ```
-> Additionally the `Handler` for the `MetadataGenerator` must be updated to include signing:
-> ``` xml
-> <Handler type="MetadataGenerator"
->      Location="/Metadata"
->      signing="true"
->      signingAlg="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
->      digestAlg="http://www.w3.org/2001/04/xmlenc#sha256"/>
-> ```
+
+When using the Keycloak the `shibboleth2.xml` file must be updated to include signing for all requests and responses.
+The `shibboleth2.xml` file must be updated to include the following options, commonly the URLs marked with `example.com`.
+In this example the username attribute
+
+``` xml
+<ApplicationDefaults entityID="https://keystone.api.example.com/v3"
+                 REMOTE_USER="username"
+                 cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1"
+                 signing="true"
+                 encryption="false"
+                 signingAlg="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+                 digestAlg="http://www.w3.org/2001/04/xmlenc#sha256"
+                 NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">
+```
+
+The `MetadataProvider` should be made dynamic, where `openstack` designates the created realm inside keycloak.
+
+``` xml
+<MetadataProvider type="XML"
+              validate="true"
+              url="https://keycloak.example.com/realms/openstack/protocol/saml/descriptor"
+              maxRefreshDelay="7200"
+              backingFile="idp-metadata.xml">
+<MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
+</MetadataProvider>
+```
+
+Additionally the `Handler` for the `MetadataGenerator` must be updated to include signing:
+
+``` xml
+<Handler type="MetadataGenerator"
+     Location="/Metadata"
+     signing="true"
+     signingAlg="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+     digestAlg="http://www.w3.org/2001/04/xmlenc#sha256"/>
+```
 
 > [!NOTE]
+>
 > Configure Keystone SP inside keycloak
 
 Keystone SP must be introduced to keycloak as Client and entity ID among redirect URLs must be configured
@@ -496,13 +493,14 @@ to enable the SAML protocol via *Client type* SAML
 
 #### Generate the SAML Keys
 
-For **N** numbers of years. The keys are used to sign the SAML requests and responses.
+For `N` numbers of years. The keys are used to sign the SAML requests and responses.
 
 ``` shell
 openssl req -x509 -newkey rsa:2048 -keyout sp-key.pem -out sp-cert.pem -days 1825 -nodes
 ```
 
 > [!NOTE]
+>
 > **Define all values for the following options**
 >
 >
@@ -520,7 +518,6 @@ openssl req -x509 -newkey rsa:2048 -keyout sp-key.pem -out sp-cert.pem -days 182
 >
 > * sp-key.pem
 > * sp-cert.pem
->
 
 #### Upload the SAML2 files to the kubernetes cluster
 
@@ -565,10 +562,7 @@ openstack --os-cloud default identity provider create \
 
 You're also welcome to generate your own mapping to suit your needs; however, if you want to use the example mapping (which is suitable for production) you can.
 
-> [!NOTE]
-> **Example keystone `saml-mapping.json` file**
->
->
+Example keystone `saml-mapping.json` file
 
 ### Rackspace
 
@@ -810,7 +804,7 @@ You're also welcome to generate your own mapping to suit your needs; however, if
 ```
 
 
-The example mapping **JSON** file can be found within the genestack repository at `etc/keystone/saml-mapping.json`.
+The example mapping `JSON` file can be found within the genestack repository at `etc/keystone/saml-mapping.json`.
 
 #### Register the SAML mapping within Keystone
 
@@ -834,100 +828,99 @@ openstack --os-cloud default federation protocol create saml2 \
 Before running the deployment, you need to edit the `keystone-helm-overrides.yaml` file to include the following configuration options.
 
 > [!IMPORTANT]
-> **keystone-helm-overrides.yaml**
->
->
-> ``` yaml
-> ---
-> conf:
->   software:
->     apache2:
->       a2enmod:
->         - shib
->   keystone:
->     auth:
->       methods: "saml2,password,token,application_credential,totp"
->       saml2: "rxt"
->     saml2:
->       remote_id_attribute: Shib-Identity-Provider
->     federation:
->       trusted_dashboard:
->         type: multistring
->         values:
->           - https://skyline.api.example.com/api/openstack/skyline/api/v1/websso
->           - https://horizon.api.example.com/auth/websso
->   wsgi_keystone: |
->     {{- $portInt := tuple "identity" "service" "api" $ | include "helm-toolkit.endpoints.endpoint_port_lookup" }}
-> 
->     Listen 0.0.0.0:{{ $portInt }}
-> 
->     LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
->     LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" proxy
-> 
->     SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
->     CustomLog /dev/stdout combined env=!forwarded
->     CustomLog /dev/stdout proxy env=forwarded
-> 
->     <VirtualHost *:{{ $portInt }}>
->         ServerName https://keystone.api.example.com:443
->         UseCanonicalName On
-> 
->         WSGIDaemonProcess keystone-public processes={{ .Values.conf.keystone_api_wsgi.wsgi.processes }} threads={{ .Values.conf.keystone_api_wsgi.wsgi.threads }} user=keystone group=keystone display-name=%{GROUP}
->         WSGIProcessGroup keystone-public
->         WSGIScriptAlias / /var/www/cgi-bin/keystone/keystone-wsgi-public
->         WSGIScriptAliasMatch ^(/v3/OS-FEDERATION/identity_providers/IDENTITY_PROVIDER_NAME/protocols/saml2/auth)$ /var/www/cgi-bin/keystone/keystone-wsgi-public/$1
->         WSGIApplicationGroup %{GLOBAL}
->         WSGIPassAuthorization On
->         LimitRequestBody 114688
-> 
->         <IfVersion >= 2.4>
->           ErrorLogFormat "%{cu}t %M"
->         </IfVersion>
->         ErrorLog /dev/stdout
-> 
->         SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
->         CustomLog /dev/stdout combined env=!forwarded
->         CustomLog /dev/stdout proxy env=forwarded
-> 
->         <Location /Shibboleth.sso>
->             SetHandler shib
->         </Location>
->         <Location /v3/OS-FEDERATION/identity_providers/IDENTITY_PROVIDER_NAME/protocols/saml2/auth>
->             Require valid-user
->             AuthType shibboleth
->             ShibRequestSetting requireSession 1
->             ShibExportAssertion off
->             <IfVersion < 2.4>
->                 ShibRequireSession On
->                 ShibRequireAll On
->             </IfVersion>
->         </Location>
->         RedirectMatch ^/v3/auth/OS-FEDERATION/websso/IDENTITY_PROVIDER_NAME$ /v3/auth/OS-FEDERATION/websso/saml2
->         <Location /v3/auth/OS-FEDERATION/websso/saml2>
->             Require valid-user
->             AuthType shibboleth
->             ShibRequestSetting requireSession 1
->             ShibExportAssertion off
->             <IfVersion < 2.4>
->                 ShibRequireSession On
->                 ShibRequireAll On
->             </IfVersion>
->         </Location>
->         <Location /v3/auth/OS-FEDERATION/identity_providers/IDENTITY_PROVIDER_NAME/protocols/saml2/websso>
->             Require valid-user
->             AuthType shibboleth
->             ShibRequestSetting requireSession 1
->             ShibExportAssertion off
->             <IfVersion < 2.4>
->                 ShibRequireSession On
->                 ShibRequireAll On
->             </IfVersion>
->         </Location>
->     </VirtualHost>
-> ```
->
+> [keystone-helm-overrides.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/base-helm-configs/keystone/keystone-helm-overrides.yaml)
+
+``` yaml
+---
+conf:
+  software:
+    apache2:
+      a2enmod:
+        - shib
+  keystone:
+    auth:
+      methods: "saml2,password,token,application_credential,totp"
+      saml2: "rxt"
+    saml2:
+      remote_id_attribute: Shib-Identity-Provider
+    federation:
+      trusted_dashboard:
+        type: multistring
+        values:
+          - https://skyline.api.example.com/api/openstack/skyline/api/v1/websso
+          - https://horizon.api.example.com/auth/websso
+  wsgi_keystone: |
+    {{- $portInt := tuple "identity" "service" "api" $ | include "helm-toolkit.endpoints.endpoint_port_lookup" }}
+
+    Listen 0.0.0.0:{{ $portInt }}
+
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" proxy
+
+    SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
+    CustomLog /dev/stdout combined env=!forwarded
+    CustomLog /dev/stdout proxy env=forwarded
+
+    <VirtualHost *:{{ $portInt }}>
+        ServerName https://keystone.api.example.com:443
+        UseCanonicalName On
+
+        WSGIDaemonProcess keystone-public processes={{ .Values.conf.keystone_api_wsgi.wsgi.processes }} threads={{ .Values.conf.keystone_api_wsgi.wsgi.threads }} user=keystone group=keystone display-name=%{GROUP}
+        WSGIProcessGroup keystone-public
+        WSGIScriptAlias / /var/www/cgi-bin/keystone/keystone-wsgi-public
+        WSGIScriptAliasMatch ^(/v3/OS-FEDERATION/identity_providers/IDENTITY_PROVIDER_NAME/protocols/saml2/auth)$ /var/www/cgi-bin/keystone/keystone-wsgi-public/$1
+        WSGIApplicationGroup %{GLOBAL}
+        WSGIPassAuthorization On
+        LimitRequestBody 114688
+
+        <IfVersion >= 2.4>
+          ErrorLogFormat "%{cu}t %M"
+        </IfVersion>
+        ErrorLog /dev/stdout
+
+        SetEnvIf X-Forwarded-For "^.*\..*\..*\..*" forwarded
+        CustomLog /dev/stdout combined env=!forwarded
+        CustomLog /dev/stdout proxy env=forwarded
+
+        <Location /Shibboleth.sso>
+            SetHandler shib
+        </Location>
+        <Location /v3/OS-FEDERATION/identity_providers/IDENTITY_PROVIDER_NAME/protocols/saml2/auth>
+            Require valid-user
+            AuthType shibboleth
+            ShibRequestSetting requireSession 1
+            ShibExportAssertion off
+            <IfVersion < 2.4>
+                ShibRequireSession On
+                ShibRequireAll On
+            </IfVersion>
+        </Location>
+        RedirectMatch ^/v3/auth/OS-FEDERATION/websso/IDENTITY_PROVIDER_NAME$ /v3/auth/OS-FEDERATION/websso/saml2
+        <Location /v3/auth/OS-FEDERATION/websso/saml2>
+            Require valid-user
+            AuthType shibboleth
+            ShibRequestSetting requireSession 1
+            ShibExportAssertion off
+            <IfVersion < 2.4>
+                ShibRequireSession On
+                ShibRequireAll On
+            </IfVersion>
+        </Location>
+        <Location /v3/auth/OS-FEDERATION/identity_providers/IDENTITY_PROVIDER_NAME/protocols/saml2/websso>
+            Require valid-user
+            AuthType shibboleth
+            ShibRequestSetting requireSession 1
+            ShibExportAssertion off
+            <IfVersion < 2.4>
+                ShibRequireSession On
+                ShibRequireAll On
+            </IfVersion>
+        </Location>
+    </VirtualHost>
+```
 
 > [!NOTE]
+>
 > **Keystone Configuration Options**
 >
 >
@@ -937,8 +930,6 @@ Before running the deployment, you need to edit the `keystone-helm-overrides.yam
 > * The `trusted_dashboard` configuration option in the above example must be updated to the public URL of the UI experience for the cloud
 > * The references to `example.com` should be replaced with the actual domain name used within the cloud
 > * The references to `IDENTITY_PROVIDER_NAME` should be replaced with the name of your identity provider (e.g., `Auth0`, `OKTA`)
->
->
 
 Edit the Keystone Onverlay file at `/etc/genestack/kustomize/keystone/overlay/kustomization.yaml` to ensure that it is including the `federation` backend as the base.
 
@@ -965,25 +956,21 @@ echo sso-region: $(echo -n 'RegionOne' | base64)
 echo keystone-endpoint: $(echo  -n 'https://keystone.api.example.com/v3' | base64)
 ```
 
-> [!IMPORTANT]
-> **Output of the above command**
->
->
-> ``` yaml
-> sso-protocols: WyJJREVOVElUWV9QUk9WSURFUl9OQU1FIl0=
-> sso-enabled: dHJ1ZQ==
-> sso_region: UmVnaW9uT25l
-> keystone-endpoint: aHR0cHM6Ly9rZXlzdG9uZS5hcGkuZXhhbXBsZS5jb20vdjM=
-> ```
->
+Output of the above command
+
+``` yaml
+sso-protocols: WyJJREVOVElUWV9QUk9WSURFUl9OQU1FIl0=
+sso-enabled: dHJ1ZQ==
+sso_region: UmVnaW9uT25l
+keystone-endpoint: aHR0cHM6Ly9rZXlzdG9uZS5hcGkuZXhhbXBsZS5jb20vdjM=
+```
 
 > [!NOTE]
+>
 > **The Keystone Endpoint must be the public endpoint**
 >
 >
 > The Keystone URL must be the URL of your Public Cloud Keystone service.
->
->
 
 Edit the `skyline-apiserver-secrets` secret to include the new SSO configuration options.
 
@@ -1006,16 +993,15 @@ kubectl -n openstack rollout restart deployment skyline
 > can be done by creating an Application Credential in the Skyline UI and then using the `openstack` CLI to
 > authenticate. Once an Application Credential is created, the OpenStack Clouds YAML file can be updated to
 > include the Application Credential ID and Secret, as show here.
->
-> ``` yaml
-> rxt-application-credential:
->     auth_type: v3applicationcredential
->     auth:
->         auth_url: http://localhost:5000/v3
->         application_credential_id: ${APP_CRED_ID}
->         application_credential_secret: ${APP_CRED_SECRET}
->     region_name: RegionOne
->     interface: internal
->     identity_api_version: "3"
-> ```
 
+``` yaml
+rxt-application-credential:
+    auth_type: v3applicationcredential
+    auth:
+        auth_url: http://localhost:5000/v3
+        application_credential_id: ${APP_CRED_ID}
+        application_credential_secret: ${APP_CRED_SECRET}
+    region_name: RegionOne
+    interface: internal
+    identity_api_version: "3"
+```

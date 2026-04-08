@@ -165,29 +165,24 @@ It is important to have some documentation standards so that a user can understa
 > [!INFO]
 >
 > The "info" admonition type is to point out something particularly interesting.
->
 
 > [!INFO] To Do:
 >
 > For "To Do" items, use the "info" admonition with a "To Do" title
 > ...
->
 
 > [!TIP]
 >
 > The "tip" admonition type is to show a recommended or preferred way to implement a detail or to address a concern.
->
 
 > [!WARNING]
 >
 > The "warning" admonition type should be use to show when something can have adverse consequences if incorrectly implemented or if certain precautions are not taken.
->
 
 ### Custom Admonition Types
 
 > [!GENESTACK]
 >
 > The "genestack" admonition type is for Genestack-specific information or to point how _how_ something is done in Genestack.
->
 
 [^1]: This is explained [here](https://python-markdown.github.io/#differences) in the python-markdown docmentation.

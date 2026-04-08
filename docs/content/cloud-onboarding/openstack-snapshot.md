@@ -6,9 +6,7 @@ weight: 140
 
 > [!NOTE]
 >
->
 > If necessary, list the instances to view the instance name with the list server command above.
->
 
 1. Shut down the source VM before you take the snapshot to ensure that all data is flushed to disk. Use the openstack server stop command to shut down the instance:
 
@@ -42,9 +40,7 @@ openstack --os-cloud={cloud name} image show [--human-readable] <image>
 
 > [!NOTE]
 >
->
 > Get the image id from the image list command (seen above).
->
 
 Download the snapshot by using the image ID:
 

@@ -8,18 +8,14 @@ You will need a minimum of 2 Network Interfaces
 
 > [!TIP]
 >
->
 > While we would expect the environment to be running with multiple bonds in a production cloud, two network interfaces is all that's required. This can be achieved with vlan
 > tagged devices, physical ethernet devices, macvlan, or anything else. Have a look at the netplan example file found
 > [here](https://github.com/rackerlabs/genestack/blob/main/etc/netplan/default.yaml) for an example of how you could setup the network.
->
 
 > [!NOTE]
 >
->
 > You will also want to update the /etc/genestack/helm-chart-versions.yaml file. You will want to set the kube-ovn version to:
 > kube-ovn: v1.14.10
->
 
 ## Kernel modules
 
@@ -83,7 +79,6 @@ talosctl bootstrap --nodes $CONTROL_PLANE_IP --talosconfig=./talosconfig
 
 > [!NOTE]
 >
->
 > Run this command ONCE on a SINGLE control plane node. If you have multiple control plane nodes, you can choose any of them.
 
 ​
@@ -106,7 +101,6 @@ export KUBECONFIG=./alternative-kubeconfig
 ```
 
 > [!TIP]
->
 >
 > You will need to keep in mind that kubespray installs cert-manager as part of its installation process.
 > So you will need to install it manually. Here is a helm chart that will provide it for you:

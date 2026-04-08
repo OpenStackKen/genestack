@@ -6,9 +6,7 @@ Updates to the OVN environment can be made post deployment. All of the required 
 
 > [!TIP]
 >
->
 > Review the the OVN Deployment Guide for more information on how to manage your OVN environment post deployment. The guide can be found [here](/deployment-guide/open-infrastructure/infrastructure/ovn-setup/).
->
 
 ## Label Overview
 
@@ -33,10 +31,9 @@ kubectl label nodes ${NODE_NAME} ovn.openstack.org/configured-
 >
 >
 > The `ovn-setup` daemonset will reapply the configuration to the nodes in the cluster. If you need to reapply changes to all nodes within the cluster, you can remove the label from all nodes at the same time with the following command:
->
-> ``` shell
-> kubectl label nodes --all ovn.openstack.org/configured-
-> ```
->
+
+``` shell
+kubectl label nodes --all ovn.openstack.org/configured-
+```
 
 Once the label is removed, the **ovn-setup** Daemonset will immediately reapply the configuration to the nodes in the cluster automatically.

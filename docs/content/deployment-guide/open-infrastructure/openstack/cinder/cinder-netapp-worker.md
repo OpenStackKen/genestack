@@ -77,12 +77,12 @@ Within the `inventory.yaml` file, ensure you have the following variables for yo
 The netapp backend can use both NFS or iSCSI protocols. The following example provides the variables that can be used for both protocols.
 
 > [!IMPORTANT]
+>
 > **Storage Node Variables**
 >
 >
 > If you are using iSCSI, ensure that the `enable_iscsi` variable is set to `true`. If you are using NFS, set it to `false`.
 > The `custom_multipath` variable is optional and can be set to `true` if you are running multipath on the storage nodes.
->
 
 ```  yaml
 openstack_compute_nodes:
@@ -133,10 +133,7 @@ storage:
     custom_multipath: true  # optional – enables templated multipath.conf
 ```
 
-> [!NOTE]
-> **The provided `genestack-multipath.conf` template distributes I/O across **all** active paths (queue‑length algorithm). Adjust for your environment if necessary.**
->
->
+The provided `genestack-multipath.conf` template distributes I/O across **all** active paths (queue‑length algorithm). Adjust for your environment if necessary.
 
 ### 3.3  DNS Sanity Check
 
@@ -176,21 +173,18 @@ The playbook
 openstack --os-cloud default volume type create block-ha-performance-at-rest-encrypted
 ```
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> +-------------+----------------------------------------+
-> | Field       | Value                                  |
-> +-------------+----------------------------------------+
-> | description | None                                   |
-> | id          | 6af6ade2-53ca-4260-8b79-1ba2f208c91d   |
-> | is_public   | True                                   |
-> | name        | block-ha-performance-at-rest-encrypted |
-> +-------------+----------------------------------------+
-> ```
->
+Expected Output
+
+``` shell
++-------------+----------------------------------------+
+| Field       | Value                                  |
++-------------+----------------------------------------+
+| description | None                                   |
+| id          | 6af6ade2-53ca-4260-8b79-1ba2f208c91d   |
+| is_public   | True                                   |
+| name        | block-ha-performance-at-rest-encrypted |
++-------------+----------------------------------------+
+```
 
 Refer to:
 
@@ -199,11 +193,11 @@ Refer to:
 - [Extra Specs](/operational-guide/openstack-cinder-volume-type-specs/)
 
 > [!WARNING]
+>
 > **Backend without policies = sad tenants**
 >
 >
 > Skipping this step may leave tenants with a backend they cannot consume or that violates performance guarantees.
->
 
 ### 5.2  Service Health
 
@@ -213,19 +207,16 @@ kubectl -n openstack exec -ti openstack-admin-client -- openstack volume service
 
 Successful output should resemble the following, with the backend name matching your `volume_backend_name`:
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> +------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
-> | Binary           | Host                                                               | Zone | Status  | State | Updated At                 |
-> +------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
-> | cinder-scheduler | cinder-volume-worker                                               | az1  | enabled | up    | 2023-12-26T17:43:07.000000 |
-> | cinder-volume    | cinder-volume-netapp-worker@block-ha-performance-at-rest-encrypted | az1  | enabled | up    | 2023-12-26T17:43:04.000000 |
-> +------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
-> ```
->
+Expected Output
+
+``` shell
++------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
+| Binary           | Host                                                               | Zone | Status  | State | Updated At                 |
++------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
+| cinder-scheduler | cinder-volume-worker                                               | az1  | enabled | up    | 2023-12-26T17:43:07.000000 |
+| cinder-volume    | cinder-volume-netapp-worker@block-ha-performance-at-rest-encrypted | az1  | enabled | up    | 2023-12-26T17:43:04.000000 |
++------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
+```
 
 ### 5.3  Create a Test Volume
 
@@ -233,37 +224,34 @@ Successful output should resemble the following, with the backend name matching 
 openstack --os-cloud default volume create --size 1 --type block-ha-performance-at-rest-encrypted smoke-test-vol
 ```
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> +---------------------+----------------------------------------+
-> | Field               | Value                                  |
-> +---------------------+----------------------------------------+
-> | attachments         | []                                     |
-> | availability_zone   | az1                                    |
-> | bootable            | false                                  |
-> | consistencygroup_id | None                                   |
-> | created_at          | 2023-12-26T17:46:15.639697             |
-> | description         | None                                   |
-> | encrypted           | False                                  |
-> | id                  | c744af27-fb40-4ffa-8a84-b9f44cb19b2b   |
-> | migration_status    | None                                   |
-> | multiattach         | False                                  |
-> | name                | test                                   |
-> | properties          |                                        |
-> | replication_status  | None                                   |
-> | size                | 1                                      |
-> | snapshot_id         | None                                   |
-> | source_volid        | None                                   |
-> | status              | creating                               |
-> | type                | block-ha-performance-at-rest-encrypted |
-> | updated_at          | None                                   |
-> | user_id             | 2ddf90575e1846368253474789964074       |
-> +---------------------+----------------------------------------+
-> ```
->
+Expected Output
+
+``` shell
++---------------------+----------------------------------------+
+| Field               | Value                                  |
++---------------------+----------------------------------------+
+| attachments         | []                                     |
+| availability_zone   | az1                                    |
+| bootable            | false                                  |
+| consistencygroup_id | None                                   |
+| created_at          | 2023-12-26T17:46:15.639697             |
+| description         | None                                   |
+| encrypted           | False                                  |
+| id                  | c744af27-fb40-4ffa-8a84-b9f44cb19b2b   |
+| migration_status    | None                                   |
+| multiattach         | False                                  |
+| name                | test                                   |
+| properties          |                                        |
+| replication_status  | None                                   |
+| size                | 1                                      |
+| snapshot_id         | None                                   |
+| source_volid        | None                                   |
+| status              | creating                               |
+| type                | block-ha-performance-at-rest-encrypted |
+| updated_at          | None                                   |
+| user_id             | 2ddf90575e1846368253474789964074       |
++---------------------+----------------------------------------+
+```
 
 ### 5.3.1  Validate the test volume
 
@@ -271,18 +259,15 @@ openstack --os-cloud default volume create --size 1 --type block-ha-performance-
 kubectl --namespace openstack exec -ti openstack-admin-client -- openstack volume list
 ```
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> +--------------------------------------+------+-----------+------+-------------+
-> | ID                                   | Name | Status    | Size | Attached to |
-> +--------------------------------------+------+-----------+------+-------------+
-> | c744af27-fb40-4ffa-8a84-b9f44cb19b2b | test | available |    1 |             |
-> +--------------------------------------+------+-----------+------+-------------+
-> ```
->
+Expected Output
+
+``` shell
++--------------------------------------+------+-----------+------+-------------+
+| ID                                   | Name | Status    | Size | Attached to |
++--------------------------------------+------+-----------+------+-------------+
+| c744af27-fb40-4ffa-8a84-b9f44cb19b2b | test | available |    1 |             |
++--------------------------------------+------+-----------+------+-------------+
+```
 
 If the volume transitions to **available** and ONTAP shows a corresponding LUN, the backend is operational.
 
@@ -294,18 +279,15 @@ The multipath output can also be validated on the compute nodes.
 multipath -ll
 ```
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> 360000000000000000e00000000010001 dm-0 IET,VIRTUAL-DISK
-> size=10G features='0' hwhandler='0' wp=rw
-> `-+- policy='queue-length 0' prio=1 status=active
-> |- 2:0:0:1 sda 8:0  active ready running
-> `- 3:0:0:1 sdb 8:16 active ready running
-> ```
->
+Expected Output
+
+``` shell
+360000000000000000e00000000010001 dm-0 IET,VIRTUAL-DISK
+size=10G features='0' hwhandler='0' wp=rw
+`-+- policy='queue-length 0' prio=1 status=active
+|- 2:0:0:1 sda 8:0  active ready running
+`- 3:0:0:1 sdb 8:16 active ready running
+```
 
 ## Appendix
 

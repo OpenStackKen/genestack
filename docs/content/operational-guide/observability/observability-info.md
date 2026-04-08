@@ -38,23 +38,19 @@ Loki can tag and label the logs for easy lookup using Loki [LogQL](https://grafa
 The logs can be queried via a [logcli](https://grafana.com/docs/loki/latest/query/logcli/) command line tool for lookups or as a [Loki Datasource](https://grafana.com/docs/grafana/latest/datasources/loki/) in Grafana.
 
 An example that we use in our [project lookup](https://github.com/rackerlabs/genestack/blob/main/etc/grafana-dashboards/project_lookup.json) dashboard that allows us to query the logs for a specific service and project_id would look something like below.
-> [!IMPORTANT]
-> **Example LokiQL lookup query**
->
->
-> ```shell
-> {application="$service"} | logfmt | json | line_format "{{ .kubernetes_host}} {{.kubernetes_pod_name}} {{.log}}" |= `$project_id`
-> ```
+Example LokiQL lookup query
+
+```shell
+{application="$service"} | logfmt | json | line_format "{{ .kubernetes_host}} {{.kubernetes_pod_name}} {{.log}}" |= `$project_id`
+```
 
 We can do something similar using the [logcli](https://grafana.com/docs/loki/latest/query/logcli/).
 
-> [!IMPORTANT]
-> **Example logcli lookup query**
->
->
-> ```shell
-> logcli-parallel --since=15m '{application=~"nova|placement"} |~ `<my-project-id-here>`' | jq -r '.log'
-> ```
+Example logcli lookup query
+
+```shell
+logcli-parallel --since=15m '{application=~"nova|placement"} |~ `<my-project-id-here>`' | jq -r '.log'
+```
 
 You can view more information about logging in Genestack at the [Logging Overview](/operational-guide/genestack-logging/) documentation page.
 
@@ -85,13 +81,11 @@ One example in Genestack would be the [OVN Claimstorm alerts](/operational-guide
 
 As noted above we can also use Loki and Grafana to display logs for our services. The following example and image shows what that would look like.
 An example that we use in our [project lookup](https://github.com/rackerlabs/genestack/blob/main/etc/grafana-dashboards/project_lookup.json) dashboard that allows us to query the logs for a specific service and project_id would look something like below.
-> [!IMPORTANT]
-> **Example LokiQL lookup query**
->
->
-> ```shell
-> {application="$service"} | logfmt | json | line_format "{{ .kubernetes_host}} {{.kubernetes_pod_name}} {{.log}}" |= `$project_id`
-> ```
+Example LokiQL lookup query
+
+```shell
+{application="$service"} | logfmt | json | line_format "{{ .kubernetes_host}} {{.kubernetes_pod_name}} {{.log}}" |= `$project_id`
+```
 
 ![project lookup example](/assets/images/project-lookup-example.png)
 

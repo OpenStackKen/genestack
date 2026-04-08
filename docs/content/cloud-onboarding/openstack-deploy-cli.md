@@ -38,9 +38,7 @@ Assuming you have `pip` installed, it can be used to install the openstack clien
 
 > [!TIP]
 >
->
 > Users may want to use a Virtual Environment so that they do not have any risk of hurting their default Python environment. For more information on seting up a venv please visit the python [documentation](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments) on working with virtual environments.
->
 
 ``` shell
 pip install python-openstackclient

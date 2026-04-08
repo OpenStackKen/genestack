@@ -4,9 +4,7 @@ weight: 150
 ---
 > [!NOTE]
 >
->
 > Octavia and Barbican are mandatory components for OpenStack Magnum. Octavia provides advanced load balancing capabilities, which can enhance the availability and distribution of network traffic across your containerized applications. Barbican offers secure management of encryption keys and secrets, which is valuable for maintaining the security of your applications and data. Ensuring these services are integrated into your OpenStack environment is necessary for optimizing the functionality and security of your Magnum-based deployments.
->
 
 This document is intended for users who use Magnum to deploy and manage clusters of hosts for a Container Orchestration Engine. It describes the infrastructure that Magnum creates and how to work with them. You can provision clusters made up of virtual machines or baremetal servers. Magnum service uses Cluster Templates to describe how a Cluster is constructed. The process involves creating a Cluster Template for a specific COE and then you will provision a Cluster using the corresponding Cluster Template.  Once the cluster is provisioned, you can use the appropriate COE client or endpoint to manage and deploy containers. For more detailed information on cluster creation and management, please refer to the [Magnum User Guide](https://docs.openstack.org/magnum/latest/user/index.html).
 
@@ -39,44 +37,40 @@ openstack keypair create mykey > mykey.pem
 A ClusterTemplate is a collection of parameters to describe how a cluster can be constructed. Some parameters are relevant to the infrastructure of the cluster, while others are for the particular COE. In a typical workflow, a user would create a ClusterTemplate, then create one or more clusters using the ClusterTemplate. A ClusterTemplate cannot be updated or deleted if a cluster using this ClusterTemplate still exists.
 
 > [!NOTE]
+>
 > **Information about the Default Public Cluster Templates**
 >
 >
 > Below cluster templates can be created in the environment and used by anyone to deploy new Kubernetes clusters. To use this template, pass the --cluster-template <template-name> parameter during cluster creation.
->
 
-> [!IMPORTANT]
-> **Cluster Templates Creation**
->
->
-> ``` shell
-> openstack coe cluster template create k8s-cluster-template-no-lb \
->           --image magnum-fedora-coreos-40 \
->           --external-network  PUBLICNET \
->           --dns-nameserver 8.8.8.8 \
->           --master-flavor gp.0.4.8 \
->           --flavor gp.0.4.8 \
->           --network-driver calico \
->           --volume-driver cinder \
->           --docker-volume-size 10 \
->           --coe kubernetes \
->           --public
->
-> openstack coe cluster template create k8s-cluster-template-with-lb \
->           --image magnum-fedora-coreos-40 \
->           --external-network  PUBLICNET \
->           --dns-nameserver 8.8.8.8 \
->           --master-flavor gp.0.4.8 \
->           --flavor gp.0.4.8 \
->           --network-driver calico \
->           --volume-driver cinder \
->           --docker-volume-size 10 \
->           --coe kubernetes \
->           --master-lb-enabled \
->           --public
-> ```
->
->
+Cluster Templates Creation
+
+``` shell
+openstack coe cluster template create k8s-cluster-template-no-lb \
+          --image magnum-fedora-coreos-40 \
+          --external-network  PUBLICNET \
+          --dns-nameserver 8.8.8.8 \
+          --master-flavor gp.0.4.8 \
+          --flavor gp.0.4.8 \
+          --network-driver calico \
+          --volume-driver cinder \
+          --docker-volume-size 10 \
+          --coe kubernetes \
+          --public
+
+openstack coe cluster template create k8s-cluster-template-with-lb \
+          --image magnum-fedora-coreos-40 \
+          --external-network  PUBLICNET \
+          --dns-nameserver 8.8.8.8 \
+          --master-flavor gp.0.4.8 \
+          --flavor gp.0.4.8 \
+          --network-driver calico \
+          --volume-driver cinder \
+          --docker-volume-size 10 \
+          --coe kubernetes \
+          --master-lb-enabled \
+          --public
+```
 
 ### Create a ClusterTemplate
 

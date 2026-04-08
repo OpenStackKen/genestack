@@ -19,9 +19,7 @@ Modify `/etc/genestack/helm-configs/monitoring/openstack-metrics-exporter/clouds
 
 > [!TIP]
 >
->
 > See the [documentation](/operational-guide/openstack-clouds/) on generating your own `clouds.yaml` file which can be used to populate the monitoring configuration file.
->
 
 From your generated `clouds.yaml` file, create a new manifest for your cloud config:
 
@@ -31,24 +29,21 @@ printf -v m "$(cat ~/.config/openstack/clouds.yaml)"; \
   t="$t" yq -I6 -n '."clouds.yaml" = strenv(t)' | tee /tmp/generated-clouds-yaml
 ```
 
-> [!IMPORTANT]
->
-> **The generated file will look similar to this:**
->
-> ```yaml
-> clouds.yaml: |
->   clouds:
->     default:
->       region_name: RegionOne
->       auth:
->         username: admin
->         password: <admin-password>
->         project_name: admin
->         project_domain_name: default
->         user_domain_name: default
->         auth_url: 'http://keystone-api.openstack.svc.cluster.local:5000/v3'
-> ```
->
+The generated file will look similar to this:
+
+```yaml
+clouds.yaml: |
+  clouds:
+    default:
+      region_name: RegionOne
+      auth:
+        username: admin
+        password: <admin-password>
+        project_name: admin
+        project_domain_name: default
+        user_domain_name: default
+        auth_url: 'http://keystone-api.openstack.svc.cluster.local:5000/v3'
+```
 
 If you're using self-signed certs then you may need to add keystone certificates to the generated clouds yaml:
 

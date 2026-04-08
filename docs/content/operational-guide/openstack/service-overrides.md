@@ -54,18 +54,18 @@ conf:
 ```
 
 > [!NOTE]
+>
 > **PCI-Passthrough and Filters Notice**
 >
 >
 > The above overrides are used to [passthrough a PCI](/operational-guide/openstack-pci-passthrough/) device in support of a GPU type. For more information on GPU passthrough, and how to interact with some of the [advanced scheduling](https://docs.openstack.org/nova/latest/admin/scheduling.html) filter capabilities found in OpenStack, have a look at the official upstream documentation.
->
 
 #### Label Overrides Explanation
 
 In the above example, two configurations are defined for nodes with the `openstack-compute-cpu-type` label. The system will override the default settings based on the value of this label:
 
-1. For nodes with the label `openstack-compute-cpu-type` and the value of `amd-3900`: the configuration sets `reserved_host_cpus` to "1" in the **default** section.
-2. For nodes with the label `openstack-compute-cpu-type` and the value of `intel-12700`: the configuration sets `cpu_shared_set` to "0-15" in the **compute** section.
+1. For nodes with the label `openstack-compute-cpu-type` and the value of `amd-3900`: the configuration sets `reserved_host_cpus` to "1" in the `default` section.
+2. For nodes with the label `openstack-compute-cpu-type` and the value of `intel-12700`: the configuration sets `cpu_shared_set` to "0-15" in the `compute` section.
 
 If a node does not match any of the specified label values, the deployment will proceed with the default configuration.
 

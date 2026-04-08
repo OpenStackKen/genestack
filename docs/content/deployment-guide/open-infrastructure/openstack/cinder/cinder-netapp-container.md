@@ -32,11 +32,11 @@ BACKENDS="<field0>,<field1>,…,<field10>; <field0>,<field1>,…,<field10>; …"
 | **9** | `netapp_lun_space_reservation` | `enabled` / `disabled`                                      | String  |
 
 > [!TIP]
+>
 > **Dedup + compression combo**
 >
 >
 > ONTAP generally requires both `dedup=True` and `compression=True` for best space savings on hybrid‐disk aggregates.
->
 
 ## 2  Operator Workflow
 
@@ -69,11 +69,11 @@ kubectl -n openstack create secret generic cinder-netapp \
 ```
 
 > [!CAUTION]
+>
 > **Store passwords securely**
 >
 >
 > Prefer `--from-file` with an encrypted `backends.env` manifest in GitOps pipelines instead of inline literals.
->
 
 ### 2.3  Deploy the Worker
 
@@ -93,21 +93,18 @@ Create a volume type per backend and attach `extra_specs`:
 openstack --os-cloud default volume type create nfs-prod-a
 ```
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> +-------------+---------------------------------------+
-> | Field       | Value                                 |
-> +-------------+---------------------------------------+
-> | description | None                                  |
-> | id          | 6af6ade2-53ca-4260-8b79-1ba2f208c91d  |
-> | is_public   | True                                  |
-> | name        | nfs-prod-a                            |
-> +-------------+---------------------------------------+
-> ```
->
+Expected Output
+
+``` shell
++-------------+---------------------------------------+
+| Field       | Value                                 |
++-------------+---------------------------------------+
+| description | None                                  |
+| id          | 6af6ade2-53ca-4260-8b79-1ba2f208c91d  |
+| is_public   | True                                  |
+| name        | nfs-prod-a                            |
++-------------+---------------------------------------+
+```
 
 Refer to:
 
@@ -116,11 +113,11 @@ Refer to:
 - [Extra Specs](/operational-guide/openstack-cinder-volume-type-specs/)
 
 > [!WARNING]
+>
 > **Backend without policies = sad tenants**
 >
 >
 > Skipping this step may leave tenants with a backend they cannot consume or that violates performance guarantees.
->
 
 ### 3.2  Service Health
 
@@ -130,41 +127,35 @@ kubectl -n openstack exec -it openstack-admin-client -- openstack volume service
 
 You should see entries like:
 
-> [!IMPORTANT]
-> **Expected Output**
->
->
-> ``` shell
-> +------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
-> | Binary           | Host                                                               | Zone | Status  | State | Updated At                 |
-> +------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
-> | cinder-scheduler | cinder-volume-worker                                               | az1  | enabled | up    | 2023-12-26T17:43:07.000000 |
-> | cinder-volume    | cinder-volume-netapp-worker@nfs-prod-a                             | az1  | enabled | up    | 2023-12-26T17:43:04.000000 |
-> +------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
-> ```
->
+Expected Output
+
+``` shell
++------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
+| Binary           | Host                                                               | Zone | Status  | State | Updated At                 |
++------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
+| cinder-scheduler | cinder-volume-worker                                               | az1  | enabled | up    | 2023-12-26T17:43:07.000000 |
+| cinder-volume    | cinder-volume-netapp-worker@nfs-prod-a                             | az1  | enabled | up    | 2023-12-26T17:43:04.000000 |
++------------------+--------------------------------------------------------------------+------+---------+-------+----------------------------+
+```
 
 ## Appendix
 
 ### Example Secret Manifest (GitOps‑friendly)
 
 > [!IMPORTANT]
->
->
 > Inject secrets manager values (e.g., `sealed-secrets`, `external-secrets`) in place of `${…}` placeholders.
->
-> ``` yaml
-> apiVersion: v1
-> kind: Secret
-> metadata:
->     name: cinder-netapp
->     namespace: openstack
-> stringData:
->     BACKENDS: >
->     nfs-prod-a,${ONTAP_USER},${ONTAP_PASS},ontap-01.example.com,443,SVM01,none,True,True,False,disabled;
->     nfs-dr-b,${ONTAP_USER},${ONTAP_PASS},ontap-02.example.com,443,SVM02,none,True,True,False,disabled
-> ```
->
+
+``` yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: cinder-netapp
+    namespace: openstack
+stringData:
+    BACKENDS: >
+    nfs-prod-a,${ONTAP_USER},${ONTAP_PASS},ontap-01.example.com,443,SVM01,none,True,True,False,disabled;
+    nfs-dr-b,${ONTAP_USER},${ONTAP_PASS},ontap-02.example.com,443,SVM02,none,True,True,False,disabled
+```
 
 ### Common Issues
 

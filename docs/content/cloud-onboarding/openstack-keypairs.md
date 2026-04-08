@@ -33,9 +33,7 @@ openstack --os-cloud={cloud name} keypair create
 
 > [!NOTE]
 >
->
 > --type <type> Keypair type (supported by –os-compute-api-version 2.2 or above)
->
 
 This command generates a key pair with the name that you specify for KEY_NAME, writes the private key to the .pem file that you specify, and registers the public key to the Nova database.
 

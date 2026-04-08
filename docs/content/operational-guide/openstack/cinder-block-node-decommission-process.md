@@ -68,11 +68,9 @@ unused devices: <none>
 
 > [!NOTE]
 >
->
 > In this example, the mdraid device is confirmed to be `/dev/md127`. This path
 > will be used exclusively throughout this document; however, `/dev/md127` should be
 > substituted with actual mdraid device found on the block node being decommissioned
->
 
 ``` console
 root@block-node:~# mdadm --detail <MDRAID_DEVICE>
@@ -221,9 +219,7 @@ Consistency Policy : bitmap
 
 > [!NOTE]
 >
->
 > NOTE: Reshape of the Array will take hours (approximately 12 hours). WAIT UNTIL THIS IS COMPLETE before removing disks
->
 
 ## Remove extra nvme drives from mdraid
 

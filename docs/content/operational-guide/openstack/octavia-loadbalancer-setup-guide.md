@@ -6,10 +6,7 @@ This document is intended for users who want to use the command line interface (
 
 > [!NOTE]
 >
->
 > At Rackspace Technology, you are not allowed to attach directly to the Public Network.  You will need to assign a floating IP to your CLB if you would like to make it publicly accessible.
->
->
 
 ## Choose the provider
 

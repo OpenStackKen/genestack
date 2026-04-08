@@ -20,6 +20,7 @@ The Prometheus alerting rules allows us to define conditions we want to escalate
 
 A simple example of an alerting rule would be this RabbitQueueSizeTooLarge
 > [!IMPORTANT]
+>
 > **RabbitQueueSizeTooLarge Alerting Rule Example**
 >
 >
@@ -36,7 +37,6 @@ A simple example of an alerting rule would be this RabbitQueueSizeTooLarge
 >           annotations:
 >             summary: "Rabbit queue size too large (instance {{ `{{ $labels.instance }}` }} )"
 >     ```
->
 
 In Genestack we have separated the alerting rules config out from the primary helm configuration using the `additionalPrometheusRulesMap` directive to make it a bit easier to maintain.
 Doing it this way allows for easier review of new rules, better maintainability, easier updates of the stack and helps with portability for larger deployments. Keeping our configurations separated and checked in to the repo in such a manner is ideal for these reasons.
@@ -45,14 +45,11 @@ The alternative is to create the rules within your observability platform, in Ge
 You can view the rest of the default alerting rule configurations in the Genestack repo [alerting rules](https://github.com/rackerlabs/genestack/blob/main/base-helm-configs/prometheus/alerting_rules.yaml) yaml file.
 
 To deploy any new rules you would simply run the [Prometheus Deployment](/deployment-guide/open-infrastructure/observability/prometheus/) and Helm/Prometheus will take care of updating the configurations from there.
-> [!IMPORTANT]
-> **Run the Prometheus deployment**
->
->
-> ``` shell
-> /opt/genestack/bin/install-kube-prometheus-stack.sh
-> ```
->
+Run the Prometheus deployment
+
+``` shell
+/opt/genestack/bin/install-kube-prometheus-stack.sh
+```
 
 ## Alert Manager
 

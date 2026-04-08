@@ -18,13 +18,11 @@ Running upgrades with Kubespary is handled by the `upgrade-cluster.yml` playbook
 
 When running Kubespray using the Genestack submodule, review the [Genestack Update Process](https://docs.rackspacecloud.com/genestack-upgrade) before continuing with the kubespray upgrade and deployment.
 
-Genestack stores inventory in the `/etc/genestack/inventory` directory. Before running the upgrade, you will need to set the **kube_version** variable to your new target version. This variable is generally found within the `/etc/genestack/inventory/group_vars/k8s_cluster/k8s-cluster.yml` file.
+Genestack stores inventory in the `/etc/genestack/inventory` directory. Before running the upgrade, you will need to set the `kube_version` variable to your new target version. This variable is generally found within the `/etc/genestack/inventory/group_vars/k8s_cluster/k8s-cluster.yml` file.
 
 > [!NOTE]
 >
->
 > Review all of the group variables within an environment before running a major upgrade. Things change, and you need to be aware of your environment details before running the upgrade.
->
 
 Once the group variables are set, you can proceed with the upgrade execution.
 
@@ -447,13 +445,12 @@ There are times when an upgrade will hang, in these cases you may need to use a 
 >
 >
 > If you find that the upgrade is hanging on a namespace, you may need to remove the finalizers from the namespace to allow the upgrade to continue.
->
-> ``` shell
-> kubectl get namespace "${NAMESPACE}" -o json \
->     | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
->     | kubectl replace --raw "/api/v1/namespaces/${NAMESPACE}/finalize" -f -
-> ```
->
+
+``` shell
+kubectl get namespace "${NAMESPACE}" -o json \
+    | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
+    | kubectl replace --raw "/api/v1/namespaces/${NAMESPACE}/finalize" -f -
+```
 
 ### Post upgrade operations
 

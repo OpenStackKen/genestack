@@ -36,9 +36,7 @@ dnf install python3-keyring
 
 > [!TIP]
 >
->
 > Users may want to use a Virtual Environment so that they do not have any risk of hurting their default Python environment. For more information on seting up a venv please visit the python [documentation](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments) on working with virtual environments.
->
 
 ``` shell
 python -m pip install keyring
@@ -151,9 +149,7 @@ export OS_TOKEN=$(openstack --os-cloud regionone-mfa token issue -c id -f value)
 
 > [!NOTE]
 >
->
 > This command will prompt you for your TOTP key before returning a valid token.
->
 
 This command will return the token ID and store the value within an environment variable which will be used within Step Two.
 

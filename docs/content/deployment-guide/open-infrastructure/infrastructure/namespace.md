@@ -16,6 +16,7 @@ kubectl apply -k /etc/genestack/kustomize/openstack/base
 Then you can create all needed secrets by running the create-secrets.sh command located in /opt/genestack/bin
 
 > [!TIP]
+>
 > **Optional --region param**
 >
 >
@@ -23,7 +24,6 @@ Then you can create all needed secrets by running the create-secrets.sh command 
 > with a default region of *RegionOne*. This can be overridden with the
 > `--region` parameter to specify your custom region name in Keystone.
 > > Usage: ./create-secrets.sh [--region <region>]
->
 
 ``` shell
 /opt/genestack/bin/create-secrets.sh
@@ -38,11 +38,12 @@ kubectl create -f /etc/genestack/kubesecrets.yaml
 ```
 
 > [!NOTE]
+>
 > **Skyline secrets**
 >
 >
 > If you intend to deploy skyline you will also need to run the `create-skyline-secrets.sh` script to create the additional secrets needed for skyline to function.
->
-> ``` shell
-> /opt/genestack/bin/create-skyline-secrets.sh
-> ```
+
+``` shell
+/opt/genestack/bin/create-skyline-secrets.sh
+```

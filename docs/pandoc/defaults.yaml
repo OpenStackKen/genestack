@@ -1,7 +1,7 @@
 from: markdown+wikilinks_title_after_pipe+hard_line_breaks+yaml_metadata_block
 standalone: true
 toc: true
-toc-depth: 4
+toc-depth: 5
 #shift-heading-level-by: -1
 resource-path:
   - assets/images
@@ -11,6 +11,7 @@ metadata:
   #  documentclass: article
   #  book: true
   #  chapters: true
+  listings: true
   papersize: letter
   colorlinks: true
   titlepage: true

@@ -6,9 +6,7 @@ After you have installed the OpenStack command-line tools, you can proceed with 
 
 > [!NOTE]
 >
->
 > This document makes the assumption that your account has the `OPENSTACK_FLEX` role assigned to it. If you do not have the `OPENSTACK_FLEX` role, you may not be permitted access to the environment.
->
 
 ## Prerequisites
 
@@ -26,9 +24,7 @@ To obtain a list of our available projects, we'll need to run a command with an 
 
 > [!NOTE]
 >
->
 > This step authenticates you with the OpenStack Identity service (Keystone) and is required for first time access to the environment.
->
 
 Run the following command, replacing the placeholders with your actual OpenStack credentials:
 

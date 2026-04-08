@@ -34,9 +34,9 @@ Run the Prometheus deployment:
 ```
 
 > [!SUCCESS]
->
 > If the installation is successful, you should see the related exporter pods
 > in the prometheus namespace.
-> ``` shell
-> kubectl -n prometheus get pods -l "release=kube-prometheus-stack"
-> ```
+
+``` shell
+kubectl -n prometheus get pods -l "release=kube-prometheus-stack"
+```

@@ -14,7 +14,6 @@ kubectl apply -k /etc/genestack/kustomize/rabbitmq-operator/base
 > [!NOTE]
 >
 > The operator may take a minute to get ready, before deploying the RabbitMQ cluster, wait until the operator pod is online.
->
 
 ### Deploy the RabbitMQ topology operator.
 
@@ -30,9 +29,7 @@ kubectl apply -k /etc/genestack/kustomize/rabbitmq-cluster/overlay
 
 > [!NOTE]
 >
->
 > RabbitMQ has a base configuration which is HA and production ready. If you're deploying on a small cluster the `aio` configuration may better suit the needs of the environment.
->
 
 ### Validate the status with the following
 
@@ -47,10 +44,8 @@ cluster and operator.
 
 > [!WARNING]
 >
->
 > Make sure Prometheus Operator is deployed prior to running these commands. It will error out if the
 > rquired CRDs are not already installed.
->
 
 Check if the required CRDs are installed
 

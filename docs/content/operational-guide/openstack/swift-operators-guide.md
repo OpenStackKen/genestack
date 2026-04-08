@@ -88,13 +88,11 @@ Disk usage: lowest: 0.13%, highest: 8.4%, avg: 4.97616898532%
 
 > [!NOTE]
 >
->
 > - **async_pending:** The amount of asyncs or updates to account/container databases, a non-zero value here is normal, if the number is increasing at an alarming rate for the cluster you may have an unmounted account/container drive, a host is down, the cluster is undersized for workload are just a few possible causes.
 > - **Replication (Oldest completion,Most recent):** These times should be close to each other if all services are up and no recent downtime on the cluster has occurred (down node, replaced drive). If this is not the case investigate "Oldest completion" node and inspect swift's object log for signs of "swift-object-replicator" entries that occurred recently. If there is a lack of entries restart swift-object-replicator (service swift-object-replicator), you may also wish to restart rsync daemon if /var/log/rsync.log is not being updated after restarting swift-object-replicator.
 > - **Getting unmounted drives**: Self explanatory drive is unmounted on server, check/repair/replace.
 > - **Checking load:** Check for any high values from mean average, run "swift-recon -lv" for verbose output to identify host with high load. Check node with high load for: Recently unmounted/replaced drive, XFS hang on object file system, hardware defect, read/write cache disabled, BBU drained or dead, bad SAS cable, bad SAS expander, bad JBOD, URE/Pending Sector/Read Errors (check smartctl + dmesg to identify drive) check dmesg for general warnings.
 > - **md5 check of swift.conf and rings:** If any nodes fail you may need to inspect configuration and ring files as one or many disagree with each other.
->
 
 ## Unmounted disks:
 
@@ -120,8 +118,6 @@ Not mounted: sdb on 10.240.1.60:6000
 ```
 
 > [!NOTE]
->
->
 
 Login to the problematic host and find the root cause of the issue, some common issues where a drive is reported unmounted:
 
@@ -137,9 +133,7 @@ Login to the problematic host and find the root cause of the issue, some common 
 
 > [!NOTE]
 >
->
 > swift-dispersion-report should be ran on the designated dispersion proxy container in the environment. The purpose of dispersion is to strategically place container and objects along the ring to fulfill the percentage of coverage specified in the /etc/swift/swift-disperson.conf, default is 1%. If you run swift-dispersion-report and it reports no containers exist, your either on the wrong node or swift-dispersion-populate has not been ran. Dispersion is a great tool at determining ring heath and also checks for any permission issues. Permission issues on /srv/node/diskXX wont be flagged with swift-recon since the drive is not unmounted but has issues preventing reads/writes from occurring.   Dispersion is very useful when rebalancing or drive replacement. The data is static so running dispersion after a node reboot or failure/remounting a failed disk will show nothing of value since the dispersion data does not reflect asyncs or missing replicas from disk or current replication lag.
->
 
 Healthy dispersion report:
 
@@ -218,10 +212,8 @@ ERROR: 10.240.0.61:6000/sdb: 15 seconds
 
 > [!NOTE]
 >
->
 > - Out of workers for account/container/object, check load on object server for high usage, you may need to increase worker count, however increasing worker threads might over subscribe node, proceed with caution!
 > - Drive is having issues, login to node and check disk that is causing errors.
->
 
 ## Locating Objects in Swift
 
@@ -229,17 +221,11 @@ We will be uploading a file to swift, showing the account/container and object i
 
 > [!NOTE]
 >
->
 > Examples provided are with TWO replicas
->
 
 > [!WARNING]
 >
->
 > Using swift-get-nodes will not verify the AUTH/Container/Object is valid, the use of swift-get-nodes is to provide the hash of the objects location, there is no error checking or validation used in swift-get-nodes!
->
->
->
 
 ```shell
 # swift upload iso xenial-server-cloudimg-amd64-disk1.img

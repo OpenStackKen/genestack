@@ -38,14 +38,11 @@ on entirely. For example, tainting compute nodes is generally recommended so
 there is less opportunity for competition of system resources between local
 pods and the Nova VMs therein.
 
-> [!TIP]
-> **Setting this is a matter of architerural preference:**
->
->
-> ```shell
-> kubectl taint nodes compute-12481.rackerlabs.dev.local key1=value1:PreferNoSchedule
-> ```
->
+Setting this is a matter of architerural preference:
+
+```shell
+kubectl taint nodes compute-12481.rackerlabs.dev.local key1=value1:PreferNoSchedule
+```
 
 ## Adding the node in openstack
 
