@@ -29,6 +29,30 @@ local function write_file(path, text)
   handle:close()
 end
 
+local function run_mmdc(source_path, output_path, output_format)
+  local command = table.concat({
+    "mmdc",
+    "--quiet",
+    "--input",
+    shell_escape(source_path),
+    "--output",
+    shell_escape(output_path),
+    "--puppeteerConfigFile",
+    shell_escape(puppeteer_config),
+    "--theme",
+    shell_escape("default"),
+    "--backgroundColor",
+    shell_escape("transparent"),
+    "--outputFormat",
+    shell_escape(output_format),
+  }, " ")
+
+  local ok, _, code = os.execute(command)
+  if not ok or code ~= 0 then
+    error("mermaid-cli failed for " .. output_path)
+  end
+end
+
 function CodeBlock(el)
   if not FORMAT:match("latex") then
     return nil
@@ -38,34 +62,28 @@ function CodeBlock(el)
     return nil
   end
 
-  local digest = pandoc.sha1(el.text)
-  local output_path = mermaid_cache .. "/" .. digest .. ".pdf"
+  -- Always render Mermaid as PNG for the PDF pipeline. This is simpler than
+  -- trying to preserve SVG text through LaTeX's SVG conversion stack, and it
+  -- avoids the `foreignObject` label problem entirely because Mermaid bakes the
+  -- label text into raster output.
+  local digest = pandoc.sha1("mermaid-png-v1\n" .. el.text)
+  local output_path = mermaid_cache .. "/" .. digest .. ".png"
   if not file_exists(output_path) then
     ensure_parent_directory(output_path)
     local source_path = mermaid_cache .. "/" .. digest .. ".mmd"
     write_file(source_path, el.text)
-    local command = table.concat({
-      "mmdc",
-      "--quiet",
-      "--input",
-      shell_escape(source_path),
-      "--output",
-      shell_escape(output_path),
-      "--puppeteerConfigFile",
-      shell_escape(puppeteer_config),
-      "--theme",
-      shell_escape("default"),
-      "--backgroundColor",
-      shell_escape("transparent"),
-    }, " ")
-    local ok, _, code = os.execute(command)
+    run_mmdc(source_path, output_path, "png")
     os.remove(source_path)
-    if not ok or code ~= 0 then
-      error("mermaid-cli failed for " .. output_path)
-    end
   end
 
-  return pandoc.Para({pandoc.Image({pandoc.Str("Mermaid diagram")}, output_path)})
+  local image = pandoc.Image({pandoc.Str("Mermaid diagram")}, output_path)
+  image.attributes.width = "85%"
+  image.attributes.position = "center"
+  -- Emit Mermaid output as a normal paragraph-level image block so Pandoc's
+  -- LaTeX writer and the downstream image filter treat it like other centered
+  -- document graphics. A `Plain` wrapper is too lightweight here and can cause
+  -- the centering intent to be lost in the generated TeX.
+  return pandoc.Para({image})
 end
 
 function Meta(meta)
