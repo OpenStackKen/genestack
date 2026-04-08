@@ -30,6 +30,60 @@ resolve_docs_path() {
     fi
 }
 
+build_container_texinputs() {
+    local defaults_path="$1"
+    local docs_root="$2"
+    local mount_root="${3%/}"
+    if [[ -z "$mount_root" ]]; then
+        mount_root="/docs"
+    fi
+
+    "$PYTHON" - "$defaults_path" "$docs_root" "$mount_root" <<'PY'
+from pathlib import Path
+import sys
+
+defaults_path = Path(sys.argv[1]).resolve()
+docs_root = Path(sys.argv[2]).resolve()
+mount_root = sys.argv[3].rstrip("/") or "/docs"
+
+# Keep TEXINPUTS aligned with Pandoc's resource-path entries so the LaTeX phase
+# searches the same directories, in the same order, as the Pandoc phase. We
+# intentionally parse only the simple list form used in this repo's defaults
+# file instead of adding a YAML dependency to the wrapper.
+paths: list[str] = []
+in_resource_path = False
+for raw_line in defaults_path.read_text(encoding="utf-8").splitlines():
+    line = raw_line.rstrip()
+    stripped = line.strip()
+
+    if not in_resource_path:
+        if stripped == "resource-path:":
+            in_resource_path = True
+        continue
+
+    if not stripped:
+        continue
+
+    if raw_line.startswith("  - "):
+        resource_value = raw_line.split("- ", 1)[1].strip()
+        resource_path = Path(resource_value)
+        if resource_path.is_absolute():
+            if resource_path.is_relative_to(docs_root):
+                relative = resource_path.relative_to(docs_root)
+                paths.append(f"{mount_root}/{relative.as_posix()}")
+            else:
+                paths.append(resource_path.as_posix())
+        else:
+            paths.append(resource_path.as_posix())
+        continue
+
+    if not raw_line.startswith("  "):
+        break
+
+print(":".join(paths) + ":")
+PY
+}
+
 container_path() {
     "$PYTHON" - "$DOCS_ROOT" "$PANDOC_MOUNT_ROOT" "$1" <<'PY'
 from pathlib import Path
@@ -152,11 +206,50 @@ if ! docker image inspect "$PANDOC_IMAGE" >/dev/null 2>&1; then
     exit 1
 fi
 
-plan_file="$(mktemp)"
-trap 'rm -f "$plan_file"' EXIT
-
 run_assembler() {
     "$PYTHON" "$ASSEMBLER" "${ASSEMBLER_ARGS[@]}" "$@"
+}
+
+render_pending_renders() {
+    local render_line input_path output_path state_path state_payload
+    local input_label output_label
+    local pending_renders=("$@")
+
+    if ((${#pending_renders[@]} == 0)); then
+        return 0
+    fi
+
+    for render_line in "${pending_renders[@]}"; do
+        IFS=$'\t' read -r input_path output_path state_path state_payload <<< "$render_line"
+        mkdir -p "$CACHE_HOME_HOST" "$CACHE_XDG_CACHE_HOST" "$(dirname "$state_path")"
+        if [[ "$input_path" == "${DOCS_ROOT}/"* ]]; then
+            input_label="${input_path#${DOCS_ROOT}/}"
+        else
+            input_label="$input_path"
+        fi
+        if [[ "$output_path" == "${DOCS_ROOT}/"* ]]; then
+            output_label="${output_path#${DOCS_ROOT}/}"
+        else
+            output_label="$output_path"
+        fi
+        printf '[pandoc] Render %s into %s\n' "$input_label" "$output_label" >&2
+
+        docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            --volume "${DOCS_ROOT}:${PANDOC_MOUNT_ROOT}" \
+            --workdir "$PANDOC_MOUNT_ROOT" \
+            --env "HOME=${CONTAINER_HOME}" \
+            --env "XDG_CACHE_HOME=${CONTAINER_XDG_CACHE}" \
+            --env "TEXINPUTS=${CONTAINER_TEXINPUTS}" \
+            --env "GENESTACK_DOCS_ROOT=${PANDOC_MOUNT_ROOT}" \
+            "$PANDOC_IMAGE" \
+            --defaults "$CONTAINER_DEFAULTS" \
+            --output "$(container_path "$output_path")" \
+            "$(container_path "$input_path")"
+
+        printf '%s\n' "$state_payload" > "$state_path"
+        printf '[pdf] built: %s\n' "$output_label"
+    done
 }
 
 build_all_guides=0
@@ -182,40 +275,13 @@ else
     done
 fi
 
-: > "$plan_file"
-for guide_target in "${REQUESTED_GUIDES[@]}"; do
-    run_assembler "$guide_target" >> "$plan_file"
-done
-
-mapfile -t PENDING_RENDERS < "$plan_file"
-if ((${#PENDING_RENDERS[@]} == 0)); then
-    exit 0
-fi
-
 CONTAINER_HOME="$(container_path "$CACHE_HOME_HOST")"
 CONTAINER_XDG_CACHE="$(container_path "$CACHE_XDG_CACHE_HOST")"
 CONTAINER_DEFAULTS="$(container_path "$PANDOC_DEFAULTS")"
+CONTAINER_TEXINPUTS="$(build_container_texinputs "$PANDOC_DEFAULTS" "$DOCS_ROOT" "$PANDOC_MOUNT_ROOT")"
+export TEXINPUTS="$CONTAINER_TEXINPUTS"
 
-for render_line in "${PENDING_RENDERS[@]}"; do
-    IFS=$'\t' read -r input_path output_path state_path state_payload <<< "$render_line"
-    mkdir -p "$CACHE_HOME_HOST" "$CACHE_XDG_CACHE_HOST" "$(dirname "$state_path")"
-
-    docker run --rm \
-        --user "$(id -u):$(id -g)" \
-        --volume "${DOCS_ROOT}:${PANDOC_MOUNT_ROOT}" \
-        --workdir "$PANDOC_MOUNT_ROOT" \
-        --env "HOME=${CONTAINER_HOME}" \
-        --env "XDG_CACHE_HOME=${CONTAINER_XDG_CACHE}" \
-        --env "GENESTACK_DOCS_ROOT=${PANDOC_MOUNT_ROOT}" \
-        "$PANDOC_IMAGE" \
-        --defaults "$CONTAINER_DEFAULTS" \
-        --output "$(container_path "$output_path")" \
-        "$(container_path "$input_path")"
-
-    printf '%s\n' "$state_payload" > "$state_path"
-    if [[ "$output_path" == "${DOCS_ROOT}/"* ]]; then
-        printf '[pdf] built: %s\n' "${output_path#${DOCS_ROOT}/}"
-    else
-        printf '[pdf] built: %s\n' "$output_path"
-    fi
+for guide_target in "${REQUESTED_GUIDES[@]}"; do
+    mapfile -t PENDING_RENDERS < <(run_assembler "$guide_target")
+    render_pending_renders "${PENDING_RENDERS[@]}"
 done

@@ -11,28 +11,28 @@ site_base_url = "/"
 slug = "overview"
 source = "content/overview"
 output = "overview.pdf"
-title = "Genestack Overview"
+title = "Overview"
 
 [[guides]]
 slug = "design-guide"
 source = "content/design-guide"
 output = "design-guide.pdf"
-title = "Genestack Design Guide"
+title = "Design Guide"
 
 [[guides]]
 slug = "deployment-guide"
 source = "content/deployment-guide"
 output = "deployment-guide.pdf"
-title = "Genestack Deployment Guide"
+title = "Deployment Guide"
 
 [[guides]]
 slug = "operational-guide"
 source = "content/operational-guide"
 output = "operational-guide.pdf"
-title = "Genestack Operations Guide"
+title = "Operations Guide"
 
 [[guides]]
 slug = "cloud-onboarding"
 source = "content/cloud-onboarding"
 output = "cloud-onboarding.pdf"
-title = "Genestack Cloud Onboarding Guide"
+title = "Cloud Onboarding Guide"

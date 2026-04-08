@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-     width="435.47656"
+     width="206.39844"
      height="37"
-     viewBox="0 0 4354.7656 370"
+     viewBox="0 0 2063.9843 370"
      version="1.1"
      id="svg1"
-     sodipodi:docname="Genestack-Logo.svg"
+     sodipodi:docname="Genestack-Wordmark.svg"
      inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
-     inkscape:export-filename="Genestack-Logo.png"
+     inkscape:export-filename="Genestack-Wordmark.png"
      inkscape:export-xdpi="465.11984"
      inkscape:export-ydpi="465.11984"
      xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -30,29 +30,29 @@
          inkscape:current-layer="svg1"
          showgrid="true">
         <sodipodi:guide
-             position="-145.39074,713.24725"
+             position="-145.39073,713.24724"
              orientation="0,400"
              id="guide1"
              inkscape:locked="false" />
         <sodipodi:guide
-             position="3854.6094,713.24725"
+             position="3854.6094,713.24724"
              orientation="75,0"
              id="guide2"
              inkscape:locked="false" />
         <sodipodi:guide
-             position="3854.6094,-36.752759"
+             position="3854.6094,-36.75276"
              orientation="0,-400"
              id="guide3"
              inkscape:locked="false" />
         <sodipodi:guide
-             position="-145.39074,-36.752759"
+             position="-145.39073,-36.75276"
              orientation="-75,0"
              id="guide4"
              inkscape:locked="false" />
         <inkscape:grid
              id="grid4"
              units="px"
-             originx="-145.39073"
+             originx="-145.39074"
              originy="-113.24724"
              spacingx="10"
              spacingy="10"
@@ -146,7 +146,7 @@
                      id="tspan4"
                      style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:320px;line-height:11.8286px;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Light';fill:#000000;fill-opacity:1;stroke-width:10;stroke-dasharray:none"
                      x="715"
-                     y="455">Genestack Documentation</tspan></text>
+                     y="455">Genestack</tspan></text>
         </g>
     </g>
 </svg>

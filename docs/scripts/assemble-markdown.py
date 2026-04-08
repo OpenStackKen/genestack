@@ -94,6 +94,7 @@ class PipelineConfig:
 class PendingRender:
     """One pending Pandoc render produced by the assembler."""
 
+    source_path: Path
     input_path: Path
     output_path: Path
     state_path: Path
@@ -307,17 +308,17 @@ def emit_pending_renders(pending_renders: list[PendingRender]) -> None:
     # Keeping this output flat makes it easy to inspect manually and avoids
     # dragging container runtime details into Python.
     for render in pending_renders:
-        output_label = (
-            str(render.output_path.relative_to(DOCS_ROOT))
-            if render.output_path.is_absolute() and DOCS_ROOT in render.output_path.parents
-            else str(render.output_path)
-        )
         input_label = (
             str(render.input_path.relative_to(DOCS_ROOT))
             if render.input_path.is_absolute() and DOCS_ROOT in render.input_path.parents
             else str(render.input_path)
         )
-        print(f"[assemble] planned: {output_label} <- {input_label}", file=sys.stderr)
+        source_label = (
+            str(render.source_path.relative_to(DOCS_ROOT))
+            if render.source_path.is_absolute() and DOCS_ROOT in render.source_path.parents
+            else str(render.source_path)
+        )
+        print(f"[assemble] Combine {source_label} into {input_label}", file=sys.stderr)
         print(
             "\t".join(
                 [
@@ -403,6 +404,7 @@ def plan_one_guide(
         build_markdown_path.write_text(assembled, encoding="utf-8")
         pending_renders.append(
             PendingRender(
+                source_path=guide_root,
                 input_path=build_markdown_path,
                 output_path=output_path,
                 state_path=state_path,
