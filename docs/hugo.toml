@@ -38,12 +38,12 @@ github_subdir = "docs"
 time_format_blog = "2006-01-02"
 btn-lg = 'class="btn btn-lg btn-{1}" role="button"'
 FA = '<i class="fa-{1} fa-{2} text-{3} px-1"></i>'
-logo = "assets/images/genestack-logo.png"
-#version_menu = "Releases"
+logo = "assets/images/Genestack-Wordmark.png"
+version_menu = "Releases"
 
-#[[params.versions]]
-#  version = "latest"
-#  url = "https://docs.rackspacecloud.com/latest"
+[[params.versions]]
+  version = "latest"
+  url = "https://docs.rackspacecloud.com/latest"
 
 [params.mermaid]
 version = "11.14.0"
@@ -53,6 +53,7 @@ theme = "default"
 breadcrumb_disable = false
 sidebar_menu_compact = true
 navbar_logo = true
+navbar_title = false
 
 [menu]
 [[menu.main]]
@@ -79,3 +80,9 @@ weight = 40
 name = "Cloud Onboarding"
 url = "/cloud-onboarding/"
 weight = 50
+
+[[menu.main]]
+  name = ""
+  weight = 60
+  url = "https://github.com/OpenStackKen/genestack"
+  pre = "<i class='fa-brands fa-github'></i>"
