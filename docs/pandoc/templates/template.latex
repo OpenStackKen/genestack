@@ -1442,7 +1442,7 @@ $if(titlepage)$
 \end{titlepage}
 % for additional pages after the title, uncomment the following line first:
 \clearpage
-
+\restoregeometry
 $endif$
 
 $if(has-frontmatter)$
