@@ -7,6 +7,29 @@
   max-width: 100%;
 }
 
+// Keep body-content media visually unframed. Some upstream theme styles apply
+// a subtle border or shadow treatment that reads as a gray outline in this
+// site; strip that chrome from prose images only, not from navigation logos or
+// other component-specific graphics.
+.td-main main .td-content p > img,
+.td-main main .td-content li > img,
+.td-main main .td-content figure > img,
+.td-main main .td-content picture > img {
+  border: 0;
+  box-shadow: none;
+}
+
+// Mermaid blocks are authored as `<pre class="mermaid">`, so they inherit the
+// standard code-block surface by default. Remove that code-block border and
+// background so rendered diagrams sit directly in the page flow like other
+// figures.
+.td-main main .td-content pre.mermaid {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
 .td-home .td-main {
   padding-top: 0;
 }
