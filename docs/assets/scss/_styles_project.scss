@@ -110,6 +110,28 @@ h6 b,
   .nav-link {
     font-weight: 400;
   }
+
+  .navbar-brand__logo {
+    img,
+    svg {
+      display: block;
+      height: auto;
+      max-height: 2rem;
+      max-width: 100%;
+    }
+
+    // Keep the navbar logo constrained to the same effective width model as
+    // the left docs navigation pane: 3 of 12 columns from `md`, then 2 of 12
+    // columns from `xl`, with the sidebar inner wrapper preferring a 320px cap
+    // on wide screens.
+    @media (min-width: 768px) {
+      max-width: 25vw;
+    }
+
+    @media (min-width: 1200px) {
+      max-width: #{'min(16.666667vw, 320px)'};
+    }
+  }
 }
 
 .td-sidebar-nav {
@@ -324,6 +346,46 @@ h6 b,
   background-color: #1b1f23;
   */
   color: #fff;
+}
+
+.td-navbar {
+  .td-navbar__version-menu {
+    // Keep the stock Docsy version selector behavior, but restyle it with the
+    // same base and interaction colors as the front-page "Get the Code"
+    // GitHub button.
+    .dropdown-toggle {
+      border: 1px solid #2b404d;
+      // The stock version selector is an anchor rather than a `.btn`, so use
+      // the button-radius token with a Bootstrap border-radius fallback. That
+      // gives the releases control the same corner treatment as the front-page
+      // "Get the Code" button without relying on button-only custom
+      // properties, which is the part that previously broke in Firefox.
+      border-radius: var(--bs-btn-border-radius, var(--bs-border-radius));
+      background-color: #2b404d;
+      color: #fff;
+    }
+
+    .dropdown-toggle:hover,
+    .dropdown-toggle:focus,
+    .dropdown-toggle:focus-visible,
+    .dropdown-toggle[aria-expanded="true"] {
+      border-color: #24292f;
+      background-color: #24292f;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .dropdown-menu {
+      border-color: #2b404d;
+      border-radius: var(--bs-btn-border-radius, var(--bs-border-radius));
+    }
+
+    .dropdown-item:active,
+    .dropdown-item.active {
+      background-color: #24292f;
+      color: #fff;
+    }
+  }
 }
 
 @media (max-width: 991.98px) {
