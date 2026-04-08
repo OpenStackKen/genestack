@@ -46,7 +46,7 @@ flowchart TD
     class CDL1,R11DL,R12DL plain
 
 %% Display Classes
-    classDef dimmed         fill:#fff,stroke:#f2f2f2,color:#f2f2f2;
+    classDef dimmed         fill:#fff,stroke:#d2d2d2,color:#d2d2d2;
     classDef emphasis       fill:#fff,stroke:#356ba2,color:#356ba2;
     classDef plain          fill:#fff,stroke:#888,color:#888;
 ```

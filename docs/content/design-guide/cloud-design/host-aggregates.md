@@ -126,7 +126,8 @@ flowchart TB
 HOST11 -- #9989; --> HOST25
 
 class HOST11,HOST12,HOST13,HOST14,HOST15 host
-class HOST21,HOST22,HOST23,HOST24,HOST25 host
+class HOST25 target
+class HOST21,HOST22,HOST23,HOST24 host
 class HOST31,HOST32,HOST33,HOST34,HOST35 host
 class HOST41,HOST42,HOST43,HOST44,HOST45 host
 class HA1,HA2,HA3,HA4 hostagg
@@ -136,6 +137,7 @@ class AZ az
     classDef host           fill:#8181ff,stroke:#613da6,color:#fcfcfc;
     classDef hostagg        fill:#edf2f8,stroke:#356ba2,color:#356ba2;
     classDef az             fill:none,stroke:#000,color:#000;
+    classDef target         color:green,fill:#ccf,stroke:green,stroke-width:2px;
 
     linkStyle 0 stroke-width:4px,fill:green,stroke:green,background-color:none;
 ```
