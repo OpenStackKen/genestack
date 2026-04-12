@@ -25,9 +25,12 @@ source = "assets"
 target = "assets"
 
 [markup]
+
 [markup.goldmark]
+
 [markup.goldmark.renderer]
 unsafe = true
+
 [markup.highlight]
 style = "hrdark"
 
@@ -42,12 +45,51 @@ logo = "assets/images/Genestack-Wordmark.png"
 version_menu = "Releases"
 
 [[params.versions]]
-  version = "latest"
-  url = "https://docs.rackspacecloud.com/latest"
+version = "latest"
+url = "https://docs.rackspacecloud.com/latest"
 
 [params.mermaid]
 version = "11.14.0"
-theme = "default"
+look = "classic"
+securityLevel = "loose"
+htmlLabels = true
+maxTextSize = 100000
+maxEdges = 1000
+deterministicIds = true
+deterministicIDSeed = "genestack"
+markdownAutoWrap = true
+wrap = true
+suppressErrorRendering = false
+theme = "base"
+
+[params.mermaid.themeVariables]
+fontFamily = "Open Sans"
+fontSize = "18px"
+primaryColor = "#F0F4FC"
+primaryTextColor = "#1d2432"
+primaryBorderColor = "#8b8f91"
+secondaryColor = "#fff"
+lineColor = "#8b8f91"
+tertiaryColor = "#f8f9fa"
+tertiaryBorderColor = "#dee2e6"
+tertiaryTextColor = "#57a1dd"
+#edgeLabelBackground = "transparent"
+edgeLabelBackground = "#ffffff"
+
+[params.mermaid.flowchart]
+useMaxWidth = true
+diagramPadding = 20
+nodeSpacing = 80
+rankSpacing = 80
+curve = "basis"
+padding = 50
+defaultRenderer = "elk"
+wrappingWidth = 160
+inheritDir = true
+
+[params.mermaid.flowchart.subGraphTitleMargin]
+top = 4
+bottom = 6
 
 [params.ui]
 breadcrumb_disable = false
@@ -56,6 +98,7 @@ navbar_logo = true
 navbar_title = false
 
 [menu]
+
 [[menu.main]]
 name = "Overview"
 url = "/overview/"
@@ -82,7 +125,7 @@ url = "/cloud-onboarding/"
 weight = 50
 
 [[menu.main]]
-  name = ""
-  weight = 60
-  url = "https://github.com/OpenStackKen/genestack"
-  pre = "<i class='fa-brands fa-github'></i>"
+name = ""
+weight = 60
+url = "https://github.com/OpenStackKen/genestack"
+pre = "<i class='fa-brands fa-github'></i>"

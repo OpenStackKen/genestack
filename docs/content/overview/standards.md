@@ -1,16 +1,13 @@
 ---
-title: "Documentation Standards and Style Guide"
+title: "Documentation Style Guide"
 weight: 30
 ---
-This document is intended to help define common documentation standards and
-practices for the Genestack documentation set.
+
+This section is intended to help define common documentation standards and practices for the Genestack documentation set. It also provides a style guide to help us maintain some uniformity in our documentation.
 
 ## Introduction
 
-The Genestack documentation source lives directly in the `/docs` subdirectory of
-the Genestack repository and is rendered locally with Hugo. The shared Markdown
-and asset structure is also intended for downstream reuse by other Hugo-based
-sites.
+The Genestack documentation source lives directly in the `/docs` subdirectory of the Genestack repository and is rendered locally with Hugo. The shared Markdown and asset structure is also intended for downstream reuse by other Hugo-based sites.
 
 This page highlights some of the conventions and standards we strive to use across the Genestack documentation to hopefully provide a consistent reading experience for Genestack users.
 
@@ -110,7 +107,9 @@ This will render like this:
   - Sub bullet
     - Sub sub bullet
 
-**NOTE:** [Markdownlint](#markdownlint) will complain, saying that you should _indent by 2_ unless you change or ignore rule [MD007](https://github.com/DavidAnson/markdownlint/blob/main/doc/md007.md).
+> [!NOTE]
+>
+> [Markdownlint](#markdownlint) will complain, saying that you should _indent by 2_ unless you change or ignore rule [MD007](https://github.com/DavidAnson/markdownlint/blob/main/doc/md007.md).
 
 ### Numbering
 
@@ -158,13 +157,29 @@ For other editors there are also solutions:
 
 Admonitions are used to highlight certain information to make it stand-out to readers.
 
-### Admonition Standards
+### Admonition/Alert Standards
 
 It is important to have some documentation standards so that a user can understand how to process the information they read.
+
+"Admonitions" (sometimes also called "Alerts") help content stand-out and provide ways to indicate something is a warning, error, success, example, etc...
+
+In markdown, an Admonition can be best throught of as a blockquote with a "type" indicator at the top.  Let's start with the `[INFO]` admonition:
+
+```markdown
+> [!INFO]
+>
+> The "info" admonition type is to point out something particularly interesting.
+```
+
+This will render as:
 
 > [!INFO]
 >
 > The "info" admonition type is to point out something particularly interesting.
+
+(Note that there is a blank blockquote `>` line between the "type" and the rest of the content.  This is necessary for the Markdown parser to be able to tell your're doing an Admonition vs. a regular blockquote.)
+
+There are other types as well:
 
 > [!INFO] To Do:
 >

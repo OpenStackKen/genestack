@@ -233,37 +233,34 @@ A simple reference architecture for a hyper-converged lab environment is shown b
 that are connected to a two networks. The networks are connected via a router that provides external connectivity.
 
 ``` mermaid
-%%{ init: { "theme": "default",
-            "flowchart": { "curve": "basis", "nodeSpacing": 80, "rankSpacing": 60 } } }%%
-            
 flowchart TB
     %% Define clusters/subgraphs for clarity
-    subgraph Public_Network ["<div style="width:15em; height:8.5em; display:flex; justify-content: flex-start; align-items:flex-end;">Public Network</div>"]
+    subgraph Public_Network ["<div style="width:15em; height:12em; display:flex; justify-content: flex-start; align-items:flex-end;">Public Network</div>"]
         PF("Floating IP<br>(203.0.113.x)")
     end
 
-    subgraph Router ["<div style="width:29em; height:8.5em; display:flex; justify-content: flex-start; align-items:flex-end;">Router</div>"]
+    subgraph Router ["<div style="width:29em; height:15em; display:flex; justify-content: flex-start; align-items:flex-end;">Router</div>"]
         TR("hyperconverged-router<br>(with external gateway)")
     end
 
-    subgraph Hyperconverged_Net ["<div style="width:55em; height:8.5em; display:flex; justify-content: flex-start; align-items:flex-end;">HyperConverged Net</div>"]
+    subgraph Hyperconverged_Net ["<div style="width:55em; height:13.5em; display:flex; justify-content: flex-start; align-items:flex-end;">HyperConverged Net</div>"]
         TN("hyperconverged-net<br>(192.168.100.x)")
     end
 
-    subgraph Hyperconverged_Compute_Net ["<div style="width:43em; height:10em; display:flex; justify-content: flex-start; align-items:flex-end;">HyperConverged Compute Net</div>"]
+    subgraph Hyperconverged_Compute_Net ["<div style="width:43em; height:13.5em; display:flex; justify-content: flex-start; align-items:flex-end;">HyperConverged Compute Net</div>"]
         TCN("hyperconverged-compute-net<br>(192.168.102.x)")
     end
 
     %% Hyperconverged Nodes
-    subgraph NODE_0 ["<div style="width:15em; height:7em; display:flex; justify-content: flex-start; align-items:flex-end;">Node 0</div>"]
+    subgraph NODE_0 ["<div style="width:17.5em; height:10.5em; display:flex; justify-content: flex-start; align-items:flex-end;">Node 0</div>"]
         HPC0("hyperconverged-0")
     end
 
-    subgraph Node_1 ["<div style="width:15em; height:7em; display:flex; justify-content: flex-start; align-items:flex-end;">Node 1</div>"]
+    subgraph Node_1 ["<div style="width:17.5em; height:10.5em; display:flex; justify-content: flex-start; align-items:flex-end;">Node 1</div>"]
         HPC1("hyperconverged-1")
     end
 
-    subgraph Node_2 ["<div style="width:15em; height:7em; display:flex; justify-content: flex-start; align-items:flex-end;">Node 2</div>"]
+    subgraph Node_2 ["<div style="width:17.5em; height:10.5em; display:flex; justify-content: flex-start; align-items:flex-end;">Node 2</div>"]
         HPC2("hyperconverged-2")
     end
 

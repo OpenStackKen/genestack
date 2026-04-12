@@ -5,16 +5,6 @@ weight: 20
 Regions are separate physical locations served by a single cloud.  In terms of our taxonomy, a Cloud can contain several Regions.
 
 ```mermaid
----
-config:
-  theme: neutral
-  themeVariables:
-    fontSize: 20px
-  flowchart:
-    curve: basis
-    nodeSpacing: 80
-    rankSpacing: 160
----
 flowchart TD
 
 %% Node Defs

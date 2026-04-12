@@ -20,12 +20,6 @@ A common use case for host aggregates is when you want to support scheduling ins
 - Hosts with GPU compute resources
 
 ```mermaid
----
-config:
-  theme: neutral
-  flowchart:
-    curve: basis
----
 flowchart TB
     subgraph AZ [ Availability Zone ]
         direction TB
@@ -91,16 +85,6 @@ While Host Aggregates themselves are hidden from OpenStack cloud users, Cloud ad
 > Provided all other requirements are met (CPU type, availability, etc...) then migrating across Host Aggregates is possible within an [Availability Zone](/design-guide/cloud-design/availability-zones/).
 
 ```mermaid
----
-config:
-  theme: neutral
-  themeVariables:
-    fontSize: 15px
-  flowchart:
-    curve: basis
-    nodeSpacing: 40
-    rankSpacing: 80
----
 flowchart TB
 
     subgraph AZ [ Availability Zone ]
@@ -149,12 +133,6 @@ class AZ az
 > It is not allowed to move instances between Availability Zones. If adding a host to an aggregate or removing a host from an aggregate would cause an instance to move between Availability Zones (including moving from or moving to the default AZ) then the operation will be fail.
 
 ```mermaid
----
-config:
-  theme: neutral
-  flowchart:
-    curve: basis
----
 flowchart TB
     subgraph AZ1 [ Availability Zone 1 ]
         direction TB

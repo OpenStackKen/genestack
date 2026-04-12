@@ -17,9 +17,6 @@ After switch and firewall configuration, deployment nodes are created with in th
 ### Ironic Diagram
 
 ``` mermaid
-%%{ init: { "theme": "default",
-            "flowchart": { "curve": "basis", "nodeSpacing": 80, "rankSpacing": 60 } } }%%
-
 flowchart TD
     %% ──────────── TIER 1 ────────────
     subgraph UI [" "]
@@ -31,7 +28,7 @@ flowchart TD
     end
 
     %% ──────────── TIER 2 (APIs) ─────
-    subgraph APIS [" "]
+    subgraph APIS ["Cloud APIs"]
         direction TB
         NEU(["🔌 Neutron"])
         CIN(["🧱 Cinder"])
@@ -41,9 +38,10 @@ flowchart TD
         IRO(["⚙️ Ironic"])
         class NEU,CIN,NOV,GLA,KEY,IRO service;
     end
+    class APIS api;
 
     %% ──────────── CORE (Bare Metal) ─
-    BM["Bare Metal"]
+    BM["Bare<br>Metal"]
     class BM metal;
 
     %% ──────────── LINKING  ──────────
@@ -74,7 +72,8 @@ flowchart TD
     classDef orchestration fill:#ffdddd,stroke:#555,color:#000000,font-weight:bold;
     classDef ui             fill:#fff4e6,stroke:#555,color:#000000;
     classDef service        fill:#ffe9cc,stroke:#555,color:#000000;
-    classDef metal          fill:#e4f5e4,stroke:#555,color:#000000,font-style:italic;
+    classDef metal          fill:#e4f5e4,stroke:#555,color:#000000;
+    classDef api            fill:#ffffff,font-style:italic;
 ```
 
 #### Benefits of Ironic
