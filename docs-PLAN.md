@@ -168,7 +168,7 @@ and more task-oriented.
 
 Recommended target hierarchy:
 
-- `/docs/content/operational-guide/_index.md`
+- `/docs/content/operations-guide/_index.md`
 - `genestack/`
 - `resource-metering/`
 - `infrastructure/`
