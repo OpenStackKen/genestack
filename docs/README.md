@@ -103,6 +103,42 @@ Do not use Mermaid init directives such as:
 %%{init: ...}%%
 ```
 
+### Source Code Includes
+
+Fenced code blocks may include source files directly while preserving syntax
+highlighting in both the Hugo site and the Pandoc PDF pipeline.
+
+Use repo-root-style include paths from the approved source roots:
+
+````md
+```bash {include="scripts/example.sh"}
+```
+````
+
+Optional slicing attributes are also supported:
+
+````md
+```bash {include="scripts/example.sh" start-line="10" end-line="24" dedent="2"}
+```
+````
+
+These include paths are not page-relative. They are interpreted from the repo
+root across the approved subset below so the same source works in both the
+website and the PDF pipeline.
+
+The supported include roots are:
+
+- `bin/...`
+- `scripts/...`
+- `base-helm-configs/...`
+- `ansible/...`
+- `recovery/...`
+- `.github/workflows/...`
+- `docs/scripts/...`
+
+The Hugo site and the PDF pipeline each resolve those paths back to the
+underlying repository source tree using their own local mechanics.
+
 ### Links and Assets
 
 Prefer repository-local relative links between docs pages and shared assets.

@@ -24,9 +24,43 @@ target = "static/assets"
 source = "assets"
 target = "assets"
 
+[[module.mounts]]
+source = "../bin"
+target = "assets/bin"
+
+[[module.mounts]]
+source = "../scripts"
+target = "assets/scripts"
+
+[[module.mounts]]
+source = "../base-helm-configs"
+target = "assets/base-helm-configs"
+
+[[module.mounts]]
+source = "../ansible"
+target = "assets/ansible"
+
+[[module.mounts]]
+source = "../recovery"
+target = "assets/recovery"
+
+[[module.mounts]]
+source = "../.github/workflows"
+target = "assets/.github/workflows"
+
+[[module.mounts]]
+source = "scripts"
+target = "assets/docs/scripts"
+
 [markup]
 
 [markup.goldmark]
+
+[markup.goldmark.parser]
+
+[markup.goldmark.parser.attribute]
+block = true
+title = true
 
 [markup.goldmark.renderer]
 unsafe = true

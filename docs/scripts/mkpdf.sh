@@ -8,6 +8,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 DOCS_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+REPO_ROOT="$(cd -- "${DOCS_ROOT}/.." && pwd)"
 ASSEMBLER="${SCRIPT_DIR}/assemble-markdown.py"
 PYTHON="${PYTHON:-python3}"
 
@@ -237,11 +238,13 @@ render_pending_renders() {
         docker run --rm \
             --user "$(id -u):$(id -g)" \
             --volume "${DOCS_ROOT}:${PANDOC_MOUNT_ROOT}" \
+            --volume "${REPO_ROOT}:/workspace" \
             --workdir "$PANDOC_MOUNT_ROOT" \
             --env "HOME=${CONTAINER_HOME}" \
             --env "XDG_CACHE_HOME=${CONTAINER_XDG_CACHE}" \
             --env "TEXINPUTS=${CONTAINER_TEXINPUTS}" \
             --env "GENESTACK_DOCS_ROOT=${PANDOC_MOUNT_ROOT}" \
+            --env "GENESTACK_REPO_ROOT=/workspace" \
             "$PANDOC_IMAGE" \
             --defaults "$CONTAINER_DEFAULTS" \
             --output "$(container_path "$output_path")" \

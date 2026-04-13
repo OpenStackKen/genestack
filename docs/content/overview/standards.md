@@ -91,6 +91,23 @@ This will render as:
 # code block
 ```
 
+#### Including source files
+
+Code blocks can also include tracked source files directly while preserving
+syntax highlighting.
+
+The authoring syntax is:
+
+````markdown
+```bash {include="docs/scripts/mkpdf.sh" start-line="1" end-line="12"}
+```
+````
+
+This will render as:
+
+```bash {include="docs/scripts/mkpdf.sh" start-line="1" end-line="12"}
+```
+
 ### Bullets
 
 Bullets are used to denote unordered lists.  To have nested layers of bullets, you need to indent by 4 spaces for each nested layer bullet[^1].
