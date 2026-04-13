@@ -133,6 +133,8 @@ The supported include roots are:
 - `base-helm-configs/...`
 - `ansible/...`
 - `recovery/...`
+- `manifests/...`
+- `etc/...`
 - `.github/workflows/...`
 - `docs/scripts/...`
 

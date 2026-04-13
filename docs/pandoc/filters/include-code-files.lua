@@ -12,6 +12,8 @@
 ---   - bin/install-neutron.sh
 ---   - scripts/generate_product_matrix.py
 ---   - docs/scripts/mkpdf.sh
+---   - manifests/grafana/azure-client-secret.yaml
+---   - etc/keystone/mapping.json
 --- without exposing the entire repository tree.
 
 local docs_root = os.getenv("GENESTACK_DOCS_ROOT") or "."
@@ -47,6 +49,8 @@ local function resolve_include_path(raw_path)
     "base%-helm%-configs/",
     "ansible/",
     "recovery/",
+    "manifests/",
+    "etc/",
     "%.github/workflows/",
     "docs/scripts/",
   }

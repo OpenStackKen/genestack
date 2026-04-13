@@ -45,6 +45,14 @@ source = "../recovery"
 target = "assets/recovery"
 
 [[module.mounts]]
+source = "../manifests"
+target = "assets/manifests"
+
+[[module.mounts]]
+source = "../etc"
+target = "assets/etc"
+
+[[module.mounts]]
 source = "../.github/workflows"
 target = "assets/.github/workflows"
 

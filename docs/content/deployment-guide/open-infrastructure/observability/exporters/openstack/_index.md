@@ -31,18 +31,7 @@ printf -v m "$(cat ~/.config/openstack/clouds.yaml)"; \
 
 The generated file will look similar to this:
 
-```yaml
-clouds.yaml: |
-  clouds:
-    default:
-      region_name: RegionOne
-      auth:
-        username: admin
-        password: <admin-password>
-        project_name: admin
-        project_domain_name: default
-        user_domain_name: default
-        auth_url: 'http://keystone-api.openstack.svc.cluster.local:5000/v3'
+```yaml {include="base-helm-configs/monitoring/openstack-metrics-exporter/clouds-yaml"}
 ```
 
 If you're using self-signed certs then you may need to add keystone certificates to the generated clouds yaml:

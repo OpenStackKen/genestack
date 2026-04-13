@@ -6,7 +6,7 @@ weight: 50
 
 [Neutron](https://docs.openstack.org/neutron/latest/) is the networking service within the OpenStack ecosystem, providing virtual networking, IP address management, routing, and security policy controls for cloud workloads. This document covers the deployment of OpenStack Neutron using Genestack.
 
-Run the Neutron deployment script:
+Run the Neutron deployment script `/opt/genestack/bin/install-neutron.sh`:
 
 ```bash {include="bin/install-neutron.sh"}
 ```

@@ -40,11 +40,12 @@ artifact. The goal is to track the content areas where:
   ```bash {include="bin/install-neutron.sh"}
   ```
   ````
-  Compatible include roots already supported by both Hugo and Pandoc:
+  Supported include roots now available to both Hugo and Pandoc:
   `bin/...`, `scripts/...`, `base-helm-configs/...`, `ansible/...`,
-  `recovery/...`, `.github/workflows/...`, and `docs/scripts/...`.
-  Old `main` includes under roots such as `manifests/...` and `etc/...` still
-  need an explicit renderer-contract decision before conversion.
+  `recovery/...`, `manifests/...`, `etc/...`, `.github/workflows/...`, and
+  `docs/scripts/...`.
+  Review remaining carry-forward pages from `main` for pasted source blocks and
+  replace them with shared includes instead of preserving static copies.
 
 - [ ] [docs/content/operations-guide/openstack/keystone-ldap.md](/Users/ken/Dev/genestack/docs/content/operations-guide/openstack/keystone-ldap.md)
   Main-path source: [docs/openstack-keystone-ldap.md](/Users/ken/Dev/genestack/docs/openstack-keystone-ldap.md) on `main`
