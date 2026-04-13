@@ -3,7 +3,6 @@ title: "Deployment Guide"
 weight: 10
 type: docs
 description: "Everything you need to deploy a Genestack Cloud"
-simple_list: true
 cascade:
   - type: docs
 ---

@@ -2,7 +2,6 @@
 title: "Genestack Cloud Onboarding"
 weight: 10
 type: docs
-simple_list: true
 cascade:
   - type: docs
 ---

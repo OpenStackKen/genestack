@@ -2,7 +2,6 @@
 title: "Alertmanager"
 weight: 20
 type: docs
-simple_list: true
 cascade:
   - type: docs
 ---

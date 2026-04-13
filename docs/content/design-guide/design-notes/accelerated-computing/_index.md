@@ -3,7 +3,6 @@ title: "Accelerated Computing"
 weight: 10
 type: docs
 description: "Overview and infrastructure guidance for accelerator-focused cloud designs."
-simple_list: true
 cascade:
   - type: docs
 ---

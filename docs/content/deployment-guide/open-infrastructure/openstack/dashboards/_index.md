@@ -2,7 +2,6 @@
 title: "Dashboards"
 weight: 80
 type: docs
-simple_list: true
 description: "OpenStack Dashboard deployment workflows for Horizon and Skyline."
 cascade:
   - type: docs

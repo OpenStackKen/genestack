@@ -3,7 +3,6 @@ title: "Security Standards"
 weight: 40
 type: docs
 description: "Standards for a Secure and Resilient Cloud Environment"
-simple_list: true
 cascade:
   - type: docs
 ---

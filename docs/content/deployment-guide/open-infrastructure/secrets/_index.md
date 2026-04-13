@@ -2,7 +2,6 @@
 title: "Secrets and Key Management"
 weight: 60
 type: docs
-simple_list: true
 description: "Secret management and delivery with Sealed Secrets."
 cascade:
   - type: docs

@@ -2,7 +2,6 @@
 title: "Designate"
 weight: 130
 type: docs
-simple_list: true
 description: "OpenStack DNS as a Service (DNSaaS)."
 cascade:
   - type: docs

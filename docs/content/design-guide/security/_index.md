@@ -3,7 +3,6 @@ title: "Secure Development"
 weight: 20
 type: docs
 description: "Building a Secure and Resilient Cloud Environment"
-simple_list: true
 cascade:
   - type: docs
 ---

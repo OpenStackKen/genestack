@@ -2,7 +2,6 @@
 title: "Full Cloud Deployment"
 weight: 30
 type: docs
-simple_list: true
 description: "Deploy a complete production cloud."
 cascade:
   - type: docs
