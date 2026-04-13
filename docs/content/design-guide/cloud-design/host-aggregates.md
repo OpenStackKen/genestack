@@ -72,7 +72,7 @@ linkStyle 1 fill:none,stroke:none;
 
 > [!GENESTACK]
 >
-> Genestack is designed to use [Host Aggregates](/operational-guide/openstack-host-aggregates/) to take advantage of various compute host types.
+> Genestack is designed to use [Host Aggregates](/operations-guide/openstack-host-aggregates/) to take advantage of various compute host types.
 
 ## Host Aggregates vs. Availability Zones
 

@@ -2,23 +2,18 @@
 title: "LVM iSCSI Backend"
 weight: 20
 ---
-This guide explains how a **cloud operator** can enable the **reference LVM backend** over iSCSI for OpenStack Cinder. It assumes you are running
-the volume service directly on bare‑metal storage nodes.
+This guide explains how a **cloud operator** can enable the **reference LVM backend** over iSCSI for OpenStack Cinder. It assumes you are running the volume service directly on bare‑metal storage nodes.
 
-In order to utilize the logical volume driver (reference), it must be deployed in hybrid way, outside of the K8s workflow on baremetal volume hosts.
-Specifically, iSCSI is incompatible with containerized work environments. Fortunately, Genestack has a playbook which will facilitate the installation
-of cinder-volume services and ensure that everything is deployed in working order on the baremetal nodes. The playbook can be found at
-`playbooks/deploy-cinder-volumes-reference.yaml`. Included in the playbooks directory is an example inventory for cinder hosts; however, any inventory
-should work fine.
+In order to utilize the logical volume driver (reference), it must be deployed in hybrid way, outside of the K8s workflow on baremetal volume hosts. Specifically, iSCSI is incompatible with containerized work environments. Fortunately, Genestack has a playbook which will facilitate the installation of cinder-volume services and ensure that everything is deployed in working order on the baremetal nodes. The playbook can be found at `playbooks/deploy-cinder-volumes-reference.yaml`. Included in the playbooks directory is an example inventory for cinder hosts; however, any inventory should work fine.
 
 ## Quick path to success
 
-1. 📝 Pre‑flight checklist
-2. 🦾 Storage‑node preparation
-3. 🚀 Run the deployment playbook
-4. 📦 Create volume type & policies
-5. 🔍 Validate operations
-6. ⚙️ Enable iSCSI + multipath for computes
+1. Pre‑flight checklist
+2. Storage‑node preparation
+3. Run the deployment playbook
+4. Create volume type & policies
+5. Validate operations
+6. Enable iSCSI + multipath for compute nodes
 
 ## 1  Pre‑Flight Checklist
 
@@ -33,16 +28,13 @@ should work fine.
 >
 > **VG name must match driver stanza**
 >
->
-> The reference driver hard‑codes `lvmdriver-1` (volume type) and `cinder-volumes-1` (volume group). Keep these names unless you also
-> edit the playbook templates.
+> The reference driver hard‑codes `lvmdriver-1` (volume type) and `cinder-volumes-1` (volume group). Keep these names unless you also edit the playbook templates.
 
 ## 2  Storage‑Node Preparation
 
 Because the Cinder Reference LVM driver is incompatible with a containerized work environment, the services are setup as baremetal targets.
-Genestack has a playbook which will facilitate the installation of our services and ensure that we've deployed everything in a working order.
-The playbook can be found at `playbooks/deploy-cinder-volumes-reference.yaml`. Included in the playbooks directory is an example inventory
-for our cinder hosts; however, any inventory should work fine.
+
+Genestack has a playbook which will facilitate the installation of our services and ensure that we've deployed everything in a working order. The playbook can be found at `playbooks/deploy-cinder-volumes-reference.yaml`. Included in the playbooks directory is an example inventory for our cinder hosts; however, any inventory should work fine.
 
 ### 2.1  Ensure DNS Works
 
@@ -71,10 +63,9 @@ Add additional PVs to extend capacity later as needed.
 
 ## 3  Deploy the LVM Volume Worker
 
-Add the `enable_iscsi` and `storage_network_multipath` variables to the inventory file vars stanzas pertaining to nova_compute_nodes
-and cinder_storage_nodes. Additionally, add the `storage_network_multipath` to the inventory file vars only for cinder_storage_nodes.
-Edit /opt/genestack/ansible/playbooks/templates/genestack-multipath.conf.j2 to meet your specific requirements. Then re-run
-`host-setup.yaml` on compute nodes and block nodes.
+Add the `enable_iscsi` and `storage_network_multipath` variables to the inventory file vars stanzas pertaining to `nova_compute_nodes` and `cinder_storage_nodes`. Additionally, add the `storage_network_multipath` to the inventory file vars only for `cinder_storage_nodes`.
+
+Edit `/opt/genestack/ansible/playbooks/templates/genestack-multipath.conf.j2` to meet your specific requirements. Then re-run `host-setup.yaml` on compute nodes and block nodes.
 
 ## 3.1  Prepare the Inventory
 
@@ -123,10 +114,7 @@ ansible-playbook -i /etc/genestack/inventory/inventory.yaml deploy-cinder-volume
 
 > [!NOTE]
 >
-> Consider the **storage** network on your Cinder hosts that will be accessible to Nova compute hosts. By default, the playbook uses
-> `ansible_default_ipv4.address` to configure the target address, which may or may not work for your environment. Append var, i.e.,
-> `-e cinder_storage_network_interface=ansible_br_mgmt` to use the specified iface address in `cinder.conf` for `my_ip` and
-> `target_ip_address` in `cinder/backends.conf`. **Interface names with a `-` must be entered with a `_` and be prefixed with `ansible`**
+> Consider the **storage** network on your Cinder hosts that will be accessible to Nova compute hosts. By default, the playbook uses `ansible_default_ipv4.address` to configure the target address, which may or may not work for your environment. Append var, i.e., `-e cinder_storage_network_interface=ansible_br_mgmt` to use the specified iface address in `cinder.conf` for `my_ip` and `target_ip_address` in `cinder/backends.conf`. **Interface names with a `-` must be entered with a `_` and be prefixed with `ansible`**
 
 The playbook will:
 
@@ -155,9 +143,9 @@ Expected Output
 
 Refer to:
 
-- [Volume QoS](/operational-guide/openstack-cinder-volume-qos-policies/)
-- [Provisioning Specs](/operational-guide/openstack-cinder-volume-provisioning-specs/)
-- [Extra Specs](/operational-guide/openstack-cinder-volume-type-specs/)
+- [Volume QoS](/operations-guide/openstack-cinder-volume-qos-policies/)
+- [Provisioning Specs](/operations-guide/openstack-cinder-volume-provisioning-specs/)
+- [Extra Specs](/operations-guide/openstack-cinder-volume-type-specs/)
 
 ## 5  Validate Operations
 

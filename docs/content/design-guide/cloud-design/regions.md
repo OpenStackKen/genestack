@@ -55,7 +55,7 @@ A unified [Keystone](https://docs.openstack.org/keystone/latest/) service is ess
 
 In most cases, when you deploy a multi-region cloud, you first either deploy a global Keystone service first, either stand-alone or as a part of your primary region, and then deploy additional regions federating from it.
 
-This is usually trivial, as you ought to be backing Keystone with some large-scale authentication (authn) and authorization (authz) infrastructure such as a [LDAP](https://docs.openstack.org/keystone/latest/admin/configuration.html#integrate-identity-with-ldap)[^1].  You can also use Keystone's built-in federation, as is done at [Rackspace](/operational-guide/openstack-keystone-federation/).
+This is usually trivial, as you ought to be backing Keystone with some large-scale authentication (authn) and authorization (authz) infrastructure such as a [LDAP](https://docs.openstack.org/keystone/latest/admin/configuration.html#integrate-identity-with-ldap)[^1].  You can also use Keystone's built-in federation, as is done at [Rackspace](/operations-guide/openstack-keystone-federation/).
 
 ### Horizon/Skyline
 

@@ -12,5 +12,3 @@ cascade:
  > [!GENESTACK]
  >
  > Genestack uses the Skyline dashboard by default, so it is better tested.  The Horizon dashboard is also supported, but gets less testing coverage.
-
- ## Dashboards 

@@ -58,7 +58,7 @@ conf:
 > **PCI-Passthrough and Filters Notice**
 >
 >
-> The above overrides are used to [passthrough a PCI](/operational-guide/openstack-pci-passthrough/) device in support of a GPU type. For more information on GPU passthrough, and how to interact with some of the [advanced scheduling](https://docs.openstack.org/nova/latest/admin/scheduling.html) filter capabilities found in OpenStack, have a look at the official upstream documentation.
+> The above overrides are used to [passthrough a PCI](/operations-guide/openstack-pci-passthrough/) device in support of a GPU type. For more information on GPU passthrough, and how to interact with some of the [advanced scheduling](https://docs.openstack.org/nova/latest/admin/scheduling.html) filter capabilities found in OpenStack, have a look at the official upstream documentation.
 
 #### Label Overrides Explanation
 

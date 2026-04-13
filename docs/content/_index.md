@@ -43,7 +43,7 @@ Build, Operate, and Extend Genestack
 >}}
 {{< home/card
   title="Operations Guide"
-  url="/operational-guide/"
+  url="/operations-guide/"
   description="Day-two operations, troubleshooting, lifecycle tasks, and operational playbooks."
 >}}
 {{< /home/section >}}

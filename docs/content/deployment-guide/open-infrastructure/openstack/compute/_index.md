@@ -2,7 +2,6 @@
 title: "Compute"
 weight: 70
 type: docs
-simple_list: true
 description: "Deploying the Nova, Placement, and Neutron integration OpenStack compute components."
 cascade:
   - type: docs
@@ -21,11 +20,9 @@ Together, Nova, Neutron, and Placement form the backbone of the OpenStack Comput
 > **External Ceph Storage Backend**
 >
 > If you plan to deploy an external Ceph storage backend, review the
-> [OpenStack Compute Ceph Store](/operational-guide/openstack-compute-ceph-store/) operator
+> [OpenStack Compute Ceph Store](/operations-guide/openstack-compute-ceph-store/) operator
 > documentation for additional steps and setup for Nova.
 
-## Compute Deployment Demo
-
-[![asciicast](https://asciinema.org/a/629813.svg)](https://asciinema.org/a/629813)
-
 ## Compute Services
+
+Several OpenStack services work together to enable compute.

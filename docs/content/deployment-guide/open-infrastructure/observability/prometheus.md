@@ -12,7 +12,7 @@ We are taking advantage of the prometheus community kube-prometheus-stack as wel
 > using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
 >
 > In other cases such as a multi-region deployment you may want to view the
-> [Multi-Region Support](/operational-guide/multi-region-support/) guide to for a workflow
+> [Multi-Region Support](/operations-guide/multi-region-support/) guide to for a workflow
 > solution.
 
 ## Installing Prometheus

@@ -26,9 +26,9 @@ output = "deployment-guide.pdf"
 title = "Deployment Guide"
 
 [[guides]]
-slug = "operational-guide"
-source = "content/operational-guide"
-output = "operational-guide.pdf"
+slug = "operations-guide"
+source = "content/operations-guide"
+output = "operations-guide.pdf"
 title = "Operations Guide"
 
 [[guides]]

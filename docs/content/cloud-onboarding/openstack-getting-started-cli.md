@@ -73,6 +73,6 @@ This command lists all flavors available to your project.
 
 ## Further Reading
 
-For more detailed information on OpenStack command-line interface and authentication, refer to the [our documentation](/operational-guide/openstack-clouds/) for creating your `clouds.yaml`.
+For more detailed information on OpenStack command-line interface and authentication, refer to the [our documentation](/operations-guide/openstack-clouds/) for creating your `clouds.yaml`.
 
 By following these steps, you should be able to initialize your account and start using the OpenStack CLI.

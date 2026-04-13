@@ -2,22 +2,19 @@
 title: "NetApp Volume Backend"
 weight: 30
 ---
-This guide walks **cloud operators** through the end‑to‑end workflow for enabling the **NetApp ONTAP** backend in an OpenStack‑powered
-Kubernetes environment.  It is opinionated toward day‑to‑day operators who need fast, repeatable steps rather than deep driver theory.
+This guide walks **cloud operators** through the end‑to‑end workflow for enabling the **NetApp ONTAP** backend in an OpenStack‑powered Kubernetes environment.  It is opinionated toward day‑to‑day operators who need fast, repeatable steps rather than deep driver theory.
 
 ## At‑a‑glance workflow
 
-1. ✅ Pre‑flight checks
-2. 🛠 Backend & secret creation
-3. 🖥 Compute‑node preparation
-4. 🚀 Deploy the NetApp Volume Worker
-5. 🔎 Validate & troubleshoot
+1. Pre‑flight checks
+2. Backend & secret creation
+3. Compute‑node preparation
+4. Deploy the NetApp Volume Worker
+5. Validate & troubleshoot
 
 ## 1  Pre‑Flight Checks
 
-The NetApp Volume Worker is a **cinder-volume** service that is configured to use the NetApp ONTAP driver. This service is responsible for
-managing the creation, deletion, and management of volumes in the OpenStack environment. The NetApp Volume Worker is a stateful service
-that is deployed on a baremetal node that has access to the NetApp storage system.
+The NetApp Volume Worker is a **cinder-volume** service that is configured to use the NetApp ONTAP driver. This service is responsible for managing the creation, deletion, and management of volumes in the OpenStack environment. The NetApp Volume Worker is a stateful service that is deployed on a baremetal node that has access to the NetApp storage system.
 
 ### 1.1  Gather NetApp Credentials
 
@@ -31,16 +28,11 @@ that is deployed on a baremetal node that has access to the NetApp storage syste
 
 ## 2  Cinder Backends
 
-Before deploying a new backend, ensure that your volume type has been set up correctly and that you have applied QoS policies, provisioning
-specifications (min and max volume size), and any extra specs. See [Cinder Volume QoS Policies](/operational-guide/openstack-cinder-volume-qos-policies/),
-[Cinder Volume Provisioning Specs](/operational-guide/openstack-cinder-volume-provisioning-specs/), and [Cinder Volume Type Specs](/operational-guide/openstack-cinder-volume-type-specs/).
+Before deploying a new backend, ensure that your volume type has been set up correctly and that you have applied QoS policies, provisioning specifications (min and max volume size), and any extra specs. See [Cinder Volume QoS Policies](/operations-guide/openstack-cinder-volume-qos-policies/), [Cinder Volume Provisioning Specs](/operations-guide/openstack-cinder-volume-provisioning-specs/), and [Cinder Volume Type Specs](/operations-guide/openstack-cinder-volume-type-specs/).
 
 ### 2.1  Define Backends in Helm Override
 
-The NetApp ONTAP driver requires a backend configuration to be set in the Kubernetes environment. The backend configuration
-specifies the storage system that the NetApp Volume Worker will use to create and manage volumes. The backend configuration
-is a Kubernetes secret that contains the necessary configuration parameters for the NetApp ONTAP driver. To define the backends,
-update the helm overrides file with the necessary configuration parameters.
+The NetApp ONTAP driver requires a backend configuration to be set in the Kubernetes environment. The backend configuration specifies the storage system that the NetApp Volume Worker will use to create and manage volumes. The backend configuration is a Kubernetes secret that contains the necessary configuration parameters for the NetApp ONTAP driver. To define the backends, update the helm overrides file with the necessary configuration parameters.
 
 Edit (or create) `cinder-helm-netapp-overrides.yaml`:
 
@@ -81,7 +73,7 @@ The netapp backend can use both NFS or iSCSI protocols. The following example pr
 > **Storage Node Variables**
 >
 >
-> If you are using iSCSI, ensure that the `enable_iscsi` variable is set to `true`. If you are using NFS, set it to `false`.
+> If you are using iSCSI, ensure that the `enable_iscsi` variable is set to `true`. If you are using NFS, set it to `false`.  
 > The `custom_multipath` variable is optional and can be set to `true` if you are running multipath on the storage nodes.
 
 ```  yaml
@@ -188,9 +180,9 @@ Expected Output
 
 Refer to:
 
-- [Volume QoS](/operational-guide/openstack-cinder-volume-qos-policies/)
-- [Provisioning Specs](/operational-guide/openstack-cinder-volume-provisioning-specs/)
-- [Extra Specs](/operational-guide/openstack-cinder-volume-type-specs/)
+- [Volume QoS](/operations-guide/openstack-cinder-volume-qos-policies/)
+- [Provisioning Specs](/operations-guide/openstack-cinder-volume-provisioning-specs/)
+- [Extra Specs](/operations-guide/openstack-cinder-volume-type-specs/)
 
 > [!WARNING]
 >

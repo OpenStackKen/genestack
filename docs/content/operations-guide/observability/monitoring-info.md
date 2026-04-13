@@ -115,7 +115,7 @@ Once we've ran the apply command we will have installed ServiceMonitors for Kube
     * OVN
     * Pinger
 
-    You can view more information about OVN monitoring in the [OVN Monitoring Introduction Docs](/operational-guide/ovn-monitoring-introduction/).
+    You can view more information about OVN monitoring in the [OVN Monitoring Introduction Docs](/operations-guide/ovn-monitoring-introduction/).
 
 * ### Envoy Gateway Monitoring:
 Genestack makes use of the Envoy Gateway API for its implementation of [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/). Genestack deploys the Envoy Gateway as part of its infrastructure, view the [Envoy Gateway Deployment Doc](/deployment-guide/open-infrastructure/infrastructure/envoy-gateway-api/) for more information.

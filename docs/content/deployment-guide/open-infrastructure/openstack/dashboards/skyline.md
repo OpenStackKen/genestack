@@ -83,7 +83,3 @@ kubectl --namespace openstack \
 ``` shell
 kubectl --namespace openstack apply -k /etc/genestack/kustomize/skyline/overlay
 ```
-
-## Skyline Deployment Demo
-
-[![asciicast](https://asciinema.org/a/629816.svg)](https://asciinema.org/a/629816)

@@ -211,7 +211,7 @@ openstack --os-cloud default flavor set gpu-p2000.medium \
 
 > [!NOTE]
 >
-> The `pci_passthrough` property assumes that the **p2000** alias has been set up on your compute node. Review the [service-specific overrides](/operational-guide/openstack-service-overrides/) setup for more on custom compute configurations and refer to the [Genestack documentation](/operational-guide/openstack-pci-passthrough/) on leveraging passthrough devices.
+> The `pci_passthrough` property assumes that the **p2000** alias has been set up on your compute node. Review the [service-specific overrides](/operations-guide/openstack-service-overrides/) setup for more on custom compute configurations and refer to the [Genestack documentation](/operations-guide/openstack-pci-passthrough/) on leveraging passthrough devices.
 
 > [!NOTE]
 >

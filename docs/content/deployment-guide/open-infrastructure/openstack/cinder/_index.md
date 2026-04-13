@@ -2,7 +2,6 @@
 title: "Cinder"
 weight: 60
 type: docs
-simple_list: true
 description: "OpenStack block storage deployment workflows, storage backends, and supported storage options."
 cascade:
   - type: docs
@@ -215,18 +214,12 @@ echo
 > [!TIP]
 >
 > You may need to provide custom values to configure your openstack services, for a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
-> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operational-guide/multi-region-support/) guide to for a workflow solution.
+> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operations-guide/multi-region-support/) guide to for a workflow solution.
 
 > [!IMPORTANT]
 >
 > **External Ceph Storage Backend**
 >
 > If Cinder will be deployed with an external Ceph storage backend, review the
-> [OpenStack Cinder Ceph Store](/operational-guide/openstack-cinder-ceph-store/) operator
+> [OpenStack Cinder Ceph Store](/operations-guide/openstack-cinder-ceph-store/) operator
 > documentation for additional steps and setup.
-
-## Demo
-
-[![asciicast](https://asciinema.org/a/629808.svg)](https://asciinema.org/a/629808)
-
-## Storage Backends and Encryption

@@ -19,7 +19,7 @@ efficiently gather necessary details to support operations, troubleshoot issues,
 ## Prerequisites
 
 Access to the openstack --os-cloud default command-line client (openstack --os-cloud default command). Administrative privileges or appropriate permissions to view user and project information.
-See the [documentation](/operational-guide/openstack-clouds/) on generating your own `clouds.yaml` file which can be used to populate the monitoring configuration file.
+See the [documentation](/operations-guide/openstack-clouds/) on generating your own `clouds.yaml` file which can be used to populate the monitoring configuration file.
 
 ## Retrieving Information from an Instance UUID
 

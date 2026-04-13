@@ -34,7 +34,7 @@ Set the annotations needed within the environment to meet the needs of your work
 > **Post Deployment**
 >
 >
-> Review the OVN Operations Guide for more information on how to manage your OVN environment post deployment. The guide can be found [here](/operational-guide/ovn-kube-ovn-openstack/). The guide will help you understand how to manage your OVN environment and how to troubleshoot issues that may arise.
+> Review the OVN Operations Guide for more information on how to manage your OVN environment post deployment. The guide can be found [here](/operations-guide/ovn-kube-ovn-openstack/). The guide will help you understand how to manage your OVN environment and how to troubleshoot issues that may arise.
 
 ### Set `ovn.openstack.org/int_bridge`
 

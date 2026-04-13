@@ -2,7 +2,6 @@
 title: "Infrastructure"
 weight: 30
 type: docs
-simple_list: true
 description: "Foundational infrastructure services and shared platform dependencies."
 cascade:
   - type: docs
@@ -24,9 +23,3 @@ When you're building the cloud, many of the underlying infrastructure components
 
 - `base` creates a production-ready environment that ensures an HA system is deployed across the hardware available in your cloud.
 - `aio` creates a minimal cloud environment which is suitable for test, which may have low resources.
-
-## Demo
-
-[![asciicast](https://asciinema.org/a/629790.svg)](https://asciinema.org/a/629790)
-
-## Services

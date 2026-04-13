@@ -4,13 +4,11 @@ weight: 40
 ---
 **Audience:** Cloud operators who will deploy the *containerised* NetApp Cinder volume worker (NFS‑only).
 
-**Why a separate guide?** The container image does **not** support iSCSI; if you need iSCSI, follow the
-[NetApp Volume Worker – Operator Guide](/deployment-guide/open-infrastructure/openstack/block-storage/cinder-netapp-worker/) instead.
+**Why a separate guide?** The container image does **not** support iSCSI; if you need iSCSI, follow the [NetApp Volume Worker – Operator Guide](/deployment-guide/open-infrastructure/openstack/block-storage/cinder-netapp-worker/) instead.
 
 ## 1  Understand the BACKENDS Variable
 
-The container expects a single environment variable – `BACKENDS` – that embeds one or more backend definitions. Each backend is a comma‑separated
-list of **10** fields; multiple backends are separated by semicolons.
+The container expects a single environment variable – `BACKENDS` – that embeds one or more backend definitions. Each backend is a comma‑separated list of **10** fields; multiple backends are separated by semicolons.
 
 ``` bash
 BACKENDS="<field0>,<field1>,…,<field10>; <field0>,<field1>,…,<field10>; …"
@@ -108,9 +106,9 @@ Expected Output
 
 Refer to:
 
-- [Volume QoS](/operational-guide/openstack-cinder-volume-qos-policies/)
-- [Provisioning Specs](/operational-guide/openstack-cinder-volume-provisioning-specs/)
-- [Extra Specs](/operational-guide/openstack-cinder-volume-type-specs/)
+- [Volume QoS](/operations-guide/openstack-cinder-volume-qos-policies/)
+- [Provisioning Specs](/operations-guide/openstack-cinder-volume-provisioning-specs/)
+- [Extra Specs](/operations-guide/openstack-cinder-volume-type-specs/)
 
 > [!WARNING]
 >

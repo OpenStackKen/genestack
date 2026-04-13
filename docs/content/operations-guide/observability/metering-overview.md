@@ -5,8 +5,8 @@ weight: 210
 Metering in OpenStack involves collecting, tracking, and analyzing the
 usage data of various resource types within your cloud environment (_crucial
 for billing, monitoring, and performance optimization_). This functionality
-is achieved by leveraging the [Ceilometer](/operational-guide/metering-ceilometer/) and
-[Gnocchi](/operational-guide/metering-gnocchi/) projects.
+is achieved by leveraging the [Ceilometer](/operations-guide/metering-ceilometer/) and
+[Gnocchi](/operations-guide/metering-gnocchi/) projects.
 
 Ceilometer and Gnocchi work together to provide a powerful solution for
 resource tracking in environments of all sizes. Their combined importance

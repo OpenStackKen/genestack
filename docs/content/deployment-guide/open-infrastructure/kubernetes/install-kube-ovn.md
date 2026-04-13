@@ -440,7 +440,7 @@ ovn-default   ovn        ovn-cluster   IPv4       10.236.0.0/14   false     true
 > [!TIP]
 >
 > After the deployment, and before going into production, it is highly recommended to review the
-> [Kube-OVN Backup documentation](/operational-guide/infrastructure-ovn-db-backup/), from the operators guide for setting up you backups.
+> [Kube-OVN Backup documentation](/operations-guide/infrastructure-ovn-db-backup/), from the operators guide for setting up you backups.
 
 Upon successful deployment the Kubernetes Nodes should transition into a `Ready` state. Validate the nodes are ready by
 running the following command.

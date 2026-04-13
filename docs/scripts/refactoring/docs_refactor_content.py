@@ -59,7 +59,7 @@ SECTION_FILES = {
     ],
     "regions": ["api-status.md"],
     "info": ["mkdocs-howto.md"],
-    "operational-guide": [
+    "operations-guide": [
         "genestack-structure-and-files.md",
         "multi-region-support.md",
         "sync-fernet-keys.md",

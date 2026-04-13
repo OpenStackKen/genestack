@@ -2,7 +2,6 @@
 title: "Deploy Persistent Storage"
 weight: 20
 type: docs
-simple_list: true
 description: "Storage backends and storage service deployment options."
 cascade:
   - type: docs
@@ -24,8 +23,9 @@ These `StorageClass` types are needed by various systems; however, how you get t
 The following sections provide a means to manage storage and provide our needed `StorageClass` types. While there may be many
 persistent storage options, not all of them are needed.
 
-## Storage Deployment Demo
-
-[![asciicast](https://asciinema.org/a/629785.svg)](https://asciinema.org/a/629785)
-
 ## Storage Deployment Backends
+
+Both "Internal" and "External" storage backends are supported.  The difference between these two backend types is determined how they are provided relative to the Kubernetes cluster itself:
+
+- **Internal:** These storage backends are defined and managed from within Kubernetes itself.
+- **External:** These storage backends are provided separately from Kubernetes, and will need to be configured to support your deployment.

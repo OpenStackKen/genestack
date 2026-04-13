@@ -19,7 +19,7 @@ Modify `/etc/genestack/helm-configs/monitoring/openstack-metrics-exporter/clouds
 
 > [!TIP]
 >
-> See the [documentation](/operational-guide/openstack-clouds/) on generating your own `clouds.yaml` file which can be used to populate the monitoring configuration file.
+> See the [documentation](/operations-guide/openstack-clouds/) on generating your own `clouds.yaml` file which can be used to populate the monitoring configuration file.
 
 From your generated `clouds.yaml` file, create a new manifest for your cloud config:
 

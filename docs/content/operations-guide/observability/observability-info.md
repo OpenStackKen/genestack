@@ -52,7 +52,7 @@ Example logcli lookup query
 logcli-parallel --since=15m '{application=~"nova|placement"} |~ `<my-project-id-here>`' | jq -r '.log'
 ```
 
-You can view more information about logging in Genestack at the [Logging Overview](/operational-guide/genestack-logging/) documentation page.
+You can view more information about logging in Genestack at the [Logging Overview](/operations-guide/genestack-logging/) documentation page.
 
 ## Monitoring and Alerting with Prometheus
 
@@ -64,7 +64,7 @@ Prometheus and the related components fits Genestack open-source ethos and is ea
 The below diagram shows how all these monitoring and alerting components tie together:
 ![Prometheus Architecture](/assets/images/prometheus-architecture.png)
 
-We have covered Prometheus, Prometheus alerting and the AlertManager in greater detail in the [Monitoring](/operational-guide/monitoring-info/) and [Alerting](/operational-guide/alerting-info/) documentation.
+We have covered Prometheus, Prometheus alerting and the AlertManager in greater detail in the [Monitoring](/operations-guide/monitoring-info/) and [Alerting](/operations-guide/alerting-info/) documentation.
 
 ## Visualization
 
@@ -72,11 +72,11 @@ Now that we have the logging, monitoring, metrics and alerting portions of our o
 For that we use [Grafana](https://grafana.com/) as our default visualization platform in Genestack. Grafana is an open-sourced, feature rich and highly pluggable visualization system that aligns well with Genestack.
 Prometheus, Alertmanager and even Loki can easily plug right in and integrate with Grafana so that we can build out the visualization layer of our observability platform.
 
-As noted in the [Prometheus Alerting](/operational-guide/alerting-info/) documentation we can configure alerts via Prometheus configurations and alert on any metric collected.
+As noted in the [Prometheus Alerting](/operations-guide/alerting-info/) documentation we can configure alerts via Prometheus configurations and alert on any metric collected.
 It's also possible to set up alerting through Grafana, see Grafana's [alerting docs](https://grafana.com/docs/grafana/latest/alerting/) for more details.
 
 This comes in handy in the context of Loki and logs. Grafana with the  [Loki datasource](https://grafana.com/docs/grafana/latest/datasources/loki/) allows us to configure alerts based on logging queries and the information returned.
-One example in Genestack would be the [OVN Claimstorm alerts](/operational-guide/ovn-alert-claim-storm/). Below we can see an example of how this is configured.
+One example in Genestack would be the [OVN Claimstorm alerts](/operations-guide/ovn-alert-claim-storm/). Below we can see an example of how this is configured.
 ![ovn claimstore alert](/assets/images/loki-alerting-rules-example.png)
 
 As noted above we can also use Loki and Grafana to display logs for our services. The following example and image shows what that would look like.
@@ -89,7 +89,7 @@ Example LokiQL lookup query
 
 ![project lookup example](/assets/images/project-lookup-example.png)
 
-For additional information view the [Grafana](/operational-guide/monitoring-info/#visualization) portion of the [Monitoring Info](/operational-guide/monitoring-info/) documentation.
+For additional information view the [Grafana](/operations-guide/monitoring-info/#visualization) portion of the [Monitoring Info](/operations-guide/monitoring-info/) documentation.
 
 ## Datadog
 

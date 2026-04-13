@@ -2,8 +2,9 @@
 title: "Supported Kubernetes Providers"
 weight: 20
 type: docs
-description: "Supported cluster provider workflows and bring-up paths."
+description: "Kubernetes provider workflows and bring-up paths."
 cascade:
   - type: docs
 ---
-Supported cluster provider workflows and bring-up paths.
+
+Genestack utilizes Kuberentes as it's container management framework.  While the base requirements can be simply stated as "Genestack requires Kuberenetes", this section covers more specific instructions for tested and supported cluster provider workflows and bring-up paths.

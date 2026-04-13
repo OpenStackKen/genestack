@@ -253,7 +253,7 @@ echo
 > [!TIP]
 >
 > You may need to provide custom values to configure your openstack services, for a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
-> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operational-guide/multi-region-support/) guide to for a workflow solution.
+> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operations-guide/multi-region-support/) guide to for a workflow solution.
 
 > [!NOTE]
 >
@@ -271,10 +271,6 @@ kubectl --namespace openstack exec -ti openstack-admin-client -- openstack image
 >
 >
 > If glance will be deployed with an external swift storage backend, review the
-> [OpenStack Glance Swift Store](/operational-guide/openstack-glance-swift-store/) or the
-> [OpenStack Glance External Ceph Store](/operational-guide/openstack-glance-ceph-store/) operator
+> [OpenStack Glance Swift Store](/operations-guide/openstack-glance-swift-store/) or the
+> [OpenStack Glance External Ceph Store](/operations-guide/openstack-glance-ceph-store/) operator
 > documentation for additional steps and setup.
-
-## Demo
-
-[![asciicast](https://asciinema.org/a/629806.svg)](https://asciinema.org/a/629806)

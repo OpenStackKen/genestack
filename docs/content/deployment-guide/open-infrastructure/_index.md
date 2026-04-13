@@ -11,4 +11,4 @@ Deploy a complete cloud with Open Infrastructure: shared platform layers: Kubern
 
 Stop waiting on complex setup processes and start delivering value immediately — build, test, and launch on your timeline, not your infrastructure’s.
 
-## Deploy Open Infrastructure
+Read on to learn how to **Deploy Open Infrastructure**...

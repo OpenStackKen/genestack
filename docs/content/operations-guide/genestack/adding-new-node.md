@@ -105,10 +105,10 @@ At this point the compute node should be up and running and your `openstack` cli
 ## For PCI passthrough
 
 If you are adding a new node to be a PCI passthrough compute, say for exposing GPU to the vm, at this stage you will have to
-setup your PCI Passthrough configuration. Follow steps from:  [Configuring PCI Passthrough in OpenStack](/operational-guide/openstack-pci-passthrough/)
+setup your PCI Passthrough configuration. Follow steps from:  [Configuring PCI Passthrough in OpenStack](/operations-guide/openstack-pci-passthrough/)
 
-Once the PCI setup is complete follow the instructions from: [Adding Host Aggregates](/operational-guide/openstack-host-aggregates/) to setup host
+Once the PCI setup is complete follow the instructions from: [Adding Host Aggregates](/operations-guide/openstack-host-aggregates/) to setup host
 aggregates for the group of PCI devices. This helps us control the image/flavor/tennant build restriction on a given aggregate to
 better use underlying GPU resources.
 
-Once the host aggregate is setup follow the instructions from: [Genestack flavor documentation](/operational-guide/openstack-flavors/) to setup the right flavor.
+Once the host aggregate is setup follow the instructions from: [Genestack flavor documentation](/operations-guide/openstack-flavors/) to setup the right flavor.

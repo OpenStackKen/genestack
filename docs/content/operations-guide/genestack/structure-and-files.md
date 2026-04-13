@@ -1,16 +1,17 @@
 ---
-title: "Genestack Structure and Files"
-weight: 70
+title: "Structure and Layout"
+weight: 10
 ---
-This document outlines the structure and purpose of the `/etc/genestack` directory, which serves as a central configuration location for Genestack, a platform for deploying and managing OpenStack and related services using Helm charts. It includes descriptions of the key subdirectories and the `helm-chart-versions.yaml` file.
 
-## `/etc/genestack` Directory Overview
+The Genestack filesystem structure and layout is standardized.  This section of the Operations Guide will help you understand the main parts of the layout.
 
-The `/etc/genestack` directory is the primary location for configuration files used by Genestack's deployment scripts. It contains Helm configuration overrides, custom settings, and version information for various services. The directory is organized to separate global configurations, service-specific configurations, and other operational settings.
+## The `/etc/genestack` Directory
 
-### Subdirectories
+The `/etc/genestack` directory serves as the central configuration location for Genestack. It is the primary location for configuration files used by Genestack's deployment scripts. It contains Helm configuration overrides, custom settings, and version information for various services. 
 
-#### `/etc/genestack/helm-configs`
+The `/etc/genestack` directory is organized to separate global configurations, service-specific configurations, and other operational settings.
+
+### The `/etc/genestack/helm-configs` Subdirectory
 
 This directory stores Helm configuration overrides for individual services and global settings. It is organized into subdirectories for each service, as well as a `global_overrides` directory for configurations that apply across multiple services.
 
@@ -20,7 +21,7 @@ This directory stores Helm configuration overrides for individual services and g
   - `/etc/genestack/helm-configs/<service_name>`: Each service (e.g., `keystone`, `nova`, `grafana`) has its own subdirectory containing service-specific override YAML files, such as `<service_name>-helm-overrides.yaml`. These files customize Helm chart settings for the respective service.
 - **Usage**: The installation scripts (e.g., `install-<service_name>.sh`) reference these YAML files using the `-f` flag in Helm commands to customize deployments.
 
-#### `/etc/genestack/kustomize`
+### The `/etc/genestack/kustomize` Subdirectory
 
 This directory contains scripts and configurations for Kustomize, a tool used to customize Kubernetes manifests during deployment.
 
@@ -29,7 +30,7 @@ This directory contains scripts and configurations for Kustomize, a tool used to
   - `/etc/genestack/kustomize/kustomize.sh`: A script invoked by Helm's `--post-renderer` flag to apply Kustomize transformations specific to each service's overlay (e.g., `keystone/overlay`, `nova/overlay`).
 - **Usage**: Referenced in Helm commands to ensure consistent application of Kubernetes customization across services.
 
-### `helm-chart-versions.yaml` File
+## The `helm-chart-versions.yaml` File
 
 The `helm-chart-versions.yaml` file, located at `/etc/genestack/helm-chart-versions.yaml`, is a critical configuration file that centralizes version information for all Helm charts used in the Genestack deployment.
 
@@ -67,6 +68,7 @@ The `helm-chart-versions.yaml` file, located at `/etc/genestack/helm-chart-versi
     prometheus: 70.4.2
     redis-operator: 0.21.0
   ```
+
 - **Usage**: Installation scripts (e.g., `install-<service_name>.sh`) read this file to determine the correct Helm chart version for each service. The `ye(Yaml Editor)` script also uses this file to fetch the appropriate `values.yaml` file for a given service version when editing configurations.
 
 ## Additional Notes

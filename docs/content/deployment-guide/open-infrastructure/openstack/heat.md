@@ -219,14 +219,10 @@ echo
 > [!TIP]
 >
 > You may need to provide custom values to configure your openstack services, for a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
-> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operational-guide/multi-region-support/) guide to for a workflow solution.
+> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operations-guide/multi-region-support/) guide to for a workflow solution.
 
 ## Validate functionality
 
 ``` shell
 kubectl --namespace openstack exec -ti openstack-admin-client -- openstack --os-interface internal orchestration service list
 ```
-
-## Demo
-
-[![asciicast](https://asciinema.org/a/629807.svg)](https://asciinema.org/a/629807)

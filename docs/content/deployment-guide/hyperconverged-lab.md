@@ -363,7 +363,3 @@ This can be used to login to the Skyline web console.  To access the Skyline web
 > [!NOTE]
 >
 > If you get SSL errors, wait a bit. Cert Manager takes time to generate all the SSL certs it using with Let's Encrypt.
-
-## Demo
-
-[![asciicast](https://asciinema.org/a/706976.svg)](https://asciinema.org/a/706976)

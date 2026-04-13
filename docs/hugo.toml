@@ -116,7 +116,7 @@ weight = 30
 
 [[menu.main]]
 name = "Operations Guide"
-url = "/operational-guide/"
+url = "/operations-guide/"
 weight = 40
 
 [[menu.main]]

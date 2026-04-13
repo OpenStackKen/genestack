@@ -32,7 +32,7 @@ artifact. The goal is to track the content areas where:
 
 ## Priority review items
 
-- [ ] [docs/content/operational-guide/openstack/keystone-ldap.md](/Users/ken/Dev/genestack/docs/content/operational-guide/openstack/keystone-ldap.md)
+- [ ] [docs/content/operations-guide/openstack/keystone-ldap.md](/Users/ken/Dev/genestack/docs/content/operations-guide/openstack/keystone-ldap.md)
   Main-path source: [docs/openstack-keystone-ldap.md](/Users/ken/Dev/genestack/docs/openstack-keystone-ldap.md) on `main`
   Reason: this page required a manual rebase conflict resolution. The branch
   kept the Hugo-native refactored content instead of the older MkDocs-era
@@ -155,14 +155,14 @@ Review note:
 - this section mostly moved into a subsection-aware Hugo tree
 - check upstream edits for meaning changes, not just path changes
 
-## Operational Guide
+## Operations Guide
 
-- [ ] [docs/content/operational-guide/_index.md](/Users/ken/Dev/genestack/docs/content/operational-guide/_index.md)
-- [ ] [docs/content/operational-guide/lifecycle/_index.md](/Users/ken/Dev/genestack/docs/content/operational-guide/lifecycle/_index.md)
-- [ ] [docs/content/operational-guide/observability/_index.md](/Users/ken/Dev/genestack/docs/content/operational-guide/observability/_index.md)
-- [ ] [docs/content/operational-guide/openstack/_index.md](/Users/ken/Dev/genestack/docs/content/operational-guide/openstack/_index.md)
-- [ ] [docs/content/operational-guide/ovn/_index.md](/Users/ken/Dev/genestack/docs/content/operational-guide/ovn/_index.md)
-- [ ] [docs/content/operational-guide/platform/_index.md](/Users/ken/Dev/genestack/docs/content/operational-guide/platform/_index.md)
+- [ ] [docs/content/operations-guide/_index.md](/Users/ken/Dev/genestack/docs/content/operations-guide/_index.md)
+- [ ] [docs/content/operations-guide/lifecycle/_index.md](/Users/ken/Dev/genestack/docs/content/operations-guide/lifecycle/_index.md)
+- [ ] [docs/content/operations-guide/observability/_index.md](/Users/ken/Dev/genestack/docs/content/operations-guide/observability/_index.md)
+- [ ] [docs/content/operations-guide/openstack/_index.md](/Users/ken/Dev/genestack/docs/content/operations-guide/openstack/_index.md)
+- [ ] [docs/content/operations-guide/ovn/_index.md](/Users/ken/Dev/genestack/docs/content/operations-guide/ovn/_index.md)
+- [ ] [docs/content/operations-guide/platform/_index.md](/Users/ken/Dev/genestack/docs/content/operations-guide/platform/_index.md)
 
 Review note:
 - many old flat pages now live under narrower topical subsections
