@@ -62,6 +62,14 @@ function isempty(s)
     return s == nil or s == ''
 end
 
+local function escape_latex_text(text)
+    text = text:gsub('\\', '\\textbackslash{}')
+    text = text:gsub('([{}$%%#&_])', '\\%1')
+    text = text:gsub('~', '\\textasciitilde{}')
+    text = text:gsub('%^', '\\textasciicircum{}')
+    return text
+end
+
 
 -- Process BlockQuote/Callout
 function BlockQuote(elem)
@@ -114,6 +122,7 @@ function BlockQuote(elem)
     fmt = titlecase(pandoc.utils.stringify(FORMAT))      
     if fmt == 'Latex'
     then
+        callout_title = escape_latex_text(callout_title)
         -- remove blockquote tag and get content
         callout = elem.content
         
@@ -188,6 +197,11 @@ function BlockQuote(elem)
             table.insert(callout, 1, pandoc.RawBlock("latex", "\\renewcommand\\quoteTitle{\\quoteIcon " .. callout_title .. "}\n\\begin{quote-box}"))
             -- insert element at the back
             table.insert(callout, pandoc.RawBlock("latex", "\\end{quote-box}"))
+        elseif has_value({ "Genestack" }, callout_type) then
+            -- insert element in front
+            table.insert(callout, 1, pandoc.RawBlock("latex", "\\renewcommand\\genestackTitle{\\genestackIcon " .. callout_title .. "}\n\\begin{genestack-box}"))
+            -- insert element at the back
+            table.insert(callout, pandoc.RawBlock("latex", "\\end{genestack-box}"))            
         elseif has_value({ "Blank" }, callout_type) then
             -- insert element in front
             table.insert(callout, 1, pandoc.RawBlock("latex", "\\renewcommand\\quoteTitle{\\quoteIcon}\n\\begin{quote-box}"))
@@ -197,4 +211,3 @@ function BlockQuote(elem)
     end 
     return callout
 end
-

@@ -24,26 +24,26 @@ The Genestack monitoring and observability stack includes:
 flowchart TB
  subgraph PROMOPS["Prometheus&nbsp;Operations"]
     direction LR
-        MC@{ label: "📦&nbsp;&nbsp;<b>Metric&nbsp;Collectors</b><br><span style=\"font-size:0.85em\">Node Exporter · Kube State · cAdvisor · RabbitMQ · MySQL · OpenStack · Postgres · Memcached</span>" }
-        PROM(("🔥&nbsp;&nbsp;Prometheus"))
-        AM(("🔔&nbsp;&nbsp;AlertManager"))
+        MC@{ label: "<b>Metric&nbsp;Collectors</b><br><span style=\"font-size:0.85em\">Node Exporter · Kube State · cAdvisor · RabbitMQ · MySQL · OpenStack · Postgres · Memcached</span>" }
+        PROM(("<b>Prometheus</b>"))
+        AM(("<b>AlertManager</b>"))
   end
  subgraph FLEX["Cluster"]
     direction LR
         PROMOPS
-        GRAF@{ label: "🌀&nbsp;<b>Grafana</b><br><span style=\"font-size:0.85em\">Visualization&nbsp;dashboard</span>" }
-        FLUENTD@{ label: "🌀&nbsp;<b>FluentD</b><br><span style=\"font-size:0.85em\">Log Shipping</span>" }
-        LOKI@{ label: "<span style=\"padding-left:\">🌀&nbsp;<b>LOKI</b><br><span style=\"font-size:0.85em\">Log Aggregation</span></span>" }
+        GRAF@{ label: "<b>Grafana</b><br><span style=\"font-size:0.85em\">Visualization&nbsp;dashboard</span>" }
+        FLUENTD@{ label: "<b>FluentD</b><br><span style=\"font-size:0.85em\">Log Shipping</span>" }
+        LOKI@{ label: "<b>LOKI</b><br><span style=\"font-size:0.85em\">Log Aggregation</span>" }
   end
  subgraph RACKSPACE["Datacenter"]
     direction LR
         FLEX
-        ENC@{ label: "🗄️&nbsp;<b>Webhook&nbsp;Receiver</b><br><span style=\"font-size:0.85em\">(creates tickets)</span>" }
-        SWIFT@{ shape: cyl, label: "🗄️&nbsp;<b>Swift</b><br><span style=\"font-size:0.85em\">(object storage)</span>" }
+        ENC@{ label: "<b>Webhook&nbsp;Receiver</b><br><span style=\"font-size:0.85em\">(creates tickets)</span>" }
+        SWIFT@{ shape: cyl, label: "<b>Swift</b><br><span style=\"font-size:0.85em\">(object storage)</span>" }
   end
 
 RACKSPACE
-PD@{ shape: cloud, label: "🌩️&nbsp;&nbsp;PagerDuty/<br>Email/<br>Slack" }
+PD@{ shape: cloud, label: "PagerDuty/<br>Email/<br>Slack" }
 
     MC -. Scrapes .-> PROM
     PROM -. Targets .-> MC

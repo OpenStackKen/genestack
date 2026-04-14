@@ -103,6 +103,21 @@ Do not use Mermaid init directives such as:
 %%{init: ...}%%
 ```
 
+### Character Set
+
+Use ASCII in docs Markdown by default.
+
+Do not use emoji or other non-ASCII characters unless there is a deliberate,
+documented reason to do so. In practice, this means avoiding:
+
+- emoji
+- non-breaking hyphens and spaces
+- curly quotes
+- en dashes and em dashes
+
+The reason is practical, not aesthetic: the Hugo site and the Pandoc/LaTeX PDF
+pipeline do not render all Unicode characters consistently.
+
 ### Source Code Includes
 
 Fenced code blocks may include source files directly while preserving syntax

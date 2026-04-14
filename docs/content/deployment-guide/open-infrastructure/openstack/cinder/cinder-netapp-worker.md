@@ -2,17 +2,17 @@
 title: "NetApp Volume Backend"
 weight: 30
 ---
-This guide walks **cloud operators** through the end‑to‑end workflow for enabling the **NetApp ONTAP** backend in an OpenStack‑powered Kubernetes environment.  It is opinionated toward day‑to‑day operators who need fast, repeatable steps rather than deep driver theory.
+This guide walks **cloud operators** through the end-to-end workflow for enabling the **NetApp ONTAP** backend in an OpenStack-powered Kubernetes environment.  It is opinionated toward day-to-day operators who need fast, repeatable steps rather than deep driver theory.
 
-## At‑a‑glance workflow
+## At-a-glance workflow
 
-1. Pre‑flight checks
+1. Pre-flight checks
 2. Backend & secret creation
-3. Compute‑node preparation
+3. Compute-node preparation
 4. Deploy the NetApp Volume Worker
 5. Validate & troubleshoot
 
-## 1  Pre‑Flight Checks
+## 1  Pre-Flight Checks
 
 The NetApp Volume Worker is a **cinder-volume** service that is configured to use the NetApp ONTAP driver. This service is responsible for managing the creation, deletion, and management of volumes in the OpenStack environment. The NetApp Volume Worker is a stateful service that is deployed on a baremetal node that has access to the NetApp storage system.
 
@@ -58,9 +58,9 @@ conf:
       # …same pattern…
 ```
 
-Commit the override to your GitOps repo (if applicable) so that it is version‑controlled.
+Commit the override to your GitOps repo (if applicable) so that it is version-controlled.
 
-## 3  Compute‑Node Preparation
+## 3  Compute-Node Preparation
 
 ## 3.1  Prepare the Inventory
 
@@ -116,7 +116,7 @@ volume_use_multipath: true  # optional – enables templated multipath.conf
 
 ### 3.2  Configure Services on Hosts
 
-Add the variables to inventory and rerun **host‑setup**:
+Add the variables to inventory and rerun **host-setup**:
 
 ``` yaml
 storage:
@@ -125,7 +125,7 @@ storage:
     custom_multipath: true  # optional – enables templated multipath.conf
 ```
 
-The provided `genestack-multipath.conf` template distributes I/O across **all** active paths (queue‑length algorithm). Adjust for your environment if necessary.
+The provided `genestack-multipath.conf` template distributes I/O across **all** active paths (queue-length algorithm). Adjust for your environment if necessary.
 
 ### 3.3  DNS Sanity Check
 
@@ -303,6 +303,6 @@ size=10G features='0' hwhandler='0' wp=rw
 
 | Symptom                   | Likely Cause                       | Fix                                                  |
 | ------------------------- | ---------------------------------- | ---------------------------------------------------- |
-| `No valid host was found` | Backend mis‑named in `extra_specs` | Ensure `volume_backend_name` matches type‑extra‑spec |
+| `No valid host was found` | Backend mis-named in `extra_specs` | Ensure `volume_backend_name` matches type-extra-spec |
 | iSCSI session flaps       | Multipath not enabled              | Verify `multipathd` is running and config is correct |
 | DNS resolution fails      | Node not using CoreDNS             | Review **3.3 DNS Sanity Check**                      |

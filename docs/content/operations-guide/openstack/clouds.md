@@ -44,7 +44,7 @@ python -m pip install keyring
 
 ##### Microsoft Windows Example
 
-Ensure that the C:\Python27\Scripts directory is defined in the PATH environment variable, and use the easy_install command from the setuptools package:
+Ensure that the `C:\Python27\Scripts` directory is defined in the PATH environment variable, and use the `easy_install` command from the `setuptools` package:
 
 ``` shell
 C:> py -m pip install keyring

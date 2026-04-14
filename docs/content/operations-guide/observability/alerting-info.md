@@ -18,25 +18,25 @@ Genestack uses Prometheus for metrics and stats collection and overall monitorin
 With the metrics and stats collected we can now use Prometheus to generate alerts based on those metrics and stats using the Prometheus [Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/).
 The Prometheus alerting rules allows us to define conditions we want to escalate using the [Prometheus expression language](https://prometheus.io/docs/prometheus/latest/querying/basics/) which can be visualized and sent to an external notification systems for further action.
 
-A simple example of an alerting rule would be this RabbitQueueSizeTooLarge
-> [!IMPORTANT]
+> [!EXAMPLE]
 >
-> **RabbitQueueSizeTooLarge Alerting Rule Example**
->
->
->     ``` yaml
->     rabbitmq-alerts:
->       groups:
->       - name: Prometheus Alerts
->         rules:
->         - alert: RabbitQueueSizeTooLarge
->           expr: rabbitmq_queuesTotal>25
->           for: 5m
->           labels:
->             severity: critical
->           annotations:
->             summary: "Rabbit queue size too large (instance {{ `{{ $labels.instance }}` }} )"
->     ```
+> A simple example of an alerting rule would be this `RabbitQueueSizeTooLarge`
+
+Example rule:
+
+```yaml
+rabbitmq-alerts:
+  groups:
+  - name: Prometheus Alerts
+    rules:
+    - alert: RabbitQueueSizeTooLarge
+      expr: rabbitmq_queuesTotal>25
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Rabbit queue size too large (instance {{ `{{ $labels.instance }}` }} )"
+```
 
 In Genestack we have separated the alerting rules config out from the primary helm configuration using the `additionalPrometheusRulesMap` directive to make it a bit easier to maintain.
 Doing it this way allows for easier review of new rules, better maintainability, easier updates of the stack and helps with portability for larger deployments. Keeping our configurations separated and checked in to the repo in such a manner is ideal for these reasons.

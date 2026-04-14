@@ -75,6 +75,21 @@ Titled callouts are supported:
 The local renderer also supports the custom `GENESTACK` admonition type for
 Genestack-specific implementation notes.
 
+## Character Set
+
+Use ASCII in docs Markdown by default.
+
+Do not use:
+
+- emoji
+- non-breaking hyphens or spaces
+- typographic punctuation such as curly quotes or em dashes
+- other non-ASCII glyphs unless there is a deliberate documented exception
+
+This rule exists because the website renderer and the PDF pipeline do not
+handle every Unicode character consistently. ASCII keeps the source portable
+and avoids PDF font-substitution or missing-glyph warnings.
+
 ## Mermaid
 
 Mermaid diagrams must use fenced blocks with internal frontmatter config:

@@ -1,5 +1,5 @@
 ---
-title: "Openstack Deploying the Command Line Tools"
+title: "Installing OpenStack Command Line Tools"
 weight: 20
 ---
 Before we can get started we need to install a few things.
@@ -20,7 +20,7 @@ python -m ensurepip --upgrade
 
 #### Microsoft Windows
 
-Ensure that the C:\Python27\Scripts directory is defined in the PATH environment variable, and use the easy_install command from the setuptools package:
+Ensure that the `C:\Python27\Scripts` directory is defined in the PATH environment variable, and use the `easy_install` command from the `setuptools` package:
 
 ``` shell
 C:> py -m ensurepip --upgrade
@@ -38,7 +38,7 @@ Assuming you have `pip` installed, it can be used to install the openstack clien
 
 > [!TIP]
 >
-> Users may want to use a Virtual Environment so that they do not have any risk of hurting their default Python environment. For more information on seting up a venv please visit the python [documentation](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments) on working with virtual environments.
+> Users may want to use a Virtual Environment (venv) so that they do not have any risk of hurting their default Python environment. For more information on setting up a venv please visit the python [documentation](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments) on working with virtual environments.
 
 ``` shell
 pip install python-openstackclient

@@ -23,18 +23,23 @@ function get_rows_data(rows)
   local data = ''
   for j, row in ipairs(rows) do
     for k, cell in ipairs(row.cells) do
-      data = data .. pandoc.utils.stringify(cell.contents)
+      local cell_text = pandoc.utils.stringify(cell.contents)
+
+      -- This filter emits raw LaTeX table rows, so ordinary Markdown text no
+      -- longer goes through Pandoc's normal LaTeX escaping. Escape the common
+      -- LaTeX-special characters here so table content such as Prometheus
+      -- templates, shell fragments, and config examples render literally.
+      cell_text = cell_text:gsub('\\', '\\textbackslash{}')
+      cell_text = cell_text:gsub('([{}$%%#&_])', '\\%1')
+      cell_text = cell_text:gsub('~', '\\textasciitilde{}')
+      cell_text = cell_text:gsub('%^', '\\textasciicircum{}')
+
+      data = data .. cell_text
       if (k == #row.cells) then
         data = data .. ' \\\\ \n'
       else
         data = data .. ' & '
       end
-      -- change % into \%
-      data = data:gsub('([^\\])%%', '%1\\%%')
-      data = data:gsub('^%%', '\\%%')
-      -- change _ into \_
-      data = data:gsub('([^\\])_', '%1\\_')
-      data = data:gsub('^_', '\\_')
     end
   end
   return data

@@ -1,36 +1,36 @@
 ---
-title: "LVM iSCSI Backend"
+title: "LVM iSCSI Backend"
 weight: 20
 ---
-This guide explains how a **cloud operator** can enable the **reference LVM backend** over iSCSI for OpenStack Cinder. It assumes you are running the volume service directly on bare‑metal storage nodes.
+This guide explains how a **cloud operator** can enable the **reference LVM backend** over iSCSI for OpenStack Cinder. It assumes you are running the volume service directly on bare-metal storage nodes.
 
 In order to utilize the logical volume driver (reference), it must be deployed in hybrid way, outside of the K8s workflow on baremetal volume hosts. Specifically, iSCSI is incompatible with containerized work environments. Fortunately, Genestack has a playbook which will facilitate the installation of cinder-volume services and ensure that everything is deployed in working order on the baremetal nodes. The playbook can be found at `playbooks/deploy-cinder-volumes-reference.yaml`. Included in the playbooks directory is an example inventory for cinder hosts; however, any inventory should work fine.
 
 ## Quick path to success
 
-1. Pre‑flight checklist
-2. Storage‑node preparation
+1. Pre-flight checklist
+2. Storage-node preparation
 3. Run the deployment playbook
 4. Create volume type & policies
 5. Validate operations
 6. Enable iSCSI + multipath for compute nodes
 
-## 1  Pre‑Flight Checklist
+## 1  Pre-Flight Checklist
 
 | Item                                 | Why it matters                                                  |
 | ------------------------------------ | --------------------------------------------------------------- |
-| CoreDNS reachable from storage nodes | Cinder‑Volume must talk to Keystone & RabbitMQ over service DNS |
-| Free block device (e.g. `/dev/vdf`)  | Will be turned into the **cinder‑volumes‑1** VG                 |
+| CoreDNS reachable from storage nodes | Cinder-Volume must talk to Keystone & RabbitMQ over service DNS |
+| Free block device (e.g. `/dev/vdf`)  | Will be turned into the **cinder-volumes-1** VG                 |
 | Playbook inventory updated           | Storage nodes grouped as `cinder_storage_nodes`                 |
-| Volume‑type policies drafted         | QoS, provisioning, and extra specs prepared                     |
+| Volume-type policies drafted         | QoS, provisioning, and extra specs prepared                     |
 
 > [!WARNING]
 >
 > **VG name must match driver stanza**
 >
-> The reference driver hard‑codes `lvmdriver-1` (volume type) and `cinder-volumes-1` (volume group). Keep these names unless you also edit the playbook templates.
+> The reference driver hard-codes `lvmdriver-1` (volume type) and `cinder-volumes-1` (volume group). Keep these names unless you also edit the playbook templates.
 
-## 2  Storage‑Node Preparation
+## 2  Storage-Node Preparation
 
 Because the Cinder Reference LVM driver is incompatible with a containerized work environment, the services are setup as baremetal targets.
 
@@ -38,7 +38,7 @@ Genestack has a playbook which will facilitate the installation of our services 
 
 ### 2.1  Ensure DNS Works
 
-If your storage host isn’t a Kubernetes worker, configure **systemd‑resolved** manually:
+If your storage host isn't a Kubernetes worker, configure **systemd-resolved** manually:
 
 ``` ini
 [Resolve]
@@ -167,7 +167,7 @@ root@openstack-node-0:~# kubectl --namespace openstack exec -ti openstack-admin-
 +------------------+--------------------------------------------+------+---------+-------+----------------------------+
 ```
 
-Should show `openstack-node‑X@lvmdriver-1` **enabled/up**.
+Should show `openstack-node-X@lvmdriver-1` **enabled/up**.
 
 ### 5.2  Create a test volume
 
@@ -255,13 +255,13 @@ volume_use_multipath: true
 
 ### 6.2  Host services
 
-Add to inventory and rerun **host‑setup**:
+Add to inventory and rerun **host-setup**:
 
 ``` yaml
 storage:
   vars:
     enable_iscsi: true
-    storage_network_multipath: true   # optional – uses queue-length policy
+    storage_network_multipath: true   # optional -- uses queue-length policy
 ```
 
 > [!TIP]
@@ -352,6 +352,6 @@ size=10G features='0' hwhandler='0' wp=rw
 
 | Symptom                           | Cause                             | Resolution                                      |
 | --------------------------------- | --------------------------------- | ----------------------------------------------- |
-| `No valid host was found`         | Volume type not mapped to backend | Check `volume_backend_name` extra‑spec          |
+| `No valid host was found`         | Volume type not mapped to backend | Check `volume_backend_name` extra-spec          |
 | `tgtadm` shows no targets         | `cinder-volume` failed to start   | `journalctl -u cinder-volume` for details       |
-| VM cannot reach disk after reboot | Multipath disabled                | Ensure **6 Enable iSCSI & Multipath** completed |
+| VM cannot reach disk after reboot | Multipath disabled                | Ensure **6 Enable iSCSI & Multipath** completed |

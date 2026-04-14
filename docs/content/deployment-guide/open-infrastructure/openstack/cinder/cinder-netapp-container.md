@@ -2,13 +2,13 @@
 title: "NetApp Container Backend"
 weight: 40
 ---
-**Audience:** Cloud operators who will deploy the *containerised* NetApp Cinder volume worker (NFS‑only).
+**Audience:** Cloud operators who will deploy the *containerised* NetApp Cinder volume worker (NFS-only).
 
 **Why a separate guide?** The container image does **not** support iSCSI; if you need iSCSI, follow the [NetApp Volume Worker – Operator Guide](/deployment-guide/open-infrastructure/openstack/block-storage/cinder-netapp-worker/) instead.
 
 ## 1  Understand the BACKENDS Variable
 
-The container expects a single environment variable – `BACKENDS` – that embeds one or more backend definitions. Each backend is a comma‑separated list of **10** fields; multiple backends are separated by semicolons.
+The container expects a single environment variable – `BACKENDS` – that embeds one or more backend definitions. Each backend is a comma-separated list of **10** fields; multiple backends are separated by semicolons.
 
 ``` bash
 BACKENDS="<field0>,<field1>,…,<field10>; <field0>,<field1>,…,<field10>; …"
@@ -38,24 +38,24 @@ BACKENDS="<field0>,<field1>,…,<field10>; <field0>,<field1>,…,<field10>; …"
 
 ## 2  Operator Workflow
 
-1. ✅ Draft backend string
-2. 🔐 Create Kubernetes secret
-3. 🚀 Deploy Kustomize manifest
-4. 🔍 Validate Cinder services & exports
+1. Draft backend string
+2. Create Kubernetes secret
+3. Deploy Kustomize manifest
+4. Validate Cinder services & exports
 
 ### 2.1  Draft the BACKENDS String
 
 Fill in real values; keep the order **exactly** as in § 1.1.
 
 ``` bash
-export BACKENDS="nfs-prod-a,netappuser,supersecret,ontap‑01.example.com,443,SVM01,none,True,True,False,disabled"
+export BACKENDS="nfs-prod-a,netappuser,supersecret,ontap-01.example.com,443,SVM01,none,True,True,False,disabled"
 ```
 
 For multiple backends:
 
 ``` bash
-export BACKENDS="nfs-prod-a,netappuser,supersecret,ontap‑01.example.com,443,SVM01,none,True,True,False,disabled; \
-                nfs-dr-b,netappuser,supersecret,ontap‑02.example.com,443,SVM02,none,True,True,False,disabled"
+export BACKENDS="nfs-prod-a,netappuser,supersecret,ontap-01.example.com,443,SVM01,none,True,True,False,disabled; \
+                nfs-dr-b,netappuser,supersecret,ontap-02.example.com,443,SVM02,none,True,True,False,disabled"
 ```
 
 ### 2.2  Create the Secret
@@ -79,9 +79,9 @@ kubectl -n openstack create secret generic cinder-netapp \
 kubectl -n openstack apply -k /etc/genestack/kustomize/cinder/netapp
 ```
 
-The Kustomize overlay mounts the secret as an env‑file and launches the container.
+The Kustomize overlay mounts the secret as an env-file and launches the container.
 
-## 3  Post‑Deployment Checks
+## 3  Post-Deployment Checks
 
 ### 3.1  Volume Type Mapping
 
@@ -138,7 +138,7 @@ Expected Output
 
 ## Appendix
 
-### Example Secret Manifest (GitOps‑friendly)
+### Example Secret Manifest (GitOps-friendly)
 
 > [!IMPORTANT]
 > Inject secrets manager values (e.g., `sealed-secrets`, `external-secrets`) in place of `${…}` placeholders.
@@ -159,7 +159,7 @@ stringData:
 
 | Symptom                               | Likely Cause                     | Resolution                                        |
 | ------------------------------------- | -------------------------------- | ------------------------------------------------- |
-| `No valid host was found`             | Type not mapped to backend       | Check `volume_backend_name` extra‑spec            |
+| `No valid host was found`             | Type not mapped to backend       | Check `volume_backend_name` extra-spec            |
 | `HTTP 403` from ONTAP API in logs     | Wrong creds or insufficient role | Verify `netapp_login` permissions                 |
-| Pod crash‑loop with `BACKENDS` parse  | Missing or extra field           | Ensure **11** fields per backend, no trailing `;` |
-| NFS export accessible but perms issue | SVM export‑policy mismatch       | Update ONTAP export policy to allow compute CIDRs |
+| Pod crash-loop with `BACKENDS` parse  | Missing or extra field           | Ensure **11** fields per backend, no trailing `;` |
+| NFS export accessible but perms issue | SVM export-policy mismatch       | Update ONTAP export policy to allow compute CIDRs |
