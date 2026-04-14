@@ -38,7 +38,7 @@ Topics include Swift CLI, S3cmd, rclone setup.
 
 ------
 
-## **Advanced Features**
+## Advanced Features
 
 
 ## **Object Versioning**:
@@ -341,7 +341,7 @@ curl -X POST -H "X-Auth-Token:$TOKEN" -H 'X-Object-Meta-Security: TopSecret' $ST
 
 ------
 
-## **Static Web Hosting:**
+## Static Web Hosting:
 
 Using Swift Object you can serve static websites built in HTML to clients, this takes the need for any web servers out if your infrastructure and relies on Swift's robust infrastructure to serve web files out.
 
@@ -382,7 +382,7 @@ Using Swift Object you can serve static websites built in HTML to clients, this 
 
 ------
 
-## **Lifecycle Management**
+## Lifecycle Management
 
 In OpenStack Swift, the expiration of objects can be managed using a feature called **object expiration**. This allows you to automatically delete objects after a specified period, which is useful for managing storage costs and keeping your data organized and keep in compliance with our organization data retention requirements.
 
@@ -429,7 +429,7 @@ S3 is a product of Amazon and AWS, Swift's S3 RESTful API is a middleware compon
 
 ------
 
-## **Best Practices**
+## Best Practices
 
 ## Performance:
 
@@ -462,7 +462,7 @@ Any data or metadata not included in the list above are not encrypted, including
 
 All in-flight operations are encrypted using HTTPS and TLS encryption.
 
-## **Cost Management**
+## Cost Management
 
 Managing cost in Openstack Swift can be accomplished using object lifecycle management, usage monitoring and storage classes.
 

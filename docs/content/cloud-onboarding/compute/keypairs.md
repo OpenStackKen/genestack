@@ -33,19 +33,19 @@ openstack --os-cloud={cloud name} keypair create
 
 > [!NOTE]
 >
-> `--type <type>` Keypair type (supported by `–os-compute-api-version 2.2` or above)
+> `--type <type>` Keypair type (supported by `--os-compute-api-version 2.2` or above)
 
-This command generates a key pair with the name that you specify for _KEY\_NAME_, writes the private key to the .pem file that you specify, and registers the public key to the Nova database.
+This command generates a key pair with the name that you specify for `KEY_NAME`, writes the private key to the .pem file that you specify, and registers the public key to the Nova database.
 
 ## Import a Keypair
 
 If you have already generated a key pair and the public key is located at ~/.ssh/id_rsa.pub, run the following command to upload the public key.
 
 ``` shell
-openstack --os-cloud={cloud name} keypair create --public-key ~/.ssh/id_rsa.pub _KEY\_NAME_
+openstack --os-cloud={cloud name} keypair create --public-key ~/.ssh/id_rsa.pub KEY_NAME
 ```
 
-This command registers the public key at the Nova database and names the key pair the name that you specify for _KEY\_NAME_
+This command registers the public key at the Nova database and names the key pair the name that you specify for `KEY_NAME`.
 
 ## Delete a Keypair
 
