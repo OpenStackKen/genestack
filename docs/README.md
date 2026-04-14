@@ -170,6 +170,9 @@ The local Hugo site mounts those shared assets into the published site under:
 
 ## Linting and Local Validation
 
+Local site builds and previews now require Docker. The Hugo runtime is no
+longer expected to be installed on the host.
+
 Markdown linting for shared docs content is driven by:
 
 - `/docs/.markdownlint-cli2.jsonc`
@@ -198,13 +201,18 @@ make build
 Useful local targets:
 
 - `make deps`
-  Downloads Node dependencies and Hugo modules.
+  Downloads Node dependencies and ensures the pinned Hugo container image is
+  available locally.
+- `make hugo-mod-tidy`
+  Runs `hugo mod tidy` inside the pinned Hugo container when maintainers need
+  to update `go.mod` or `go.sum`.
 - `make lint`
   Runs markdownlint against `/docs/content/**/*.md`.
 - `make build`
-  Builds the site and writes `/build.txt` at the end of the build.
+  Builds the site in the Hugo container and writes `/build.txt` at the end of
+  the build.
 - `make serve`
-  Runs a local Hugo development server.
+  Runs a local Hugo development server in the container on port `1313`.
 - `make setup`
   Installs local Playwright CLI browser tooling for docs verification.
 - `make mrproper`

@@ -1,23 +1,19 @@
-name: pages build and deployment
+name: docs pages build and deployment
 
 on:
   push:
     branches:
       - main
     paths:
-      - mkdocs.yml
       - "docs/**"
       - "helm-chart-versions.yaml"
-      - "docs/scripts/generate_product_matrix.sh"
-      - ".github/workflows/mkdocs.yml"
+      - ".github/workflows/docs-pages.yaml"
       - "releasenotes/notes/**"
   pull_request:
     paths:
-      - mkdocs.yml
       - "docs/**"
       - "helm-chart-versions.yaml"
-      - "docs/scripts/generate_product_matrix.sh"
-      - ".github/workflows/mkdocs.yml"
+      - ".github/workflows/docs-pages.yaml"
       - "releasenotes/notes/**"
   workflow_dispatch:
 
@@ -30,23 +26,23 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-node@v4
         with:
-          python-version: 3.x
-      - run: pip install -r doc-requirements.txt
-      - run: sudo wget https://github.com/jgm/pandoc/releases/download/3.6.3/pandoc-3.6.3-1-amd64.deb && sudo apt install -y ./pandoc-3.6.3-1-amd64.deb
-      - run: reno report -o /tmp/reno.rst
-      - run: pandoc /tmp/reno.rst -f rst -t markdown -o docs/release-notes.md
+          node-version: 20
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
       - run: ./docs/scripts/generate_product_matrix.sh
-      - run: mkdocs build --strict
+      - run: make -C docs build
       - uses: actions/upload-pages-artifact@main
         with:
-          path: site/
+          path: docs/public
 
   deploy:
     # depend on the docs being built

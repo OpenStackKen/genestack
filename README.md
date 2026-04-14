@@ -7,7 +7,7 @@ what you need.
 
 ## Documentation
 
-![Publishing](https://github.com/rackerlabs/genestack/actions/workflows/mkdocs.yaml/badge.svg?event=push)
+![Publishing](https://github.com/rackerlabs/genestack/actions/workflows/docs-pages.yaml/badge.svg?event=push)
 
 Read the [Genestack Documentation](https://docs.rackspacecloud.com). The documentation was created to guide
 through the process of building, operating, and consuming a cloud.

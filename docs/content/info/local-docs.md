@@ -3,6 +3,8 @@ title: "Working on docs locally"
 weight: 10
 ---
 Use the Hugo site rooted at `/docs` to preview documentation changes locally.
+Docker is required for local site builds and previews. A host Hugo install is
+not part of the supported workflow.
 
 Install the docs tooling dependencies from the `/docs` tree:
 
@@ -13,9 +15,9 @@ make deps
 
 > [!TIP]
 >
-> The Makefile keeps all docs-local caches, browser downloads, and Node
-> tooling inside `/docs`, so `make mrproper` can restore the tree to a
-> source-only state.
+> The Makefile keeps the Hugo container cache, docs-local caches, browser
+> downloads, and Node tooling inside `/docs`, so `make mrproper` can restore
+> the tree to a source-only state.
 
 Start the local docs server:
 
@@ -29,6 +31,13 @@ Build the local docs site without starting a server:
 ```shell
 cd docs
 make build
+```
+
+When maintainers need to reconcile Hugo modules explicitly:
+
+```shell
+cd docs
+make hugo-mod-tidy
 ```
 
 Lint the shared Markdown sources:

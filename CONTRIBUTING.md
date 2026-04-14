@@ -38,7 +38,7 @@ you see a problem, feel free to fix it.
    [makes this easy](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-and-deleting-branches-within-your-repository).
 2. **Test your changes!** -- If you are making changes to the general Genestack repo, do a clean build
    from scratch.  If you are changing the docs, then rebuild the docs from scratch and lint your
-   Markdown.  (You can use [this](https://gist.github.com/OpenStackKen/846a045ecfe74f1895d5c93cbb2fe801)
+   Markdown using the Docker-backed docs workflow under [/docs](/Users/ken/Dev/genestack/docs).  (You can use [this](https://gist.github.com/OpenStackKen/846a045ecfe74f1895d5c93cbb2fe801)
    to simply check for trailing spaces, or you can go full [Markdown Lint](https://github.com/igorshubovych/markdownlint-cli)
    on it.
 3. Once your branch builds, make sure you're caught-up to main and rebase if necessary.
