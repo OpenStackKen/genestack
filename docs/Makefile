@@ -19,6 +19,7 @@ CONTAINER_WORKDIR := /work
 HUGO_IMAGE ?= ghcr.io/gohugoio/hugo:v0.160.1@sha256:b4f4cd51ce64c7257bf103ecf8fb14f37ea7ca1980bcaaf516cdf95b14446fd7
 HUGO_CONTAINER_HOME := $(CONTAINER_WORKDIR)/docs/.tmp-home/hugo
 HUGO_RUN = $(DOCKER) run --rm \
+    --name hugo \
 	--user $$(id -u):$$(id -g) \
 	--volume $(REPO_ROOT):$(CONTAINER_WORKDIR) \
 	--workdir $(CONTAINER_WORKDIR)/docs \
@@ -28,6 +29,7 @@ HUGO_RUN = $(DOCKER) run --rm \
 	--env HUGO_CACHEDIR=$(CONTAINER_WORKDIR)/docs/.cache/hugo_cache \
 	$(HUGO_IMAGE)
 HUGO_RUN_SERVER = $(DOCKER) run --rm \
+    --name hugo \
 	--user $$(id -u):$$(id -g) \
 	--volume $(REPO_ROOT):$(CONTAINER_WORKDIR) \
 	--workdir $(CONTAINER_WORKDIR)/docs \
