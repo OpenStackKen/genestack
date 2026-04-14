@@ -481,7 +481,7 @@ def collect_pages(guide: GuideConfig, guide_root: Path) -> list[Page]:
     # The walk starts at heading level 0 because the guide title lives in YAML
     # metadata rather than as a visible Markdown heading. Every later section
     # and page heading is derived explicitly from this tree position.
-    walk_directory(guide_root, Path("."), guide.slug, section_level=0, pages=pages)
+    walk_directory(guide_root, Path("."), guide.slug, guide_root, section_level=0, pages=pages)
     if not pages:
         raise SystemExit(f"guide '{guide.slug}' does not contain any Markdown pages")
     return pages
@@ -491,6 +491,7 @@ def walk_directory(
     directory: Path,
     rel_dir: Path,
     guide_slug: str,
+    guide_root: Path,
     *,
     section_level: int,
     pages: list[Page],
@@ -507,7 +508,7 @@ def walk_directory(
         # `_index.md` is the section node for this directory itself. At the
         # guide root that means level 0, which is rendered as an anchor-only
         # marker because the visible guide title already comes from metadata.
-        pages.append(parse_page(index_path, guide_slug, section_level))
+        pages.append(parse_page(index_path, guide_slug, guide_root, section_level))
 
     entries = [entry for entry in directory.iterdir() if not entry.name.startswith(".")]
     entries = [entry for entry in entries if entry.name != "_index.md"]
@@ -519,12 +520,19 @@ def walk_directory(
 
     for entry in entries:
         if entry.is_dir():
-            walk_directory(entry, rel_dir / entry.name, guide_slug, section_level=section_level + 1, pages=pages)
+            walk_directory(
+                entry,
+                rel_dir / entry.name,
+                guide_slug,
+                guide_root,
+                section_level=section_level + 1,
+                pages=pages,
+            )
         elif entry.suffix == ".md":
             # Standalone pages live one level below the section that contains
             # them. Root-level pages therefore become H1; pages within a
             # top-level section become H2, and so on.
-            pages.append(parse_page(entry, guide_slug, section_level + 1))
+            pages.append(parse_page(entry, guide_slug, guide_root, section_level + 1))
 
 
 def preview_for_entry(entry: Path) -> PagePreview:
@@ -546,7 +554,7 @@ def preview_for_entry(entry: Path) -> PagePreview:
     )
 
 
-def parse_page(path: Path, guide_slug: str, level: int) -> Page:
+def parse_page(path: Path, guide_slug: str, guide_root: Path, level: int) -> Page:
     """Convert a source Markdown file into a page entry for the aggregate doc."""
 
     # Parsing and normalization happen before render so later stages can work
@@ -555,7 +563,7 @@ def parse_page(path: Path, guide_slug: str, level: int) -> Page:
     metadata, body = parse_markdown_file(path)
     title = metadata.get("title") or fallback_title(path)
     description = metadata.get("description")
-    site_path = hugo_site_path(path, guide_slug)
+    site_path = hugo_site_path(path, guide_slug, guide_root)
     anchor_id = anchor_for_site_path(site_path)
     # Some Hugo section pages repeat their front matter description as the
     # first body paragraph. In the assembled PDF that reads like a subtitle
@@ -684,14 +692,14 @@ def fallback_title(path: Path) -> str:
     return candidate.replace("-", " ").replace("_", " ").title()
 
 
-def hugo_site_path(path: Path, guide_slug: str) -> str:
+def hugo_site_path(path: Path, guide_slug: str, guide_root: Path) -> str:
     """Recreate the Hugo-style site path for a content file.
 
     The path model is reused for anchor generation and same-guide link
     rewriting so the PDF can behave like a flattened view of the site.
     """
 
-    rel_path = path.relative_to(CONTENT_ROOT / guide_slug)
+    rel_path = path.relative_to(guide_root)
     if path.name == "_index.md":
         parts = list(rel_path.parent.parts)
     else:

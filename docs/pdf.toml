@@ -32,7 +32,7 @@ output = "operations-guide.pdf"
 title = "Operations Guide"
 
 [[guides]]
-slug = "cloud-onboarding"
+slug = "openstack-onboarding"
 source = "content/cloud-onboarding"
-output = "cloud-onboarding.pdf"
-title = "Cloud Onboarding Guide"
+output = "openstack-onboarding.pdf"
+title = "OpenStack Onboarding Guide"
