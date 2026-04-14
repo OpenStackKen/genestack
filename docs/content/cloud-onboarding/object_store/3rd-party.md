@@ -1,7 +1,10 @@
 ---
-title: "Swift 3rd party clients, SDK's and API"
-weight: 190
+title: "3rd-Party Clients, SDKs, and APIs"
+weight: 90
 ---
+
+There are various other clients and methods available for accessing data in Swift.
+
 ## Openstack Swift SDK and Projects
 
 A complete list of SDKs, integrations and libraries can be found here [Swift Associated Projects](https://docs.openstack.org/swift/latest/associated_projects.html)

@@ -1,10 +1,11 @@
 ---
-title: "Additional Server Volume Commands"
-weight: 150
+title: "Volumes"
+weight: 10
 ---
-## Openstack Volumes
 
-#### Boot instance from volume
+Openstack block storage volumes are provided by [Cinder](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/volume.html).
+
+## Boot instance from volume
 
 You can create a bootable volume from an existing image, volume, or snapshot. This procedure shows you how to create a volume from an image and use the volume to boot an instance.
 
@@ -40,7 +41,7 @@ You can create a bootable volume from an existing image, volume, or snapshot. Th
     ``` shell
     openstack --os-cloud={cloud name} server volume list test-server
     ```
-#### Add Volume to Server
+## Add Volume to Server
 
 ``` shell
 openstack --os-cloud={cloud name} server add volume
@@ -51,7 +52,7 @@ openstack --os-cloud={cloud name} server add volume
     <volume>
 ```
 
-#### Remove Volume from Server
+## Remove Volume from Server
 
 ``` shell
 openstack --os-cloud={cloud name} server remove volume <server> <volume>

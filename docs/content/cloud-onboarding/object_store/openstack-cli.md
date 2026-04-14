@@ -1,8 +1,7 @@
 ---
-title: "Object Store Management using the OpenStack client"
-weight: 160
+title: "OpenStack CLI"
+weight: 10
 ---
-## Goal
 
 Use the command-line utility `openstack` to perform operations on your object store.
 

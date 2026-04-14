@@ -1,10 +1,11 @@
 ---
-title: "Openstack Floating Ips"
-weight: 30
+title: "Floating IPs"
+weight: 40
 ---
-To read more about Openstack Floating Ips using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/floating-ip.html).
 
-#### List and view floating ips
+To read more about OpenStack Floating IPs using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/floating-ip.html).
+
+#### List and view Floating IPs
 
 ``` shell
 openstack --os-cloud={cloud name} floating ip list
@@ -17,7 +18,7 @@ openstack --os-cloud={cloud name} floating ip list
     [--router <router>]
 ```
 
-#### Create a floating ip
+#### Create a Floating IP
 
 ``` shell
 openstack --os-cloud={cloud name} floating ip create
@@ -30,7 +31,7 @@ openstack --os-cloud={cloud name} floating ip create
     <network>
 ```
 
-#### Delete a floating ip(s)
+#### Delete a Floating IP(s)
 
 > [!NOTE]
 >
@@ -40,9 +41,9 @@ openstack --os-cloud={cloud name} floating ip create
 openstack --os-cloud={cloud name} floating ip delete <floating-ip> [<floating-ip> ...]
 ```
 
-#### Floating ip set
+#### Floating IP set
 
-Set floating IP properties
+Set Floating IP properties
 
 ``` shell
 openstack --os-cloud={cloud name} floating ip set
@@ -51,21 +52,21 @@ openstack --os-cloud={cloud name} floating ip set
     <floating-ip>
 ```
 
-#### Display floating ip details
+#### Display Floating IP details
 
 ``` shell
 openstack --os-cloud={cloud name} floating ip show $VIP
 ```
 
-#### Unset floating IP Properties
+#### Unset Floating IP Properties
 
 ``` shell
 openstack --os-cloud={cloud name} floating ip unset --port $VIP
 ```
 
-#### Associate floating IP addresses
+#### Associate Floating IP addresses
 
-You can assign a floating IP address to a project and to an instance.
+You can assign a Floating IP address to a project and to an instance.
 
 Associate an IP address with an instance in the project, as follows:
 
@@ -73,27 +74,27 @@ Associate an IP address with an instance in the project, as follows:
 openstack --os-cloud={cloud name} server add floating ip $INSTANCE_UUID $VIP
 ```
 
-#### Disassociate floating IP addresses
+#### Disassociate Floating IP addresses
 
-To disassociate a floating IP address from an instance:
+To disassociate a Floating IP address from an instance:
 
 ``` shell
 openstack --os-cloud={cloud name} server remove floating ip $INSTANCE_UUID $VIP
 ```
 
-To remove the floating IP address from a project:
+To remove the Floating IP address from a project:
 
 ``` shell
 openstack --os-cloud={cloud name} floating ip delete $VIP
 ```
 
-#### Floating Ip Example
+#### Floating IP Example
 
-Below is a quick example of how we can assign floating ips.
+Below is a quick example of how we can assign Floating IPs.
 
 You will need to get your cloud name from your `clouds.yaml`. More information on this can be found [here](/deployment-guide/hyperconverged-lab/). Underneath "clouds:" you will find your cloud name.
 
-First create a floating ip either from PUBLICNET or the public ip pool.
+First create a Floating IP either from PUBLICNET or the public ip pool.
 
 ``` shell
 openstack --os-cloud={cloud name} floating ip create PUBLICNET
@@ -105,22 +106,22 @@ Second get the cloud server UUID.
 openstack --os-cloud={cloud name} server list
 ```
 
-Third add the floating ip to the server
+Third add the Floating IP to the server
 
 ``` shell
 openstack --os-cloud={cloud name} server add floating ip $UUID $VIP
 ```
 
-#### Shared floating IP and virtual IP
+#### Shared Floating IP and virtual IP
 
-You can often use a load balancer instead of a shared floating IP or virtual IP.
+You can often use a load balancer instead of a shared Floating IP or virtual IP.
 For advanced networking needs, using an instance that does something like you
 might do with a network appliance operating system, you might need a real shared
-floating IP that two instances can share with something like _keepalived_, but
+Floating IP that two instances can share with something like _keepalived_, but
 you should probably use a load balancer unless you actually need the additional
-capabilities from a shared floating IP or virtual IP.
+capabilities from a shared Floating IP or virtual IP.
 
-In _Genestack_ Flex, with OVN, you can implement a shared floating IP mostly as
+In _Genestack_ Flex, with OVN, you can implement a shared Floating IP mostly as
 standard for OpenStack, but Neutron's `allowed-address-pairs` depends on your
 Neutron plugin, _ML2/OVN_ in this case, so while most OpenStack documentation
 will show altering `allowed-address-pairs` with a CIDR as seen
@@ -129,7 +130,7 @@ OVN doesn't support CIDRs on its equivalent to port security on logical switch
 ports in its NB database, so you just have to use a single IP address instead of
 a CIDR.
 
-With that caveat, you can set up a shared floating IP like this:
+With that caveat, you can set up a shared Floating IP like this:
 
 1. Create a Neutron network
 
@@ -200,11 +201,11 @@ With that caveat, you can set up a shared floating IP like this:
     openstack --os-cloud={cloud name} router add subnet tester-router tester-subnet
     ```
 
-8. Create a floating IP for the port
+8. Create a Floating IP for the port
 
     You can't do this step until you've created the router as above, because
     Neutron requires reachability between the subnet for the port and the
-    floating IP for the network. If you followed in order, this should work
+    Floating IP for the network. If you followed in order, this should work
     here.
 
     ``` shell
@@ -214,7 +215,7 @@ With that caveat, you can set up a shared floating IP like this:
     Note and retain the ID and/or IP returned, since you will need it for the
     next step.
 
-9. Put the floating IP in the `allowed-address-pair` list of the ports for your
+9. Put the Floating IP in the `allowed-address-pair` list of the ports for your
    two instances.
 
    Here, **specify only the VIP IP address**/**omit the netmask**. This deviates
@@ -235,15 +236,15 @@ With that caveat, you can set up a shared floating IP like this:
    openstack --os-cloud={cloud name} port set --allowed-address ip-address=<VIP> <port2UUID>
    ```
 
-The steps above complete creating the shared floating IP and VIP. The following
+The steps above complete creating the shared Floating IP and VIP. The following
 steps allow you to test it.
 
 1. Create a bastion server.
 
     With the two test instances connected to a subnet on a router with an
     external gateway, they can reach the Internet, but you will probably need
-    a server with a floating IP to reach these two servers to install and
-    configure _keepalived_ and test your shared floating IP / VIP. This example
+    a server with a Floating IP to reach these two servers to install and
+    configure _keepalived_ and test your shared Floating IP / VIP. This example
     shows only a test.
 
     ``` shell
@@ -253,9 +254,9 @@ steps allow you to test it.
                                            --image $IMAGE_UUID
     ```
 
-2. Add floating IP to bastion server.
+2. Add Floating IP to bastion server.
 
-    You can specify the UUID or IP of the floating IP.
+    You can specify the UUID or IP of the Floating IP.
 
      ``` shell
      openstack --os-cloud={cloud name} server add floating ip tester-bastion $UUID
@@ -263,7 +264,7 @@ steps allow you to test it.
 
 3. Alter security group rules to allow SSH and ICMP:
 
-    You will likely find you can't SSH to the floating IP you added to the
+    You will likely find you can't SSH to the Floating IP you added to the
     instance unless you've altered your default security group or taken other
     steps because the default security group will prevent all ingress traffic.
 
@@ -291,9 +292,9 @@ steps allow you to test it.
     Note that you add the internal VIP here, not the floating public IP. Use
     the appropriate netmask (usually /24 unless you picked something else.)
 
-6. Ping the floating IP.
+6. Ping the Floating IP.
 
-    Ping should now work. For a general floating IP on the Internet, you can
+    Ping should now work. For a general Floating IP on the Internet, you can
     usually ping from any location, so you don't necessarily have to use your
     bastion.
 
@@ -317,4 +318,4 @@ steps allow you to test it.
     sudo arping -i enp3s0 -U -S $VIP $VIP  # VIP twice
     ```
 
-    and ^C/break out of it once ping starts working with the address.
+    and `^C`/break out of it once ping starts working with the address.

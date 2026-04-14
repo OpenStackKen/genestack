@@ -1,10 +1,11 @@
 ---
-title: "Openstack Load Balancers"
-weight: 70
+title: "Load Balancers"
+weight: 40
 ---
-To read more about Openstack load balancers please visit the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/plugin-commands/octavia.html).
 
-### Create a Load Balancer
+To read more about OpenStack load balancers please visit the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/plugin-commands/octavia.html).
+
+## Create a Load Balancer
 
 ``` shell
 openstack --os-cloud {user cloud name} loadbalancer create
@@ -25,7 +26,7 @@ openstack --os-cloud {user cloud name} loadbalancer create
     [--tag <tag> | --no-tag]
 ```
 
-### List Load Balancers
+## List Load Balancers
 
 ``` shell
 openstack --os-cloud {user cloud name} loadbalancer list
@@ -49,19 +50,19 @@ openstack --os-cloud {user cloud name} loadbalancer list
     [--not-any-tags <tag>[,<tag>,...]]
 ```
 
-### Delete Load Balancers
+## Delete Load Balancers
 
 ``` shell
 openstack --os-cloud {user cloud name} loadbalancer delete [--cascade] [--wait] <load_balancer>
 ```
 
-### Show Load Balancer's Details
+## Show Load Balancer Details
 
 ``` shell
 openstack --os-cloud {user cloud name} loadbalancer show <load_balancer>
 ```
 
-### Update Load Balancer
+## Update Load Balancer
 
 ``` shell
 openstack --os-cloud {user cloud name} loadbalancer set
@@ -75,7 +76,7 @@ openstack --os-cloud {user cloud name} loadbalancer set
     <load_balancer>
  ```
 
-### Create Load Balancer Listener
+## Create a Load Balancer Listener
 
 ``` shell
 openstack --os-cloud {user cloud name} loadbalancer listener create
@@ -109,7 +110,7 @@ openstack --os-cloud {user cloud name} loadbalancer listener create
     <loadbalancer>
  ```
 
-### List Load Balancer Listeners
+## List Load Balancer Listeners
 
 ``` shell
 openstack --os-cloud {user cloud name} loadbalancer listener list
@@ -125,7 +126,7 @@ openstack --os-cloud {user cloud name} loadbalancer listener list
     [--not-any-tags <tag>[,<tag>,...]]
 ```
 
-### Delete Load Balancer Listeners
+## Delete Load Balancer Listeners
 
 ``` shell
 openstack loadbalancer listener delete [--wait] <listener>

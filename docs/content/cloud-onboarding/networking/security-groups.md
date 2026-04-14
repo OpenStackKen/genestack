@@ -1,28 +1,29 @@
 ---
-title: "Openstack Security Groups"
-weight: 120
+title: "Security Groups"
+weight: 30
 ---
-To read more about Openstack Security Groups using the [upstream docs](https://docs.openstack.org/nova/queens/admin/security-groups.html).
 
-#### List and view current security groups
+To read more about OpenStack Security Groups using the [upstream docs](https://docs.openstack.org/nova/queens/admin/security-groups.html).
+
+## List and view current security groups
 
 ``` shell
 openstack --os-cloud={cloud name} security group list
 ```
 
-#### Create Security Groups
+## Create Security Groups
 
 ``` shell
 openstack --os-cloud={cloud name} security group create SECURITY_GROUP_NAME --description GROUP_DESCRIPTION
 ```
 
-#### Delete a specific Security Group
+## Delete a specific Security Group
 
 ``` shell
 openstack --os-cloud={cloud name} security group delete SECURITY_GROUP_NAME
 ```
 
-#### Create and manage security group rules
+## Create and manage Security Group rules
 
 To list the rules for a security group, run the following command:
 
@@ -39,14 +40,16 @@ openstack --os-cloud={cloud name} security group rule create SEC_GROUP_NAME \
 
 The arguments are positional, and the from-port and to-port arguments specify the local port range connections are allowed to access, not the source and destination ports of the connection.
 
-#### To allow both HTTP and HTTPS traffic:
+### Allow both HTTP and HTTPS traffic:
 
 ``` shell
 openstack --os-cloud={cloud name} security group rule create global_http \
     --protocol tcp --dst-port 443:443 --remote-ip 0.0.0.0/0
 ```
 
-#### To allow SSH access to the instances, choose one of the following options:
+### Allow SSH access to instances:
+
+Choose one of the following options:
 
 1. Allow access from all IP addresses, specified as IP subnet 0.0.0.0/0 in CIDR notation:
 
@@ -60,7 +63,9 @@ openstack --os-cloud={cloud name} security group rule create global_http \
     openstack --os-cloud={cloud name} security group rule create SECURITY_GROUP_NAME \
       --protocol tcp --dst-port 22:22 --remote-group SOURCE_GROUP_NAME
     ```
-#### To allow pinging of the instances, choose one of the following options:
+## Allow pinging of instances
+
+Choose one of the following options:
 
 1. Allow pinging from all IP addresses, specified as IP subnet 0.0.0.0/0 in CIDR notation
 
@@ -78,7 +83,9 @@ openstack --os-cloud={cloud name} security group rule create global_http \
       --remote-group SOURCE_GROUP_NAME SECURITY_GROUP
     ```
 
-#### To allow access through a UDP port, such as allowing access to a DNS server that runs on a VM, choose one of the following options:
+### Allow access through a UDP port
+
+If you need to allow UDP access, such as allowing access to a DNS server that runs on a VM, choose one of the following options:
 
 1. Allow UDP access from IP addresses, specified as IP subnet 0.0.0.0/0 in CIDR notation.
 
@@ -94,14 +101,14 @@ openstack --os-cloud={cloud name} security group rule create global_http \
     --dst-port 53:53 --remote-group SOURCE_GROUP_NAME SECURITY_GROUP
     ```
 
-####  Allow RDP access only from IP addresses from other security groups
+###  Allow RDP access only from IP addresses from other security groups
 
     ``` shell
     openstack --os-cloud={cloud name} security group rule create SECURITY_GROUP_NAME \
       --protocol tcp --dst-port 33:89 --remote-group SOURCE_GROUP_NAME
     ```
 
-#### Delete a security group rule
+## Delete a security group rule
 
 ``` shell
 openstack --os-cloud={cloud name} security group rule delete RULE_ID

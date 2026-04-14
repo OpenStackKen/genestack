@@ -1,8 +1,7 @@
 ---
-title: "Object Store Management using the S3 client"
-weight: 170
+title: "Amazon S3 CLI"
+weight: 30
 ---
-## Goal
 
 Use the command-line utility `aws` to perform operations on your object store.
 

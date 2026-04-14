@@ -1,10 +1,11 @@
 ---
-title: "Openstack Images"
-weight: 50
+title: "Images"
+weight: 20
 ---
-To read more about Openstack images please visit the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/image-v1.html#image-create).
 
-#### List and view images
+To read more about Openstack images please visit the upstream docs for [Glance]((https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/image-v1.html#image-create).
+
+## List and view images
 
 ``` shell
 openstack --os-cloud={cloud name} image list
@@ -16,13 +17,13 @@ openstack --os-cloud={cloud name} image list
     [--sort <key>[:<direction>]]
 ```
 
-#### View image details
+## View image details
 
 ``` shell
 openstack --os-cloud={cloud name} image show <imageName>
 ```
 
-#### Create a image
+## Create a image
 
 ``` shell
 openstack --os-cloud={cloud name} image create
@@ -45,17 +46,17 @@ openstack --os-cloud={cloud name} image create
     <image-name>
 ```
 
-#### Delete a image
+## Delete a image
 
 ``` shell
 openstack --os-cloud={cloud name} image delete <image> [<image> ...]
 ```
 
-#### Retrieving Images
+## Retrieving Images
 
 Please visit this page for examples of retrieving images [here](https://docs.openstack.org/image-guide/obtain-images.html).
 
-#### Creating a server from an image
+## Creating a server from an image
 
 Specify the server name, flavor ID, and image ID.
 

@@ -1,7 +1,8 @@
 ---
-title: "OpenStack Getting Started with CLI"
-weight: 40
+title: "OpenStack CLI"
+weight: 10
 ---
+
 After you have installed the OpenStack command-line tools, you can proceed with initializing your account. This guide will show you how to run a command with an unscoped and scoped token to set up your account.
 
 > [!NOTE]
@@ -10,7 +11,7 @@ After you have installed the OpenStack command-line tools, you can proceed with 
 
 ## Prerequisites
 
-1. Ensure you have the OpenStack command-line tools installed. If not, follow the instructions in the [Openstack Deploying the Command Line Tools](/cloud-onboarding/openstack-deploy-cli/) documentation.
+1. Ensure you have the OpenStack command-line tools installed.
 2. Obtain your OpenStack credentials: **username**, **password**, and **domain**.
 3. Obtain the authentication URL.
 

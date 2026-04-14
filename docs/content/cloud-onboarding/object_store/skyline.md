@@ -1,14 +1,13 @@
 ---
-title: "Object Store Management using the Skyline GUI"
-weight: 180
+title: "Using the Skyline Web UI"
+weight: 40
 ---
-## Goal
 
-Use the `Skyline` GUI to perform operations on your object store.
+Use the `Skyline` Web UI to perform operations on your object store.
 
 ## Prerequisites
 
-Ensure you have access to your OpenStack Skyline GUI.
+Ensure you have access to your OpenStack Skyline Web UI.
 
 ## Documentation
 

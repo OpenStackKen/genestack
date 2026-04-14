@@ -1,10 +1,9 @@
 ---
-title: "OpenStack Metrics"
-weight: 80
+title: "Metrics"
+weight: 10
 ---
-This page summarizes usage of common `openstack metric` commands, which are used
-to interact with the Telemetry service (_[Gnocchi](/operations-guide/metering-gnocchi/)_) for
-managing metrics, measures, and resources in OpenStack.
+
+This is a summary for usage of common `openstack metric` commands, which are used to interact with the Telemetry service (_[Gnocchi](/operations-guide/metering-gnocchi/)_) for managing metrics, measures, and resources in OpenStack.
 
 ## CLI Commands
 

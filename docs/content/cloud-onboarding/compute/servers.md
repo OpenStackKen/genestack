@@ -1,8 +1,11 @@
 ---
-title: "Openstack Servers"
-weight: 130
+title: "Servers (VM Instances)"
+weight: 10
 ---
-To read more about Openstack Servers using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/server.html).
+
+On OpenStack, virtual machine (VM) instances are referred to as "servers" on the command line.
+
+To read more about OpenStack servers using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/server.html).
 
 #### List and view servers
 
@@ -101,7 +104,7 @@ Please visit the Openstack Snapshot page [here](/cloud-onboarding/openstack-snap
 
 Please visit the Openstack Volumes page [here](/cloud-onboarding/openstack-volumes/).
 
-## Server Creation Example
+## Example: Creating an OpenStack Server (VM Instance)
 
 Below is a quick example of how one could set up a server.
 

@@ -1,10 +1,11 @@
 ---
-title: "Openstack Networks"
-weight: 90
+title: "Networks"
+weight: 10
 ---
+
 To read more about Openstack networks please visit the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/network.html).
 
-### Create an Openstack Network
+## Create an OpenStack Network
 
 ``` shell
 openstack --os-cloud {user cloud name} network create
@@ -30,7 +31,7 @@ openstack --os-cloud {user cloud name} network create
     <name>
 ```
 
-### List Openstack Networks
+## List OpenStack Networks
 
 ``` shell
 openstack --os-cloud {user cloud name} network list
@@ -54,7 +55,7 @@ openstack --os-cloud {user cloud name} network list
     [--not-any-tags <tag>[,<tag>,...]]
 ```
 
-### Set Openstack Network Properties
+## Set OpenStack Network Properties
 
 ``` shell
 openstack --os-cloud {user cloud name} network set
@@ -77,13 +78,13 @@ openstack --os-cloud {user cloud name} network set
     <network>
 ```
 
-### Show Openstack Network Details
+## Show OpenStack Network Details
 
 ``` shell
 openstack --os-cloud {user cloud name} network show <network>
 ```
 
-### Delete Openstack Network
+## Delete OpenStack Network
 
 ``` shell
 openstack --os-cloud {user cloud name} network delete <network> [<network> ...]

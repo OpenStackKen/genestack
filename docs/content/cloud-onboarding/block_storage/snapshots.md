@@ -1,8 +1,11 @@
 ---
-title: "Openstack Snapshots"
-weight: 140
+title: "Snapshots"
+weight: 20
 ---
-#### Create a snapshot of the instance
+
+Creating instance snapshots onto block storage volumes...
+
+## Create a snapshot of the instance
 
 > [!NOTE]
 >

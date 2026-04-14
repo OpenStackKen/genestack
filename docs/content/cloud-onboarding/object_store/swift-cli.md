@@ -1,8 +1,7 @@
 ---
-title: "Object Store Management using the Swift client"
-weight: 200
+title: "Swift CLI"
+weight: 20
 ---
-## Goal
 
 Use the command-line utility `swift` to perform operations on your object store.
 

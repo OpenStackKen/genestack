@@ -1,10 +1,10 @@
 ---
-title: "Openstack Keypairs"
-weight: 60
+title: "Keypairs"
+weight: 30
 ---
 Read more about Openstack keypairs using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/keypair.html).
 
-#### List and view Keypairs
+## List and view Keypairs
 
 ``` shell
 openstack --os-cloud={cloud name} keypair list
@@ -18,7 +18,7 @@ openstack --os-cloud={cloud name} keypair list
     [--marker <marker>]
 ```
 
-#### Create a Keypair
+## Create a Keypair
 
 Before launching an instance, you must add a public key to the Compute service.
 
@@ -33,21 +33,21 @@ openstack --os-cloud={cloud name} keypair create
 
 > [!NOTE]
 >
-> --type <type> Keypair type (supported by –os-compute-api-version 2.2 or above)
+> `--type <type>` Keypair type (supported by `–os-compute-api-version 2.2` or above)
 
-This command generates a key pair with the name that you specify for KEY_NAME, writes the private key to the .pem file that you specify, and registers the public key to the Nova database.
+This command generates a key pair with the name that you specify for _KEY\_NAME_, writes the private key to the .pem file that you specify, and registers the public key to the Nova database.
 
-#### Import a Keypair
+## Import a Keypair
 
 If you have already generated a key pair and the public key is located at ~/.ssh/id_rsa.pub, run the following command to upload the public key.
 
 ``` shell
-openstack --os-cloud={cloud name} keypair create --public-key ~/.ssh/id_rsa.pub KEY_NAME
+openstack --os-cloud={cloud name} keypair create --public-key ~/.ssh/id_rsa.pub _KEY\_NAME_
 ```
 
-This command registers the public key at the Nova database and names the key pair the name that you specify for KEY_NAME
+This command registers the public key at the Nova database and names the key pair the name that you specify for _KEY\_NAME_
 
-#### Delete a Keypair
+## Delete a Keypair
 
 ``` shell
 openstack --os-cloud={cloud name} keypair delete
@@ -57,7 +57,7 @@ openstack --os-cloud={cloud name} keypair delete
     [<key> ...]
 ```
 
-#### Show Keypair Details
+## Show Keypair Details
 
 ``` shell
 openstack --os-cloud={cloud name} keypair show
