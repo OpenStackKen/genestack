@@ -2,9 +2,10 @@
 title: "Object Storage"
 weight: 20
 ---
-Swift Object Storage is a component of the greater Openstack ecosystem.  It was one of the first core components of Openstack alongside Nova in the original "Austin" release.  It has been used internally by Rackspace for their Object Storage offering along with many other organizations.  It provides a scalable and durable storage solution for unstructured data such as backups, multimedia files and big data.
 
-## Why do Object Storage with Openstack Swift?
+Swift Object Storage is a component of the greater OpenStack ecosystem.  It was one of the first core components of OpenStack alongside Nova in the original "Austin" release.  It has been used internally by Rackspace for their Object Storage offering along with many other organizations.  It provides a scalable and durable storage solution for unstructured data such as backups, multimedia files and big data.
+
+## Why do Object Storage with OpenStack Swift?
 
 ### Scalability
 
@@ -30,18 +31,15 @@ By combining Swift's scale up and out architecture of its services we can pinpoi
 
 ## Getting Started with Swift Object Storage
 
-Onboarding with Openstack Swift Object store is covered in the following trove of documents located here:
+Onboarding with OpenStack Swift Object store is covered in the following trove of documents located here:
 
-[Rackspace OpenStack Flex Onboarding](https://docs.rackspacecloud.com/cloud-onboarding-welcome/)
+[Cloud Onboarding Guide](/cloud-onboarding/)
 
 Topics include Swift CLI, S3cmd, rclone setup.
 
-------
-
 ## Advanced Features
 
-
-## **Object Versioning**:
+### Object Versioning
 
 Swift allows the end user to store multiple versions of the same object so you can recover from an unintended overwrite or rollback of an object to an earlier date in time.  Object versioning works with any type of content uploaded to Swift.
 
@@ -58,7 +56,7 @@ Swift allows the end user to store multiple versions of the same object so you c
    Content-Length: 0
    Content-Type: text/html; charset=UTF-8
    X-Trans-Id: txb91810fb717347d09eec8-0052e18997
-   X-Openstack-Request-Id: txb91810fb717347d09eec8-0052e18997
+   X-OpenStack-Request-Id: txb91810fb717347d09eec8-0052e18997
    Date: Thu, 23 Jan 2014 21:28:55 GMT
    ```
 
@@ -75,7 +73,7 @@ Content-Length: 0
 Etag: d41d8cd98f00b204e9800998ecf8427e
 Content-Type: text/html; charset=UTF-8
 X-Trans-Id: tx5992d536a4bd4fec973aa-0052e18a2a
-X-Openstack-Request-Id: tx5992d536a4bd4fec973aa-0052e18a2a
+X-OpenStack-Request-Id: tx5992d536a4bd4fec973aa-0052e18a2a
 Date: Thu, 23 Jan 2014 21:31:22 GMT
 ```
 
@@ -102,7 +100,7 @@ Content-Length: 0
 Etag: d41d8cd98f00b204e9800998ecf8427e
 Content-Type: text/html; charset=UTF-8
 X-Trans-Id: tx468287ce4fc94eada96ec-0052e18c8c
-X-Openstack-Request-Id: tx468287ce4fc94eada96ec-0052e18c8c
+X-OpenStack-Request-Id: tx468287ce4fc94eada96ec-0052e18c8c
 Date: Thu, 23 Jan 2014 21:41:32 GMT
 ```
 
@@ -123,7 +121,7 @@ X-Timestamp: 1390513280.79684
 X-Container-Bytes-Used: 0
 Content-Type: text/plain; charset=utf-8
 X-Trans-Id: tx9a441884997542d3a5868-0052e18d8e
-X-Openstack-Request-Id: tx9a441884997542d3a5868-0052e18d8e
+X-OpenStack-Request-Id: tx9a441884997542d3a5868-0052e18d8e
 Date: Thu, 23 Jan 2014 21:45:50 GMT
 
 009my_object/1390512682.92052
@@ -144,7 +142,7 @@ HTTP/1.1 204 No Content
 Content-Length: 0
 Content-Type: text/html; charset=UTF-8
 X-Trans-Id: tx006d944e02494e229b8ee-0052e18edd
-X-Openstack-Request-Id: tx006d944e02494e229b8ee-0052e18edd
+X-OpenStack-Request-Id: tx006d944e02494e229b8ee-0052e18edd
 Date: Thu, 23 Jan 2014 21:51:25 GMT
 ```
 
@@ -163,7 +161,7 @@ X-Timestamp: 1390513280.79684
 X-Container-Bytes-Used: 0
 Content-Type: text/html; charset=UTF-8
 X-Trans-Id: tx044f2a05f56f4997af737-0052e18eed
-X-Openstack-Request-Id: tx044f2a05f56f4997af737-0052e18eed
+X-OpenStack-Request-Id: tx044f2a05f56f4997af737-0052e18eed
 Date: Thu, 23 Jan 2014 21:51:41 GMT
 ```
 
@@ -184,7 +182,7 @@ HTTP/1.1 201 Created
 Content-Length: 0
 Content-Type: text/html; charset=UTF-8
 X-Trans-Id: txb91810fb717347d09eec8-0052e18997
-X-Openstack-Request-Id: txb91810fb717347d09eec8-0052e18997
+X-OpenStack-Request-Id: txb91810fb717347d09eec8-0052e18997
 Date: Thu, 23 Jan 2014 21:28:55 GMT
 ```
 
@@ -201,7 +199,7 @@ Content-Length: 0
 Etag: d41d8cd98f00b204e9800998ecf8427e
 Content-Type: text/html; charset=UTF-8
 X-Trans-Id: tx5992d536a4bd4fec973aa-0052e18a2a
-X-Openstack-Request-Id: tx5992d536a4bd4fec973aa-0052e18a2a
+X-OpenStack-Request-Id: tx5992d536a4bd4fec973aa-0052e18a2a
 Date: Thu, 23 Jan 2014 21:31:22 GMT
 ```
 
@@ -228,7 +226,7 @@ Content-Length: 0
 Etag: d41d8cd98f00b204e9800998ecf8427e
 Content-Type: text/html; charset=UTF-8
 X-Trans-Id: tx468287ce4fc94eada96ec-0052e18c8c
-X-Openstack-Request-Id: tx468287ce4fc94eada96ec-0052e18c8c
+X-OpenStack-Request-Id: tx468287ce4fc94eada96ec-0052e18c8c
 Date: Thu, 23 Jan 2014 21:41:32 GMT
 ```
 
@@ -249,7 +247,7 @@ X-Timestamp: 1390513280.79684
 X-Container-Bytes-Used: 0
 Content-Type: text/plain; charset=utf-8
 X-Trans-Id: tx9a441884997542d3a5868-0052e18d8e
-X-Openstack-Request-Id: tx9a441884997542d3a5868-0052e18d8e
+X-OpenStack-Request-Id: tx9a441884997542d3a5868-0052e18d8e
 Date: Thu, 23 Jan 2014 21:45:50 GMT
 
 009my_object/1390512682.92052
@@ -270,7 +268,7 @@ HTTP/1.1 204 No Content
 Content-Length: 0
 Content-Type: text/html; charset=UTF-8
 X-Trans-Id: tx006d944e02494e229b8ee-0052e18edd
-X-Openstack-Request-Id: tx006d944e02494e229b8ee-0052e18edd
+X-OpenStack-Request-Id: tx006d944e02494e229b8ee-0052e18edd
 Date: Thu, 23 Jan 2014 21:51:25 GMT
 ```
 
@@ -289,7 +287,7 @@ X-Timestamp: 1390513280.79684
 X-Container-Bytes-Used: 0
 Content-Type: text/html; charset=UTF-8
 X-Trans-Id: tx044f2a05f56f4997af737-0052e18eed
-X-Openstack-Request-Id: tx044f2a05f56f4997af737-0052e18eed
+X-OpenStack-Request-Id: tx044f2a05f56f4997af737-0052e18eed
 Date: Thu, 23 Jan 2014 21:51:41 GMT
 
 009my_object/1390512682.92052
@@ -315,15 +313,13 @@ HTTP/1.1 202 Accepted
 Content-Length: 76
 Content-Type: text/html; charset=UTF-8
 X-Trans-Id: txe2476de217134549996d0-0052e19038
-X-Openstack-Request-Id: txe2476de217134549996d0-0052e19038
+X-OpenStack-Request-Id: txe2476de217134549996d0-0052e19038
 Date: Thu, 23 Jan 2014 21:57:12 GMT
 
 <html><h1>Accepted</h1><p>The request is accepted for processing.</p></html>
 ```
 
-------
-
-## **Custom Object Metadata**:
+### Custom Object Metadata:
 
 Swift allows end users the ability to tag Object metadata, this is extremely useful in identifying the source of data, notes about the object or the current processing state when the object is consumed by a data lake process.
 
@@ -339,9 +335,7 @@ Using cURL:
 curl -X POST -H "X-Auth-Token:$TOKEN" -H 'X-Object-Meta-Security: TopSecret' $STORAGE_URL/HR_files/payroll_information.txt
 ```
 
-------
-
-## Static Web Hosting:
+### Static Web Hosting:
 
 Using Swift Object you can serve static websites built in HTML to clients, this takes the need for any web servers out if your infrastructure and relies on Swift's robust infrastructure to serve web files out.
 
@@ -380,9 +374,7 @@ Using Swift Object you can serve static websites built in HTML to clients, this 
 >   More information on static websites can be found here:
 >   [Swift Create static website](https://docs.openstack.org/ocata/user-guide/cli-swift-static-website.html)
 
-------
-
-## Lifecycle Management
+### Lifecycle Management
 
 In OpenStack Swift, the expiration of objects can be managed using a feature called **object expiration**. This allows you to automatically delete objects after a specified period, which is useful for managing storage costs and keeping your data organized and keep in compliance with our organization data retention requirements.
 
@@ -419,25 +411,21 @@ Benefits of Object Expiration
 
 This feature is particularly useful in scenarios like managing temporary files, logs, or any other data that has a defined lifecycle.
 
-------
-
-## Swift S3 REST API
+### Swift S3 REST API
 
 S3 is a product of Amazon and AWS, Swift's S3 RESTful API is a middleware component that allows verb compatibly between a native Swift deployment and applications that only speak S3 API.  While most functionality is present in the Swift S3 middleware, some verbs are lacking or there is not a like for like feature within Swift.  For the current state of Swift and S3 verb compatibility please refer to the following upstream documentation:
 
 [S3/Swift REST API Comparison Matrix](https://docs.openstack.org/swift/latest/s3_compat.html)
 
-------
-
 ## Best Practices
 
-## Performance:
+### Performance:
 
 - Keep object count under 500k per container
 - Multiplex over multiple container if possible
 - To increase throughput scale out the amount of API worker threads you have interacting with Swift endpoint
 
-## Securing data:
+### Securing data:
 
 Swift supports the optional encryption of object data at rest on storage nodes. The encryption of object data is intended to mitigate the risk of users’ data being read if an unauthorized party were to gain physical access to a disk.
 
@@ -462,9 +450,9 @@ Any data or metadata not included in the list above are not encrypted, including
 
 All in-flight operations are encrypted using HTTPS and TLS encryption.
 
-## Cost Management
+### Cost Management
 
-Managing cost in Openstack Swift can be accomplished using object lifecycle management, usage monitoring and storage classes.
+Managing cost in OpenStack Swift can be accomplished using object lifecycle management, usage monitoring and storage classes.
 
 **Object Lifecycle Management:** Use expiration policies to automatically delete outdated or unnecessary objects, reducing the volume of stored data.
 
