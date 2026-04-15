@@ -77,28 +77,37 @@ $endif$
 \setmonofont{Fira Code Light}[
   BoldFont={Fira Code Regular},
   Weight=300,
-  Contextuals=Alternate % Activate the calt feature
+  Contextuals=Alternate, % Activate the calt feature
+  Scale=MatchLowercase
 ]
+\newfontface{\headinginlinecodefont}{Fira Code Light}[
+  BoldFont={Fira Code Regular},
+  Weight=300,
+  Contextuals=Alternate,
+  Scale=1.5
+]
+\newcommand{\inlinecode}[1]{\texttt{#1}}
+\newcommand{\headinginlinecode}[1]{{\headinginlinecodefont #1}}
 \usepackage[light]{inter}
 \usepackage[rm,rmtabular,light]{merriweather}
 
-%%
-%% Footnote Sizing
-%%
-\makeatletter
-\renewcommand\footnotesize{%
-  \@setfontsize\footnotesize\@ixpt{11}%
-  \abovedisplayskip 8\p@ \@plus2\p@ \@minus4\p@
-  \abovedisplayshortskip \z@ \@plus\p@
-  \belowdisplayshortskip 4\p@ \@plus2\p@ \@minus2\p@
-  \def\@listi{\leftmargin\leftmargini
-    \topsep 4\p@ \@plus2\p@ \@minus2\p@
-    \parsep 2\p@ \@plus\p@ \@minus\p@
-  \itemsep \parsep}%
-  \belowdisplayskip \abovedisplayskip
-}
-\makeatother
-
+$--%%
+$--%% Footnote Sizing
+$--%%
+$--\makeatletter
+$--\renewcommand\footnotesize{%
+  $--  \@setfontsize\footnotesize\@ixpt{8}%
+  $--  \abovedisplayskip 8\p@ \@plus2\p@ \@minus4\p@
+  $--  \abovedisplayshortskip \z@ \@plus\p@
+  $--  \belowdisplayshortskip 4\p@ \@plus2\p@ \@minus2\p@
+  $--  \def\@listi{\leftmargin\leftmargini
+    $--    \topsep 4\p@ \@plus2\p@ \@minus2\p@
+    $--    \parsep 2\p@ \@plus\p@ \@minus\p@
+  $--  \itemsep \parsep}%
+  $--  \belowdisplayskip \abovedisplayskip
+$--}
+$--\makeatother
+$--
 %%
 %% Custom Font Types Helper
 %%
@@ -142,12 +151,18 @@ $--
 %%
 % Set up footnotes
 %%
-\usepackage[hang,flushmargin,bottom,multiple,norule]{footmisc}
+\usepackage{footnotehyper}
+% We use explicit `\@makefntext` formatting below; disable footnotehyper's
+% attempt to parse that macro for environment-form footnote support.
+\footnotehyperparsefalse
+\usepackage[hang,flushmargin,bottom,belowfloats,multiple,norule]{footmisc}
+\interfootnotelinepenalty=10000 % keep a single footnote body from splitting across pages
 \setlength{\footnotemargin}{0.75em} % set space between footnote nr and text
-\setlength{\footnotesep}{\baselineskip} % set space between multiple footnotes
-\setlength{\skip\footins}{2.5em} % set space between page content and footnote
-\setlength{\footskip}{2.5em} % set space between footnote and page bottom
-\renewcommand*{\footnotelayout}{\scriptsize\sffamily} % sans-serif footnote
+\setlength{\footnotesep}{0.6\baselineskip} % tighten stacked footnotes to avoid orphaned marks
+\setlength{\skip\footins}{1em} % reduce the gap above the footnote block
+\makeatletter
+\long\def\@makefntext#1{\noindent{\footnotesize\sffamily\hb@xt@1.6em{\hss\@makefnmark\kern0.3em}#1}}
+\makeatother
 $endif$
 
 %%
@@ -708,7 +723,7 @@ $else$
 \patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
 \makeatother
 % Allow footnotes in longtable head/foot
-\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+%\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
 $endif$
 $endif$
@@ -930,10 +945,9 @@ $endfor$
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{$if(urlstyle)$$urlstyle$$else$same$endif$}
-$if(links-as-notes)$
-% Make links footnotes instead of hotlinks:
-\DeclareRobustCommand{\href}[2]{#2\footnote{\url{#1}}}
-$endif$
+%%$if(links-as-notes)$
+%%\DeclareRobustCommand{\href}[2]{#2\space(\nolinkurl{#1})}
+%%$endif$
 $if(verbatim-in-note)$
 \VerbatimFootnotes % allow verbatim text in footnotes
 $endif$
@@ -1270,6 +1284,10 @@ $if(disable-header-and-footer)$
 
 $else$
 \usepackage[headsepline,footsepline]{scrlayer-scrpage}
+% The rule above the footer sits at roughly `\footskip - \footheight` below
+% the text block. Tighten `\footskip` so bottom-anchored footnotes sit almost
+% directly above the footer rule.
+\setlength{\footskip}{1.7\baselineskip}
 
 \newpairofpagestyles{eisvogel-header-footer}{
   \clearpairofpagestyles

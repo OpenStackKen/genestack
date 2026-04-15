@@ -112,9 +112,9 @@ build: deps ensure-doc-stubs ensure-hugo-runtime
 	mv "$$tmp_file" $(BUILD_SENTINEL)
 
 # Hugo does not provide a standalone `clean` subcommand for site output.
-# This target removes local build output and restores generated docs pages
-# back to their checked-in stub form.
-clean:
+# This target removes local site and PDF build output and restores generated
+# docs pages back to their checked-in stub form.
+clean: pdf-clean
 	rm -rf public resources .hugo_build.lock
 	cp $(PRODUCT_MATRIX_STUB) $(PRODUCT_MATRIX_PAGE)
 
@@ -146,7 +146,8 @@ serve: deps ensure-doc-stubs ensure-hugo-runtime
 setup: deps
 	$(NPM) exec playwright install firefox
 
-# Remove every generated docs artifact, including dependency caches and
-# browser automation downloads, so /docs returns to a source-only state.
+# Remove every generated docs artifact, including PDF outputs, dependency
+# caches, and browser automation downloads, so /docs returns to a source-only
+# state.
 mrproper: clean
 	rm -rf .cache .npm-cache .playwright-browsers .tmp-home node_modules

@@ -70,6 +70,30 @@ local function escape_latex_text(text)
     return text
 end
 
+local function latex_from_blocks(blocks)
+    local tex = pandoc.write(pandoc.Pandoc(blocks), "latex")
+    tex = tex:gsub("%s+$", "")
+    return tex
+end
+
+local function extract_callout_footnotes(blocks)
+    local footnotes = {}
+    local rewritten = {}
+
+    local function replace_note_with_mark(note)
+        table.insert(footnotes, latex_from_blocks(note.content))
+        return pandoc.RawInline("latex", "\\footnotemark{}")
+    end
+
+    for _, block in ipairs(blocks) do
+        table.insert(rewritten, block:walk({
+            Note = replace_note_with_mark
+        }))
+    end
+
+    return rewritten, footnotes
+end
+
 
 -- Process BlockQuote/Callout
 function BlockQuote(elem)
@@ -125,6 +149,7 @@ function BlockQuote(elem)
         callout_title = escape_latex_text(callout_title)
         -- remove blockquote tag and get content
         callout = elem.content
+        callout, callout_footnotes = extract_callout_footnotes(callout)
         
         -- Callout types
         if has_value({ "Blank" }, callout_type) then
@@ -207,6 +232,10 @@ function BlockQuote(elem)
             table.insert(callout, 1, pandoc.RawBlock("latex", "\\renewcommand\\quoteTitle{\\quoteIcon}\n\\begin{quote-box}"))
             -- insert element at the back
             table.insert(callout, pandoc.RawBlock("latex", "\\end{quote-box}"))   
+        end
+
+        for _, footnote_tex in ipairs(callout_footnotes) do
+            table.insert(callout, pandoc.RawBlock("latex", "\\footnotetext{" .. footnote_tex .. "}"))
         end
     end 
     return callout

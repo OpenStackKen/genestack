@@ -27,12 +27,12 @@ metadata:
         execpath: mmdc
 template: pandoc/templates/template.latex
 filters:
+  - pandoc/filters/inline-code.lua
   - pandoc/filters/pathing.lua
   - pandoc/filters/include-code-files.lua
   - pandoc/filters/hrule.lua
   - pandoc/filters/callouts.lua
   - pandoc/filters/mermaid.lua
-  - pandoc/filters/svg.lua
   - pandoc/filters/images.lua
   - pandoc/filters/tables.lua
   - pandoc/filters/headers.lua

@@ -1,6 +1,6 @@
 --[[
 
-    diagram – create images and figures from code blocks.
+    diagrams – create images and figures from code blocks.
     See copyright notice in file LICENSE.
 
 --]]
