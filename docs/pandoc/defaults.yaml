@@ -1,9 +1,8 @@
-from: markdown+wikilinks_title_after_pipe+hard_line_breaks+yaml_metadata_block
+from: markdown+wikilinks_title_after_pipe-hard_line_breaks+yaml_metadata_block
 standalone: true
 toc: true
 toc-depth: 5
 embed-resources: true
-standalone: true
 listings: true
 resource-path:
   - assets/images
