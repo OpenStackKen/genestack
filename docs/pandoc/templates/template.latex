@@ -1472,7 +1472,7 @@ $if(titlepage)$
     $if(subtitle)$
     \theSubtitleFont{$subtitle$}\\[1em]
     $endif$
-    \theDateFont{Version: $version$}\\[0.5em]
+    \theDateFont{Release: $version$}\\[0.5em]
     \theDateFont\DTMUsedate{docDate}
   \end{flushright}
   \vfill
