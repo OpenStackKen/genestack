@@ -1,7 +1,9 @@
 ---
-title: "Setting Service Overrides for Nodes"
-weight: 510
+title: "Service Overrides"
+description: "Setting Service Overrides for Unique Nodes"
+weight: 120
 ---
+
 In cloud environments, it is sometimes necessary to define specific configuration values for unique nodes. This is particularly important for nodes with different CPU types, nodes that pass-through accelerators, and other unique hardware or configuration requirements. This document provides a comprehensive guide on how to define unique configurations for service-specific overrides using Kubernetes and OpenStack.
 
 ## Label-Based Overrides

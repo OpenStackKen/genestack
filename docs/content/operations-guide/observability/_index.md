@@ -1,9 +1,7 @@
 ---
 title: "Observability"
-weight: 30
-type: docs
-description: "Alerting, logging, dashboards, monitoring practices, and telemetry operations."
+weight: 40
 cascade:
   - type: docs
 ---
-Alerting, logging, dashboards, monitoring practices, and telemetry operations.
+
