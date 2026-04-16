@@ -29,6 +29,12 @@ local function write_file(path, text)
   handle:close()
 end
 
+local function latex_escape_path(path)
+  return path
+    :gsub("\\", "/")
+    :gsub("([%%{}])", "\\%1")
+end
+
 local function run_mmdc(source_path, output_path, output_format)
   local command = table.concat({
     "mmdc",
@@ -76,14 +82,14 @@ function CodeBlock(el)
     os.remove(source_path)
   end
 
-  local image = pandoc.Image({pandoc.Str("Mermaid diagram")}, output_path)
-  image.attributes.width = "85%"
-  image.attributes.position = "center"
-  -- Emit Mermaid output as a normal paragraph-level image block so Pandoc's
-  -- LaTeX writer and the downstream image filter treat it like other centered
-  -- document graphics. A `Plain` wrapper is too lightweight here and can cause
-  -- the centering intent to be lost in the generated TeX.
-  return pandoc.Para({image})
+  local latex = table.concat({
+    "\\begin{figure}[H]",
+    "\\centering",
+    "\\includegraphics[width=0.85\\linewidth,height=\\textheight,keepaspectratio,alt={Mermaid diagram}]{" .. latex_escape_path(output_path) .. "}",
+    "\\end{figure}",
+  }, "\n")
+
+  return pandoc.RawBlock("latex", latex)
 end
 
 function Meta(meta)
