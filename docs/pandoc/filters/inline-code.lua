@@ -9,10 +9,46 @@
 --]]
 
 local function escape_latex_code(text)
-  text = text:gsub("\\", "\\textbackslash{}")
-  text = text:gsub("([{}$%%#&_])", "\\%1")
-  text = text:gsub("~", "\\textasciitilde{}")
-  text = text:gsub("%^", "\\textasciicircum{}")
+  local function escape_lua_pattern(literal)
+    return (literal:gsub("([^%w])", "%%%1"))
+  end
+
+  local placeholders = {
+    ["\\"] = "\1",
+    ["{"] = "\2",
+    ["}"] = "\3",
+    ["$"] = "\4",
+    ["%"] = "\5",
+    ["#"] = "\6",
+    ["&"] = "\7",
+    ["_"] = "\8",
+    ["~"] = "\11",
+    ["^"] = "\12",
+  }
+
+  local replacements = {
+    ["\1"] = "\\textbackslash{}",
+    ["\2"] = "\\{",
+    ["\3"] = "\\}",
+    ["\4"] = "\\$",
+    ["\5"] = "\\%",
+    ["\6"] = "\\#",
+    ["\7"] = "\\&",
+    ["\8"] = "\\_",
+    ["\11"] = "\\textasciitilde{}",
+    ["\12"] = "\\textasciicircum{}",
+  }
+
+  for literal, token in pairs(placeholders) do
+    text = text:gsub(escape_lua_pattern(literal), token)
+  end
+
+  for token, escaped in pairs(replacements) do
+    text = text:gsub(token, function()
+      return escaped
+    end)
+  end
+
   return text
 end
 
@@ -21,4 +57,3 @@ if FORMAT:match("latex") then
     return pandoc.RawInline("latex", "\\inlinecode{" .. escape_latex_code(el.text) .. "}")
   end
 end
-

@@ -56,6 +56,10 @@ $endif$
 
 \usepackage{underscore}[strings,nohyphen]
 
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\fvset{breaklines}
+
 %%
 %% Date and Time Styles
 %%
@@ -80,14 +84,34 @@ $endif$
   Contextuals=Alternate, % Activate the calt feature
   Scale=MatchLowercase
 ]
-\newfontface{\headinginlinecodefont}{Fira Code Light}[
+
+\newfontface{\inlinecodefont}{Fira Code Light}[
   BoldFont={Fira Code Regular},
   Weight=300,
   Contextuals=Alternate,
-  Scale=1.5
+  Scale=0.85
 ]
-\newcommand{\inlinecode}[1]{\texttt{#1}}
-\newcommand{\headinginlinecode}[1]{{\headinginlinecodefont #1}}
+
+\makeatletter
+$if(debug)$
+% Debug mode annotates each inline-code span with the surrounding text size and
+% the effective inline-code size so the dedicated PDF test target can expose
+% LaTeX's current font-state decisions without changing normal guide output.
+\DeclareRobustCommand{\inlinecode}[1]{%
+  \begingroup
+  \edef\inlinecodeoutersize{\f@size}%
+  {\inlinecodefont
+    \xdef\inlinecodeinnersize{\f@size}%
+    #1%
+  }%
+  {\leavevmode\textcolor{gray}{\scriptsize[out=\inlinecodeoutersize{}pt in=\inlinecodeinnersize{}pt]}}%
+  \endgroup
+}
+$else$
+\DeclareRobustCommand{\inlinecode}[1]{{\inlinecodefont #1}}
+$endif$
+\makeatother
+
 \usepackage[light]{inter}
 \usepackage[rm,rmtabular,light]{merriweather}
 
@@ -350,9 +374,11 @@ $endif$
 $--
 $-- verbatim in notes
 $--
-$if(verbatim-in-note)$
-\usepackage{fancyvrb}
-$endif$
+$--$if(verbatim-in-note)$
+$--\usepackage{fancyvrb}
+$--\usepackage{fvextra}
+$--\fvset{breaklines}
+$--$endif$
 $-- highlighting
 $if(listings)$
 \usepackage{listings}
@@ -1368,17 +1394,17 @@ $--
 %%
 %% Headings
 %%
-\newfontface{\sectionfont}{Inter}[Weight=300,Scale=2]%
-\newfontface{\subsectionfont}{Inter}[Weight=300,Scale=1.75]%
-\newfontface{\subsubsectionfont}{Inter}[Weight=300,Scale=1.5]%
-\newfontface{\paragraphfont}{Inter}[Weight=300,Scale=1.25]%
-\newfontface{\subparagraphfont}{Inter}[Weight=300,Scale=1.15]%
+\newfontface{\sectionfont}{Inter}[Weight=300]%
+\newfontface{\subsectionfont}{Inter}[Weight=300]%
+\newfontface{\subsubsectionfont}{Inter}[Weight=300]%
+\newfontface{\paragraphfont}{Inter}[Weight=300]%
+\newfontface{\subparagraphfont}{Inter}[Weight=300]%
 
-\addtokomafont{section}{\sectionfont}
-\addtokomafont{subsection}{\subsectionfont}
-\addtokomafont{subsubsection}{\subsubsectionfont}
-\addtokomafont{paragraph}{\paragraphfont}
-\addtokomafont{subparagraph}{\subparagraphfont}
+\addtokomafont{section}{\sectionfont\Huge}
+\addtokomafont{subsection}{\subsectionfont\huge}
+\addtokomafont{subsubsection}{\subsubsectionfont\LARGE}
+\addtokomafont{paragraph}{\paragraphfont\Large}
+\addtokomafont{subparagraph}{\subparagraphfont\large}
 
 $--
 $-- End Local Customizations
