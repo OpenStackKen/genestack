@@ -1,220 +1,207 @@
 ---
-title: "Documentation Style Guide"
+title: "Documentation Standards"
 weight: 30
+description: "Authoring rules for Genestack documentation, including Markdown conventions and renderer-specific requirements."
 ---
 
-This section is intended to help define common documentation standards and practices for the Genestack documentation set. It also provides a style guide to help us maintain some uniformity in our documentation.
+This page is the canonical authoring guide for the Genestack documentation
+set. It covers both general documentation conventions and the site-specific
+Markdown rules required by the Hugo website and the Pandoc PDF pipeline.
 
-## Introduction
+## Scope
 
-The Genestack documentation source lives directly in the `/docs` subdirectory of the Genestack repository and is rendered locally with Hugo. The shared Markdown and asset structure is also intended for downstream reuse by other Hugo-based sites.
+The documentation source lives in the `/docs` subtree of the Genestack
+repository. Content is rendered locally with Hugo and is also assembled into
+PDF guides through Pandoc.
 
-This page highlights some of the conventions and standards we strive to use across the Genestack documentation to hopefully provide a consistent reading experience for Genestack users.
+Because those renderers do not behave identically, some rules in this page are
+not generic Markdown guidance. They are repository-specific requirements.
 
-## Page Layout
+## Page Structure
 
-Each page should start with a top-level heading (single `#`) with the tile of the page.
+Top-level headings using a single `#` should be avoided – these are automatically generated from the site structure.
 
-Subsections start with 2nd-level headings (double `##`) and can have various levels nested underneath, 3rd-level (triple `###`), 4th-level (quad `####`), etc...
+Do not start pages with a main heading (i.e. `##`.) If necessary, use a small introductory paragraph before getting into structured headings.
 
-## Markdown
+### Page Hierarchy
 
-While easy to use, Markdown does have some "gotchas" that make writing documentation interesting.  It's easy to make some [common mistakes](https://gist.github.com/OpenStackKen/52d70ef2be6570fbd2603738e02adacc) when writing Markdown that can result in bad, illegible, or unintentionally humorous rendering issues.
-
-This is mostly due to ambiguous information on how to implement certain edge-cases. CommonMark was one standard put in place to attempt to make this easier for authors.
-
-Here are some notes on the Markdown conventions used in this repository:
-
-### Headings
-
-The headings (defined by `#`) should follow a natural progression of the hierarchy of the page contents. You cannot have two title headings otherwise they won't show up on the table of contents on the right side of the page:
+Subsections should follow the natural heading hierarchy:
 
 ```markdown
-# Title
-## Main heading one
-### Sub Heading one
-### Sub heading two
-## Main heading two
+## Main heading
+### Subheading
+#### Nested detail
 ```
+
+Do not skip heading levels without a clear reason.  If there are typographical issues (font sizes, etc.) then _file a bug_.
+
+## Markdown Basics
 
 ### Links
 
-Links should follow this syntax:
+Use standard Markdown links:
 
 ```markdown
-[Link](path to link)
+[Link text](path-or-url)
 ```
 
-If it is a link to another wiki page it should be a relative path:
+Use relative site paths for internal documentation links and full URLs for
+external links.
 
-```markdown
-[Installation](Installation)
-```
+### Inline Code
 
-and not like this:
-
-```markdown
-[Installation](https://github.com/username/repo/wiki/Installation)
-```
-
-Instead, use that style for external links.  Also, for external links, please add `` at the end to have the link open in a new window:
-
-```markdown
-[Google](https://google.com))
-```
-
-### Code Blocks
-
-#### Inline
-
-Inline code blocks are indicated with single backticks: \`
+Inline code uses single backticks:
 
 ```markdown
 `inline`
 ```
 
-This will render as: `inline`
+### Fenced Code Blocks
 
-#### Code blocks
-
-Code blocks are _fenced_ with triple backtick fences
+Code blocks use fenced backtick blocks:
 
 ````markdown
-```
-## code block
+```yaml
+key: value
 ```
 ````
 
-This will render as:
+## Source Code Includes
 
-```markdown
-# code block
-```
+Fenced code blocks can include tracked repository files directly while
+preserving syntax highlighting in both the website build and the PDF build.
 
-#### Including source files
-
-Code blocks can also include tracked source files directly while preserving
-syntax highlighting.
-
-The authoring syntax is:
+Use repo-root-style include paths:
 
 ````markdown
-```bash {include="docs/scripts/mkpdf.sh" start-line="1" end-line="12"}
+```bash {include="bin/install-neutron.sh" start-line="1" end-line="12"}
 ```
 ````
 
-This will render as:
+Optional attributes:
 
-```bash {include="docs/scripts/mkpdf.sh" start-line="1" end-line="12"}
-```
+- `start-line`
+- `end-line`
+- `dedent`
+
+The `include` path is not relative to the current Markdown file. It is resolved
+from the repository root across the approved subset below so the same Markdown
+source works in both Hugo and Pandoc.
+
+Supported include roots:
+
+- `bin/...`
+- `scripts/...`
+- `base-helm-configs/...`
+- `ansible/...`
+- `recovery/...`
+- `manifests/...`
+- `etc/...`
+- `.github/workflows/...`
+- `docs/scripts/...`
+
+If a file is outside those roots, it is not currently includable by the shared
+renderer contract.
+
+## Lists
 
 ### Bullets
 
-Bullets are used to denote unordered lists.  To have nested layers of bullets, you need to indent by 4 spaces for each nested layer bullet[^1].
+Unordered lists use hyphen markers:
 
 ```markdown
-- Bullet
-    - Sub bullet
-        - Sub sub bullet
+- Item
+  - Sub-item
 ```
-
-This will render like this:
-
-- Bullet
-  - Sub bullet
-    - Sub sub bullet
-
-> [!NOTE]
->
-> [Markdownlint](#markdownlint) will complain, saying that you should _indent by 2_ unless you change or ignore rule [MD007](https://github.com/DavidAnson/markdownlint/blob/main/doc/md007.md).
 
 ### Numbering
 
-Numbers will only order properly if in a listed sequence. If that sequence is broken by paragraphs then the numbering will restart.
-
-Numbered lists are formatted as follows:
+Ordered lists should stay in one uninterrupted sequence:
 
 ```markdown
-1. item 1
-2. item 2
-3. item 3
-4. item 4
+1. Item one
+2. Item two
+3. Item three
 ```
 
-### Symbols/Emojis
+## Callouts
 
-Emojis are not supported with python markdown and should be avoided. Rather important text should be bolded or italicized.
+Callouts, sometimes also called admonitions or alerts, are used to highlight
+important information.
 
-The following in github:
-
-```markdown
-:exclamation:
-```
-
-renders to :exclamation:
-
-but in the generated docs it will show
-
-```markdown
-:exclamation:
-```
-
-### Markdownlint
-
-Using [markdownlint](https://github.com/DavidAnson/markdownlint) on your files before you check them in can save you a lot of time and hassle. While some of mkdocs
-
-You can use markdownlint from the CLI, or as a plugin in [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint).
-
-For other editors there are also solutions:
-
-- For Emacs, there is [markdown mode](https://jblevins.org/projects/markdown-mode).
-- For vim, there is a [markdown plugin](https://github.com/preservim/vim-markdown) as well as a [markdownlint plugin](https://github.com/fannheyward/coc-markdownlint) available.
-
-## Admonitions
-
-Admonitions are used to highlight certain information to make it stand-out to readers.
-
-### Admonition/Alert Standards
-
-It is important to have some documentation standards so that a user can understand how to process the information they read.
-
-"Admonitions" (sometimes also called "Alerts") help content stand-out and provide ways to indicate something is a warning, error, success, example, etc...
-
-In markdown, an Admonition can be best throught of as a blockquote with a "type" indicator at the top.  Let's start with the `[INFO]` admonition:
+Use GitHub-style callouts:
 
 ```markdown
 > [!INFO]
 >
-> The "info" admonition type is to point out something particularly interesting.
+> Body text
 ```
 
-This will render as:
+Do not use MkDocs-style admonitions:
 
-> [!INFO]
->
-> The "info" admonition type is to point out something particularly interesting.
+```markdown
+!!! warning
+    Do not do these!
+```
 
-(Note that there is a blank blockquote `>` line between the "type" and the rest of the content.  This is necessary for the Markdown parser to be able to tell your're doing an Admonition vs. a regular blockquote.)
+Titled callouts are supported:
 
-There are other types as well:
-
+```markdown
 > [!INFO] To Do:
->
-> For "To Do" items, use the "info" admonition with a "To Do" title
-> ...
+> Body text
+```
 
-> [!TIP]
->
-> The "tip" admonition type is to show a recommended or preferred way to implement a detail or to address a concern.
+The local renderer also supports the custom `GENESTACK` callout type for
+Genestack-specific implementation notes.
 
-> [!WARNING]
->
-> The "warning" admonition type should be use to show when something can have adverse consequences if incorrectly implemented or if certain precautions are not taken.
+## Mermaid
 
-### Custom Admonition Types
+Mermaid diagrams must use fenced blocks with internal frontmatter config:
 
-> [!GENESTACK]
->
-> The "genestack" admonition type is for Genestack-specific information or to point how _how_ something is done in Genestack.
+````markdown
+```mermaid
+---
+config:
+  theme: neutral
+  flowchart:
+    curve: basis
+---
+flowchart TD
+  A --> B
+```
+````
 
-[^1]: This is explained [here](https://python-markdown.github.io/#differences) in the python-markdown docmentation.
+Do not use Mermaid init directives such as:
+
+```markdown
+%%{init: ...}%%
+```
+
+## Character Set
+
+Use ASCII in docs Markdown by default.
+
+Do not use:
+
+- emoji
+- non-breaking hyphens or spaces
+- typographic punctuation such as curly quotes or em dashes
+- other non-ASCII glyphs unless there is a deliberate documented exception
+
+This rule exists because the website renderer and the PDF pipeline do not
+handle every Unicode character consistently. ASCII keeps the source portable
+and avoids PDF font-substitution or missing-glyph warnings.
+
+## Markdownlint
+
+Run markdownlint before committing changes. The repository config lives in
+[.markdownlint-cli2.jsonc](/Users/ken/Dev/genestack/docs/.markdownlint-cli2.jsonc).
+
+You can run it directly from the `docs` directory:
+
+```bash
+npm exec markdownlint-cli2 "content/**/*.md"
+```
+
+Using the configured linter early is usually faster than fixing multiple
+rendering problems after the fact.
