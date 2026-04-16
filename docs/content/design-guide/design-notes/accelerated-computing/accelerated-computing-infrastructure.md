@@ -2,7 +2,6 @@
 title: "How does Rackspace implement Accelerated Computing?"
 weight: 20
 ---
-![Rackspace OpenStack Flex Software](/assets/images/ospc_flex_logo_red.svg)
 
 Rackspace integrates high-performance networking, computing, and security solutions to meet the evolving needs of modern cloud environments. By leveraging advanced switches, scalable servers, and next-generation security, we enable accelerated computing with high availability, low-latency connectivity, and optimal performance across global infrastructures. These technologies work seamlessly together to address the unique challenges of today's cloud environments.
 

@@ -2,11 +2,8 @@
 title: "What is Accelerated Computing?"
 weight: 10
 ---
-![Rackspace OpenStack Software](/assets/images/ospc_flex_logo_red.svg)
 
-## Overview
-
-Accelerated computing uses specialized hardware called accelerators, such as the following:
+Accelerated computing uses specialized hardware called _accelerators_. Examples of accelerators include the following:
 
 * Graphics Processing Units ([GPUs](https://en.wikipedia.org/wiki/Graphics_processing_unit))
 * Neural Processing Units ([NPUs](https://support.microsoft.com/en-us/windows/all-about-neural-processing-units-npus-e77a5637-7705-4915-96c8-0c6a975f9db4))
