@@ -153,18 +153,20 @@ PY
 rewrite_tex_paths_for_host() {
     local tex_output_path="$1"
 
-    "$PYTHON" - "$DOCS_ROOT" "$REPO_ROOT" "$tex_output_path" "$PANDOC_MOUNT_ROOT" <<'PY'
+    "$PYTHON" - "$DOCS_ROOT" "$REPO_ROOT" "$OUTPUT_ROOT" "$tex_output_path" "$PANDOC_MOUNT_ROOT" <<'PY'
 from pathlib import Path
 import sys
 
 docs_root = Path(sys.argv[1]).resolve()
 repo_root = Path(sys.argv[2]).resolve()
-tex_path = Path(sys.argv[3]).resolve()
-mount_root = sys.argv[4].rstrip("/") or "/docs"
+output_root = Path(sys.argv[3]).resolve()
+tex_path = Path(sys.argv[4]).resolve()
+mount_root = sys.argv[5].rstrip("/") or "/docs"
 
 text = tex_path.read_text(encoding="utf-8")
 text = text.replace(f"{mount_root}/", docs_root.as_posix().rstrip("/") + "/")
 text = text.replace("/workspace/", repo_root.as_posix().rstrip("/") + "/")
+text = text.replace("./pdf/", output_root.as_posix().rstrip("/") + "/")
 tex_path.write_text(text, encoding="utf-8")
 PY
 }

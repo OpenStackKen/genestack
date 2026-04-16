@@ -69,6 +69,13 @@ class Page:
 
 
 @dataclass(frozen=True)
+class GuideMetadata:
+    """Document-level metadata forwarded from the guide source tree."""
+
+    extra: dict[str, Any]
+
+
+@dataclass(frozen=True)
 class HeadingPlan:
     """One rewritten heading plus the local fragment aliases that should hit it."""
 
@@ -441,6 +448,7 @@ def assemble_guide_markdown(
     """
 
     pages = collect_pages(guide, guide_root)
+    guide_metadata = collect_guide_metadata(guide_root)
     # Section headings are emitted separately from page bodies so the PDF gets
     # a stable top-level structure even when individual source files omit a
     # first heading.
@@ -459,19 +467,43 @@ def assemble_guide_markdown(
         suppress_heading = index == 0 and page.level == 0 and page.anchor_id == guide.slug
         rendered_pages.append(render_page(page, body=normalized_body, suppress_heading=suppress_heading))
     content = "\n\n".join(rendered_pages)
-    metadata = textwrap.dedent(
-        f"""\
-        ---
-        title: "{escape_yaml_scalar(guide.title)}"
-        version: "{escape_yaml_scalar(version_label or '')}"
-        guide_slug: "{guide.slug}"
-        docs_root: "{escape_yaml_scalar(docs_root_for_pandoc)}"
-        site_base_url: "{escape_yaml_scalar(site_base_url)}"
-        version_label: "{escape_yaml_scalar(version_label or '')}"
-        ---
-        """
-    )
+    metadata_lines = [
+        "---",
+        f'title: "{escape_yaml_scalar(guide.title)}"',
+        f'version: "{escape_yaml_scalar(version_label or "")}"',
+        f'guide_slug: "{guide.slug}"',
+        f'docs_root: "{escape_yaml_scalar(docs_root_for_pandoc)}"',
+        f'site_base_url: "{escape_yaml_scalar(site_base_url)}"',
+        f'version_label: "{escape_yaml_scalar(version_label or "")}"',
+    ]
+    for key, value in guide_metadata.extra.items():
+        metadata_lines.append(render_yaml_metadata_scalar(key, value))
+    metadata_lines.append("---")
+    metadata = "\n".join(metadata_lines) + "\n"
     return metadata + "\n" + content + "\n"
+
+
+def collect_guide_metadata(guide_root: Path) -> GuideMetadata:
+    """Collect document-level metadata from the guide root when available."""
+
+    metadata_source = guide_root / "_index.md"
+    if metadata_source.is_file():
+        metadata, _ = parse_markdown_file(metadata_source)
+    else:
+        top_level_pages = sorted(path for path in guide_root.glob("*.md") if path.name != "_index.md")
+        metadata = {}
+        if len(top_level_pages) == 1:
+            metadata, _ = parse_markdown_file(top_level_pages[0])
+
+    ignored_keys = {"title", "description", "weight", "type"}
+    forwarded: dict[str, Any] = {}
+    for key, value in metadata.items():
+        if key in ignored_keys:
+            continue
+        if isinstance(value, (str, int, bool)):
+            forwarded[key] = value
+
+    return GuideMetadata(extra=forwarded)
 
 
 def collect_pages(guide: GuideConfig, guide_root: Path) -> list[Page]:
@@ -627,11 +659,25 @@ def parse_scalar(raw_value: str) -> Any:
 
     if not raw_value:
         return ""
+    if raw_value == "true":
+        return True
+    if raw_value == "false":
+        return False
     if raw_value.startswith(("'", '"')) and raw_value.endswith(raw_value[0]) and len(raw_value) >= 2:
         return raw_value[1:-1]
     if re.fullmatch(r"-?\d+", raw_value):
         return int(raw_value)
     return raw_value
+
+
+def render_yaml_metadata_scalar(key: str, value: Any) -> str:
+    """Render a simple metadata scalar into YAML."""
+
+    if isinstance(value, bool):
+        return f"{key}: {'true' if value else 'false'}"
+    if isinstance(value, int):
+        return f"{key}: {value}"
+    return f'{key}: "{escape_yaml_scalar(str(value))}"'
 
 
 def strip_leading_description_paragraph(body: str, description: Any) -> str:

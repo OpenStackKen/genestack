@@ -36,3 +36,9 @@ slug = "openstack-onboarding"
 source = "content/cloud-onboarding"
 output = "openstack-onboarding.pdf"
 title = "OpenStack Onboarding Guide"
+
+[[guides]]
+slug = "test"
+source = "pdf-tests"
+output = "test.pdf"
+title = "PDF Rendering Test"
