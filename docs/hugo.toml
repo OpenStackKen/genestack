@@ -84,11 +84,6 @@ time_format_blog = "2006-01-02"
 btn-lg = 'class="btn btn-lg btn-{1}" role="button"'
 FA = '<i class="fa-{1} fa-{2} text-{3} px-1"></i>'
 logo = "assets/images/Genestack-Wordmark.png"
-version_menu = "Releases"
-
-[[params.versions]]
-version = "latest"
-url = "https://docs.rackspacecloud.com/latest"
 
 [params.mermaid]
 version = "11.14.0"
