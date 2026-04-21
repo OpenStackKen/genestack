@@ -5,6 +5,8 @@ weight: 10
 Use the Hugo site rooted at `/docs` to preview documentation changes locally.
 Docker is required for local site builds and previews. A host Hugo install is
 not part of the supported workflow.
+The local Hugo container bundles the PostCSS toolchain required by the Docsy
+theme, so a host Node/npm install is not part of the normal build path.
 
 Install the docs tooling dependencies from the `/docs` tree:
 
