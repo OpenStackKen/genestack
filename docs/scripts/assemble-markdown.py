@@ -49,6 +49,14 @@ class GuideConfig:
     title: str
 
 
+TEST_GUIDE = GuideConfig(
+    slug="test",
+    source="pandoc/pdf-tests",
+    output="test.pdf",
+    title="PDF Rendering Test",
+)
+
+
 @dataclass(frozen=True)
 class PagePreview:
     """Minimal metadata used only for deterministic ordering decisions."""
@@ -180,9 +188,10 @@ def main() -> int:
     # execution reaches this point, the assembler is working on exactly one
     # guide slug and one version policy.
     guide_slug = select_guide(args.target, manifest)
+    guide_config = TEST_GUIDE if guide_slug == TEST_GUIDE.slug else manifest[guide_slug]
     pending_renders.extend(
         plan_one_guide(
-            guide=manifest[guide_slug],
+            guide=guide_config,
             versions=versions,
             output_root=output_root,
             cache_root=cache_root,
@@ -273,8 +282,10 @@ def select_guide(target: str, manifest: dict[str, GuideConfig]) -> str:
 
     # `help` is handled in `parse_args()` so anything reaching this function
     # must either be a valid guide slug or an error worth surfacing clearly.
+    if target == TEST_GUIDE.slug:
+        return target
     if target not in manifest:
-        valid = ", ".join(sorted(manifest))
+        valid = ", ".join(sorted([*manifest, TEST_GUIDE.slug]))
         raise SystemExit(f"unknown guide '{target}'. valid guides: {valid}")
     return target
 
