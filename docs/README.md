@@ -199,7 +199,9 @@ That file defines:
 - `deployment-guide.pdf`
 - `operations-guide.pdf`
 - `openstack-onboarding.pdf`
-- `test.pdf`
+
+`test.pdf` is intentionally not part of the configured `make pdf` pipeline.
+Generate it only on demand with `./scripts/mkpdf.sh test`.
 
 The PDF scratch area lives under `/docs/pdf/temp`, including:
 
