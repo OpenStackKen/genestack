@@ -22,6 +22,8 @@ Authoring and style guidance lives in [STYLE_GUIDE.md](STYLE_GUIDE.md).
 
 The supported workflow uses containerized Hugo, containerized Pandoc, and a
 containerized markdownlint runtime.
+The Hugo container image is built locally from the pinned upstream Hugo image
+plus the PostCSS toolchain required by Docsy production builds.
 A host Hugo install is not part of the intended workflow.
 
 Host `node` and `npm` are not required for the normal docs build, serve, lint,
@@ -118,7 +120,7 @@ Run all targets from `/docs`.
 
 | Target | Purpose |
 | --- | --- |
-| `make deps` | Pull the pinned Hugo container if needed for the normal docs workflow. |
+| `make deps` | Build the local Hugo runtime image and any prerequisites needed for the normal docs workflow. |
 | `make build` | Build the Hugo site into `docs/public` and write `public/build.txt`. |
 | `make serve` | Run the Hugo development server in the pinned container on port `1313`. |
 | `make lint` | Run markdownlint against `content/**/*.md` using the dedicated markdownlint container. |
@@ -135,7 +137,7 @@ helper or maintainer targets rather than the everyday edit-preview loop.
 
 | Target | Purpose |
 | --- | --- |
-| `make container` | Ensure the pinned Hugo image is present locally. |
+| `make container` | Build the local Hugo runtime image that bundles Docsy's PostCSS requirements. |
 | `make markdownlint-container` | Build the local markdownlint image used by `make lint`. |
 | `make npm-install` | Optional helper for `make setup`. Installs the host-side Playwright tooling dependencies. |
 | `make pdf-container` | Build the local Pandoc container image defined by `pdf.toml` and `docker/pandoc/Dockerfile`. |
@@ -150,7 +152,7 @@ The Hugo site build path is:
 1. `make deps`
 2. `make ensure-doc-stubs`
 3. `make ensure-hugo-runtime`
-4. run Hugo in the pinned container image
+4. run Hugo in the local runtime image derived from the pinned upstream Hugo base
 5. write the generated site into `/docs/public`
 6. write `/docs/public/build.txt`
 

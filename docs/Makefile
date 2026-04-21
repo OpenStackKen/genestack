@@ -14,7 +14,11 @@ NPM ?= npm
 PYTHON ?= python3
 REPO_ROOT := $(abspath $(CURDIR)/..)
 CONTAINER_WORKDIR := /work
-HUGO_IMAGE ?= ghcr.io/gohugoio/hugo:v0.160.1@sha256:b4f4cd51ce64c7257bf103ecf8fb14f37ea7ca1980bcaaf516cdf95b14446fd7
+HUGO_BASE_IMAGE ?= ghcr.io/gohugoio/hugo:v0.160.1@sha256:b4f4cd51ce64c7257bf103ecf8fb14f37ea7ca1980bcaaf516cdf95b14446fd7
+HUGO_IMAGE ?= genestack-docs-hugo:0.160.1
+HUGO_DOCKERFILE := docker/hugo/Dockerfile
+HUGO_CONTEXT := .
+HUGO_IMAGE_STAMP := .cache/hugo-image.stamp
 MARKDOWNLINT_IMAGE ?= genestack-docs-markdownlint:0.21.0
 HUGO_CONTAINER_HOME := $(CONTAINER_WORKDIR)/docs/.tmp-home/hugo
 HUGO_RUN = $(DOCKER) run --rm \
@@ -51,19 +55,25 @@ MARKDOWNLINT_CONTEXT := $(dir $(MARKDOWNLINT_DOCKERFILE))
 MARKDOWNLINT_IMAGE_STAMP := .cache/markdownlint-image.stamp
 .DEFAULT_GOAL := build
 
-.PHONY: container markdownlint-container npm-install hugo-mod-tidy deps build clean ensure-doc-stubs ensure-hugo-runtime lint mrproper pdf pdf-clean pdf-container serve setup
+.PHONY: container markdownlint-container npm-install hugo-mod-tidy deps build clean ensure-doc-stubs ensure-hugo-runtime ensure-output-placeholders lint mrproper pdf pdf-clean pdf-container serve setup
 
 # Download everything required for the normal site build workflow: the pinned
 # Hugo runtime image only. Host npm tooling is optional and reserved for
 # `make setup`.
 deps: container
 
-# Human-friendly alias for ensuring the pinned Hugo runtime image is available
-# locally before any site build or preview starts.
-container:
-	@if ! $(DOCKER) image inspect $(HUGO_IMAGE) >/dev/null 2>&1; then \
-		$(DOCKER) pull $(HUGO_IMAGE); \
-	fi
+# Build the local Hugo runtime image that layers the Docsy PostCSS toolchain
+# on top of the pinned upstream Hugo image.
+container: $(HUGO_IMAGE_STAMP)
+
+$(HUGO_IMAGE_STAMP): $(HUGO_DOCKERFILE)
+	@mkdir -p $(dir $@)
+	$(DOCKER) build \
+		--build-arg HUGO_BASE_IMAGE=$(HUGO_BASE_IMAGE) \
+		--tag $(HUGO_IMAGE) \
+		--file $(HUGO_DOCKERFILE) \
+		$(HUGO_CONTEXT)
+	@touch $@
 
 # Human-friendly alias for the file-backed markdownlint image artifact.
 markdownlint-container: $(MARKDOWNLINT_IMAGE_STAMP)
@@ -75,6 +85,13 @@ pdf-container: $(PDF_PANDOC_IMAGE_STAMP)
 # exist so the runtime does not need to create them from scratch.
 ensure-hugo-runtime:
 	@mkdir -p .cache/hugo_cache .tmp-home/hugo
+
+# Output directories are intentionally kept in-tree with tracked placeholders,
+# so restore those placeholders after any tool wipes and recreates the
+# directories.
+ensure-output-placeholders:
+	@mkdir -p pdf public resources
+	@touch pdf/.gitkeep public/.gitkeep resources/.gitkeep
 
 # Reconcile Hugo module metadata explicitly through the same containerized Hugo
 # runtime used for ordinary builds. This is maintainer work, not part of `deps`.
@@ -114,7 +131,8 @@ ensure-doc-stubs:
 # simple post-build sentinel that can be polled at `/build.txt`.
 build: deps ensure-doc-stubs ensure-hugo-runtime
 	$(HUGO_RUN)
-	@mkdir -p public
+	@mkdir -p public resources
+	@touch public/.gitkeep resources/.gitkeep
 	@tmp_file="$$(mktemp public/.build.txt.XXXXXX)"; \
 	printf 'build_time_utc=%s\nbuild_epoch=%s\n' \
 	  "$$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
@@ -127,6 +145,8 @@ build: deps ensure-doc-stubs ensure-hugo-runtime
 clean: pdf-clean
 	rm -rf public resources .hugo_build.lock
 	cp $(PRODUCT_MATRIX_STUB) $(PRODUCT_MATRIX_PAGE)
+	@mkdir -p public resources
+	@touch public/.gitkeep resources/.gitkeep
 
 # Convenience target for validating the shared Markdown sources in
 # /docs/content using the docs markdownlint configuration.
