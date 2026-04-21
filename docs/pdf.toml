@@ -1,0 +1,44 @@
+output_dir = "pdf"
+pandoc_defaults = "pandoc/defaults.yaml"
+pandoc_image = "genestack-docs-pandoc:latest"
+pandoc_dockerfile = "docker/pandoc/Dockerfile"
+pandoc_mount_root = "/docs"
+hugo_config = "hugo.toml"
+version_mode = "auto"
+site_base_url = "/"
+
+[[guides]]
+slug = "overview"
+source = "content/overview"
+output = "overview.pdf"
+title = "Overview"
+
+[[guides]]
+slug = "design-guide"
+source = "content/design-guide"
+output = "design-guide.pdf"
+title = "Design Guide"
+
+[[guides]]
+slug = "deployment-guide"
+source = "content/deployment-guide"
+output = "deployment-guide.pdf"
+title = "Deployment Guide"
+
+[[guides]]
+slug = "operations-guide"
+source = "content/operations-guide"
+output = "operations-guide.pdf"
+title = "Operations Guide"
+
+[[guides]]
+slug = "openstack-onboarding"
+source = "content/cloud-onboarding"
+output = "openstack-onboarding.pdf"
+title = "OpenStack Onboarding Guide"
+
+[[guides]]
+slug = "test"
+source = "pdf-tests"
+output = "test.pdf"
+title = "PDF Rendering Test"

@@ -1,0 +1,86 @@
+---
+title: "Service Endpoints"
+description: "Overriding the Helm Public Endpoint FQDN for OpenStack Services"
+weight: 110
+---
+
+By default in Genestack the public endpoint FQDN for any OpenStack service is created with the cluster domain. For example if the cluster domain is `cluster.local` and keystone pods are in the `openstack` namespace then the FQDN for the keystone service would be `keystone-api.openstack.svc.cluster.local` which might not be ideal for production environments.
+
+Below we will discuss how to override the public endpoint FQDN in the keystone catalog using helm values
+
+## Providing the required overrides for public endpoints in the keystone catalog
+
+In order to modify the public endpoint FQDN for any openstack service then helm overrides can be used; taking an example of keystone service.
+
+This is the httproute for keystone service:
+
+``` shell
+kubectl get httproute -n openstack custom-keystone-gateway-route-http
+NAME                                 HOSTNAMES                    AGE
+custom-keystone-gateway-route-https   ["keystone.cluster.local"]   78d
+```
+
+This although doesn't modify the public endpoint for the keystone service in the catalog; to modify the FQDN for the keystone service in the catalog we would need to create an helm overrides file:
+
+```yaml
+endpoints:
+  identity:
+    host_FQDN_override:
+      public:
+        tls: {}
+        host: keystone.cluster.local
+    port:
+      api:
+        public: 443
+    scheme:
+      public: https
+```
+
+this file needs to be moved into /etc/genestack/helm-configs/keystone/ directory and when installing the helm chart this will override the FQDN of the keystone service in the catalog.
+
+> [!NOTE]
+>
+> The FQDN in the `httproute` and helm overrides must be the same
+
+This is an example overrides file for nova:
+
+`host_FQDN_overrides.yaml`
+
+``` yaml
+endpoints:
+  compute:
+    host_FQDN_override:
+      public:
+        tls: {}
+        host: nova.cluster.local
+    port:
+      api:
+        public: 443
+    scheme:
+      public: https
+  compute_metadata:
+    host_FQDN_override:
+      public:
+        tls: {}
+        host: metadata.nova.cluster.local
+    port:
+      metadata:
+        public: 443
+    scheme:
+      public: https
+  compute_novnc_proxy:
+    host_FQDN_override:
+      public:
+        tls: {}
+        host: novnc.nova.cluster.local
+    port:
+      novnc_proxy:
+        public: 443
+    scheme:
+      public: https
+```
+
+> [!NOTE]
+>
+> `gateway-api` handles tls encryption on public endpoints; it is not required to specify tls parameters in helm.
+

@@ -1,0 +1,44 @@
+// Project SCSS variable override layer.
+//
+// This file is loaded before Bootstrap and Docsy compile their own variables.
+// Use it for typography defaults that map cleanly to upstream Sass variables,
+// such as base font families and the site-wide body text weights.
+$td-enable-google-fonts: true;
+$td-google-font-name: "Open Sans" !default;
+$td-google-font-family: "Open+Sans:300,400,600,700|Oswald:400,500,600,700|Courier+Prime:400,700";
+
+// Body copy font family. Change this stack to affect normal page text
+// throughout the site.
+$font-family-sans-serif: "Open Sans",
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  Roboto,
+  "Helvetica Neue",
+  "Noto Sans",
+  "Liberation Sans",
+  Arial,
+  sans-serif,
+  "Apple Color Emoji",
+  "Segoe UI Emoji",
+  "Segoe UI Symbol",
+  "Noto Color Emoji";
+
+// Heading font family. Keep this aligned with the runtime CSS custom property
+// in `_variables_project_after_bs.scss` so all headings resolve consistently.
+$headings-font-family: "Open Sans",
+  "Arial Narrow",
+  "Helvetica Neue",
+  Arial,
+  sans-serif;
+
+// Monospace family for inline code and code blocks.
+$font-family-monospace: "Courier Prime",
+  "Courier New",
+  Courier,
+  monospace;
+
+// Body text weights. Bootstrap uses these when it emits the base text and bold
+// weight tokens for the site.
+$font-weight-base: 400;
+$font-weight-bold: 700;
