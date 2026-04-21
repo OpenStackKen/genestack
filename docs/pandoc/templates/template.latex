@@ -1,0 +1,1650 @@
+%%
+% This is a template for generating nice PDF docs from Markdown in pandoc
+% It is oriignally based on the Eisvogel pandoc LaTeX template.
+%
+% Information on the original Eisvogel template is available on its GitHub page:
+% https://github.com/Wandmalfarbe/pandoc-latex-template
+%%
+
+%%
+%% Options for packages loaded elsewhere
+%%
+\PassOptionsToPackage{unicode$for(hyperrefoptions)$,$hyperrefoptions$$endfor$}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names,table}{xcolor}
+$if(CJKmainfont)$
+\PassOptionsToPackage{space}{xeCJK}
+$endif$
+\let\nofiles\relax
+\documentclass[
+  $for(babel-otherlangs)$
+  $babel-otherlangs$,
+  $endfor$
+  $if(babel-lang)$
+  $babel-lang$,
+  $endif$
+  $if(fontsize)$
+  $fontsize$,
+  $else$
+  10pt,
+  $endif$
+  $if(papersize)$
+  $papersize$paper,
+  $else$
+  paper=letter,
+  $endif$
+  $for(classoption)$
+  $classoption$$sep$$if(classoption)$,$endif$
+  $endfor$
+captions=tableheading]{$if(book)$scrbook$else$scrartcl$endif$}
+$if(beamerarticle)$
+\usepackage{beamerarticle} % needs to be loaded first
+$endif$
+\usepackage{xcolor}
+\usepackage{stackengine}
+\usepackage[calc,showdow,english]{datetime2}
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$else$
+\usepackage[margin=1in,includehead=true,includefoot=true,centering]{geometry}
+$endif$
+\usepackage{amsmath,amssymb}
+$if(titlepage-logo)$
+\usepackage[export]{adjustbox}
+\usepackage{graphicx}
+$endif$
+
+\usepackage{underscore}[strings,nohyphen]
+
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\fvset{breaklines}
+
+%%
+%% Date and Time Styles
+%%
+\DTMnewdatestyle{longDateFormat}{%
+  \renewcommand{\DTMdisplaydate}[4]{%
+    \DTMmonthname{##2}\nobreakspace%  (full) Month
+    \number##3,\space%                day,
+    \number##1%                       year
+  }%
+  \renewcommand{\DTMDisplaydate}{\DTMdisplaydate}%
+}
+
+%%
+%% Fonts
+%%
+\usepackage{fontspec}
+\usepackage{microtype}
+
+\setmonofont{Fira Code Light}[
+  BoldFont={Fira Code Regular},
+  Weight=300,
+  Contextuals=Alternate, % Activate the calt feature
+  Scale=MatchLowercase
+]
+
+\newfontface{\inlinecodefont}{Fira Code Light}[
+  BoldFont={Fira Code Regular},
+  Weight=300,
+  Contextuals=Alternate,
+  Scale=0.85
+]
+
+\makeatletter
+$if(debug)$
+% Debug mode annotates each inline-code span with the surrounding text size and
+% the effective inline-code size so the dedicated PDF test target can expose
+% LaTeX's current font-state decisions without changing normal guide output.
+\DeclareRobustCommand{\inlinecode}[1]{%
+  \begingroup
+  \edef\inlinecodeoutersize{\f@size}%
+  {\inlinecodefont
+    \xdef\inlinecodeinnersize{\f@size}%
+    #1%
+  }%
+  {\leavevmode\textcolor{gray}{\scriptsize[out=\inlinecodeoutersize{}pt in=\inlinecodeinnersize{}pt]}}%
+  \endgroup
+}
+$else$
+\DeclareRobustCommand{\inlinecode}[1]{{\inlinecodefont #1}}
+$endif$
+\makeatother
+
+\usepackage[light]{inter}
+\usepackage[rm,rmtabular,light]{merriweather}
+
+$--%%
+$--%% Footnote Sizing
+$--%%
+$--\makeatletter
+$--\renewcommand\footnotesize{%
+  $--  \@setfontsize\footnotesize\@ixpt{8}%
+  $--  \abovedisplayskip 8\p@ \@plus2\p@ \@minus4\p@
+  $--  \abovedisplayshortskip \z@ \@plus\p@
+  $--  \belowdisplayshortskip 4\p@ \@plus2\p@ \@minus2\p@
+  $--  \def\@listi{\leftmargin\leftmargini
+    $--    \topsep 4\p@ \@plus2\p@ \@minus2\p@
+    $--    \parsep 2\p@ \@plus\p@ \@minus\p@
+  $--  \itemsep \parsep}%
+  $--  \belowdisplayskip \abovedisplayskip
+$--}
+$--\makeatother
+$--
+%%
+%% Custom Font Types Helper
+%%
+\makeatletter
+\newcommand{\showfont}{encoding: \f@encoding{},
+  family: \f@family{},
+  series: \f@series{},
+  shape: \f@shape{},
+  size: \f@size{}
+}
+\makeatother
+
+$--
+$-- Footnote customizations
+$--
+
+%%
+%% Footnote Customizations
+%%
+
+$if(endnotes)$
+$--
+$-- Use endnotes instead
+$--
+%%
+% Change footnotes to endnotes
+%%
+\usepackage[hang,flushmargin,ragged,bottom,multiple]{footmisc}
+\usepackage{footnotebackref}
+\usepackage{enotez}
+\setenotez{
+  backref = true,
+  list-name = $if(endnotes-section)$$endnotes-section$$else$References$endif$
+}
+\usepackage{hyperref}
+\let\footnote=\endnote
+$else$
+$--
+$-- Set up footnotes
+$--
+%%
+% Set up footnotes
+%%
+\usepackage{footnotehyper}
+% We use explicit `\@makefntext` formatting below; disable footnotehyper's
+% attempt to parse that macro for environment-form footnote support.
+\footnotehyperparsefalse
+\usepackage[hang,flushmargin,bottom,belowfloats,multiple,norule]{footmisc}
+\interfootnotelinepenalty=10000 % keep a single footnote body from splitting across pages
+\setlength{\footnotemargin}{0.75em} % set space between footnote nr and text
+\setlength{\footnotesep}{0.6\baselineskip} % tighten stacked footnotes to avoid orphaned marks
+\setlength{\skip\footins}{1em} % reduce the gap above the footnote block
+\makeatletter
+\long\def\@makefntext#1{\noindent{\footnotesize\sffamily\hb@xt@1.6em{\hss\@makefnmark\kern0.3em}#1}}
+\makeatother
+$endif$
+
+%%
+%% END Footnote Customizations
+%%
+$--
+$-- End footnote customizations
+$--
+
+$--
+$-- section numbering
+$--
+$if(numbersections)$
+%%
+% Section Numbering
+%%
+\setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
+$else$
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+$endif$
+
+$if(mathspec)$
+\usepackage{mathspec} % this also loads fontspec
+\usepackage{unicode-math} % this also loads fontspec
+$else$
+\usepackage{unicode-math} % this also loads fontspec
+$endif$
+\defaultfontfeatures{Scale=MatchLowercase}$-- must come before Beamer theme
+\defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+
+$-- User font settings (must come after default font and Beamer theme)
+$if(fontfamily)$
+\usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
+$endif$
+\ifPDFTeX\else
+% xetex/luatex font selection
+$if(mainfont)$
+$if(mainfontfallback)$
+\ifLuaTeX
+\usepackage{luaotfload}
+\directlua{luaotfload.add_fallback("mainfontfallback",{
+      $for(mainfontfallback)$"$mainfontfallback$"$sep$,$endfor$
+})}
+\fi
+$endif$
+\setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$$if(mainfontfallback)$,RawFeature={fallback=mainfontfallback}$endif$]{$mainfont$}
+$endif$
+$if(sansfont)$
+$if(sansfontfallback)$
+\ifLuaTeX
+\usepackage{luaotfload}
+\directlua{luaotfload.add_fallback("sansfontfallback",{
+      $for(sansfontfallback)$"$sansfontfallback$"$sep$,$endfor$
+})}
+\fi
+$endif$
+\setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$$if(sansfontfallback)$,RawFeature={fallback=sansfontfallback}$endif$]{$sansfont$}
+$endif$
+$if(monofont)$
+$if(monofontfallback)$
+\ifLuaTeX
+\usepackage{luaotfload}
+\directlua{luaotfload.add_fallback("monofontfallback",{
+      $for(monofontfallback)$"$monofontfallback$"$sep$,$endfor$
+})}
+\fi
+$endif$
+\setmonofont[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$$if(monofontfallback)$,RawFeature={fallback=monofontfallback}$endif$]{$monofont$}
+$endif$
+$for(fontfamilies)$
+\newfontfamily{$fontfamilies.name$}[$for(fontfamilies.options)$$fontfamilies.options$$sep$,$endfor$]{$fontfamilies.font$}
+$endfor$
+$if(mathfont)$
+$if(mathspec)$
+\ifXeTeX
+\setmathfont(Digits,Latin,Greek)[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
+\else
+\setmathfont[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
+\fi
+$else$
+\setmathfont[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
+$endif$
+$endif$
+$if(CJKmainfont)$
+\ifXeTeX
+\usepackage{xeCJK}
+\setCJKmainfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmainfont$}
+$if(CJKsansfont)$
+\setCJKsansfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKsansfont$}
+$endif$
+$if(CJKmonofont)$
+\setCJKmonofont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmonofont$}
+$endif$
+\fi
+$endif$
+$if(luatexjapresetoptions)$
+\ifLuaTeX
+\usepackage[$for(luatexjapresetoptions)$$luatexjapresetoptions$$sep$,$endfor$]{luatexja-preset}
+\fi
+$endif$
+$if(CJKmainfont)$
+\ifLuaTeX
+\usepackage[$for(luatexjafontspecoptions)$$luatexjafontspecoptions$$sep$,$endfor$]{luatexja-fontspec}
+\setmainjfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmainfont$}
+\fi
+$endif$
+\fi
+$if(zero-width-non-joiner)$
+%% Support for zero-width non-joiner characters.
+\makeatletter
+\def\zerowidthnonjoiner{%
+  % Prevent ligatures and adjust kerning, but still support hyphenating.
+  \texorpdfstring{%
+    \TextOrMath{\nobreak\discretionary{-}{}{\kern.03em}%
+    \ifvmode\else\nobreak\hskip\z@skip\fi}{}%
+  }{}%
+}
+\makeatother
+\ifPDFTeX
+\DeclareUnicodeCharacter{200C}{\zerowidthnonjoiner}
+\else
+\catcode`^^^^200c=\active
+\protected\def ^^^^200c{\zerowidthnonjoiner}
+\fi
+%% End of ZWNJ support
+$endif$
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[$for(microtypeoptions)$$microtypeoptions$$sep$,$endfor$]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+%%
+% Use setspace anyway because we change the default line spacing.
+% The spacing is changed early to affect the titlepage and the TOC.
+%%
+\usepackage{setspace}
+\setstretch{1.2}
+
+$--
+$-- paragraph formatting
+$--
+$if(indent)$
+$else$
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+  \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+\KOMAoptions{parskip=half}}
+\makeatother
+$endif$
+$if(beamer)$
+$else$
+$if(block-headings)$
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}{
+  \@ifstar
+  \xxxParagraphStar
+  \xxxParagraphNoStar
+}
+\newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+\newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}{
+  \@ifstar
+  \xxxSubParagraphStar
+  \xxxSubParagraphNoStar
+}
+\newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+\newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+$endif$
+$endif$
+$--
+$-- verbatim in notes
+$--
+$--$if(verbatim-in-note)$
+$--\usepackage{fancyvrb}
+$--\usepackage{fvextra}
+$--\fvset{breaklines}
+$--$endif$
+$-- highlighting
+$if(listings)$
+\usepackage{listings}
+\usepackage{pmboxdraw}
+\newcommand{\passthrough}[1]{#1}
+\lstset{defaultdialect=[5.3]Lua}
+\lstset{defaultdialect=[x86masm]Assembler}
+$endif$
+$if(listings-no-page-break)$
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{lstlisting}{\par\noindent
+\begin{minipage}{\linewidth}}
+  \AfterEndEnvironment{lstlisting}{
+\end{minipage}\par\addvspace{\topskip}}
+$endif$
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+%%
+% Workaround/bugfix from jannick0.
+% See https://github.com/jgm/pandoc/issues/4302#issuecomment-360669013)
+% or https://github.com/Wandmalfarbe/pandoc-latex-template/issues/2
+%
+% Redefine the verbatim environment 'Highlighting' to break long lines (with
+% the help of fvextra). Redefinition is necessary because it is unlikely that
+% pandoc includes fvextra in the default template.
+%%
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,fontsize=$if(code-block-font-size)$$code-block-font-size$$else$\small$endif$,commandchars=\\\{\}}
+$endif$
+
+$--
+$--
+$--
+
+%%
+%% Horizontal Rule
+%%
+%\let\defaultRule\rule
+%\renewcommand{\rule}[2]{\defaultRule{\linewidth}{#2}}
+
+$--
+$-- Callouts
+$--
+
+%%
+%% Callouts
+%%
+\usepackage{tcolorbox}
+\tcbuselibrary{all}
+\usepackage{fontawesome5}
+
+%%
+% Define Base Box
+%%
+\tcbset{
+  boxsettings/.style={
+    boxrule=1pt, rounded corners=all, arc=2pt,
+    left=5pt, right=5pt, top=5pt, bottom=5pt,
+    boxsep=5pt, before skip=20pt, after skip=20pt,
+    breakable, before upper={\ignorespaces},
+    fonttitle=\small\intermedium,
+    fontupper=\footnotesize\interlight,
+    fontlower=\scriptsize\interlight,
+  }
+}
+
+%%
+% Note
+%%
+\definecolor{note-title}{HTML}{0d6ddd}
+\definecolor{note-content}{HTML}{e9f0fc}
+\definecolor{note-text}{HTML}{0d194a}
+\definecolor{note-border}{HTML}{0d6ddd}
+
+\newcommand\noteIcon{\faPencil*\hspace{0.5em}}
+\newcommand\noteTitle{\noteIcon Note}
+
+\NewTColorBox{note-box}{ O\noteTitle }{
+  colframe=note-border, colback=note-content,
+  coltitle=note-content,
+  coltext=note-text, title={\noteTitle}, boxsettings,
+}
+
+%%
+% Info
+%%
+\definecolor{info-title}{HTML}{0d6ddd}
+\definecolor{info-content}{HTML}{e9f0fc}
+\definecolor{info-text}{HTML}{0d194a}
+\definecolor{info-border}{HTML}{0d6ddd}
+
+\newcommand\infoIcon{\faInfoCircle\hspace{0.5em}}
+\newcommand\infoTitle{\infoIcon Info}
+
+\NewTColorBox{info-box}{ O{\infoTitle} }{
+  colframe=info-border, colback=info-content,
+  coltitle=info-content,
+  coltext=info-text, title={\infoTitle}, boxsettings,
+}
+
+%%
+% ToDo
+%%
+\definecolor{todo-title}{HTML}{0d6ddd}
+\definecolor{todo-content}{HTML}{e9f0fc}
+\definecolor{todo-text}{HTML}{0d194a}
+\definecolor{todo-border}{HTML}{0d6ddd}
+
+\newcommand\todoIcon{\faCheckSquare\hspace{0.5em}}
+\newcommand\todoTitle{\todoIcon To-Do}
+
+\NewTColorBox{todo-box}{ O{\todoTitle} }{
+  colframe=todo-border, colback=todo-content,
+  coltitle=todo-content,
+  coltext=todo-text, title={\todoTitle}, boxsettings,
+}
+
+%%
+% Abstract
+%%
+\definecolor{abstract-title}{HTML}{06bfbc}
+\definecolor{abstract-content}{HTML}{ecf8f8}
+\definecolor{abstract-text}{HTML}{0e7271}
+\definecolor{abstract-border}{HTML}{06bfbc}
+
+\newcommand\abstractIcon{\faClipboardList\hspace{0.5em}}
+\newcommand\abstractTitle{\abstractIcon Tip}
+
+\NewTColorBox{abstract-box}{ O{\abstractTitle} }{
+  colframe=abstract-border, colback=abstract-content,
+  coltitle=abstract-content,
+  coltext=abstract-text, title={\abstractTitle}, boxsettings,
+}
+
+%%
+% Tip
+%%
+\definecolor{tip-title}{HTML}{06bfbc}
+\definecolor{tip-content}{HTML}{ecf8f8}
+\definecolor{tip-text}{HTML}{0e7271}
+\definecolor{tip-border}{HTML}{06bfbc}
+
+\newcommand\tipIcon{\faLightbulb\hspace{0.5em}}
+\newcommand\tipTitle{\tipIcon Tip}
+
+\NewTColorBox{tip-box}{ O{\tipTitle} }{
+  colframe=tip-border, colback=tip-content,
+  coltitle=tip-content,
+  coltext=tip-text, title={\tipTitle}, boxsettings,
+}
+
+%%
+% FAQ/Question
+%%
+\definecolor{question-title}{HTML}{ff9502}
+\definecolor{question-content}{HTML}{fef2e9}
+\definecolor{question-text}{HTML}{a45209}
+\definecolor{question-border}{HTML}{ff9502}
+
+\newcommand\questionIcon{\faQuestionCircle\hspace{0.5em}}
+\newcommand\questionTitle{\questionIcon Question}
+
+\NewTColorBox{question-box}{ O{\questionTitle} }{
+  colframe=question-border, colback=question-content,
+  coltitle=question-content,
+  coltext=question-text, title={\questionTitle}, boxsettings,
+}
+
+%%
+% Warning
+%%
+\definecolor{warning-title}{HTML}{ff9502}
+\definecolor{warning-content}{HTML}{fef2e9}
+\definecolor{warning-text}{HTML}{a45209}
+\definecolor{warning-border}{HTML}{ff9502}
+
+\newcommand\warningIcon{\faExclamationTriangle\hspace{0.5em}}
+\newcommand\warningTitle{\warningIcon Warning}
+
+\NewTColorBox{warning-box}{ O{\warningTitle} }{
+  colframe=warning-border, colback=warning-content,
+  coltitle=warning-content,
+  coltext=warning-text, title={\warningTitle}, boxsettings,
+}
+
+%%
+% Failure
+%%
+\definecolor{fail-title}{HTML}{e93247}
+\definecolor{fail-content}{HTML}{feebed}
+\definecolor{fail-text}{HTML}{751b25}
+\definecolor{fail-border}{HTML}{e93247}
+
+\newcommand\failIcon{\faTimes\hspace{0.5em}}
+\newcommand\failTitle{\failIcon Failure}
+
+\NewTColorBox{failure-box}{ O{\failTitle} }{
+  colframe=fail-border, colback=fail-content,
+  coltitle=fail-content,
+  coltext=fail-text, title={\failTitle}, boxsettings,
+}
+
+%%
+% Danger
+%%
+\definecolor{danger-title}{HTML}{e93247}
+\definecolor{danger-content}{HTML}{feebed}
+\definecolor{danger-text}{HTML}{751b25}
+\definecolor{danger-border}{HTML}{e93247}
+
+\newcommand\dangerIcon{\faBan\hspace{0.5em}}
+\newcommand\dangerTitle{\dangerIcon Danger}
+
+\NewTColorBox{danger-box}{ O{\dangerTitle} }{
+  colframe=danger-border, colback=danger-content,
+  coltitle=danger-content,
+  coltext=danger-text, title={\dangerTitle}, boxsettings,
+}
+
+%%
+% Bug
+%%
+\definecolor{bug-title}{HTML}{e93247}
+\definecolor{bug-content}{HTML}{feebed}
+\definecolor{bug-text}{HTML}{751b25}
+\definecolor{bug-border}{HTML}{e93247}
+
+\newcommand\bugIcon{\faBug\hspace{0.5em}}
+\newcommand\bugTitle{\bugIcon Danger}
+
+\NewTColorBox{bug-box}{ O{\bugTitle} }{
+  colframe=bug-border, colback=bug-content,
+  coltitle=bug-content,
+  coltext=bug-text, title={\bugTitle}, boxsettings,
+}
+
+%%
+% Example
+%%
+\definecolor{example-title}{HTML}{b051de}
+\definecolor{example-content}{HTML}{f8eefc}
+\definecolor{example-text}{HTML}{833da6}
+\definecolor{example-border}{HTML}{b051de}
+
+\newcommand\exampleIcon{\faList\hspace{0.5em}}
+\newcommand\exampleTitle{\bugIcon Danger}
+
+\NewTColorBox{example-box}{ O{\exampleTitle} }{
+  colframe=example-border, colback=example-content,
+  coltitle=example-content,
+  coltext=example-text, title={\exampleTitle}, boxsettings,
+}
+
+%%
+% Success
+%%
+\definecolor{success-title}{HTML}{00a900}
+\definecolor{success-content}{HTML}{F7FFF4}
+\definecolor{success-text}{HTML}{104F20}
+\definecolor{success-border}{HTML}{00a900}
+
+\newcommand\successIcon{\faCheck\hspace{0.5em}}
+\newcommand\successTitle{\successIcon Success}
+
+\NewTColorBox{success-box}{ O{\successTitle} }{
+  colframe=success-border, colback=success-content,
+  coltitle=success-content,
+  coltext=success-text, title={\successTitle}, boxsettings,
+}
+
+%%
+% Quote
+%%
+\definecolor{quote-title}{HTML}{9e9e9e}
+\definecolor{quote-content}{HTML}{ebebeb}
+\definecolor{quote-text}{HTML}{424242}
+\definecolor{quote-border}{HTML}{9e9e9e}
+
+\newcommand\quoteIcon{\faCloud\hspace{0.5em}}
+\newcommand\quoteTitle{\quoteIcon Quote}
+
+\NewTColorBox{quote-box}{ O{\quoteTitle} }{
+  colframe=quote-border, colback=quote-content,
+  coltitle=quote-content,
+  coltext=quote-text, title={\quoteTitle}, boxsettings,
+}
+
+%%
+%% Custom Callout Types
+%%
+
+%%
+% Genestack
+%%
+\definecolor{genestack-title}{HTML}{9e0001}
+\definecolor{genestack-content}{HTML}{f6e7e6}
+\definecolor{genestack-text}{HTML}{740304}
+\definecolor{genestack-border}{HTML}{9e0001}
+
+\newcommand\genestackIcon{\faCloud\hspace{0.5em}}
+\newcommand\genestackTitle{\genestackIcon Genestack}
+
+\NewTColorBox{genestack-box}{ O{\genestackTitle} }{
+  colframe=genestack-border, colback=genestack-content,
+  coltitle=genestack-content,
+  coltext=genestack-text, title={\genestackTitle}, boxsettings,
+}
+
+%%
+%% END Callouts
+%%
+
+$--
+$-- Tables
+$--
+
+%%
+%% Tables
+%%
+\usepackage{tabularray}
+\usepackage{tblr-extras}
+\UseTblrLibrary{booktabs}
+\UseTblrLibrary{caption}
+\usepackage[singlelinecheck=off,justification=centering]{caption}
+
+\DefTblrTemplate{caption-tag}{default}{}
+\DefTblrTemplate{caption-sep}{default}{}
+\DefTblrTemplate{contfoot-text}{default}{\centering\textit{(Continued on next page)}}
+\DefTblrTemplate{conthead-text}{default}{\centering\textit{(Continued from previous page)}}
+
+\NewTblrTheme{obsidian}{
+  %%
+  % Remove "Table #:" from captions
+  %%
+  \DefTblrTemplate{caption-tag}{obsidian}{}
+  \DefTblrTemplate{contcaption-tag}{obsidian}{}
+  \DefTblrTemplate{caption-sep}{obsidian}{}
+  \DefTblrTemplate{contcaption-sep}{obsidian}{}
+  \DefTblrTemplate{contfoot-text}{obsidian}{(Continued on next page)}
+}
+
+\SetTblrTemplate{conthead}{empty}
+\SetTblrStyle{contfoot}{halign=c}
+
+\SetTblrStyle{caption-tag}{font=\footnotesize\interlight\itshape}
+\SetTblrStyle{contfoot-text}{font=\footnotesize\interlight\itshape}
+\SetTblrStyle{conthead-text}{font=\footnotesize\interlight\itshape}
+
+$if(tables)$
+$if(multirow)$
+\usepackage{multirow}
+$endif$
+\usepackage{calc} % for calculating minipage widths
+$if(beamer)$
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+%%\def\fnum@table{\tablename~\thetable}
+\def\fnum@table{}
+\makeatother
+$else$
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+%\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+$endif$
+$endif$
+%%
+%% END Tables
+%%
+
+$--
+$-- graphics
+$--
+
+%%
+%% Graphics
+%%
+$--$if(graphics)$
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+
+%%
+% Captions
+%%
+\usepackage{caption}
+
+%%
+% Set default figure placement to htbp
+% Make use of float-package and set default placement for figures to H.
+% The option H means 'PUT IT HERE' (as  opposed to the standard h option which means 'You may put it here if you like')
+%%
+\usepackage{float}
+\floatplacement{figure}{$if(float-placement-figure)$$float-placement-figure$$else$H$endif$}
+\makeatother
+
+%%
+% SVG
+%%
+\usepackage{svg}
+\svgsetup{inkscape=true}
+
+%%
+%% END Graphics
+%%
+
+$--
+$-- strikeout/underline
+$--
+
+%%
+%% Strikeout/Underline
+%%
+$--$if(strikeout)$
+\ifLuaTeX
+\usepackage{luacolor}
+\usepackage[soul]{lua-ul}
+\else
+\usepackage{soul}
+$if(beamer)$
+\makeatletter
+\let\HL\hl
+\renewcommand\hl{% fix for beamer highlighting
+  \let\set@color\beamerorig@set@color
+  \let\reset@color\beamerorig@reset@color
+\HL}
+\makeatother
+$endif$
+$if(CJKmainfont)$
+\ifXeTeX
+% soul's \st doesn't work for CJK:
+\usepackage{xeCJKfntef}
+\renewcommand{\st}[1]{\sout{#1}}
+\fi
+$endif$
+\fi
+$--$endif$
+%%
+%% END Stikeout/Underline
+%%
+
+$--
+$-- CSL citations
+$--
+
+%%
+%% Citations
+%%
+$if(csl-refs)$
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+\begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+% allow citations to break across lines
+\let\@cite@ofmt\@firstofone
+% avoid brackets around text for \cite:
+\def\@biblabel#1{}
+\def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+{
+  \begin{list}{}{%
+      \setlength{\itemindent}{0pt}
+      \setlength{\leftmargin}{0pt}
+      \setlength{\parsep}{0pt}
+      % turn on hanging indent if param 1 is 1
+      \ifodd #1
+      \setlength{\leftmargin}{\cslhangindent}
+      \setlength{\itemindent}{-1\cslhangindent}
+      \fi
+      % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+  {
+\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+$--
+$-- Babel language support
+$--
+$if(lang)$
+\ifLuaTeX
+\usepackage[bidi=basic,shorthands=off,$for(babeloptions)$,$babeloptions$$endfor$]{babel}
+\else
+\usepackage[bidi=default,shorthands=off,$for(babeloptions)$,$babeloptions$$endfor$]{babel}
+\fi
+$if(babel-lang)$
+$if(mainfont)$
+\ifPDFTeX
+\else
+\babelfont{rm}[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$$if(mainfontfallback)$,RawFeature={fallback=mainfontfallback}$endif$]{$mainfont$}
+\fi
+$endif$
+$endif$
+$for(babelfonts/pairs)$
+\babelfont[$babelfonts.key$]{rm}{$babelfonts.value$}
+$endfor$
+\ifLuaTeX
+\usepackage{selnolig} % disable illegal ligatures
+\fi
+$endif$
+%%
+%% END Citations
+%%
+
+$--
+$-- pagestyle
+$--
+
+%%
+%% Pagestyle
+%%
+$if(pagestyle)$
+\pagestyle{$pagestyle$}
+$endif$
+$--
+$-- prevent overfull lines
+$--
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+$--
+$-- tight lists
+$--
+\providecommand{\tightlist}{%
+\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+$--
+$-- subfigure support
+$--
+$if(subfigure)$
+\usepackage{subcaption}
+$endif$
+$--
+$-- text direction support for pdftex
+$--
+$if(dir)$
+\ifPDFTeX
+\TeXXeTstate=1
+\newcommand{\RL}[1]{\beginR #1\endR}
+\newcommand{\LR}[1]{\beginL #1\endL}
+\newenvironment{RTL}{\beginR}{\endR}
+\newenvironment{LTR}{\beginL}{\endL}
+\fi
+$endif$
+$--
+$-- bibliography support support for natbib and biblatex
+$--
+$if(natbib)$
+\usepackage[$natbiboptions$]{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(biblatex)$
+\usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
+$endif$
+$--
+$-- csquotes
+$--
+$if(csquotes)$
+\usepackage[$for(csquotesoptions)$$csquotesoptions$$sep$,$endfor$]{csquotes}
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{$if(urlstyle)$$urlstyle$$else$same$endif$}
+%%$if(links-as-notes)$
+%%\DeclareRobustCommand{\href}[2]{#2\space(\nolinkurl{#1})}
+%%$endif$
+$if(verbatim-in-note)$
+\VerbatimFootnotes % allow verbatim text in footnotes
+$endif$
+%%
+%% END Pagestyle
+%%
+
+%%
+%% Hyperlinks
+%%
+\definecolor{linkcolor}{HTML}{67aadd}
+\definecolor{default-linkcolor}{HTML}{67aadd}
+\definecolor{default-filecolor}{HTML}{67aadd}
+\definecolor{default-citecolor}{HTML}{67aadd}
+\definecolor{default-urlcolor}{HTML}{67aadd}
+
+\hypersetup{
+  $if(title-meta)$
+  pdftitle={$title-meta$},
+  $endif$
+  $if(author-meta)$
+  pdfauthor={$author-meta$},
+  $endif$
+  $if(lang)$
+  pdflang={$lang$},
+  $endif$
+  $if(subject)$
+  pdfsubject={$subject$},
+  $endif$
+  $if(keywords)$
+  pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$},
+  $endif$
+  $if(colorlinks)$
+  colorlinks=true,
+  linkcolor={$if(linkcolor)$$linkcolor$$else$default-linkcolor$endif$},
+  filecolor={$if(filecolor)$$filecolor$$else$default-filecolor$endif$},
+  citecolor={$if(citecolor)$$citecolor$$else$default-citecolor$endif$},
+  urlcolor={$if(urlcolor)$$urlcolor$$else$default-urlcolor$endif$},
+  $else$
+  $if(boxlinks)$
+  $else$
+  hidelinks,
+  $endif$
+  $endif$
+  breaklinks=true,
+pdfcreator={LaTeX via pandoc from Obsidian with modified Eisvogel template}}
+%%
+%% END Hyperlinks
+%%
+
+%%
+% Title
+%%
+$if(title)$
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
+$endif$
+
+$if(subtitle)$
+%%
+% Subtitle
+%%
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{$subtitle$}
+
+$endif$
+%%
+% Author
+%%
+\author{$for(author)$$author$$sep$ \and $endfor$}
+
+%%
+% Date
+%%
+\date{$date$}
+
+$if(page-background)$
+%%
+% Page Background
+%%
+\usepackage[pages=all]{background}
+
+$endif$
+$if(titlepage)$
+%%
+% For the background color of the title page
+%%
+\usepackage{pagecolor}
+\usepackage{afterpage}
+\usepackage{tikz}
+\usetikzlibrary{fadings}
+$if(geometry)$
+$else$
+\usepackage[margin=1in,includehead=true,includefoot=true,centering]{geometry}
+$endif$
+$endif$
+
+%%
+% Titling
+%%
+\usepackage{titling}
+
+%%
+% Break urls
+%%
+\PassOptionsToPackage{hyphens}{url}
+
+%%
+% When using babel or polyglossia with biblatex, loading csquotes is recommended
+% to ensure that quoted texts are typeset according to the rules of your main language.
+%%
+\usepackage{csquotes}
+
+%%
+% Captions
+%%
+\definecolor{caption-color}{HTML}{777777}
+\usepackage[position=bottom, skip=4mm, font={sf, it, footnotesize, normalcolor}, labelformat=empty, singlelinecheck=false, justification=centering]{caption}
+\setcapindent{0em}
+
+%%
+% blockquote
+%%
+\definecolor{bquote-border}{HTML}{d1d1d1}
+\definecolor{bquote-text}{HTML}{707070}
+\definecolor{bquote-bg}{HTML}{f7f7f7}
+
+\newtcolorbox{bquote}{
+  enhanced,
+  halign=left,
+  width={0.975\textwidth},
+  parbox=false,
+  boxrule=0pt,
+  frame hidden,
+  borderline west={0.25em}{0pt}{bquote-border},
+  colback=bquote-bg,
+  colupper=bquote-text,
+  fontupper=\sffamily\itshape\fontsize{0.9em}{1.1em}\selectfont,
+  sharp corners=all
+}
+
+\renewenvironment{quote}{
+  \centering
+\begin{bquote}\ignorespaces}{\unskip
+  \end{bquote}
+}
+
+$if(tables)$
+%%
+%% Tables
+%%
+\definecolor{table-row-color}{HTML}{F5F5F5}
+\definecolor{table-rule-color}{HTML}{999999}
+
+$--\arrayrulecolor{black!40}
+\arrayrulecolor{table-rule-color}     % color of \toprule, \midrule, \bottomrule
+\setlength\heavyrulewidth{0.3ex}      % thickness of \toprule, \bottomrule
+\renewcommand{\arraystretch}{1.3}     % spacing (padding)
+
+$if(table-use-row-colors)$
+%%
+% Unfortunately the colored cells extend beyond the edge of the
+% table because pandoc uses @-expressions (@{}) like so:
+%
+% \begin{longtable}[]{@{}ll@{}}
+% \end{longtable}
+%
+% https://en.wikibooks.org/wiki/LaTeX/Tables#.40-expressions
+%%
+\usepackage{etoolbox}
+\AtBeginEnvironment{longtable}{\rowcolors{2}{}{table-row-color!100}}
+\preto{\toprule}{\hiderowcolors}{}{}
+\appto{\endhead}{\showrowcolors}{}{}
+\appto{\endfirsthead}{\showrowcolors}{}{}
+$endif$
+%%
+%% END Tables
+%%
+
+$endif$
+%%
+% Remove paragraph indentation
+%%
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+$if(listings)$
+%%
+%% Listings
+%%
+
+%%
+% General listing colors
+%%
+\definecolor{listing-background}{HTML}{F7F7F7}
+\definecolor{listing-rule}{HTML}{B3B2B3}
+\definecolor{listing-numbers}{HTML}{B3B2B3}
+\definecolor{listing-text-color}{HTML}{000000}
+\definecolor{listing-keyword}{HTML}{435489}
+\definecolor{listing-keyword-2}{HTML}{1284CA} % additional keywords
+\definecolor{listing-keyword-3}{HTML}{9137CB} % additional keywords
+\definecolor{listing-identifier}{HTML}{435489}
+\definecolor{listing-string}{HTML}{00999A}
+\definecolor{listing-comment}{HTML}{8E8E8E}
+
+%%
+% Box drawing characters
+%%
+\usepackage{pmboxdraw}
+\usepackage{newunicodechar}
+\newunicodechar{└}{\textSFii}
+\newunicodechar{├}{\textSFviii}
+\newunicodechar{│}{\textSFxi}
+\newunicodechar{─}{\textSFx}
+
+%%
+% Listing styles
+%%
+\lstdefinestyle{eisvogel_listing_style}{
+  xleftmargin      = 3.4pt,
+  xrightmargin     = 3.4pt,
+  backgroundcolor  = \color{listing-background},
+  basicstyle       = \color{listing-text-color}\linespread{1.15}%
+  \lst@ifdisplaystyle%
+  \footnotesize%
+  \fi\ttfamily{},
+  breaklines       = true,
+  frame            = single,
+  framesep         = 4.0pt,
+  rulecolor        = \color{listing-rule},
+  frameround       = ffff,
+  tabsize          = 4,
+  numberstyle      = \color{listing-numbers},
+  aboveskip        = 1.0em,
+  belowskip        = 0.1em,
+  abovecaptionskip = 0em,
+  belowcaptionskip = 1.0em,
+  keywordstyle     = {\color{listing-keyword}\bfseries},
+  keywordstyle     = {[2]\color{listing-keyword-2}\bfseries},
+  keywordstyle     = {[3]\color{listing-keyword-3}\bfseries\itshape},
+  sensitive        = true,
+  identifierstyle  = \color{listing-identifier},
+  commentstyle     = \color{listing-comment},
+  stringstyle      = \color{listing-string},
+  showstringspaces = false,
+  escapeinside     = {/*@}{@*/}, % Allow LaTeX inside these special comments
+  literate         =
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\`E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+  {…}{{\ldots}}1 {≥}{{>=}}1 {≤}{{<=}}1 {„}{{\glqq}}1 {“}{{\grqq}}1
+  {”}{{''}}1 {└}{{\textSFii}}1 {├}{{\textSFviii}}1 {│}{{\textSFxi}}1
+  {─}{{\textSFx}}1
+}
+\lstset{style=eisvogel_listing_style}
+
+%%
+% Java (Java SE 12, 2019-06-22)
+%%
+\lstdefinelanguage{Java}{
+  morekeywords={
+    % normal keywords (without data types)
+    abstract,assert,break,case,catch,class,continue,default,
+    do,else,enum,exports,extends,final,finally,for,if,implements,
+    import,instanceof,interface,module,native,new,package,private,
+    protected,public,requires,return,static,strictfp,super,switch,
+    synchronized,this,throw,throws,transient,try,volatile,while,
+    % var is an identifier
+    var
+  },
+  morekeywords={[2] % data types
+    % primitive data types
+    boolean,byte,char,double,float,int,long,short,
+    % String
+    String,
+    % primitive wrapper types
+    Boolean,Byte,Character,Double,Float,Integer,Long,Short
+    % number types
+    Number,AtomicInteger,AtomicLong,BigDecimal,BigInteger,DoubleAccumulator,DoubleAdder,LongAccumulator,LongAdder,Short,
+    % other
+    Object,Void,void
+  },
+  morekeywords={[3] % literals
+    % reserved words for literal values
+    null,true,false,
+  },
+  sensitive,
+  morecomment  = [l]//,
+  morecomment  = [s]{/*}{*/},
+  morecomment  = [s]{/**}{*/},
+  morestring   = [b]",
+  morestring   = [b]',
+}
+
+\lstdefinelanguage{XML}{
+  morestring      = [b]",
+  moredelim       = [s][\bfseries\color{listing-keyword}]{<}{\ },
+  moredelim       = [s][\bfseries\color{listing-keyword}]{</}{>},
+  moredelim       = [l][\bfseries\color{listing-keyword}]{/>},
+  moredelim       = [l][\bfseries\color{listing-keyword}]{>},
+  morecomment     = [s]{<?}{?>},
+  morecomment     = [s]{<!--}{-->},
+  commentstyle    = \color{listing-comment},
+  stringstyle     = \color{listing-string},
+  identifierstyle = \color{listing-identifier}
+}
+
+%%
+%% END Listings
+%%
+
+$endif$
+
+%%
+%% Header and Footer
+%%
+$if(disable-header-and-footer)$
+
+%% DISABLED!
+
+$else$
+\usepackage[headsepline,footsepline]{scrlayer-scrpage}
+% The rule above the footer sits at roughly `\footskip - \footheight` below
+% the text block. Tighten `\footskip` so bottom-anchored footnotes sit almost
+% directly above the footer rule.
+\setlength{\footskip}{1.7\baselineskip}
+
+\newpairofpagestyles{eisvogel-header-footer}{
+  \clearpairofpagestyles
+  \ihead*{$if(header-left)$$header-left$$else$$title$$if(subtitle)${: $subtitle$}$endif$$endif$}
+  \chead*{$if(header-center)$$header-center$$else$$endif$}
+  \ohead*{$if(header-right)$$header-right$$else$$date$$endif$}
+  \ifoot*{$if(footer-left)$$footer-left$$else$$for(author)$$author$$sep$, $endfor$$endif$}
+  \cfoot*{$if(footer-center)$$footer-center$$else$$endif$}
+  \ofoot*{$if(footer-right)$$footer-right$$else$\thepage$endif$}
+  \addtokomafont{pageheadfoot}{\upshape\sffamily}
+}
+
+\newpairofpagestyles{eisvogel-footer-only}{
+  \clearpairofpagestyles
+  \ihead*{}
+  \chead*{}
+  \ohead*{}
+  \KOMAoptions{headsepline=false}%
+  \ifoot*{$if(footer-left)$$footer-left$$else$$for(author)$$author$$sep$, $endfor$$endif$}
+  \cfoot*{$if(footer-center)$$footer-center$$else$$endif$}
+  \ofoot*{$if(footer-right)$$footer-right$$else$\thepage$endif$}
+  \addtokomafont{pageheadfoot}{\upshape\sffamily}
+}
+
+\pagestyle{eisvogel-header-footer}
+
+$if(book)$
+
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
+%%
+% Book
+%%
+\deftripstyle{ChapterStyle}{}{}{}{}{\pagemark}{}
+\renewcommand*{\chapterpagestyle}{ChapterStyle}
+$endif$
+
+$if(page-background)$
+
+%%
+% Page Background
+%%
+\backgroundsetup{
+  scale=1,
+  color=black,
+  opacity=$if(page-background-opacity)$$page-background-opacity$$else$0.2$endif$,
+  angle=0,
+  contents={%
+    \includegraphics[width=\paperwidth,height=\paperheight]{$page-background$}
+  }%
+}
+$endif$
+$endif$
+
+$--
+$-- Begin Local Customizations
+$--
+%%%%
+%%%%
+%%%% BEGIN LOCAL CUSTOMIZATIONS
+%%%%
+%%%%
+
+%%
+%% Lists
+%%
+\usepackage{enumitem}
+\setlistdepth{20}
+\setlist[itemize]{label=\sffamily\small\textbullet}
+\setlist[itemize,1]{label=\sffamily\small\textbullet}
+\setlist[itemize,2]{label=\sffamily\small\textbullet}
+\setlist[itemize,3]{label=\sffamily\small\textbullet}
+\setlist[itemize,4]{label=\sffamily\small\textbullet}
+\setlist[itemize,5]{label=\sffamily\small\textbullet}
+\setlist[itemize,6]{label=\sffamily\small\textbullet}
+
+%%
+%% Headings
+%%
+\newfontface{\sectionfont}{Inter}[Weight=300]%
+\newfontface{\subsectionfont}{Inter}[Weight=300]%
+\newfontface{\subsubsectionfont}{Inter}[Weight=300]%
+\newfontface{\paragraphfont}{Inter}[Weight=300]%
+\newfontface{\subparagraphfont}{Inter}[Weight=300]%
+
+\addtokomafont{section}{\sectionfont\Huge}
+\addtokomafont{subsection}{\subsectionfont\huge}
+\addtokomafont{subsubsection}{\subsubsectionfont\LARGE}
+\addtokomafont{paragraph}{\paragraphfont\Large}
+\addtokomafont{subparagraph}{\subparagraphfont\large}
+
+$--
+$-- End Local Customizations
+$--
+%%%%
+%%%%
+%%%% END LOCAL CUSTOMIZATIONS
+%%%%
+%%%%
+
+$if(watermark)$
+%%
+%% Define watermark
+%%
+\newfontface{\watermarkfont}{Inter Bold}[Scale=1.3]%
+\colorlet{WatermarkRed}{Red!15}
+\usepackage[color={WatermarkRed}, text={\watermarkfont $watermark$}, scale={0.75}]{draftwatermark}
+$endif$
+
+%%%%
+%%%%
+%%%% DOCUMENT STARTS HERE
+%%%%
+%%%%
+
+\begin{document}
+
+$if(created)$
+\DTMsavedate{docDate}{$created$}
+$else$
+\DTMsavenow{docDate}
+$endif$
+
+\newfontface{\theTitleFont}{Inter}[Scale=2.5]
+\newfontface{\theSubtitleFont}{Inter ExtraLight}[Weight=100,Scale=1.75]
+\newfontface{\theAuthorFont}{Inter}[Scale=1.5,Weight=300]
+\newfontface{\theTopicFont}{Inter}[Scale=1.5,Weight=300]
+\newfontface{\theReleaseFont}{Fira Code Light}[Scale=1.15,Weight=300]
+\newfontface{\theDateFont}{Inter}[Scale=1.25,Weight=300]
+\newfontface{\theLinkFont}{Inter}[Scale=1.25,Weight=300]
+\newfontface{\theURLFont}{Inter}[Scale=1.25,Weight=700]
+
+$--
+$-- Titlepage
+$--
+$if(titlepage)$
+
+%%
+%% Titlepage
+%%
+
+\begin{titlepage}
+
+  \afterpage{\restoregeometry}
+  \newgeometry{left=1in, right=1in,top=1in, bottom=-0.15in}
+  \definecolor{myColor}{HTML}{ffffff}
+  \pagecolor{myColor}\afterpage{\nopagecolor}
+
+  \thispagestyle{empty}
+  \begin{flushright}
+    \vspace{1em}
+    $if(titlepage-logo)$
+    \includegraphics[width=$if(logo-width)$$logo-width$$else$3.5in$endif$, right]{$titlepage-logo$}\\[4em]
+    $endif$
+    \theTitleFont{$title$}\\[1em]
+    $if(subtitle)$
+    \theSubtitleFont{$subtitle$}\\[1em]
+    $endif$
+    \theReleaseFont{$version$}\\[0.5em]
+    \theDateFont\DTMUsedate{docDate}
+  \end{flushright}
+  \vfill
+  \begin{center}
+    \begin{tikzpicture}
+      \node[scope fading=north, inner sep=0pt, outer sep=0pt]{
+        \makebox[\textwidth]{\includegraphics[width=\paperwidth]{cloud-anywhere.png}}
+      };
+    \end{tikzpicture}
+  \end{center}
+\end{titlepage}
+% for additional pages after the title, uncomment the following line first:
+\clearpage
+\restoregeometry
+$endif$
+
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+$if(title)$
+%%
+% don't generate the default title
+% \maketitle
+%%
+$if(abstract)$
+
+%%
+% Abstract
+%%
+\begin{abstract}
+  $abstract$
+\end{abstract}
+$endif$
+$endif$
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+
+%%
+% Table of Contents
+%%
+$if(toc-title)$
+\renewcommand*\contentsname{$toc-title$}
+$endif$
+{
+  $if(colorlinks)$
+  \hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$$endif$}
+  $endif$
+  \setcounter{tocdepth}{$toc-depth$}
+  \tableofcontents
+  $if(toc-own-page)$
+  \newpage
+  $endif$
+}
+\newpage
+$endif$
+$if(lof)$
+
+%%
+% List of Figures
+%%
+\listoffigures
+$endif$
+$if(lot)$
+
+%%
+% List of Tables
+%%
+\listoftables
+$endif$
+$if(linestretch)$
+\setstretch{$linestretch$}
+$endif$
+$if(has-frontmatter)$
+\mainmatter
+$endif$
+
+$--
+$-- Document Body
+$--
+
+%%
+% Document Body
+%%
+$body$
+
+$if(fonttest)$
+%%
+% Font Test
+%%
+\subsubsection{Font Test}\label{built-in-font-test}
+Roman:\linebreak
+\vspace{0.5em}
+\hfill\textrm{\showfont}\par
+\vspace{1em}
+
+Sans Serif:\linebreak
+\vspace{0.5em}
+\hfill\textsf{\showfont}\par
+\vspace{1em}
+
+Monospace:\linebreak
+\vspace{0.5em}
+\hfill\texttt{\showfont}\par
+\vspace{2em}
+$endif$
+
+$if(endnotes)$
+$--
+$-- Begin endnotes
+$--
+%%
+% Endnotes
+%%
+\newpage
+\begingroup
+\parindent 1em
+\parskip 0.5em
+
+\DeclareInstance{enotez-list}{obsidian}{paragraph}
+{
+  heading=
+  \section*{#1},
+  notes-sep=0.25em,
+  format=\scriptsize\sffamily\raggedright\leftskip1.5em,
+  number=\makebox[0pt][r]{#1.\ }\ignorespaces,
+}
+\pdfbookmark{Endnotes}{Endnotes}
+\printendnotes[obsidian]
+\endgroup
+$--
+$-- End endnotes
+$--
+$endif$
+
+$if(has-frontmatter)$
+%%
+%% Backmatter
+%%
+\backmatter
+$endif$
+$if(nocite-ids)$
+\nocite{$for(nocite-ids)$$it$$sep$, $endfor$}
+$endif$
+$if(natbib)$
+$if(bibliography)$
+$if(biblio-title)$
+$if(has-chapters)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+
+$endif$
+$endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+
+$endif$
+$for(include-after)$
+$include-after$
+
+$endfor$
+\end{document}
+
+%%%%
+%%%%
+%%%% DOCUMENT ENDS HERE
+%%%%
+%%%%
