@@ -10,9 +10,9 @@ correctly in Hugo.
 
 ## Current Branch
 
-- Branch: `codex/release-2026.1-rc-hugo-from-2025.4`
+- Branch: `codex/release-2026.1-rc-hugo`
 - Base: `release-2026.1-rc`
-- Worktree: `/Users/ken/Dev/genestack-r26.1-hugo`
+- Worktree: `/Users/ken/Dev/genestack`
 
 ## Pivot Decision
 
@@ -114,8 +114,8 @@ content port is complete:
 
 ## Next Steps
 
-1. Build a file-by-file source-to-destination map for the `45` preserved MkDocs
-   pages.
+1. Use [HUGO-CONTENT-PORT-MAP.md](/Users/ken/Dev/genestack/HUGO-CONTENT-PORT-MAP.md)
+   as the source-to-destination map for the `45` preserved MkDocs pages.
 2. Port content from each top-level MkDocs file into the correct Hugo destination,
    preserving `release-2026.1-rc` wording and examples unless a Hugo rendering fix is
    required.
