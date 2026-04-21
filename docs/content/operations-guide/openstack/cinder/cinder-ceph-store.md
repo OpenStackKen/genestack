@@ -1,12 +1,14 @@
-# Connecting Nova to External Ceph
-
+---
+title: "Connecting Cinder to External Ceph"
+weight: 290
+---
 When operating a cloud environment, it is often necessary to use a shared storage system rather than the local compute node for virtual machine disk storage. This can be useful for a number of reasons, such as:
 
 * To provide a scalable storage solution for instances
 * To provide a storage solution that is separate from the compute nodes
 * To enable live migration capabilities
 
-In this guide, we will show you how to connect Nova to an external Ceph storage system. The examples provided here assume Cinder is also configured for the same external Ceph backend.
+In this guide, we will show you how to connect Cinder to an external Ceph storage system. Doing so can enable users to leverage Nova's boot-from-volume capabilities as well as secondary attached volumes using an external Ceph backend.
 
 ## Prerequisites
 
@@ -14,11 +16,10 @@ Before you begin, you will need the following:
 
 * A running OpenStack environment
 * A running Ceph environment
-* A running Nova environment
-* A running Cinder environment using External Ceph
+* A running Cinder environment
 * The `ceph.conf` file from the Ceph deployment server
-* An OSD pool named `vms` with adequate PGs
-* A Ceph client named `cinder` with adequate permissions to the `vms` pool
+* An OSD pool named `volumes` with adequate PGs
+* A Ceph client named `cinder` with adequate permissions to the `volumes` pool
 
 ## Information Needed
 
@@ -30,27 +31,27 @@ The following information is needed to configure Nova to use Ceph as an external
 | `mon_host` | Specially-crafted list of Ceph monitor hosts. Contained in `ceph.conf`. |
 | Ceph `cinder` client key | The Ceph key used to operate as the `cinder` user in Ceph |
 
-### Step 1: Configure Ceph for Nova
+### Step 1: Configure Ceph for Cinder
 
-Prior to configuring Nova to support an external Ceph deployment, you must first configure users and pools within Ceph. The examples below are provided as reference only, and may not be applicable to your environment. An assumption is made that Ceph is operational and OSDs have been made available for use.
+Prior to configuring Cinder to support an external Ceph deployment, you must first configure users and pools within Ceph. The examples below are provided as reference only, and may not be applicable to your environment. An assumption is made that Ceph is operational and OSDs have been made available for use.
 
 #### Step 1a: Create and Initialize a Pool
 
 ```bash
-ceph osd pool create vms
-rbd pool init vms
+ceph osd pool create volumes
+rbd pool init volumes
 ```
 
 #### Step 1b: Disable Autoscaling (optional)
 
 ```bash
-ceph osd pool set vms pg_autoscale_mode off
+ceph osd pool set volumes pg_autoscale_mode off
 ```
 
 #### Step 1c: Set Placement Groups on the Pool
 
 ```bash
-ceph osd pool set vms pg_num 2048
+ceph osd pool set volumes pg_num 4096
 ```
 
 Please note the value provided for pgs may not be appropriate for your deployment. Please refer to the Ceph PG calculator for additional guidance.
@@ -101,7 +102,7 @@ Apply the ConfigMap using the following command:
 kubectl apply -f /etc/genestack/manifests/ceph/ceph-etc.yaml
 ```
 
-Please note the same `ceph-etc` ConfigMap may be used for other Ceph integrations such as Glance and Cinder. The name `ceph-etc` is built in to the template and should not be overridden unless you know what you're doing.
+Please note the same `ceph-etc` ConfigMap may be used for other Ceph integrations such as Glance and Nova. The name `ceph-etc` is built in to the template and should not be overridden unless you know what you're doing.
 
 #### Step 2b: Create the Kubernetes Secret
 
@@ -138,70 +139,71 @@ Using the `uuidgen` utility, create a unique UUID that can be used to create a L
 eea41bd9-c85e-4c99-879b-65e38ffb3213
 ```
 
-### Step 4: Configure Nova to use External Ceph
+### Step 4: Configure Cinder to use External Ceph
 
-Update the Nova Helm overrides at `/etc/genestack/helm-configs/nova/nova-helm-overrides.yaml` with the following configuration to connect Nova to External Ceph.
+Update the Cinder Helm overrides at `/etc/genestack/helm-configs/cinder/cinder-helm-overrides.yaml` with the following configuration to connect Cinder to External Ceph.
 
 Note that the values for both `secret_uuid` and `rbd_secret_uuid` should be the same UUID generated in the previous step. The `keyring` value should match the key generated in **Step 1d**.
 
 ``` yaml
----
 images:
   tags:
-    nova_compute: "quay.io/airshipit/nova:2025.1-ubuntu_noble"
+    cinder_volume: "quay.io/airshipit/cinder:2024.1-ubuntu_jammy"
+
+ceph_client:
+  enable_external_ceph_backend: true
+  external_ceph:
+    rbd_user: cinder
+    rbd_user_keyring: AQCQqXJpHtP3AhBBU6rf/yvgq92fuJqBgy3Nxg==
 
 conf:
   ceph:
     enabled: true
-    cinder:
-      secret_uuid: eea41bd9-c85e-4c99-879b-65e38ffb3213
-      keyring: AQCQqXJpHtP3AhBBU6rf/yvgq92fuJqBgy3Nxg==
-  nova:
-    libvirt:
-      images_type: rbd
-      images_rbd_pool: vms
-      images_rbd_ceph_conf: /etc/ceph/ceph.conf
+  cinder:
+    DEFAULT:
+      enabled_backends: rbd-ceph
+      default_volume_type: rbd-ceph
+  backends:
+    rbd-ceph:
+      volume_driver: cinder.volume.drivers.rbd.RBDDriver
+      volume_backend_name: rbd-ceph
+      rbd_pool: volumes
+      rbd_ceph_conf: /etc/ceph/ceph.conf
       rbd_secret_uuid: eea41bd9-c85e-4c99-879b-65e38ffb3213
-      force_raw_images: true
-      volume_use_multipath: false
+      rbd_flatten_volume_from_snapshot: false
+      report_discard_supported: true
+      rbd_max_clone_depth: 5
+      rbd_store_chunk_size: 4
+      rados_connect_timeout: -1
+      rbd_user: cinder
+      image_volume_cache_enabled: true
+      image_volume_cache_max_size_gb: 200
+      image_volume_cache_max_count: 50
+secrets:
+  rbd:
+    backup: pvc-ceph-client-key
+    volume: pvc-ceph-client-key
+    volume_external: pvc-ceph-client-key
+manifests:
+  deployment_volume: true
 ```
 
 Please note the upstream container images are required for Ceph support at this time.
 
-### Step 5: Configure Libvirt to use External Ceph
+### Step 5: Apply the Configuration
 
-Update the Libvirt Helm overrides at `/etc/genestack/helm-configs/libvirt/libvirt-helm-overrides.yaml` with the following configuration to connect Libvirt to External Ceph.
-
-Note that the value for both `secret_uuid` should be the same UUID generated in **Step 3**. The `keyring` value should match the key generated in **Step 1d**.
-
-``` yaml
----
-images:
-  tags:
-    libvirt: "docker.io/openstackhelm/libvirt:2025.1-ubuntu_noble"
-
-conf:
-  ceph:
-    enabled: true
-    cinder:
-      keyring: AQCQqXJpHtP3AhBBU6rf/yvgq92fuJqBgy3Nxg==
-      secret_uuid: eea41bd9-c85e-4c99-879b-65e38ffb3213
-      external_ceph:
-        enabled: true
-        user: cinder
-        secret_uuid: eea41bd9-c85e-4c99-879b-65e38ffb3213
-        user_secret_name: pvc-ceph-client-key
-```
-
-Please note the upstream container images are required for Ceph support at this time.
-
-
-### Step 6: Apply the Configuration
-
-Apply the configuration to the Nova Helm chart.
+Apply the configuration to the Cinder Helm chart.
 
 ``` bash
-/opt/genestack/bin/install-nova.sh
+/opt/genestack/bin/install-cinder.sh
 ```
 
-Once the configuration has been applied, Nova will be configured to use an external Ceph deployment for image storage. Instances deployed from image (not boot-from-volume) should automatically use the external Ceph RBD backend.
+### Step 6: Create the Default Volume Type
+
+Using the `openstack` client, create a default volume type for Cinder that matches the backend defined in **Step 4**.
+
+```bash
+openstack volume type create rbd-ceph --public
+```
+
+Once the configuration has been applied and the default volume type has been created, Cinder will be configured to use an external Ceph deployment for volume storage.

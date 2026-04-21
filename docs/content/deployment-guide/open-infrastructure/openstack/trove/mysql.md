@@ -1,6 +1,10 @@
-# Building MySQL Images for Trove
+---
+title: "MySQL Images"
+description: "Building MySQL Images for Trove"
+weight: 20
+---
 
-This guide explains how to build and configure MySQL database images for use with OpenStack Trove Database as a Service.
+How to build and configure MySQL database images for use with OpenStack Trove DBaaS.
 
 ## Overview
 
@@ -346,4 +350,4 @@ The MySQL image building process integrates with the Genestack deployment:
 3. **Configuration Management**: Use Kustomize overlays for environment-specific settings
 4. **Monitoring**: Integrate with existing monitoring stack
 
-For more information on Trove deployment and management, see the [OpenStack Trove documentation](openstack-trove.md).
+For more information on Trove deployment and management, see the [OpenStack Trove documentation](/deployment-guide/open-infrastructure/openstack/trove/trove/).

@@ -1,4 +1,8 @@
-# Connecting Glance to External Ceph
+---
+title: "Glance External Ceph Image Store"
+description: "Connecting Glance to External Ceph"
+weight: 40
+---
 
 When operating a cloud environment, it is often necessary to store images in a separate storage system. This can be useful for a number of reasons, such as:
 

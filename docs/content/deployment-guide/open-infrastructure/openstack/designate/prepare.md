@@ -1,9 +1,13 @@
-# Add pools and RNDC key
+---
+title: "Preparing to Deploy"
+description: "Adding pools and the RNDC key to support the nameserver backend."
+weight: 10
+---
 
 ## Add designate pools file
 Edit /etc/genestack/helm-configs/designate/designate-pools-helm-overrides.yaml
 
-# Example
+## Example
 
 ```bash
 conf:

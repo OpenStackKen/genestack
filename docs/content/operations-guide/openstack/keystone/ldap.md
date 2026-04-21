@@ -1,4 +1,8 @@
-# Deploy Keystone
+---
+title: "Keystone LDAP/AD Integration "
+description: "Deploying Keystone with LDAP/AD"
+weight: 30
+---
 
 The OpenStack Identity service supports integration with existing LDAP directories for authentication and authorization services. OpenStack Identity only supports read-only LDAP integration. Integrating Active Directory (AD) with OpenStack Keystone is usually done via LDAP backend. Keystone doesn’t talk to AD “natively” — it treats AD as an LDAP directory.
 
@@ -7,11 +11,11 @@ Keystone → LDAP driver → Active Directory
 Auth happens against AD, but Keystone still manages projects, roles, tokens.
 
 ## Example LDAP configuration
-!!! example "LDAP/AD config `/etc/genestack/helm-configs/keystone/keystone-helm-overrides-ldap.yaml`"
 
-    ``` yaml
-    --8<-- "base-helm-configs/keystone/keystone-helm-overrides-ldap.yaml.example"
-    ```
+LDAP/AD config `/etc/genestack/helm-configs/keystone/keystone-helm-overrides-ldap.yaml`
+
+```yaml {include="base-helm-configs/keystone/keystone-helm-overrides-ldap.yaml.example"}
+```
 
 ## Install/Reinstall Keystone Service
 

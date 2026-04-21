@@ -1,4 +1,9 @@
-# Deploy Cert-Manager
+---
+title: "Cert Manager"
+weight: 20
+---
+
+## Deploying Cert Manager
 
 Cert Manager integrates with the Envoy Gateway API to automate the issuance, renewal, and management of TLS/SSL certificates within a cluster. This installation includes envoy gateway-api support and custom DNS server forwarders in the helm chart config.
 
@@ -6,9 +11,12 @@ Cert Manager integrates with the Envoy Gateway API to automate the issuance, ren
 
 View the upstream chart Documentation [cert-manager helm](https://github.com/cert-manager/cert-manager/blob/master/deploy/charts/cert-manager/values.yaml) to configure custom-values.
 
-!!! example "Custom cert-manager DNS forwarders configuration"
-
-    Edit the file `/etc/genestack/helm-configs/cert-manager/cert-manager-helm-overrides.yaml`
+> [!IMPORTANT]
+>
+> **Custom cert-manager DNS forwarders configuration**
+>
+>
+> Edit the file `/etc/genestack/helm-configs/cert-manager/cert-manager-helm-overrides.yaml`
 
    ```yaml
    ---
@@ -18,12 +26,10 @@ View the upstream chart Documentation [cert-manager helm](https://github.com/cer
 
 ## Run Cert-Manager deployment
 
-!!! example "Run the cert-manager deployment Script `/opt/genestack/bin/install-cert-manager.sh`"
+Run the cert-manager deployment Script `/opt/genestack/bin/install-cert-manager.sh`
 
-    ``` shell
-    --8<-- "bin/install-cert-manager.sh"
-    ```
-
+```bash {include="bin/install-cert-manager.sh"}
+```
 ## Verify readiness with the following command
 
 ``` shell

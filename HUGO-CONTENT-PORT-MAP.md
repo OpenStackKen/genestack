@@ -11,6 +11,26 @@ The goal is not to prove exact semantic equivalence for every page. The goal is
 to decide which source to trust while porting each page into the Hugo tree on
 `codex/release-2026.1-rc-hugo`.
 
+## Completed Safe Tranche
+
+The following pages have already been imported into the current branch from
+`docs-refactor`, verified with `make -C docs build`, and had their legacy
+top-level MkDocs source pages removed:
+
+- `docs/infrastructure-cert-manager.md`
+- `docs/openstack-barbican-exporter.md`
+- `docs/openstack-blazar-reservation-splitter.md`
+- `docs/openstack-cinder-ceph-store.md`
+- `docs/openstack-compute-ceph-store.md`
+- `docs/openstack-designate-exporter.md`
+- `docs/openstack-designate-neutron.md`
+- `docs/openstack-designate-prep.md`
+- `docs/openstack-designate.md`
+- `docs/openstack-glance-ceph-store.md`
+- `docs/openstack-keystone-ldap.md`
+- `docs/openstack-trove-mysql-images.md`
+- `docs/openstack-trove.md`
+
 ## Rules
 
 - `Safe to take from docs-refactor` means `docs-refactor` already contains a

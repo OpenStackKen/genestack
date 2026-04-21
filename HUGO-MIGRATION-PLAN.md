@@ -54,14 +54,25 @@ These are release-branch path repairs, not intended content changes:
 - newer `release-2026.1-rc` MkDocs pages that were not safely replaced during the
   transplant remain in the top-level `docs/` tree for follow-up porting
 
+## Progress Log
+
+- 2026-04-21: Imported the first safe content tranche from `docs-refactor`,
+  verified `make -C docs build`, and removed the legacy MkDocs source pages for:
+  `infrastructure-cert-manager`, `openstack-barbican-exporter`,
+  `openstack-blazar-reservation-splitter`, `openstack-cinder-ceph-store`,
+  `openstack-compute-ceph-store`, `openstack-designate-exporter`,
+  `openstack-designate-neutron`, `openstack-designate-prep`,
+  `openstack-designate`, `openstack-glance-ceph-store`,
+  `openstack-keystone-ldap`, `openstack-trove-mysql-images`, and
+  `openstack-trove`.
+
 ## Remaining Content Port Backlog
 
-There are `45` top-level MkDocs content pages still present and acting as the source
+There are `32` top-level MkDocs content pages still present and acting as the source
 of truth for `release-2026.1-rc` content that has not yet been ported into the Hugo
 tree:
 
 - `docs/etcd-backup.md`
-- `docs/infrastructure-cert-manager.md`
 - `docs/infrastructure-mariadb.md`
 - `docs/infrastructure-memcached.md`
 - `docs/k8s-labels.md`
@@ -75,32 +86,20 @@ tree:
 - `docs/monitoring-otel-base-metrics.md`
 - `docs/monitoring-prometheus.md`
 - `docs/monitoring-tempo.md`
-- `docs/openstack-barbican-exporter.md`
 - `docs/openstack-barbican.md`
-- `docs/openstack-blazar-reservation-splitter.md`
 - `docs/openstack-blazar.md`
 - `docs/openstack-ceilometer.md`
-- `docs/openstack-cinder-ceph-store.md`
 - `docs/openstack-cinder-lvmisci.md`
 - `docs/openstack-cinder.md`
-- `docs/openstack-compute-ceph-store.md`
 - `docs/openstack-compute-kit-secrets.md`
 - `docs/openstack-compute-kit.md`
-- `docs/openstack-designate-exporter.md`
-- `docs/openstack-designate-neutron.md`
-- `docs/openstack-designate-prep.md`
-- `docs/openstack-designate.md`
 - `docs/openstack-freezer-backup-retention.md`
 - `docs/openstack-freezer.md`
-- `docs/openstack-glance-ceph-store.md`
 - `docs/openstack-glance.md`
 - `docs/openstack-keystone-federation.md`
-- `docs/openstack-keystone-ldap.md`
 - `docs/openstack-mariadb-operator-upgrade.md`
 - `docs/openstack-nested-virtualization.md`
 - `docs/openstack-skyline.md`
-- `docs/openstack-trove-mysql-images.md`
-- `docs/openstack-trove.md`
 - `docs/prometheus-openstack-metrics-exporter.md`
 - `docs/prometheus-pushgateway.md`
 - `docs/release-2026.1.md`
