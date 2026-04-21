@@ -17,25 +17,25 @@ Run the Loki deployment Script `/opt/genestack/bin/install-loki.sh`
 
 > [!NOTE]
 >
-> If you plan on using **Swift** as a backend for log storage see the `loki-helm-swift-overrides-example.yaml` file in the `helm-configs/loki` directory.
+> If you plan on using **Swift** as a backend for log storage see the `loki-helm-swift-overrides.yaml.example` file in the `helm-configs/loki` directory.
 
-```yaml {include="base-helm-configs/loki/loki-helm-swift-overrides-example.yaml"}
+```yaml {include="base-helm-configs/loki/loki-helm-swift-overrides.yaml.example"}
 ```
 ### S3
 
 
 > [!NOTE]
 >
-> If you plan on using **S3** as a backend for log storage see the `loki-helm-minio-overrides-example.yaml` file in the `helm-configs/loki` directory.
+> If you plan on using **S3** as a backend for log storage see the `loki-helm-s3-overrides.yaml.example` file in the `helm-configs/loki` directory.
 
-```yaml {include="base-helm-configs/loki/loki-helm-s3-overrides-example.yaml"}
+```yaml {include="base-helm-configs/loki/loki-helm-s3-overrides.yaml.example"}
 ```
 ### MinIO
 
 
 > [!NOTE]
 >
-> If you plan on using **Minio** as a backend for log storage see the `loki-helm-s3-overrides-example.yaml` file in the `helm-configs/loki` directory.
+> If you plan on using **MinIO** as a backend for log storage see the `loki-helm-minio-overrides.yaml.example` file in the `helm-configs/loki` directory.
 
-```yaml {include="base-helm-configs/loki/loki-helm-minio-overrides-example.yaml"}
+```yaml {include="base-helm-configs/loki/loki-helm-minio-overrides.yaml.example"}
 ```

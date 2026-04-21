@@ -31,7 +31,7 @@ printf -v m "$(cat ~/.config/openstack/clouds.yaml)"; \
 
 The generated file will look similar to this:
 
-```yaml {include="base-helm-configs/monitoring/openstack-metrics-exporter/clouds-yaml"}
+```yaml {include="base-helm-configs/openstack-metrics-exporter/clouds-yaml"}
 ```
 
 If you're using self-signed certs then you may need to add keystone certificates to the generated clouds yaml:
