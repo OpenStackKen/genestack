@@ -1,0 +1,11 @@
+{
+  "name": "genestack-docs-agent-tooling",
+  "private": true,
+  "scripts": {
+    "setup:playwright-cli": "playwright install firefox"
+  },
+  "devDependencies": {
+    "@playwright/cli": "^0.1.1",
+    "playwright": "^1.58.2"
+  }
+}
