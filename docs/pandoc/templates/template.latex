@@ -1442,6 +1442,7 @@ $endif$
 \newfontface{\theSubtitleFont}{Inter ExtraLight}[Weight=100,Scale=1.75]
 \newfontface{\theAuthorFont}{Inter}[Scale=1.5,Weight=300]
 \newfontface{\theTopicFont}{Inter}[Scale=1.5,Weight=300]
+\newfontface{\theReleaseFont}{Fira Code Light}[Scale=1.15,Weight=300]
 \newfontface{\theDateFont}{Inter}[Scale=1.25,Weight=300]
 \newfontface{\theLinkFont}{Inter}[Scale=1.25,Weight=300]
 \newfontface{\theURLFont}{Inter}[Scale=1.25,Weight=700]
@@ -1472,7 +1473,7 @@ $if(titlepage)$
     $if(subtitle)$
     \theSubtitleFont{$subtitle$}\\[1em]
     $endif$
-    \theDateFont{Release: $version$}\\[0.5em]
+    \theReleaseFont{$version$}\\[0.5em]
     \theDateFont\DTMUsedate{docDate}
   \end{flushright}
   \vfill

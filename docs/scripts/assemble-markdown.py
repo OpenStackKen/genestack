@@ -20,6 +20,7 @@ import hashlib
 import json
 import re
 import shutil
+import subprocess
 import sys
 import textwrap
 import tomllib
@@ -137,8 +138,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     # `main()` is intentionally thin: it resolves tracked configuration for one
-    # guide invocation and emits one shell-consumable render record per version
-    # that still requires a Pandoc render.
+    # guide invocation and emits one shell-consumable render record per guide
+    # build that still requires a Pandoc render.
     args = parse_args()
     pipeline_config = load_pipeline_config(resolve_docs_path(args.config))
     # Runtime overrides deliberately stay narrow. The assembler still treats
@@ -159,7 +160,7 @@ def main() -> int:
     )
     manifest = load_manifest(resolve_docs_path(args.config))
     output_root = pipeline_config.output_dir
-    cache_root = output_root / ".cache"
+    cache_root = output_root / "temp"
 
     if args.target == "clean":
         # `clean` intentionally reuses the same config load path as normal
@@ -281,8 +282,8 @@ def select_guide(target: str, manifest: dict[str, GuideConfig]) -> str:
 def resolve_versions(config_path: Path, mode: str, explicit_version: str | None) -> list[str | None]:
     """Resolve version labels from Hugo config plus caller intent.
 
-    `auto` mirrors Hugo's version list when present and falls back to `latest`
-    when the docs site has not enabled versioning yet.
+    `auto` prefers the tracked Hugo release label and falls back to the current
+    git branch name. The `main` branch is normalized to `Latest`.
     """
 
     if mode == "off":
@@ -292,19 +293,44 @@ def resolve_versions(config_path: Path, mode: str, explicit_version: str | None)
             raise SystemExit("--version is required when --version-mode=explicit")
         return [explicit_version]
 
-    # `auto` follows Hugo’s notion of versions so the PDF pipeline and the site
-    # can stay aligned without duplicating version lists in separate files.
     with config_path.open("rb") as handle:
         data = tomllib.load(handle)
 
     params = data.get("params", {})
-    versions = params.get("versions", [])
-    if not versions:
-        return ["latest"]
+    release = params.get("release", "")
+    if isinstance(release, str):
+        release = release.strip()
+        if release:
+            return [release]
 
-    labels = [entry.get("version", "").strip() for entry in versions if isinstance(entry, dict)]
-    labels = [label for label in labels if label]
-    return labels or ["latest"]
+    return [resolve_git_branch_label()]
+
+
+def resolve_git_branch_label() -> str:
+    """Return the current branch label for PDF versioning.
+
+    When the repository is on `main`, the PDF label should read `Latest`
+    instead of the raw branch name.
+    """
+
+    repo_root = DOCS_ROOT.parent
+    try:
+        result = subprocess.run(
+            ["git", "branch", "--show-current"],
+            check=True,
+            cwd=repo_root,
+            capture_output=True,
+            text=True,
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "Latest"
+
+    branch = result.stdout.strip()
+    if not branch:
+        return "Latest"
+    if branch == "main":
+        return "Latest"
+    return branch
 
 
 def emit_pending_renders(pending_renders: list[PendingRender]) -> None:
@@ -381,8 +407,8 @@ def plan_one_guide(
             site_base_url=site_base_url,
         )
         output_path = output_pdf_path(output_root, guide, version_label)
-        build_markdown_path = cache_root / "build" / build_key(version_label, guide.slug) / f"{guide.slug}.md"
-        state_path = cache_root / "state" / build_key(version_label, guide.slug) / f"{guide.slug}.json"
+        build_markdown_path = cache_root / "build" / f"{guide.slug}.md"
+        state_path = cache_root / "state" / f"{guide.slug}.json"
         manifest_hash = compute_manifest_hash(
             guide_root=guide_root,
             version_label=version_label,
@@ -1187,17 +1213,15 @@ def read_prior_hash(state_path: Path) -> str | None:
 
 
 def output_pdf_path(output_root: Path, guide: GuideConfig, version_label: str | None) -> Path:
-    """Resolve the final PDF path from the configured versioning mode outcome."""
+    """Resolve the final PDF path for one guide.
 
-    if version_label:
-        return output_root / version_label / guide.output
+    PDF outputs now always live directly under the configured output root.
+    Version labels remain part of the document metadata but no longer create
+    nested output directories.
+    """
+
+    _ = version_label
     return output_root / guide.output
-
-
-def build_key(version_label: str | None, guide_slug: str) -> str:
-    """Create a stable cache directory key for one guide/version build."""
-
-    return version_label or f"off-{guide_slug}"
 
 
 def clean_generated_outputs(
@@ -1214,18 +1238,18 @@ def clean_generated_outputs(
     if cache_root.exists():
         shutil.rmtree(cache_root)
 
-    # Unversioned outputs live directly under `docs/pdf/`, so remove those
-    # explicitly before sweeping version directories.
+    # Generated PDFs now live directly under `docs/pdf/`, so remove the known
+    # guide outputs explicitly before sweeping any legacy generated directories.
     for guide in manifest.values():
-        unversioned_output = output_root / guide.output
-        if unversioned_output.exists():
-            unversioned_output.unlink()
+        output_path = output_root / guide.output
+        if output_path.exists():
+            output_path.unlink()
 
     if not output_root.exists():
         return
 
     for child in output_root.iterdir():
-        if child.name == ".cache":
+        if child.name == "temp":
             continue
         if child.is_dir():
             shutil.rmtree(child)

@@ -15,9 +15,9 @@ make deps
 
 > [!TIP]
 >
-> The Makefile keeps the Hugo container cache, docs-local caches, browser
-> downloads, and Node tooling inside `/docs`, so `make mrproper` can restore
-> the tree to a source-only state.
+> The Makefile keeps the Hugo container cache, docs-local caches, PDF scratch
+> files, and optional browser-automation downloads inside `/docs`, so
+> `make mrproper` can restore the tree to a source-only state.
 
 Start the local docs server:
 
@@ -58,8 +58,9 @@ make setup
 > [!NOTE]
 >
 > This repository now treats browser automation as Playwright CLI work, not
-> MCP server setup. `make setup` installs the local `playwright-cli` package
-> and Firefox browser payload only.
+> MCP server setup. `make setup` is optional and installs the local
+> `playwright-cli` package and Firefox browser payload only. It is not part of
+> the normal docs build, serve, lint, or PDF workflow.
 
 Use the local CLI through npm exec:
 

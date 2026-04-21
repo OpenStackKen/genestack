@@ -1,5 +1,5 @@
 local stringify = pandoc.utils.stringify
-local mermaid_cache = "./pdf/.cache/mermaid"
+local mermaid_cache = "./pdf/temp/mermaid"
 local docs_root = os.getenv("GENESTACK_DOCS_ROOT") or "."
 local puppeteer_config = docs_root .. "/pandoc/puppeteer-config.json"
 

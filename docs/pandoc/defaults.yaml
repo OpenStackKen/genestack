@@ -20,7 +20,7 @@ metadata:
   pretty-footnotes: true
   diagram:
     cache: true
-    cache-dir: pdf/.cache/diagrams
+    cache-dir: pdf/temp/diagrams
     engine:
       mermaid:
         mime-type: application/pdf

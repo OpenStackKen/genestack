@@ -200,7 +200,7 @@ Run markdownlint before committing changes. The repository config lives in
 You can run it directly from the `docs` directory:
 
 ```bash
-npm exec markdownlint-cli2 "content/**/*.md"
+make lint
 ```
 
 Using the configured linter early is usually faster than fixing multiple

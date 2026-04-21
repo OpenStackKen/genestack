@@ -12,7 +12,7 @@ version-aware PDF under `docs/pdf/`.
 - Replacing the Hugo site build
 - Expanding arbitrary Hugo shortcodes in v1
 - Publishing PDFs into the site automatically
-- Making content version-aware beyond output pathing
+- Making content version-aware beyond PDF metadata
 
 ## Current Architecture
 
@@ -50,9 +50,8 @@ version-aware PDF under `docs/pdf/`.
   - `docs/scripts/mkpdf.sh`
   - `docs/scripts/assemble-markdown.py`
 - Generated outputs:
-  - versioned mode: `docs/pdf/<version>/<slug>.pdf`
-  - unversioned mode: `docs/pdf/<slug>.pdf`
-  - caches and build scratch: `docs/pdf/.cache/`
+  - guide PDFs: `docs/pdf/<slug>.pdf`
+  - caches and build scratch: `docs/pdf/temp/`
 
 ## Versioning Contract
 
@@ -60,8 +59,9 @@ version-aware PDF under `docs/pdf/`.
 - `pandoc_image`, `pandoc_dockerfile`, and `pandoc_mount_root` also live in
   `docs/pdf.toml` so the container runtime is a tracked part of the pipeline
   contract rather than a Makefile default.
-- `auto` reads `[[params.versions]]` from `docs/hugo.toml`
-- `auto` falls back to `latest` if no Hugo versions are configured
+- `auto` reads `params.release` from `docs/hugo.toml`
+- if `params.release` is absent, `auto` falls back to the current git branch
+- if the current git branch is `main`, the fallback label is `Latest`
 - `explicit` requires the builder to be invoked with `--version <value>`
 - `off` writes directly to `docs/pdf/<slug>.pdf`
 

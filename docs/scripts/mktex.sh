@@ -145,7 +145,7 @@ output_root = Path(sys.argv[2]).resolve()
 pdf_output = Path(sys.argv[3]).resolve()
 
 relative = pdf_output.relative_to(output_root)
-tex_output = output_root / ".cache" / "tex" / relative.parent / f"{pdf_output.stem}.tex"
+tex_output = output_root / "temp" / "tex" / relative.parent / f"{pdf_output.stem}.tex"
 print(tex_output)
 PY
 }
@@ -238,8 +238,8 @@ print(resolve_docs_path(data.get("pandoc_defaults", "pandoc/defaults.yaml")))
 print(data.get("pandoc_image", "genestack-docs-pandoc:latest"))
 print(data.get("pandoc_mount_root", "/docs"))
 print(output_dir)
-print(output_dir / ".cache" / "home")
-print(output_dir / ".cache" / "xdg-cache")
+print(output_dir / "temp" / "home")
+print(output_dir / "temp" / "xdg-cache")
 PY
 )
 
@@ -249,7 +249,7 @@ PANDOC_MOUNT_ROOT="${PANDOC_MOUNT_ROOT_OVERRIDE:-${CONFIG_VALUES[2]}}"
 OUTPUT_ROOT="$(resolve_docs_path "${CONFIG_VALUES[3]}")"
 CACHE_HOME_HOST="$(resolve_docs_path "${CACHE_HOME_OVERRIDE:-${CONFIG_VALUES[4]}}")"
 CACHE_XDG_CACHE_HOST="$(resolve_docs_path "${CACHE_XDG_CACHE_OVERRIDE:-${CONFIG_VALUES[5]}}")"
-TEX_CACHE_ROOT="${OUTPUT_ROOT}/.cache/tex"
+TEX_CACHE_ROOT="${OUTPUT_ROOT}/temp/tex"
 
 if ((CLEAN_REQUESTED)); then
     rm -rf "$TEX_CACHE_ROOT"
@@ -290,8 +290,8 @@ render_from_guide() {
     local input_path pdf_output_path tex_output_path
     local input_label tex_label
 
-    input_path="${OUTPUT_ROOT}/.cache/build/latest/${guide_target}.md"
-    pdf_output_path="${OUTPUT_ROOT}/latest/${guide_target}.pdf"
+    input_path="${OUTPUT_ROOT}/temp/build/${guide_target}.md"
+    pdf_output_path="${OUTPUT_ROOT}/${guide_target}.pdf"
     tex_output_path="$(derive_tex_output_path "$pdf_output_path")"
 
     if [[ ! -f "$input_path" ]]; then

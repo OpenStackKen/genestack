@@ -171,8 +171,8 @@ output_dir = resolve_docs_path(data.get("output_dir", "pdf"))
 print(resolve_docs_path(data.get("pandoc_defaults", "pandoc/defaults.yaml")))
 print(data.get("pandoc_image", "genestack-docs-pandoc:latest"))
 print(data.get("pandoc_mount_root", "/docs"))
-print(output_dir / ".cache" / "home")
-print(output_dir / ".cache" / "xdg-cache")
+print(output_dir / "temp" / "home")
+print(output_dir / "temp" / "xdg-cache")
 PY
 )
 

@@ -1,360 +1,254 @@
-# Docs Authoring Guide
+# Docs Build Guide
 
 This directory is the local Hugo site root for the Genestack documentation.
 The shared documentation source lives under `/docs/content`.
 
-When editing documentation for this repository, treat the content tree as the
-source of truth:
+Use this file for build, test, and PDF workflow information.
+Authoring and style guidance lives in [STYLE_GUIDE.md](STYLE_GUIDE.md).
 
-- `/docs/content` holds shared Markdown content and shared assets
-- `/docs` holds the local Hugo renderer, theme wiring, build tooling, and
-  local-only mechanics
+## Directory Layout
 
-The intent is to keep documentation content portable and content-first while
-letting Hugo own rendering and navigation behavior.
+- `/docs/content` contains the shared Markdown source and shared documentation assets.
+- `/docs` contains the Hugo config, theme wiring, build tooling, PDF tooling, and local runtime support files.
+- `/docs/public` is generated Hugo site output.
+- `/docs/pdf` is generated PDF output.
+- `/docs/pdf/temp` is the visible scratch area for PDF assembly, state, and diagram artifacts.
 
-## Editing Markdown
+## Prerequisites
 
-Write page content in Markdown with YAML front matter.
+- Docker
+- `make`
+- Python 3
 
-For ordinary pages, keep the source simple:
+The supported workflow uses containerized Hugo, containerized Pandoc, and a
+containerized markdownlint runtime.
+A host Hugo install is not part of the intended workflow.
 
-- put the page title in front matter
-- avoid a duplicate level-1 heading in the body
-- prefer semantic Markdown over raw HTML
-- use filesystem layout plus front matter to express structure and order
-- keep presentational decisions in the Hugo layer when possible
+Host `node` and `npm` are not required for the normal docs build, serve, lint,
+or PDF workflow.
+They are only needed for the optional `make setup` target used for agent-driven
+browser automation work.
 
-Typical front matter fields:
+## Quick Start
 
-```yaml
----
-title: "Page Title"
-weight: 10
-description: "Short summary for listings and page context."
----
-```
-
-Section pages use `_index.md`. Those files define the section title,
-description, and ordering for a directory in the docs tree.
-
-### Callouts
-
-Use GitHub-flavored Markdown callouts.
-
-Example:
-
-```md
-> [!NOTE]
-> Body text
-```
-
-Do not use MkDocs admonitions such as:
-
-```md
-!!! note
-    Body text
-```
-
-Custom titles are supported:
-
-```md
-> [!INFO] To Do:
-> Body text
-```
-
-The local renderer also supports the custom `GENESTACK` type for
-Genestack-specific implementation notes:
-
-```md
-> [!GENESTACK]
-> This behavior is specific to Genestack.
-```
-
-Use the `GENESTACK` type only when the notice is specifically about:
-
-- an opinionated Genestack implementation choice
-- an assumption encoded by Genestack
-- a Genestack-specific operational or deployment convention
-
-Do not convert ordinary notes, warnings, or tips to `GENESTACK` unless the
-content is actually Genestack-specific.
-
-### Mermaid
-
-Mermaid diagrams must use fenced blocks with Mermaid frontmatter config:
-
-````md
-```mermaid
----
-config:
-  theme: neutral
-  flowchart:
-    curve: basis
----
-flowchart TD
-  A --> B
-```
-````
-
-Do not use Mermaid init directives such as:
-
-```md
-%%{init: ...}%%
-```
-
-### Character Set
-
-Use ASCII in docs Markdown by default.
-
-Do not use emoji or other non-ASCII characters unless there is a deliberate,
-documented reason to do so. In practice, this means avoiding:
-
-- emoji
-- non-breaking hyphens and spaces
-- curly quotes
-- en dashes and em dashes
-
-The reason is practical, not aesthetic: the Hugo site and the Pandoc/LaTeX PDF
-pipeline do not render all Unicode characters consistently.
-
-### Source Code Includes
-
-Fenced code blocks may include source files directly while preserving syntax
-highlighting in both the Hugo site and the Pandoc PDF pipeline.
-
-Use repo-root-style include paths from the approved source roots:
-
-````md
-```bash {include="scripts/example.sh"}
-```
-````
-
-Optional slicing attributes are also supported:
-
-````md
-```bash {include="scripts/example.sh" start-line="10" end-line="24" dedent="2"}
-```
-````
-
-These include paths are not page-relative. They are interpreted from the repo
-root across the approved subset below so the same source works in both the
-website and the PDF pipeline.
-
-The supported include roots are:
-
-- `bin/...`
-- `scripts/...`
-- `base-helm-configs/...`
-- `ansible/...`
-- `recovery/...`
-- `manifests/...`
-- `etc/...`
-- `.github/workflows/...`
-- `docs/scripts/...`
-
-The Hugo site and the PDF pipeline each resolve those paths back to the
-underlying repository source tree using their own local mechanics.
-
-### Links and Assets
-
-Prefer repository-local relative links between docs pages and shared assets.
-
-Shared documentation assets live under:
-
-- `/docs/content/assets`
-
-The local Hugo site mounts those shared assets into the published site under:
-
-- `/assets/...`
-
-## Linting and Local Validation
-
-Local site builds and previews now require Docker. The Hugo runtime is no
-longer expected to be installed on the host.
-
-Markdown linting for shared docs content is driven by:
-
-- `/docs/.markdownlint-cli2.jsonc`
-
-That file is the source of truth for markdownlint behavior in this repo.
-Do not assume stock markdownlint defaults if the config says otherwise.
-
-The current configuration enables markdownlint defaults and then disables a
-large set of style rules that are too restrictive for this docs corpus,
-including many heading, spacing, HTML, and fenced-block rules. In practice,
-that means:
-
-- lint before making style-only edits based on assumptions
-- prefer repo conventions over generic markdownlint advice
-- keep Markdown clean, but do not rewrite content just to satisfy rules that
-  are explicitly disabled
-
-Run the docs-local validation commands from `/docs`:
+Run these commands from `/docs`:
 
 ```sh
 make deps
+make serve
+```
+
+That is the fastest way to do quick structural checks while editing.
+
+For a more realistic static-site check:
+
+```sh
+make build
+docker compose up
+```
+
+That path builds the final static output into `/docs/public` and serves that
+output through the Caddy container defined in [compose.yml](compose.yml).
+
+## Fork Configuration
+
+If you are working from a fork, update the repository URLs in
+[hugo.toml](hugo.toml) before testing UI links.
+
+At minimum, change:
+
+```toml
+[params]
+github_repo = "https://github.com/<owner>/<repo>"
+```
+
+If you want the GitHub icon in the top navigation to point at the same fork,
+also update the hardcoded menu entry near the bottom of `hugo.toml`:
+
+```toml
+[[menu.main]]
+url = "https://github.com/<owner>/<repo>"
+```
+
+Be pedantic here: `params.github_repo` and the menu URL are two separate
+settings in the current Hugo config.
+
+## Testing Guidance
+
+Use `make serve` for quick-and-dirty structural testing.
+
+This is the right choice when you need fast feedback on:
+
+- navigation placement
+- section ordering
+- broken front matter
+- missing files
+- obvious rendering mistakes
+
+Use `make build` plus `docker compose up` for formatting and flow testing.
+
+This is the better choice when you need to evaluate:
+
+- full static output
+- page-to-page flow
+- layout and formatting in generated output
+- final asset resolution from `public/`
+- what a reviewer will see from the built site rather than the live Hugo server
+
+Recommended testing loop from `/docs`:
+
+```sh
 make lint
 make build
+docker compose up
 ```
 
-Useful local targets:
+Then browse [http://localhost:1313](http://localhost:1313).
 
-- `make deps`
-  Downloads Node dependencies and ensures the pinned Hugo container image is
-  available locally.
-- `make hugo-mod-tidy`
-  Runs `hugo mod tidy` inside the pinned Hugo container when maintainers need
-  to update `go.mod` or `go.sum`.
-- `make lint`
-  Runs markdownlint against `/docs/content/**/*.md`.
-- `make build`
-  Builds the site in the Hugo container and writes `/build.txt` at the end of
-  the build.
-- `make serve`
-  Runs a local Hugo development server in the container on port `1313`.
-- `make setup`
-  Installs local Playwright CLI browser tooling for docs verification.
-- `make mrproper`
-  Removes local generated artifacts and caches from `/docs`.
+The build target also writes a sentinel file at
+[public/build.txt](public/build.txt) after a
+successful Hugo build. That is useful if you need to confirm that a rebuild has
+finished before checking output.
 
-Script layout under `/docs/scripts`:
+## Make Targets
 
-- build and generation entrypoints stay directly under `/docs/scripts`
-- content migration and refactoring helpers live under `/docs/scripts/refactoring`
+Run all targets from `/docs`.
 
-The build target writes:
+### Common Targets
 
-- `/docs/public/build.txt`
+| Target | Purpose |
+| --- | --- |
+| `make deps` | Pull the pinned Hugo container if needed for the normal docs workflow. |
+| `make build` | Build the Hugo site into `docs/public` and write `public/build.txt`. |
+| `make serve` | Run the Hugo development server in the pinned container on port `1313`. |
+| `make lint` | Run markdownlint against `content/**/*.md` using the dedicated markdownlint container. |
+| `make pdf` | Build every configured guide PDF through the Pandoc pipeline. |
+| `make pdf-clean` | Remove generated PDF artifacts and PDF scratch output. |
+| `make clean` | Remove generated site output and PDF output, then restore generated docs stubs. |
+| `make setup` | Optional agent-development target. Installs the local Playwright browser payload and requires host `node` and `npm`. |
+| `make mrproper` | Remove all generated docs artifacts, caches, local downloads, and `node_modules`. |
 
-This file is a post-build sentinel and can be polled to confirm that a rebuild
-has completed before checking the site. That avoids checking stale output while
-the build is still finishing.
+### Support Targets
 
-## Navigation Model
+These are real Make targets in the current `Makefile`, but they are primarily
+helper or maintainer targets rather than the everyday edit-preview loop.
 
-Navigation is no longer defined by a central MkDocs nav block.
+| Target | Purpose |
+| --- | --- |
+| `make container` | Ensure the pinned Hugo image is present locally. |
+| `make markdownlint-container` | Build the local markdownlint image used by `make lint`. |
+| `make npm-install` | Optional helper for `make setup`. Installs the host-side Playwright tooling dependencies. |
+| `make pdf-container` | Build the local Pandoc container image defined by `pdf.toml` and `docker/pandoc/Dockerfile`. |
+| `make ensure-hugo-runtime` | Create the writable Hugo cache and temp-home directories expected by the container runtime. |
+| `make ensure-doc-stubs` | Restore tracked generated-doc stubs when they are absent. |
+| `make hugo-mod-tidy` | Run `hugo mod tidy` inside the pinned Hugo container. |
 
-Navigation is now driven by a combination of:
+## Site Build Pipeline
 
-- filesystem layout for hierarchy
-- `_index.md` files for section identity
-- front matter `weight` values for ordering
+The Hugo site build path is:
 
-This means:
+1. `make deps`
+2. `make ensure-doc-stubs`
+3. `make ensure-hugo-runtime`
+4. run Hugo in the pinned container image
+5. write the generated site into `/docs/public`
+6. write `/docs/public/build.txt`
 
-- moving a file or section changes its place in the docs tree
-- section directories define sidebar groupings
-- `_index.md` files define section titles and descriptions
-- lower `weight` values appear earlier in a section
+The local development server path is similar, but `make serve` runs Hugo in
+server mode instead of emitting a static site.
 
-For section-based docs, this is the intended model:
+## Static Output Testing With Compose
 
-- directories define structure
-- `_index.md` defines section metadata
-- leaf pages define their own title and weight
+[compose.yml](compose.yml) defines a minimal
+Caddy container that serves `/docs/public` on port `1313`.
 
-If you want to change sidebar placement now, the usual fix is one of:
+Use it like this:
 
-- move the page to a different directory
-- add or adjust an `_index.md`
-- change the page or section `weight`
-
-Do not look for a single central navigation manifest. That is no longer how
-the docs tree is organized.
-
-## Major Changes From MkDocs
-
-This repository no longer uses MkDocs for local documentation rendering.
-
-### Renderer and Tooling
-
-The old local MkDocs stack was replaced with a Hugo site rooted at `/docs`
-using Docsy-based local rendering and Hugo modules.
-
-That means:
-
-- MkDocs configuration no longer owns site behavior
-- Hugo config, modules, layouts, and local tooling now live under `/docs`
-- the shared content contract remains centered on `/docs/content`
-
-### Syntax Changes
-
-The migration away from MkDocs required several source-level syntax changes.
-
-#### Admonitions
-
-Old MkDocs syntax:
-
-```md
-!!! note
-    Body text
+```sh
+make build
+docker compose up
 ```
 
-Current syntax:
+After that:
 
-```md
-> [!NOTE]
-> Body text
-```
+- rebuild the site with `make build` whenever content changes
+- refresh the browser to inspect the new static output
+- stop the server with `docker compose down`
 
-#### Titled Admonitions
+This path is intentionally different from `make serve`.
+`make serve` is faster for structure checks.
+`make build` plus Compose is better for evaluating the built output as a static
+site.
 
-Old MkDocs syntax:
+## PDF Build Process
 
-```md
-!!! info "To Do"
-    Body text
-```
+The PDF workflow is configured by [pdf.toml](pdf.toml).
+That file defines:
 
-Current syntax:
+- the output root
+- the Pandoc defaults file
+- the Pandoc container image and Dockerfile
+- the Hugo config used for metadata resolution
+- the versioning mode
+- the guide manifest
 
-```md
-> [!INFO] To Do:
-> Body text
-```
+`make pdf` currently builds these guide PDFs directly into `/docs/pdf`:
 
-#### Mermaid
+- `overview.pdf`
+- `design-guide.pdf`
+- `deployment-guide.pdf`
+- `operations-guide.pdf`
+- `openstack-onboarding.pdf`
+- `test.pdf`
 
-Old MkDocs-era Mermaid blocks often used inline init directives.
+The PDF scratch area lives under `/docs/pdf/temp`, including:
 
-Current syntax requires frontmatter inside the Mermaid fence:
+- assembled Markdown under `/docs/pdf/temp/build`
+- state files under `/docs/pdf/temp/state`
+- Mermaid image cache under `/docs/pdf/temp/mermaid`
+- runtime cache directories under `/docs/pdf/temp/home` and `/docs/pdf/temp/xdg-cache`
 
-````md
-```mermaid
----
-config:
-  theme: neutral
-  flowchart:
-    curve: basis
----
-flowchart TD
-  A --> B
-```
-````
+## PDF Pipeline
 
-#### Navigation Ownership
+The PDF pipeline has two main stages:
 
-Old MkDocs navigation was explicitly declared in `mkdocs.yml`.
+1. assembly
+2. render
 
-Current navigation is content-owned:
+Assembly is handled by
+[assemble-markdown.py](scripts/assemble-markdown.py).
+It walks the configured guide tree, orders pages, flattens them into one
+Pandoc-ready Markdown file, and injects document metadata such as the guide
+title and version label.
 
-- hierarchy comes from the filesystem
-- section identity comes from `_index.md`
-- order comes from `weight`
+Render is handled by [mkpdf.sh](scripts/mkpdf.sh).
+That wrapper runs the Pandoc container against the assembled Markdown input and
+writes the final PDF into `/docs/pdf`.
 
-This is a structural change, not just a theme change.
+The Pandoc behavior itself is controlled by:
 
-## Authoring Intent
+- [pandoc/defaults.yaml](pandoc/defaults.yaml)
+- the Lua filters under [pandoc/filters](pandoc/filters)
+- [pandoc/templates/template.latex](pandoc/templates/template.latex)
 
-Markdown should carry document meaning, structure, and sequencing.
-Hugo should carry rendering behavior.
-The theme should carry presentation.
+## PDF Version Label
 
-In practice, that means:
+The PDF workflow resolves the document version in `auto` mode from
+`params.release` in [hugo.toml](hugo.toml).
 
-- keep Markdown semantic and renderer-neutral where possible
-- avoid presentation-heavy HTML in shared content
-- use front matter for metadata
-- use directory structure for hierarchy
-- let the local Hugo layer handle rendering behavior
+If `params.release` is missing, the builder falls back to the current git
+branch name.
+If the current git branch is `main`, the fallback label is `Latest`.
+
+The version label is metadata in the PDF document itself.
+It does not create release-specific output directories under `/docs/pdf`.
+
+## Generated Content Note
+
+The site build restores generated-doc stubs when required through the
+`ensure-doc-stubs` target. Today that primarily affects the product-matrix
+page.
+
+If generated content is missing, do not hand-create a replacement file as part
+of the normal build loop. Use the tracked build targets so the generated inputs
+stay consistent with the repo's intended pipeline.

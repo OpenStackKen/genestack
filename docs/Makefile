@@ -8,15 +8,14 @@ export HUGO_CACHEDIR := $(CURDIR)/.cache/hugo_cache
 export NPM_CONFIG_CACHE := $(CURDIR)/.npm-cache
 export npm_config_cache := $(NPM_CONFIG_CACHE)
 export PLAYWRIGHT_BROWSERS_PATH := $(CURDIR)/.playwright-browsers
-export PATH := $(CURDIR)/node_modules/.bin:$(PATH)
 
 DOCKER ?= docker
 NPM ?= npm
-NPX ?= npx
 PYTHON ?= python3
 REPO_ROOT := $(abspath $(CURDIR)/..)
 CONTAINER_WORKDIR := /work
 HUGO_IMAGE ?= ghcr.io/gohugoio/hugo:v0.160.1@sha256:b4f4cd51ce64c7257bf103ecf8fb14f37ea7ca1980bcaaf516cdf95b14446fd7
+MARKDOWNLINT_IMAGE ?= genestack-docs-markdownlint:0.21.0
 HUGO_CONTAINER_HOME := $(CONTAINER_WORKDIR)/docs/.tmp-home/hugo
 HUGO_RUN = $(DOCKER) run --rm \
     --name hugo \
@@ -47,15 +46,17 @@ PDF_PANDOC_IMAGE := $(shell $(PYTHON) -c 'import pathlib, tomllib; print(tomllib
 PDF_PANDOC_DOCKERFILE := $(shell $(PYTHON) -c 'import pathlib, tomllib; print(tomllib.loads(pathlib.Path("pdf.toml").read_text(encoding="utf-8"))["pandoc_dockerfile"])')
 PDF_PANDOC_CONTEXT := $(dir $(PDF_PANDOC_DOCKERFILE))
 PDF_PANDOC_IMAGE_STAMP := .cache/pdf-pandoc-image.stamp
-NPM_INSTALL_STAMP := node_modules/.install-stamp
+MARKDOWNLINT_DOCKERFILE := docker/markdownlint/Dockerfile
+MARKDOWNLINT_CONTEXT := $(dir $(MARKDOWNLINT_DOCKERFILE))
+MARKDOWNLINT_IMAGE_STAMP := .cache/markdownlint-image.stamp
 .DEFAULT_GOAL := build
 
-.PHONY: container npm-install hugo-mod-tidy deps build clean ensure-doc-stubs ensure-hugo-runtime lint mrproper pdf pdf-clean pdf-container serve setup
+.PHONY: container markdownlint-container npm-install hugo-mod-tidy deps build clean ensure-doc-stubs ensure-hugo-runtime lint mrproper pdf pdf-clean pdf-container serve setup
 
-# Download everything required to build docs locally: the pinned upstream Hugo
-# image used by site builds plus the Node-based asset and tooling packages that
-# still execute on the host from inside /docs.
-deps: container npm-install
+# Download everything required for the normal site build workflow: the pinned
+# Hugo runtime image only. Host npm tooling is optional and reserved for
+# `make setup`.
+deps: container
 
 # Human-friendly alias for ensuring the pinned Hugo runtime image is available
 # locally before any site build or preview starts.
@@ -64,8 +65,8 @@ container:
 		$(DOCKER) pull $(HUGO_IMAGE); \
 	fi
 
-# Human-friendly alias for the Node dependency install artifact.
-npm-install: $(NPM_INSTALL_STAMP)
+# Human-friendly alias for the file-backed markdownlint image artifact.
+markdownlint-container: $(MARKDOWNLINT_IMAGE_STAMP)
 
 # Human-friendly alias for the file-backed Pandoc image build artifact.
 pdf-container: $(PDF_PANDOC_IMAGE_STAMP)
@@ -80,6 +81,14 @@ ensure-hugo-runtime:
 hugo-mod-tidy: container ensure-hugo-runtime
 	$(HUGO_RUN) mod tidy
 
+# The stamp records that the local markdownlint image was built from the
+# current Dockerfile input. When this target is newer than those inputs, `make`
+# can skip `docker build` entirely for later lint runs.
+$(MARKDOWNLINT_IMAGE_STAMP): $(MARKDOWNLINT_DOCKERFILE)
+	@mkdir -p $(dir $@)
+	$(DOCKER) build --tag $(MARKDOWNLINT_IMAGE) --file $(MARKDOWNLINT_DOCKERFILE) $(MARKDOWNLINT_CONTEXT)
+	@touch $@
+
 # The stamp records that the local Pandoc image was built from the current
 # Dockerfile/config inputs. When this target is newer than those inputs, `make`
 # can skip `docker build` entirely for normal docs and PDF runs.
@@ -88,13 +97,14 @@ $(PDF_PANDOC_IMAGE_STAMP): $(PDF_PANDOC_DOCKERFILE) pdf.toml
 	$(DOCKER) build --tag $(PDF_PANDOC_IMAGE) --file $(PDF_PANDOC_DOCKERFILE) $(PDF_PANDOC_CONTEXT)
 	@touch $@
 
-# Record that `npm install` has been applied to the current package manifest.
-# Keeping the stamp inside `node_modules/` means removing that directory also
-# removes the install marker, so Make will correctly reinstall on the next run.
-$(NPM_INSTALL_STAMP): package.json package-lock.json
+# Install the optional host-side Playwright tooling used only for agent-driven
+# browser automation work under `make setup`.
+npm-install: package.json
+	@command -v $(NPM) >/dev/null 2>&1 || { \
+		echo "make setup is optional and requires host npm/node."; \
+		exit 1; \
+	}
 	$(NPM) install
-	@mkdir -p $(dir $@)
-	@touch $@
 
 # Restore tracked docs stubs when generated pages are absent.
 ensure-doc-stubs:
@@ -120,8 +130,13 @@ clean: pdf-clean
 
 # Convenience target for validating the shared Markdown sources in
 # /docs/content using the docs markdownlint configuration.
-lint:
-	$(NPM) exec markdownlint-cli2 "content/**/*.md"
+lint: markdownlint-container
+	$(DOCKER) run --rm \
+		--user $$(id -u):$$(id -g) \
+		--volume $(REPO_ROOT):$(CONTAINER_WORKDIR) \
+		--workdir $(CONTAINER_WORKDIR)/docs \
+		$(MARKDOWNLINT_IMAGE) \
+		"content/**/*.md"
 
 # Build every configured guide PDF. The Python assembler writes unified
 # Markdown build artifacts and the shell wrapper runs the Pandoc container
@@ -142,8 +157,9 @@ serve: deps ensure-doc-stubs ensure-hugo-runtime
 # Prepare the docs tree for local browser automation by installing the
 # Playwright CLI package and a local Firefox browser payload. Browser
 # installation uses Playwright's installer because `playwright-cli
-# install-browser` is not reliable in this environment.
-setup: deps
+# install-browser` is not reliable in this environment. This target is
+# optional and is not part of the normal docs build flow.
+setup: npm-install
 	$(NPM) exec playwright install firefox
 
 # Remove every generated docs artifact, including PDF outputs, dependency
