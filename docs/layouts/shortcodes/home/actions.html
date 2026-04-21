@@ -1,0 +1,14 @@
+{{ $title := or (.Get "title") "External Resources" }}
+{{ $compact := ne (.Get "compact") "false" }}
+<section class="gs-home-band{{ if $compact }} gs-home-band--compact{{ end }}">
+  <div class="container gs-home-container">
+    <div class="gs-home-band-header">
+      <h2 class="gs-home-band-title">{{ $title }}</h2>
+    </div>
+    <div class="gs-home-actions">
+      {{ with .InnerDeindent }}
+        {{ . | $.Page.RenderString }}
+      {{ end }}
+    </div>
+  </div>
+</section>

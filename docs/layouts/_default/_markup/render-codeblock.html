@@ -1,0 +1,87 @@
+{{- $include := index .Attributes "include" -}}
+{{- if not $include -}}
+  {{- $result := transform.HighlightCodeBlock . -}}
+  {{- $result.Wrapped -}}
+{{- else -}}
+  {{- $resource := resources.Get $include -}}
+  {{- if not $resource -}}
+    {{- errorf "code include not found: %q at %s" $include .Position -}}
+  {{- end -}}
+
+  {{- $start := 1 -}}
+  {{- with (or (index .Attributes "start-line") (index .Attributes "startLine")) -}}
+    {{- $start = int . -}}
+  {{- end -}}
+
+  {{- $end := 0 -}}
+  {{- with (or (index .Attributes "end-line") (index .Attributes "endLine")) -}}
+    {{- $end = int . -}}
+  {{- end -}}
+
+  {{- $dedent := 0 -}}
+  {{- with (index .Attributes "dedent") -}}
+    {{- $dedent = int . -}}
+  {{- end -}}
+
+  {{- $selected := slice -}}
+  {{- $lines := split $resource.Content "\n" -}}
+  {{- range $index, $line := $lines -}}
+    {{- $lineNumber := add $index 1 -}}
+    {{- if and (ge $lineNumber $start) (or (eq $end 0) (le $lineNumber $end)) -}}
+      {{- $renderLine := $line -}}
+      {{- if gt $dedent 0 -}}
+        {{- $renderLine = replaceRE (printf "^[ ]{0,%d}" $dedent) "" $renderLine -}}
+      {{- end -}}
+      {{- $selected = $selected | append $renderLine -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $language := .Type -}}
+  {{- if or (eq $language "") (eq $language "text") (eq $language "plain") -}}
+    {{- $extension := lower (replaceRE "^\\." "" (path.Ext $include)) -}}
+    {{- $languageMap := dict
+      "bash" "bash"
+      "conf" "conf"
+      "css" "css"
+      "go" "go"
+      "html" "html"
+      "ini" "ini"
+      "js" "javascript"
+      "json" "json"
+      "lua" "lua"
+      "md" "markdown"
+      "py" "python"
+      "rb" "ruby"
+      "scss" "scss"
+      "sh" "bash"
+      "sql" "sql"
+      "tf" "hcl"
+      "toml" "toml"
+      "ts" "typescript"
+      "xml" "xml"
+      "yaml" "yaml"
+      "yml" "yaml"
+    -}}
+    {{- $language = or (index $languageMap $extension) "text" -}}
+  {{- end -}}
+
+  {{- $options := slice -}}
+  {{- range $key, $value := .Options -}}
+    {{- $options = $options | append (printf "%s=%v" $key $value) -}}
+  {{- end -}}
+
+  {{- $reservedAttributes := slice "include" "start-line" "startLine" "end-line" "endLine" "dedent" -}}
+  {{- $hasWrapperAttributes := false -}}
+  {{- range $key, $_ := .Attributes -}}
+    {{- if not (in $reservedAttributes $key) -}}
+      {{- $hasWrapperAttributes = true -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $highlighted := transform.Highlight (delimit $selected "\n") $language (delimit $options ",") -}}
+  {{- if $hasWrapperAttributes -}}
+<div{{- range $key, $value := .Attributes -}}{{- if not (in $reservedAttributes $key) }} {{ printf "%s=%q" $key $value | safeHTMLAttr }}{{- end -}}{{- end -}}>{{ $highlighted | safeHTML }}</div>
+  {{- else -}}
+{{ $highlighted | safeHTML }}
+  {{- end -}}
+{{- end -}}

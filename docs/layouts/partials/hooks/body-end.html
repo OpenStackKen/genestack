@@ -1,0 +1,169 @@
+<style>
+  @media (min-width: 768px) {
+    body.td-page main.td-main,
+    body.td-section main.td-main,
+    body.td-taxonomy main.td-main,
+    body.td-term main.td-main {
+      padding-top: calc(var(--td-main-padding-top, 1.5rem) + 64px);
+    }
+  }
+</style>
+
+<script type="module">
+  const diagrams = document.querySelectorAll("pre.mermaid");
+  if (diagrams.length > 0) {
+    const { default: mermaid } = await import("https://cdn.jsdelivr.net/npm/mermaid@{{ .Site.Params.mermaid.version }}/dist/mermaid.esm.min.mjs");
+
+    // Hugo lowercases config map keys when they come back out of `.Site.Params`,
+    // but Mermaid's runtime config is case-sensitive and expects camelCase for
+    // many keys. Normalize the serialized config back to Mermaid's schema names
+    // before initializing the library.
+    const rawSettings = {{ with .Site.Params.mermaid }}{{ . | jsonify | safeJS }}{{ else }}{}{{ end }};
+    const mermaidConfigKeyMaps = {
+      "": {
+        altfontfamily: "altFontFamily",
+        architecture: "architecture",
+        arrowmarkerabsolute: "arrowMarkerAbsolute",
+        block: "block",
+        c4: "c4",
+        class: "class",
+        darkmode: "darkMode",
+        deterministicids: "deterministicIds",
+        deterministicidseed: "deterministicIDSeed",
+        dompurifyconfig: "dompurifyConfig",
+        elk: "elk",
+        er: "er",
+        flowchart: "flowchart",
+        forcelegacymathml: "forceLegacyMathML",
+        fontfamily: "fontFamily",
+        fontsize: "fontSize",
+        gantt: "gantt",
+        gitgraph: "gitGraph",
+        handdrawnseed: "handDrawnSeed",
+        htmllabels: "htmlLabels",
+        inheritdir: "inheritDir",
+        ishikawa: "ishikawa",
+        journey: "journey",
+        kanban: "kanban",
+        layout: "layout",
+        legacymathml: "legacyMathML",
+        loglevel: "logLevel",
+        look: "look",
+        markdownautowrap: "markdownAutoWrap",
+        maxedges: "maxEdges",
+        maxtextsize: "maxTextSize",
+        mindmap: "mindmap",
+        packet: "packet",
+        pie: "pie",
+        quadrantchart: "quadrantChart",
+        radar: "radar",
+        requirement: "requirement",
+        sankey: "sankey",
+        secure: "secure",
+        securitylevel: "securityLevel",
+        sequence: "sequence",
+        startonload: "startOnLoad",
+        state: "state",
+        suppresserrorrendering: "suppressErrorRendering",
+        themecss: "themeCSS",
+        themevariables: "themeVariables",
+        timeline: "timeline",
+        treeview: "treeView",
+        venn: "venn",
+        version: "version",
+        "wardley-beta": "wardley-beta",
+        wrap: "wrap",
+        xychart: "xyChart"
+      },
+      "themeVariables": {
+        altsectionbkgcolor: "altSectionBkgColor",
+        clusterbkg: "clusterBkg",
+        clusterborder: "clusterBorder",
+        edgelabelbackground: "edgeLabelBackground",
+        errorbkgcolor: "errorBkgColor",
+        errortextcolor: "errorTextColor",
+        filltype0: "fillType0",
+        filltype1: "fillType1",
+        filltype2: "fillType2",
+        filltype3: "fillType3",
+        fontfamily: "fontFamily",
+        fontsize: "fontSize",
+        labelbackground: "labelBackground",
+        linecolor: "lineColor",
+        mainbkg: "mainBkg",
+        nodebkg: "nodeBkg",
+        nodeborder: "nodeBorder",
+        primarybordercolor: "primaryBorderColor",
+        primarycolor: "primaryColor",
+        primarytextcolor: "primaryTextColor",
+        secondarybordercolor: "secondaryBorderColor",
+        secondarycolor: "secondaryColor",
+        secondarytextcolor: "secondaryTextColor",
+        tertiarybordercolor: "tertiaryBorderColor",
+        tertiarycolor: "tertiaryColor",
+        tertiarytextcolor: "tertiaryTextColor",
+        textcolor: "textColor",
+        titlecolor: "titleColor"
+      },
+      "flowchart": {
+        arrowmarkerabsolute: "arrowMarkerAbsolute",
+        defaultrenderer: "defaultRenderer",
+        diagrampadding: "diagramPadding",
+        htmllabels: "htmlLabels",
+        inheritdir: "inheritDir",
+        nodespacing: "nodeSpacing",
+        padding: "padding",
+        rankspacing: "rankSpacing",
+        subgraphtitlemargin: "subGraphTitleMargin",
+        titletopmargin: "titleTopMargin",
+        usemaxwidth: "useMaxWidth",
+        wrappingwidth: "wrappingWidth"
+      }
+    };
+
+    function normalizeMermaidConfig(value, path = "") {
+      if (Array.isArray(value)) {
+        return value.map((item) => normalizeMermaidConfig(item, path));
+      }
+
+      if (!value || typeof value !== "object") {
+        return value;
+      }
+
+      const keyMap = mermaidConfigKeyMaps[path] || {};
+      const normalized = {};
+
+      for (const [key, childValue] of Object.entries(value)) {
+        const normalizedKey = keyMap[key] || key;
+        const childPath = path ? `${path}.${normalizedKey}` : normalizedKey;
+        normalized[normalizedKey] = normalizeMermaidConfig(childValue, childPath);
+      }
+
+      return normalized;
+    }
+
+    const settings = normalizeMermaidConfig(rawSettings);
+    delete settings.version;
+    settings.startOnLoad = false;
+
+    if (!settings.theme && document.documentElement.getAttribute("data-bs-theme") === "dark") {
+      settings.theme = "dark";
+    }
+
+    mermaid.initialize(settings);
+    await mermaid.run({ querySelector: "pre.mermaid" });
+
+    const observer = new MutationObserver((mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === "attributes" && mutation.attributeName === "data-bs-theme") {
+          location.reload();
+        }
+      }
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-bs-theme"]
+    });
+  }
+</script>
