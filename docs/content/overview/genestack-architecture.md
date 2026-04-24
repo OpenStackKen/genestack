@@ -17,7 +17,7 @@ flowchart LR
   %% ─── External sources / Artifacts ───────────────────────────
   subgraph "Artifacts & External Input"
     direction TB
-    INT["🌐 Internet"]
+    INT["Internet"]
     A1(OCI Containers)
     A2(Git Repo)
     A3([Helm + Kustomize])
