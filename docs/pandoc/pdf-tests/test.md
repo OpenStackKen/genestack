@@ -50,25 +50,22 @@ This nested heading checks a flag-style inline code span.
 | Windows path | `C:\Python27\Scripts` |
 | Heading marker | `#` |
 
-## Command and Output Callouts
+## Side-Labeled Listings
 
-This section exercises the shared command/output callout model that both the
-web renderer and the PDF pipeline now consume directly.
+This section exercises a PDF-only proof of concept for Docsy-style tab content
+using `tcblisting` with a vertical side label.
 
-> [!command]
->
-> ```bash
-> kubectl get pods -n openstack | grep -i freezer
-> kubectl get configmaps -n openstack | grep -i freezer
-> ```
+```{.bash .tab-side-label tab-label="Command"}
+kubectl get pods -n openstack | grep -i freezer
+kubectl get configmaps -n openstack | grep -i freezer
+```
 
-> [!output]
->
-> ```text
-> freezer-api-5b8fcbcf8b-g6z6h               1/1     Running     0              3m54s
-> freezer-api-5b8fcbcf8b-rbx4r               1/1     Running     0              4m9s
-> freezer-bin                                7       4m35s
-> ```
+```{.text .tab-side-label tab-label="Expected Output"}
+freezer-api-5b8fcbcf8b-g6z6h               1/1     Running     0              3m54s
+freezer-api-5b8fcbcf8b-rbx4r               1/1     Running     0              4m9s
+freezer-bin                                7       4m35s
+```
+
 ## Paragraph with `GENESTACK`
 
 The custom `GENESTACK` token is useful here because it is short, visually
