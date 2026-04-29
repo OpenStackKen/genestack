@@ -1,0 +1,41 @@
+// Command and output callouts are intentionally rendered as a stark black and
+// white pair so operators can visually distinguish imperative shell input from
+// its resulting terminal output at a glance. Keep these aligned with the
+// normal site-wide admonition structure and only override the colors and icon.
+.admonition.command,
+.admonition.output {
+  --adm-type-color: #000;
+  --adm-type-header: #000;
+  --adm-bg: #fff;
+  --adm-text: #000;
+  background-color: #e7e7e7;
+  border-left: 4px solid #000;
+}
+
+// Docsy gives `.highlight` blocks a page-level top/bottom margin so standalone
+// code samples breathe properly in normal document flow. Inside admonitions,
+// that same outer margin stacks on top of the admonition-content padding and
+// makes code-first callouts appear to have a much larger top gap than
+// paragraph-first callouts. Reset only the direct-child highlight wrapper in
+// admonitions so embedded code blocks align with the built-in paragraph spacing
+// while leaving ordinary page code blocks unchanged.
+.admonition .admonition-content > .highlight {
+  margin: 0 0 0.75rem;
+}
+
+// The upstream admonitions module ships its own code-surface token
+// (`--adm-code-bg`), which diverges slightly from Docsy's site-wide code block
+// token (`--td-pre-bg`). Use the Docsy token inside admonitions as well so
+// command/output callouts and ordinary page code samples share the exact same
+// background treatment.
+.admonition .admonition-content pre,
+.admonition .admonition-content code:not(pre > code) {
+  background-color: var(--td-pre-bg);
+}
+
+// Match Docsy's inline-code treatment as closely as possible inside
+// admonitions too: keep the surrounding text color instead of forcing the
+// separate admonitions code-text token.
+.admonition .admonition-content code:not(pre > code) {
+  color: inherit;
+}
