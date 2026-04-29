@@ -66,7 +66,7 @@ Freezer-Scheduler using Genestack.
 
 ### :material-check-circle: Validate Install Success
 
-=== "Command"
+!!! command "Command"
 
     ```bash
     kubectl get pods -n openstack | grep -i freezer
@@ -75,7 +75,7 @@ Freezer-Scheduler using Genestack.
     kubectl get service -n openstack | grep freezer
     ```
 
-=== "Expected Output"
+!!! output "Output"
 
     ```bash
     kubectl get pods -n openstack | grep -i freezer
@@ -213,13 +213,13 @@ freezer-scheduler start \
     }
     ```
 
-=== "Command"
+!!! command "Command"
 
     ```bash
     freezer client-register --file client_register_config.json
     ```
 
-=== "Expected Output"
+!!! output "Output"
 
     ```bash
     Client backup-client-vm registered
@@ -274,7 +274,7 @@ Create job description `temp-job.json`:
 
 Create job using this definition
 
-=== "Command"
+!!! command "Command"
 
     ```bash
     freezer job-create \
@@ -283,7 +283,7 @@ Create job using this definition
         --log-file temp_log4.log
     ```
 
-=== "Expected Output"
+!!! output "Output"
 
     ```bash
     Job 9999 created
@@ -291,13 +291,13 @@ Create job using this definition
 
 List the jobs
 
-=== "Command"
+!!! command "Command"
 
     ```bash
     freezer job-list
     ```
 
-=== "Expected Output"
+!!! output "Output"
 
     ```bash
     +--------+-------------+-----------+--------+-----------+-------+------------+
@@ -309,13 +309,13 @@ List the jobs
 
 Show jobs
 
-=== "Command"
+!!! command "Command"
 
     ```bash
     freezer job-show 9999
     ```
 
-=== "Expected Output"
+!!! output "Output"
 
     ```bash
     +-------------+--------------------------------------------------------------+
@@ -351,7 +351,7 @@ Show jobs
 
 Update the job with changed log file name and path_to_backup
 
-=== "Command"
+!!! command "Command"
 
     ```bash
     freezer job-update 9999 temp-job.json
@@ -359,7 +359,7 @@ Update the job with changed log file name and path_to_backup
     freezer job-start 9999
     ```
 
-=== "Expected Output"
+!!! output "Output"
 
     ```bash
     Job 9999 updated
@@ -426,13 +426,13 @@ freezer-agent \
 
 Check local backup directory structure
 
-=== "Command"
+!!! command "Command"
 
     ```bash
     tree /home/ubuntu/freezer-bkp-qcow/
     ```
 
-=== "Expected Output"
+!!! output "Output"
 
     ```bash
     /home/ubuntu/freezer-bkp-qcow/
