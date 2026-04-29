@@ -30,7 +30,6 @@ filters:
   - pandoc/filters/inline-code.lua
   - pandoc/filters/pathing.lua
   - pandoc/filters/include-code-files.lua
-  - pandoc/filters/tab-side-label-listings.lua
   - pandoc/filters/hrule.lua
   - pandoc/filters/callouts.lua
   - pandoc/filters/mermaid.lua

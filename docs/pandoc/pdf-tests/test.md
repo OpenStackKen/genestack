@@ -50,22 +50,6 @@ This nested heading checks a flag-style inline code span.
 | Windows path | `C:\Python27\Scripts` |
 | Heading marker | `#` |
 
-## Side-Labeled Listings
-
-This section exercises a PDF-only proof of concept for Docsy-style tab content
-using `tcblisting` with a vertical side label.
-
-```{.bash .tab-side-label tab-label="Command"}
-kubectl get pods -n openstack | grep -i freezer
-kubectl get configmaps -n openstack | grep -i freezer
-```
-
-```{.text .tab-side-label tab-label="Expected Output"}
-freezer-api-5b8fcbcf8b-g6z6h               1/1     Running     0              3m54s
-freezer-api-5b8fcbcf8b-rbx4r               1/1     Running     0              4m9s
-freezer-bin                                7       4m35s
-```
-
 ## Paragraph with `GENESTACK`
 
 The custom `GENESTACK` token is useful here because it is short, visually
