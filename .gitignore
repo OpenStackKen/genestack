@@ -22,6 +22,7 @@ contrib/terraform/aws/credentials.tfvars
 *~
 vagrant/
 plugins/mitogen
+.playwright*
 
 # Ansible inventory
 inventory/*
