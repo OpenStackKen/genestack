@@ -2,6 +2,7 @@
 title: "Genestack Alerts"
 weight: 50
 ---
+
 ## Genestack Prometheus Alerts
 
 ## Blackbox Alerts
@@ -362,4 +363,3 @@ weight: 50
 | **TCPSocketsNearLimit** | More than 80% of TCP sockets are open on the RabbitMQ node.<br>When this value reaches 100%, new connections will not be accepted.<br>Client libraries, peer nodes and CLI tools will not be able to connect when the node runs out of available TCP sockets.<br>See https://www.rabbitmq.com/networking.html.<br> | `{{ $value \| humanizePercentage }}` TCP sockets of TCP socket<br>limit are open in RabbitMQ node `{{ $labels.rabbitmq_node }}`, pod `{{ $labels.pod }}`,<br>RabbitMQ cluster `{{ $labels.rabbitmq_cluster }}`, namespace `{{ $labels.namespace }}`.<br> | warning |
 | **UnroutableMessages** | There are messages published into an exchange which cannot be routed and are either dropped silently, or returned to publishers.<br>Is your routing topology set up correctly?<br>Check your application code and bindings between exchanges and queues.<br>See<br>https://www.rabbitmq.com/publishers.html#unroutable,<br>https://www.rabbitmq.com/confirms.html#when-publishes-are-confirmed.<br> | There were `{{ $value \| printf "%.0f" }}` unroutable messages within the last<br>5 minutes in RabbitMQ cluster `{{ $labels.rabbitmq_cluster }}` in namespace<br>`{{ $labels.namespace }}`.<br> | warning |
 ---
-

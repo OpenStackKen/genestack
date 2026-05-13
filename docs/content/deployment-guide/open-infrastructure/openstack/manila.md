@@ -5,39 +5,46 @@ weight: 165
 
 ---
 
-[Manila](https://docs.openstack.org/manila/latest/) is the Shared File Systems service for OpenStack. Manila provides coordinated access to shared or distributed file systems.
-
-## Share Provisioning
-
-The method in which the share is provisioned and consumed is determined by the Shared File Systems driver, or drivers in the case of a multi-backend configuration. A variety of available Shared File Systems drivers work with proprietary backend storage arrays and appliances, open source distributed file systems, as well as Linux NFS or Samba server.
-
-This section outlines the deployment of OpenStack Manila using Genestack.
-
-> [!WARNING]
+> [!GENESTACK]
 >
 > **TECH PREVIEW**
 >
-> Manila is currently a Tech Preview and is not yet recommended for deployment in production clouds.
+>
 
-## Tech Preview Scope
+Manila is the Shared File Systems service for OpenStack. Manila provides
+coordinated access to shared or distributed file systems.
 
-This tech preview will focus predominantly on the NetApp Clustered Data ONTAP driver with share server management enabled. The driver interfaces between OpenStack Manila to NetApp Clustered Data ONTAP storage controllers to create new storage virtual machines (SVMs) for each tenant share server that is requested by the Manila service. The driver also creates new data logical interfaces (LIFs) that provide access for OpenStack tenants on a specific share network to their shared file systems exported from the share server.
+This document outlines the deployment of OpenStack Manila using Genestack.
 
-Reference the full online [OpenStack Manila documentation](https://docs.openstack.org/manila/latest/) for more information.
+The method in which the share is provisioned and consumed is determined
+by the Shared File Systems driver, or drivers in the case of a multi-backend
+configuration. A variety of available Shared File Systems drivers work with
+proprietary backend storage arrays and appliances, open source distributed
+file systems, as well as Linux NFS or Samba server.
 
-## Create Secrets
+This tech preview will focus predominantly on the NetApp Clustered
+Data ONTAP driver with share server management enabled. The driver interfaces
+between OpenStack Manila to NetApp Clustered Data ONTAP storage controllers to
+create new storage virtual machines (SVMs) for each tenant share server that is
+requested by the Manila service. The driver also creates new data logical interfaces
+(LIFs) that provide access for OpenStack tenants on a specific share network to
+their shared file systems exported from the share server.
+
+Reference the full online [OpenStack Manila documentation](https://docs.openstack.org/manila/latest/) 
+
+## Create secrets
 
 > [!NOTE]
 >
-> **manila-service-keypair is only required for Generic share driver**
->
->
-> Manual secret generation is only required if you haven't run the
-> `create-secrets.sh` script located in `/opt/genestack/bin`.
+> Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 
-Example secret generation
+> [!info] 
+> 
+> `manila-service-keypair` is only required for Generic share driver
 
-``` shell
+**Example secret generation:**
+
+```shell
 kubectl --namespace openstack \
         create secret generic manila-admin \
         --type Opaque \
@@ -65,7 +72,7 @@ Manila configuration values for the NetApp ONTAP driver should be edited
 for the specific values relevant to the NetApp cluster and the Genestack
 environment.
 
-``` yaml
+```yaml
 bootstrap:
   enabled: false
 
@@ -108,22 +115,21 @@ manifests:
   deployment_share: false
 ```
 
-
 ## Run the package deployment
 
-Run the Manila deployment Script `/opt/genestack/bin/install-manila.sh`
-
-```bash {include="bin/install-manila.sh"}
-```
-> [!TIP]
+> [!genestack]
 >
-> You may need to provide custom values to configure your OpenStack services.
-> For a simple single region or lab deployment you can supply an additional
-> overrides flag using the example found at
-> `base-helm-configs/aio-example-openstack-overrides.yaml`.
+> Run the Manila deployment Script `/opt/genestack/bin/install-manila.sh`
+
+```shell {include="bin/install-manila.sh"}
+```
+
+> [!tip]
+>
+> You may need to provide custom values to configure your OpenStack services. For a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
 
 ## Validate functionality
 
-``` shell
+```shell
 kubectl --namespace openstack exec -ti openstack-admin-client -- openstack share service list
 ```

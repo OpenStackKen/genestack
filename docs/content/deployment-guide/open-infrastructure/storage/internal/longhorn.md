@@ -2,6 +2,7 @@
 title: "Longhorn"
 weight: 20
 ---
+
 Longhorn is a lightweight, reliable, and highly available distributed block storage solution designed for Kubernetes. By default, it stores
 its data in `/var/lib/longhorn` on each host node, keeping volumes close to where the workloads are running. This local-path approach can reduce
 latency and boost performance, making Longhorn a fantastic choice for hyperconverged environments. In a hyperconverged setup, compute, networking,
@@ -32,13 +33,25 @@ are scheduled. By labeling only certain nodes, you ensure that these nodes handl
 
 Use the following command to label a node to be part of the Longhorn storage cluster:
 
-``` shell
+```bash
 kubectl label node -l node-role.kubernetes.io/control-plane longhorn.io/storage-node=enabled
 ```
 
 > [!NOTE]
 >
+>
 > It is possible to replace `-l node-role.kubernetes.io/control-plane` with the name of your node. If you have multiple storage nodes, that are not also controllers.
+>
+
+> [!NOTE]
+>
+>
+> This `longhorn.io/storage-node=enabled` label is the same label referenced by
+> the Longhorn Helm node selectors in `/etc/genestack/helm-configs/longhorn/longhorn.yaml`.
+> Apply it to every node that should host Longhorn managers, drivers,
+> instance-managers, and volume replicas before running the deployment or
+> upgrade.
+>
 
 ### Create the Helm Values File
 
@@ -48,32 +61,46 @@ its services and components—in this case, on nodes that have the label `longho
 1. Create the override file at `/etc/genestack/helm-configs/longhorn/longhorn.yaml`.
 2. Copy the following YAML content into that file. (Adapt as needed.)
 
-> [!IMPORTANT]
-> `base-helm-configs/longhorn/longhorn-helm-overrides.yaml`
+> [!EXAMPLE]
+>
+> `longhorn.yaml`
 
-```yaml {include="base-helm-configs/longhorn/longhorn-helm-overrides.yaml"}
+```yaml
+global:
+  nodeSelector:
+    longhorn.io/storage-node: "enabled"
+
+defaultSettings:
+  systemManagedComponentsNodeSelector: "longhorn.io/storage-node:enabled"
+
+# The two values above cover all user-deployed components in the Longhorn
+# Helm chart and the system-managed components created by Longhorn.
+# Individual component overrides can still be added when needed.
 ```
 
-> [!IMPORTANT]
-> - `nodeSelector` ensures that the respective component is only scheduled onto nodes labeled `longhorn.io/storage-node=enabled`.
-> - This configuration helps separate storage responsibilities from other workloads if you have a mixed cluster.
+- `global.nodeSelector` ensures Longhorn chart-managed pods are scheduled onto nodes labeled `longhorn.io/storage-node=enabled`.
+- `defaultSettings.systemManagedComponentsNodeSelector` ensures Longhorn system-managed components such as instance managers also stay on the labeled storage nodes.
+- This configuration helps separate storage responsibilities from other workloads if you have a mixed cluster.
 
 For additional customization, you can review the full list of supported values in Longhorn’s
 [values.yaml](https://raw.githubusercontent.com/longhorn/charts/master/charts/longhorn/values.yaml).
 
 > [!TIP]
 >
+>
 > While Longhorn can be used as a isolated storage cluster, it is also possible, and in some cases recommended, to run Longhorn on the same nodes as your worker nodes. To run Longhorn everywhere, remove the `nodeSelector` fields from the `longhorn.yaml` file.
+>
 
 ### Create The Longhorn Namespace
 
-> [!IMPORTANT]
-> `manifests/longhorn/longhorn-namespace.yaml`
+> [!EXAMPLE]
+>
+> `longhorn-namespace.yaml`
 
 ```yaml {include="manifests/longhorn/longhorn-namespace.yaml"}
 ```
 
-``` shell
+```bash
 kubectl apply -f /etc/genestack/manifests/longhorn/longhorn-namespace.yaml
 ```
 
@@ -100,11 +127,37 @@ With your values file in place, you can now deploy Longhorn using the `/opt/gene
 command. This command will install Longhorn if it is not installed yet, or upgrade it if an older version is
 already present.
 
-> [!IMPORTANT]
-> Run the Longhorn deployment script `/opt/genestack/bin/install-longhorn.sh`
+> [!EXAMPLE]
+>
+> Run the Longhorn deployment script `/opt/genestack/bin/install-longhorn.sh`.
 
 ```bash {include="bin/install-longhorn.sh"}
 ```
+
+## Upgrade Workflow
+
+Longhorn upgrades in Genestack should follow the supported staged maintenance hops:
+
+1. `1.8.0 -> 1.9.1`
+2. `1.9.1 -> 1.10.2`
+3. `1.10.2 -> 1.11.1`
+
+Operator runbooks for each hop are available under `maintenances/`:
+
+- `maintenances/maintenance-longhorn-1.8.0-to-1.9.1.md`
+- `maintenances/maintenance-longhorn-1.9.1-to-1.10.2.md`
+- `maintenances/maintenance-longhorn-1.10.2-to-1.11.1.md`
+- `maintenances/maintenance-longhorn-1.8.0-to-1.9.1.txt`
+- `maintenances/maintenance-longhorn-1.9.1-to-1.10.2.txt`
+- `maintenances/maintenance-longhorn-1.10.2-to-1.11.1.txt`
+
+> [!WARNING]
+>
+>
+> The `1.9.1 -> 1.10.2` hop requires the Longhorn CRD stored-version migration
+> and verification steps documented in the corresponding maintenance runbook.
+> Do not skip that check.
+>
 
 ## Validate the Deployment
 
@@ -112,7 +165,7 @@ After the Helm deployment finishes, you’ll want to verify that everything is r
 
 1. **Check the Longhorn pods**
 
-   ``` shell
+   ```bash
    kubectl -n longhorn-system get pod
    ```
 
@@ -120,7 +173,7 @@ After the Helm deployment finishes, you’ll want to verify that everything is r
 
 2. **Check the Longhorn Nodes**
 
-   ``` shell
+   ```bash
    kubectl -n longhorn-system get nodes.longhorn.io
    ```
 
@@ -128,7 +181,7 @@ After the Helm deployment finishes, you’ll want to verify that everything is r
 
 3. **Run a test Pod with a Longhorn Persistent Volume**
 
-   ``` shell
+   ```bash
    kubectl create -f https://raw.githubusercontent.com/longhorn/longhorn/v1.8.0/examples/pod_with_pvc.yaml
    ```
 
@@ -136,20 +189,51 @@ After the Helm deployment finishes, you’ll want to verify that everything is r
 
 4. **Validate the Volume State**
 
-   ``` shell
+   ```bash
    kubectl -n longhorn-system get volumes.longhorn.io
    ```
 
 You should see an entry for the newly created volume, and it should be in an attached, healthy state if everything is working.
 
-Example Output
+> [!EXAMPLE]
+>
+> Example output.
 
-``` shell
+```text
 NAME                                       DATA ENGINE   STATE      ROBUSTNESS   SCHEDULED   SIZE         NODE                                  AGE
 pvc-42c89b53-f08e-4d69-9d4d-cd2297f2c280   v1            attached   healthy                  2147483648   compute-0.cloud.cloudnull.dev.local   54s
 ```
 
 Once you verify the test deployment, you can remove the Pod and related resources if you like. This helps keep your cluster clean if the test is no longer needed.
+
+## Post-Upgrade Validation
+
+After a Longhorn upgrade, validate both the cluster health and any remaining older
+instance-manager pods:
+
+```bash
+kubectl -n longhorn-system get pods -o wide --sort-by=.spec.nodeName
+kubectl -n longhorn-system get volumes.longhorn.io -o custom-columns=VOLUME:.metadata.name,STATE:.status.state,ROBUSTNESS:.status.robustness
+VERSION_FILE=/etc/genestack/helm-chart-versions.yaml /opt/genestack/scripts/longhorn-old-instance-managers.sh
+```
+
+To narrow the helper script output to a single workload family while preserving
+the header row:
+
+```bash
+VERSION_FILE=/etc/genestack/helm-chart-versions.yaml /opt/genestack/scripts/longhorn-old-instance-managers.sh --search mariadb
+```
+
+> [!NOTE]
+>
+>
+> Older instance-manager pods remaining after an upgrade is expected Longhorn
+> behavior while attached workloads continue using them. Cleanup is optional
+> and is not required for a successful upgrade. These pods will be removed
+> naturally as the associated volumes are recreated, detached, or reattached
+> over time. The maintenance runbooks include workload-specific guidance for
+> operators who choose to accelerate that cleanup during a maintenance window.
+>
 
 ## StorageClass Configuration
 
@@ -165,6 +249,7 @@ for more information on StorageClasses.
 
 > [!NOTE]
 >
+>
 > The Longhorn StorageClass created here will use two custom parameters: `numberOfReplicas` and `dataLocality`. While these have default values, they can be adjusted to better suit the needs of the cloud environment.
 >
 > - The `numberOfReplicas` parameter specifies the number of replicas for built PVC. While the common default is "3" for redundancy, you can adjust this value
@@ -174,6 +259,7 @@ for more information on StorageClasses.
 >     - For "**disabled**", replicas are placed on different nodes.
 >     - For "**best-effort**", a replica will be co-located if possible, but is permitted to find another node if not.
 >     - For "**strict-local**" the Replica count should be **1**, or volume creation will fail with a parameter validation error. This option enforces Longhorn keep the only one replica on the same node as the attached volume, and therefore, it offers higher IOPS and lower latency performance.
+>
 
 ### General StorageClass
 
@@ -185,15 +271,16 @@ Longhorn will provide two default StorageClasses: `longhorn` and `longhorn-stati
 
 For the purposes of Genestack, it is recommended that you create the `general` StorageClass to avoid deployment confusion.
 
-> [!IMPORTANT]
-> `manifests/longhorn/longhorn-general-storageclass.yaml`
+> [!EXAMPLE]
+>
+> `longhorn-general-storageclass.yaml`
 
 ```yaml {include="manifests/longhorn/longhorn-general-storageclass.yaml"}
 ```
 
 Apply the general storage class manifest to create the StorageClass.
 
-``` shell
+```bash
 kubectl apply -f /etc/genestack/manifests/longhorn/longhorn-general-storageclass.yaml
 ```
 
@@ -203,15 +290,16 @@ With the `general` StorageClass in place, you can now create PVCs that reference
 
 For the purposes of Genestack, it is recommended that you create the `general-multi-attach` StorageClass to avoid deployment confusion.
 
-> [!IMPORTANT]
-> `manifests/longhorn/longhorn-general-multi-attach-storageclass.yaml`
+> [!EXAMPLE]
+>
+> `longhorn-general-multi-attach-storageclass.yaml`
 
 ```yaml {include="manifests/longhorn/longhorn-general-multi-attach-storageclass.yaml"}
 ```
 
 Apply the general-multi-attach storage class manifest to create the StorageClass.
 
-``` shell
+```bash
 kubectl apply -f /etc/genestack/manifests/longhorn/longhorn-general-multi-attach-storageclass.yaml
 ```
 
@@ -229,8 +317,9 @@ encryption feature, your data remains secure and encrypted on the underlying dis
 
 Below is an example combined manifest. Save this content to `/etc/genestack/manifests/longhorn-encrypted-storageclass.yaml`.
 
-> [!IMPORTANT]
-> `manifests/longhorn/longhorn-encrypted-storageclass.yaml`
+> [!EXAMPLE]
+>
+> `longhorn-encrypted-storageclass.yaml`
 
 ```yaml {include="manifests/longhorn/longhorn-encrypted-storageclass.yaml"}
 ```
@@ -256,10 +345,11 @@ Below is an example combined manifest. Save this content to `/etc/genestack/mani
 > - `allowVolumeExpansion: true`: Allows you to resize volumes after creation.
 > - `reclaimPolicy: Delete`: Automatically deletes the underlying volume when the PVC is deleted.
 > - `encrypted: "true"`: Ensures volumes are encrypted.
+>
 
 Apply the encrypted storage class manifest to create the StorageClass.
 
-``` shell
+```bash
 kubectl apply -f /etc/genestack/manifests/longhorn/longhorn-encrypted-storageclass.yaml
 ```
 

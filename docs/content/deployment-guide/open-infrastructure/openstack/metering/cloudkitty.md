@@ -4,8 +4,9 @@ description: "OpenStack Rating and Charge-Back Service"
 weight: 40
 ---
 
-[CloudKitty](https://docs.openstack.org/cloudkitty/latest/) is the rating and charge-back service for OpenStack  helps operators measure, rate, and bill tenants (projects) for the resources they consume in an OpenStack cloud. 
-
+OpenStack Cloudkitty is the rating and chargeback service for OpenStack 
+helps operators measure, rate, and bill tenants (projects) for the resources 
+they consume in an OpenStack cloud. 
 This document outlines the deployment of OpenStack Cloudkitty using Genestack.
 
 ## Create secrets
@@ -15,9 +16,9 @@ This document outlines the deployment of OpenStack Cloudkitty using Genestack.
 > Manual secret generation is only required if you haven't run the
 > `create-secrets.sh` script located in `/opt/genestack/bin`.
 
-Example secret generation
+Example secret generation:
 
-``` shell
+```bash
 kubectl --namespace openstack \
         create secret generic cloudkitty-rabbitmq-password \
         --type Opaque \
@@ -35,12 +36,11 @@ kubectl --namespace openstack \
 
 ## Run the package deployment
 
-Run the Cloudkitty deployment Script `/opt/genestack/bin/install-cloudkitty.sh`
+> [!EXAMPLE]
+>
+> Run the CloudKitty deployment script.
 
 ```bash {include="bin/install-cloudkitty.sh"}
-```
-```
-
 ```
 
 > [!TIP]
@@ -52,6 +52,6 @@ Run the Cloudkitty deployment Script `/opt/genestack/bin/install-cloudkitty.sh`
 
 ## Validate functionality
 
-``` shell
+```bash
 kubectl --namespace openstack exec -ti openstack-admin-client -- openstack rating module list
 ```

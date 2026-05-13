@@ -2,12 +2,13 @@
 title: "Using the Skyline Web UI"
 weight: 40
 ---
+## Goal
 
-Use the `Skyline` Web UI to perform operations on your object store.
+Use the `Skyline` GUI to perform operations on your object store.
 
 ## Prerequisites
 
-Ensure you have access to your OpenStack Skyline Web UI.
+Ensure you have access to your OpenStack Skyline GUI.
 
 ## Documentation
 
@@ -58,13 +59,14 @@ Upload a file to the container:
 
 > [!NOTE]
 >
+>
 > Note that at this time, the Skyline GUI cannot upload entire folders.
-
-To accomplish this you can use either the [openstack client](/cloud-onboarding/storage-object-store-openstack-cli/) or the [swift client](/cloud-onboarding/storage-object-store-swift-cli/).
+>
+To accomplish this you can use either the [openstack client](/cloud-onboarding/object_store/openstack-cli/) or the [swift client](/cloud-onboarding/object_store/swift-cli/).
 
 ### Downloading files
 When the container is public, you can access each file using a specific URL, made up of your region's endpoint, the name of your container, the prefix (if any) of your object, and finally, the object name.
-``` shell
+```shell
 <REGIONAL_ENDPOINT>/storage/container/detail/flex-container01/example.rtf
 ```
 
@@ -93,12 +95,13 @@ Download a single file from the container:
 
 > [!NOTE]
 >
+>
 > Note that at this time, the Skyline GUI cannot delete non-empty containers.
-
-To accomplish this you can use either the [openstack client](/cloud-onboarding/storage-object-store-openstack-cli/) or the [swift client](/cloud-onboarding/storage-object-store-swift-cli/).
+>
+To accomplish this you can use either the [openstack client](/cloud-onboarding/object_store/openstack-cli/) or the [swift client](/cloud-onboarding/object_store/swift-cli/).
 
 ### Setting and removing object expiration
-At this time, setting and removing object expiration can be done using the the [swift client](/cloud-onboarding/storage-object-store-swift-cli/).
+At this time, setting and removing object expiration can be done using the the [swift client](/cloud-onboarding/object_store/swift-cli/).
 
 ## Additional documentation
 

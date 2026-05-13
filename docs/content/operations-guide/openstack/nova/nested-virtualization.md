@@ -1,4 +1,6 @@
-# Nested Virtualization
+---
+title: "Nested Virtualization"
+---
 
 Genestack now enables the libvirt chart's `conf.init_modules` workflow by
 default in the base libvirt overrides. On supported compute hosts, this writes
@@ -20,7 +22,7 @@ the libvirt DaemonSet. During startup it:
 
 On Intel systems, the resulting host configuration typically looks like:
 
-``` shell
+```bash
 options kvm_intel nested=1
 options kvm_intel enable_apicv=1
 options kvm_intel ept=1
@@ -28,7 +30,7 @@ options kvm_intel ept=1
 
 On AMD systems, the configuration typically looks like:
 
-``` shell
+```bash
 options kvm_amd nested=1
 ```
 
@@ -50,13 +52,13 @@ still need Nova/libvirt CPU settings that pass through the required `vmx` or
 
 Validate nested virtualization on the compute host:
 
-``` shell
+```bash
 cat /sys/module/kvm_intel/parameters/nested
 ```
 
 or on AMD:
 
-``` shell
+```bash
 cat /sys/module/kvm_amd/parameters/nested
 ```
 
@@ -64,14 +66,14 @@ Expected output is `Y` or `1` depending on the platform and kernel.
 
 Validate that the host configuration file exists:
 
-``` shell
+```bash
 ls -l /etc/modprobe.d/qemu-system-x86.conf
 cat /etc/modprobe.d/qemu-system-x86.conf
 ```
 
 Validate that a guest sees virtualization extensions:
 
-``` shell
+```bash
 egrep '(vmx|svm)' /proc/cpuinfo
 ```
 

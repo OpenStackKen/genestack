@@ -4,12 +4,11 @@ description: "Deploying the Designate services."
 weight: 20
 ---
 
-## Create secrets
+## Create Secrets
 
-> [!NOTE]
+> [!note]
 >
-> Manual secret generation is only required if you haven't run the
-> `create-secrets.sh` script located in `/opt/genestack/bin`.
+> Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 
 Example secret generation
 

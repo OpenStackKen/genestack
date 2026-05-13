@@ -3,72 +3,70 @@ title: "Installing the OpenStack CLI"
 weight: 10
 ---
 
-This will walk you through installing the OpenStack CLI: `openstack`.
-
-> [!NOTE]
->
-> This does **NOT** need to be performed on the machine you deployed the cloud on, or the machine you deployed the cloud from.  You can do this on any machine you wish to use to access your OpenStack cloud.
+Before we can get started we need to install a few things.
 
 ## Installing Python
 
 While most operating systems have some form of Python already installed, you will need to ensure you have python available on your system to use the standard command line utilities. If you need to install python, consult your operating system documentation or the upstream python [documentation](https://www.python.org/downloads) to get started.
 
-## Installing `pip`
+### Installing `pip`
 
 Pip is the python package manager and can make installing libraries very simple; however, some build tools may be required. For more information on installing `pip`, consult the [upstream documentation](https://pip.pypa.io/en/stable/installation).
 
-### MacOS
+#### MacOS
 
-``` shell
+```bash
 python -m ensurepip --upgrade
 ```
 
-### Microsoft Windows
+#### Microsoft Windows
 
-Ensure that the `C:\Python27\Scripts` directory is defined in the PATH environment variable, and use the `easy_install` command from the `setuptools` package:
+Ensure that the C:\Python27\Scripts directory is defined in the PATH environment variable, and use the easy_install command from the setuptools package:
 
-``` shell
+```bash
 C:> py -m ensurepip --upgrade
 ```
 
-### Linux
+#### Linux
 
-``` shell
+```bash
 python -m ensurepip --upgrade
 ```
 
-## Installing the Openstack Client Using `pip`
+### Installing the Openstack Client Using `pip`
 
 Assuming you have `pip` installed, it can be used to install the openstack client utilities.
 
 > [!TIP]
 >
-> Users may want to use a Virtual Environment (venv) so that they do not have any risk of hurting their default Python environment. For more information on setting up a venv please visit the python [documentation](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments) on working with virtual environments.
+>
+> Users may want to use a Virtual Environment so that they do not have any risk of hurting their default Python environment. For more information on seting up a venv please visit the python [documentation](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments) on working with virtual environments.
+>
 
-``` shell
+```bash
 pip install python-openstackclient
 ```
 
 For further information on Openstack Command Line and Authentication please visit the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/man/openstack.html).
 
-## Installing the OpenStack Client with packages
+### Installing the OpenStack Client with packages
 
 Package based client install is a great way to simplify the installation process, however, it does come with a greater possibility to lag behind a given release and may not be as featurefull.
 
-### MacOS
+#### MacOS
 
-``` shell
+```bash
 brew install openstackclient
 ```
 
-### Ubuntu or Debian
+#### Ubuntu or Debian
 
-``` shell
+```bash
 apt install python3-openstackclient
 ```
 
-### Enterprise Linux
+#### Enterprise Linux
 
-``` shell
+```bash
 dnf install python3-openstackclient
 ```

@@ -9,7 +9,7 @@ cascade:
 
 [Trove](https://docs.openstack.org/trove/latest/) is the Database as a Service (DBaaS) component of the OpenStack cloud computing platform, providing scalable and reliable database provisioning and management capabilities. It enables users to deploy, manage, and scale database instances without the complexity of manual database administration. This document details the deployment of OpenStack Trove within Genestack.
 
-> [!GENESTACK]
+> [!genestack]
 >
 > Genestack facilitates the deployment process by leveraging Kubernetes' orchestration capabilities, ensuring seamless integration and management of Trove services across different database engines and environments.
 
@@ -19,7 +19,7 @@ cascade:
 >
 > Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 
-Example secret generation
+**Example secret generation**
 
 ``` shell
 kubectl --namespace openstack \
@@ -39,17 +39,13 @@ kubectl --namespace openstack \
 
 ## Define policy configuration
 
-> [!NOTE]
+> [!info]
 >
-> **Information about the default policy rules used**
->
->
-> The default RabbitMQ policy sets quorum queues target group size to 3 for
-> the `trove` vhost. This can be changed in `base-kustomize/trove/base/policies.yaml`.
+> The default RabbitMQ policy sets quorum queues target group size to 3 for the `trove` vhost. This can be changed in `base-kustomize/trove/base/policies.yaml`.
 
-Default RabbitMQ policy
+**Default RabbitMQ policy:**
 
-``` yaml
+```yaml
 apiVersion: rabbitmq.com/v1beta1
 kind: Policy
 metadata:
@@ -69,14 +65,15 @@ spec:
 
 ## Run the package deployment
 
-Run the Trove deployment Script `/opt/genestack/bin/install-trove.sh`
+> [!genestack]
+>
+> Run the Trove deployment Script `/opt/genestack/bin/install-trove.sh`
 
 ```bash {include="bin/install-trove.sh"}
 ```
-> [!TIP]
+> [!tip]
 >
-> You may need to provide custom values to configure your openstack services, for a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
-> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operations-guide/multi-region-support/) guide to for a workflow solution.
+> You may need to provide custom values to configure your openstack services, for a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`. In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operations-guide/multi-region-support/) guide to for a workflow solution.
 
 ## Validate the Deployment
 

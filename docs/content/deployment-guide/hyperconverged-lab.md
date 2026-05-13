@@ -52,6 +52,22 @@ A simple reference architecture for a hyper-converged lab environment is shown b
 that are connected to a two networks. The networks are connected via a router that provides external connectivity.
 
 ``` mermaid
+---
+config:
+    flowchart:
+        useMaxWidth: true
+        diagramPadding: 20
+        nodeSpacing: 80
+        rankSpacing: 80
+        curve: "basis"
+        padding: 50
+        defaultRenderer: "elk"
+        wrappingWidth: 160
+        inheritDir: true
+        subGraphTitleMargin:
+            top: 4
+            bottom: 6
+---
 flowchart TB
     %% Define clusters/subgraphs for clarity
     subgraph Public_Network ["<div style="width:15em; height:12em; display:flex; justify-content: flex-start; align-items:flex-end;">Public Network</div>"]

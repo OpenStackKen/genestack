@@ -2,6 +2,7 @@
 title: "Etcd Backup"
 weight: 40
 ---
+
 In order to backup etcd we create a backup CronJob resource. This constitues of 3 things:
 
 1. etcd-backup container image with the etcdctl binary and the python script that uploads
@@ -23,27 +24,45 @@ Create the secret:
 
 > [!NOTE]
 >
-> Manual secret generation is only required if you haven't run the create-secrets.sh script located in /opt/genestack/bin. However, you still need to add data to a couple of empty keys that are region-specific.
+> **Information about the secrets used**
+>
+>
+> Manual secret generation is only required if you haven't run the create-secrets.sh script located in /opt/genestack/bin.
+> However, you still need to add data to a couple of empty keys that are region-specific.
+>
+> **Example secret generation**
+>
+> ```bash
+> kubectl --namespace openstack \
+> create secret generic etcd-backup-secrets \
+> --type Opaque \
+> --from-literal=ACCESS_KEY="<SECRET_ACCESS_KEY>" \
+> --from-literal=SECRET_KEY="<SECRET_SECRET_KEY>" \
+> --from-literal=S3_HOST="127.0.0.1" \
+> --from-literal=S3_REGION="<S3_REGION>" \
+> --from-literal=ETCDCTL_API="3" \
+> --from-literal=ETCDCTL_ENDPOINTS="https://127.0.0.1:2379" \
+> --from-literal=ETCDCTL_CACERT="/etc/ssl/etcd/ssl/ca.pem" \
+> --from-literal=ETCDCTL_CERT="/etc/ssl/etcd/ssl/member-etcd01.your.domain.tld.pem" \
+> --from-literal=ETCDCTL_KEY="/etc/ssl/etcd/ssl/member-etcd01.your.domain.tld-key.pem"
+>
+> ```
+>
 
-Example secret generation
-
-``` shell
-kubectl --namespace openstack \
-create secret generic etcd-backup-secrets \
---type Opaque \
---from-literal=ACCESS_KEY="<SECRET_ACCESS_KEY>" \
---from-literal=SECRET_KEY="<SECRET_SECRET_KEY>" \
---from-literal=S3_HOST="127.0.0.1" \
---from-literal=S3_REGION="<S3_REGION>" \
---from-literal=ETCDCTL_API="3" \
---from-literal=ETCDCTL_ENDPOINTS="https://127.0.0.1:2379" \
---from-literal=ETCDCTL_CACERT="/etc/ssl/etcd/ssl/ca.pem" \
---from-literal=ETCDCTL_CERT="/etc/ssl/etcd/ssl/member-etcd01.your.domain.tld.pem" \
---from-literal=ETCDCTL_KEY="/etc/ssl/etcd/ssl/member-etcd01.your.domain.tld-key.pem"
-```
+> [!NOTE]
+>
+> Ensure that the correct ETCD and S3 connection information is patched into the secret.
+>
+> ```bash
+> kubectl -n openstack patch secret etcd-backup-secrets \
+> --patch='{"stringData": {"ETCDCTL_CERT":"/etc/ssl/etcd/ssl/member-etcd01.your.domain.tld.pem",
+>                          "ETCDCTL_KEY":"/etc/ssl/etcd/ssl/member-etcd01.your.domain.tld-key.pem",
+>                          "ACCESS_KEY": "<ACCESS KEY>", "SECRET_KEY": "<SECRET KEY>",
+>                          "S3_HOST": "<S3 ENDPOINT>", "S3_REGION": "<S3 REGION>"}}'
+> ```
 
 Next, deploy the backup job:
 
-``` shell
-kubectl apply -k /etc/genestack/kustomize/backups/base/etcd --namespace openstack
+```bash
+kubectl apply -k /etc/genestack/kustomize/backups/overlay --namespace openstack
 ```

@@ -1,0 +1,45 @@
+{
+  // This file exists specifically for editor integrations such as the VS Code
+  // markdownlint extension. The extension does not read the
+  // `.markdownlint-cli2.jsonc` format used by the containerized lint target,
+  // so without this companion file it falls back to stock defaults on save and
+  // incorrectly "fixes" repo-approved constructs such as admonitions.
+
+  // Keep the editor rule set aligned with the CLI2 rule policy so on-save
+  // feedback matches `make -C docs lint` as closely as possible for source
+  // files under /docs.
+  "default": true,
+  "MD013": false,
+  "MD001": false,
+  "MD004": false,
+  "MD007": false,
+  "MD009": false,
+  "MD010": false,
+  "MD012": false,
+  "MD014": false,
+  "MD018": false,
+  "MD019": false,
+  "MD022": false,
+  "MD023": false,
+  "MD024": false,
+  "MD025": false,
+  "MD026": false,
+  "MD027": false,
+  "MD028": false,
+  "MD029": false,
+  "MD031": false,
+  "MD032": false,
+  "MD033": false,
+  "MD034": false,
+  "MD036": false,
+  "MD037": false,
+  "MD040": false,
+  "MD041": false,
+  "MD046": false,
+  "MD047": false,
+  "MD049": false,
+  "MD056": false,
+  "MD058": false,
+  "MD059": false,
+  "MD060": false
+}

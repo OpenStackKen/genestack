@@ -1,6 +1,6 @@
 ---
 title: "Exporters"
-weight: 30
+weight: 40
 ---
 
 Prometheus makes use of various metric [exporters](https://prometheus.io/docs/instrumenting/exporters/) used to collect monitoring data related to specific services:

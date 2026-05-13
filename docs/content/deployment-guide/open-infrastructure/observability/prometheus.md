@@ -3,40 +3,48 @@ title: "Prometheus"
 weight: 10
 ---
 
-We are taking advantage of the prometheus community kube-prometheus-stack as well as other various components for monitoring and alerting. For more information, take a look at [Prometheus Kube Stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack).
+Genestack uses the `kube-prometheus-stack` chart to deploy Prometheus, Alertmanager, node-exporter, and kube-state-metrics into the `monitoring` namespace.
 
-> [!TIP]
->
-> You may need to provide custom values to configure prometheus. For a simple 
-> single region or lab deployment you can supply an additional overrides flag
-> using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
->
-> In other cases such as a multi-region deployment you may want to view the
-> [Multi-Region Support](/operations-guide/multi-region-support/) guide to for a workflow
-> solution.
+## Paths
 
-## Installing Prometheus
+- Base Helm values: `/opt/genestack/base-helm-configs/kube-prometheus-stack/`
+- Service overrides: `/etc/genestack/helm-configs/kube-prometheus-stack/`
+- Kustomize overlay: `/etc/genestack/kustomize/kube-prometheus-stack/overlay/`
 
-The kube-prometheus-stack is the foundation of the Genestack monitoring infrastructure. It deploys and manages the core monitoring components, which include:
+## Install
 
-- **Prometheus Operator** - Manages the Prometheus cluster deployment lifecycle
-- **Prometheus Server** - Collects and stores metrics from configured targets
-- **AlertManager** - Handles alerts sent by Prometheus and routes them to notification channels (email, PagerDuty, Slack, etc.)
-- **Node Exporter** - Collects hardware and OS-level metrics from cluster nodes
-- **Kube State Metrics** - Exposes Kubernetes cluster state metrics
-
-See the [Prometheus installation guide](/deployment-guide/open-infrastructure/observability/prometheus/) for detailed setup instructions.
-
-Run the Prometheus deployment:
-
-``` shell
+```shell
 /opt/genestack/bin/install-kube-prometheus-stack.sh
 ```
 
-> [!SUCCESS]
-> If the installation is successful, you should see the related exporter pods
-> in the prometheus namespace.
+## Verify
 
-``` shell
-kubectl -n prometheus get pods -l "release=kube-prometheus-stack"
+```shell
+kubectl -n monitoring get pods -l app.kubernetes.io/instance=kube-prometheus-stack
+kubectl -n monitoring get prometheus,alertmanager
 ```
+
+## Alertmanager Configuration
+
+The base Alertmanager example is stored at:
+
+- `/opt/genestack/base-helm-configs/kube-prometheus-stack/alertmanager_config.yaml`
+
+If you want to customize Alertmanager, place your override file in:
+
+- `/etc/genestack/helm-configs/kube-prometheus-stack/`
+
+Example:
+
+```shell
+read -p "webhook_url: " webhook_url
+sed -i -e "s#https://webhook_url.example#${webhook_url}#" \
+  /etc/genestack/helm-configs/kube-prometheus-stack/alertmanager_config.yaml
+```
+
+Any additional YAML files placed in `/etc/genestack/helm-configs/kube-prometheus-stack/` are included by the install script, so this is also the supported place for custom Prometheus rules.
+
+> [!INFO]
+>
+> Prometheus node-exporter needs privileged host access on Talos.
+> Skip this on Kubespray unless your cluster enforces the same restriction.

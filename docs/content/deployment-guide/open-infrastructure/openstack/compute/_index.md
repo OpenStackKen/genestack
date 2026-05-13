@@ -2,7 +2,7 @@
 title: "Compute"
 weight: 70
 type: docs
-description: "Deploying the Nova, Placement, and Neutron integration OpenStack compute components."
+description: "Deploying OpenStack Compute Kit components."
 cascade:
   - type: docs
 ---
@@ -15,6 +15,6 @@ These core services make up a "Compute Kit"  in OpenStack providing the critical
 
 Together, Nova, Neutron, and Placement form the backbone of the OpenStack Compute Kit, enabling the efficient and scalable operation of cloud instances. In this document, we will explore how these services can be deployed using Genestack.
 
-## Compute Services
-
-Several OpenStack services work together to enable compute.
+> [!genestack]
+>
+> If Nova will be deployed with an external Ceph storage backend, review the [OpenStack Compute Ceph Store](openstack-compute-ceph-store.md) operator documentation for additional steps and setup.

@@ -2,15 +2,16 @@
 title: "Multi-Region Support"
 weight: 20
 ---
-
-Genestack is fairly simple to get started with by just pulling down the code and following the basic set-up documentation with the base config files but there are instances where your deployment may get a bit more complicated. Genestack provides a reasonably sane set of base configs with default values that configure infrastructure and openstack services utilizing `helm` and `kustomize` and this works great for a simple lab setup or even a single production region. When it comes to supporting many regions with various different values across them a single set of configs just won't suffice.
+Genestack is fairly simple to get started with by just pulling down the code and following the basic set-up documentation with the base config files but there are instances where your deployment may get a bit more complicated.
+Genestack provides a reasonably sane set of base configs with default values that configure infrastructure and openstack services utilizing `helm` and `kustomize` and this works great for a simple lab setup or even a single production region.
+When it comes to supporting many regions with various different values across them a single set of configs just won't suffice.
 
 Below we'll discuss one way to better structure, version and maintain a multi-region genestack deployment.
 
 ## Overview
 
-First, note that genestack is currently setup to run `helm` and `kustomize` commands from the `base-helm-configs` and `base-kustomize` directories. These base config directories provide a sane set of defaults that can be easily applied to a lab type setup for testing purposes. Using the `aio-example-openstack-overrides.yaml` file as an additional argument to the `helm` commands you can easily adjust the values needed.
-
+Firstly, we'll note that genestack is currently setup to run `helm` and `kustomize` commands from the `base-helm-configs` and `base-kustomize` directories.
+These base config directories provide a sane set of defaults that can be easily applied to a lab type setup for testing purposes. Using the `aio-example-openstack-overrides.yaml` file as an additional argument to the `helm` commands you can easily adjust the values needed.
 If deploying a single region for a more production like environment we can take advantage of the `prod-aio-example-openstack-overrides.yaml` file which allows us to override the various configs with production or otherwise custom values that meets the needs of our deployment.
 
 These examples allow us to adjust and override the default `helm` values for a single deployment, or potentially multiple deployments that have identical requirements but this doesn't help us with multiple deployments that have various differences that we'd like to maintain, track and update easily.
@@ -28,23 +29,25 @@ our inventory and bootstrap type configs are found. We will make use of `/etc/ge
 For this workflow we want to utilize a git repo to store our changes and custom configs. We also want to clearly define regional specific directories within the repo that will contain everything from the custom inventory to our helm config overrides.
 The structure may look something like:
 
-```
-├── my-genestack-configs
-│  ├── region1
-│  │  ├── inventory
-│  │  │  ├── inventory.yaml
-│  │  ├── helm-configs
-│  │  │  ├── nova
-│  │  │  │  ├── region1-custom-nova-helm-overrides.yaml
-│  ├── region2
-│  │  ├── inventory
-│  │  │  ├── -inventory.yaml
-│  │  ├── helm-configs
-│  │  │  ├── nova
-│  │  │  │  ├── region2-custom-nova-helm-overrides.yaml
-└── .gitignore
-```
-
+> [!IMPORTANT]
+>
+> ```
+> ├── my-genestack-configs
+> │  ├── region1
+> │  │  ├── inventory
+> │  │  │  ├── inventory.yaml
+> │  │  ├── helm-configs
+> │  │  │  ├── nova
+> │  │  │  │  ├── region1-custom-nova-helm-overrides.yaml
+> │  ├── region2
+> │  │  ├── inventory
+> │  │  │  ├── -inventory.yaml
+> │  │  ├── helm-configs
+> │  │  │  ├── nova
+> │  │  │  │  ├── region2-custom-nova-helm-overrides.yaml
+> └── .gitignore
+> ```
+>
 The above example is just that and is kept short just to give an idea of what we'll be working with. You may have many additional openstack services you need to override and may decided to adjust the structure in your own way as needed.
 
 The inventory noted above is what's used to deploy genestack infrastructure and bootstrapping and is also specific to the region so we'll want to maitain that in a similar fashion to our custom helm configs.
@@ -59,7 +62,7 @@ See [Create a repo](https://docs.github.com/en/repositories/creating-and-managin
 > [!TIP]
 >
 > You may opt to not create a repo and simply keep it local but the directory structure and workflow will be the same for this example
-
+>
 With the repo created and cloned to somewhere like `/opt/my-genestack-configs` we can then create the directory structure as noted above and add our custom helm overrides.
 
 #### Creating custom overrides
@@ -69,26 +72,24 @@ For our example we just want to override the cpu_allocation as they are differen
 
 Create the override files within the respective structure as noted above with the contents of:
 
-> [!IMPORTANT]
-> [region1-custom-nova-helm-overrides.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/base-helm-configs/nova/nova-helm-overrides.yaml)
-
-```
-conf:
-  nova:
-    DEFAULT:
-      cpu_allocation_ratio: 8.0
-```
-
-> [!IMPORTANT]
-> [region2-custom-nova-helm-overrides.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/base-helm-configs/nova/nova-helm-overrides.yaml)
-
-```
-conf:
-  nova:
-    DEFAULT:
-      cpu_allocation_ratio: 4.0
-```
-
+> [!IMPORTANT] region1-custom-nova-helm-overrides.yaml
+>
+> ```
+> conf:
+>   nova:
+>     DEFAULT:
+>       cpu_allocation_ratio: 8.0
+> ```
+>
+> [!IMPORTANT] region2-custom-nova-helm-overrides.yaml
+>
+> ```
+> conf:
+>   nova:
+>     DEFAULT:
+>       cpu_allocation_ratio: 4.0
+> ```
+>
 We now have the directory structure and override files needed so now we can run our helm upgrades!
 
 #### Symlink our repo
@@ -98,36 +99,36 @@ To do that, we'll simply symlink our regional named directory that we created ab
 
 For the rest of the workflow example we'll be working with the `sjc` environment. The same instructions would apply for the different regions.
 
-symlink the repo
-
-``` shell
-ln -s /opt/my-genestack-configs/region1 /etc/genestack
-```
-
+> [!IMPORTANT] symlink the repo
+>
+> ```shell
+> ln -s /opt/my-genestack-configs/region1 /etc/genestack
+> ```
+>
 This will make our `/etc/genestack` directory look like:
 
-/etc/genestack/
-
-```
-├── inventory
-│  │  ├── inventory.yaml
-├── helm-configs
-│  ├── nova
-│  │  ├── region1-custom-nova-helm-overrides.yaml
-```
-
+> [!IMPORTANT] /etc/genestack/
+>
+> ```
+> ├── inventory
+> │  │  ├── inventory.yaml
+> ├── helm-configs
+> │  ├── nova
+> │  │  ├── region1-custom-nova-helm-overrides.yaml
+> ```
+>
 #### Running helm
 
-These instructions apply to all the openstack services, we are focusing on nova here. In our deployment guide we can find [compute kit installation](/deployment-guide/open-infrastructure/openstack/compute-kit/compute-kit/).
+These instructions apply to all the openstack services, we are focusing on nova here. In our deployment guide we can find [compute kit installation](/deployment-guide/open-infrastructure/openstack/compute/).
 
 Everything there will be reused, especially if we haven't set things up prior, the difference for this multi-region workflow example is that we'll be adding an additional override file to the command.
 
-Looking at [Deploy Nova](/deployment-guide/open-infrastructure/openstack/compute-kit/compute-kit/) in the compute kit installation documentation we see the `helm upgrade` command. You'll notice it has a single `-f` flag pointing to our `base-helm-configs` at `-f /etc/genestack/helm-configs/nova/nova-helm-overrides.yaml`.
+Looking at [Deploy Nova](/deployment-guide/open-infrastructure/openstack/compute/) in the compute kit installation documentation we see the `helm upgrade` command. You'll notice it has a single `-f` flag pointing to our `base-helm-configs` at `-f /etc/genestack/helm-configs/nova/nova-helm-overrides.yaml`.
 We're going to simply add another `-f` flag below that one to include our overrides. Helm will see this and apply the values in order in the arguments. In otherwords, the second `-f` flag will override anything provided in the first.
 
 So, our helm command that we'll run against sjc will now look like:
 
-``` shell
+```shell
 /opt/genestack/bin/install-nova.sh -f /etc/genestack/helm-configs/nova/region1-nova-helm-overrides.yaml
 ```
 

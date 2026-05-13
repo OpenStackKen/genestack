@@ -1,4 +1,6 @@
-# OpenTelemetry Base Metrics Collection - Complete Reference
+---
+title: "OpenTelemetry Base Metrics Collection - Complete Reference"
+---
 
 This document describes the metrics collected by the current OpenTelemetry + Prometheus configuration and where they come from.
 
@@ -306,7 +308,7 @@ Applications instrumented with OpenTelemetry SDKs can send custom metrics. These
 
 ### 4. kubeletstats Metrics (DISABLED)
 
-**Status**: **DISABLED**
+**Status**: ⚠️ **DISABLED**
 
 The `kubeletMetrics` preset is disabled in both the daemon and deployment collectors, so OTel is **not** collecting `k8s_pod_*` / `k8s_container_*` metrics from the kubeletstats receiver.
 
@@ -716,7 +718,7 @@ These metrics are scraped **directly by Prometheus** via ServiceMonitors, not by
 ### 1. API Server Metrics
 
 **Source**: `kube-apiserver`  
-**Status**: enabled  
+**Status**: ✅ enabled  
 **Endpoint**: `https://kubernetes.default.svc:443/metrics`
 
 Common metrics:
@@ -738,7 +740,7 @@ Common metrics:
 ### 2. Scheduler Metrics
 
 **Source**: `kube-scheduler`  
-**Status**: enabled  
+**Status**: ✅ enabled  
 **Endpoint**: `https://:10259/metrics`
 
 Common metrics:
@@ -756,7 +758,7 @@ Common metrics:
 ### 3. Controller Manager Metrics
 
 **Source**: `kube-controller-manager`  
-**Status**: enabled  
+**Status**: ✅ enabled  
 **Endpoint**: `https://:10257/metrics`
 
 Common metrics:
@@ -771,7 +773,7 @@ Common metrics:
 ### 4. CoreDNS Metrics
 
 **Source**: `coredns`  
-**Status**: enabled  
+**Status**: ✅ enabled  
 **Endpoint**: `http://:9153/metrics`
 
 Common metrics:
@@ -787,7 +789,7 @@ Common metrics:
 ### 5. etcd Metrics
 
 **Source**: `etcd`  
-**Status**: enabled  
+**Status**: ✅ enabled  
 **Endpoint**: `http://:2381/metrics`
 
 Common metrics:
@@ -805,7 +807,7 @@ Common metrics:
 ### 6. Kube Proxy Metrics
 
 **Source**: `kube-proxy`  
-**Status**: enabled  
+**Status**: ✅ enabled  
 **Endpoint**: `http://:10249/metrics`
 
 Common metrics:
@@ -819,7 +821,7 @@ Common metrics:
 ### 7. Kubelet Metrics
 
 **Source**: `kubelet`  
-**Status**: disabled
+**Status**: ❌ disabled
 
 Although a `kubelet:` block exists with ServiceMonitor options, the current config sets:
 
@@ -842,7 +844,7 @@ That means `container_*` cAdvisor metrics are **not currently part of this base 
 ### 1. Node Exporter Metrics
 
 **Source**: `node-exporter` DaemonSet  
-**Status**: enabled  
+**Status**: ✅ enabled  
 **Endpoint**: `http://:9100/metrics`
 
 #### CPU Metrics
@@ -900,7 +902,7 @@ That means `container_*` cAdvisor metrics are **not currently part of this base 
 ### 2. Kube State Metrics
 
 **Source**: `kube-state-metrics` Deployment  
-**Status**: enabled  
+**Status**: ✅ enabled  
 **Endpoint**: `http://:8080/metrics`
 
 #### Pod Metrics

@@ -1,4 +1,6 @@
-# OpenTelemetry
+---
+title: "OpenTelemetry"
+---
 
 Genestack uses the OpenTelemetry Helm chart to deploy the operator, daemon collector, and deployment collector into the `monitoring` namespace.
 
@@ -45,7 +47,7 @@ PostgreSQL telemetry is optional and not enabled by default. If you want to coll
 You can start from `/opt/genestack/base-helm-configs/opentelemetry-kube-stack/opentelemetry-kube-stack-helm-postgresql-overrides.yaml.example`, then adjust the secret and endpoint values for your environment.
 
 You will also need to ensure that you've re-installed the Postgres operator to create the `postgres-monitoring-user` within the postgres cluster.
-See [PostgreSQL installation docs](infrastructure-postgresql.md) for more information. 
+See [PostgreSQL installation docs](/deployment-guide/open-infrastructure/infrastructure/postgresql/) for more information.
 
 The supported way to seed the generated secrets file is:
 
@@ -68,15 +70,15 @@ kubectl -n monitoring get opentelemetrycollectors
 
 Use these companion guides when you are validating the rest of the stack:
 
-- [Monitoring Getting Started](monitoring-getting-started.md)
-- [Prometheus](monitoring-prometheus.md)
-- [Loki](monitoring-loki.md)
-- [Tempo](monitoring-tempo.md)
-- [Grafana](monitoring-grafana.md)
-- [OpenStack Exporter](openstack-exporter.md)
-- [Pushgateway](prometheus-pushgateway.md)
+- [Monitoring Getting Started](/deployment-guide/open-infrastructure/observability/getting-started/)
+- [Prometheus](/deployment-guide/open-infrastructure/observability/prometheus/)
+- [Loki](/deployment-guide/open-infrastructure/infrastructure/loki/)
+- [Tempo](/deployment-guide/open-infrastructure/observability/tempo/)
+- [Grafana](/deployment-guide/open-infrastructure/observability/grafana/)
+- [OpenStack Exporter](/operations-guide/observability/openstack-exporter/)
+- [Pushgateway](/deployment-guide/open-infrastructure/observability/exporters/pushgateway/)
 
-!!! info "Talos-only"
-
-    The daemon collector and node-level monitoring components need privileged Pod Security labels on Talos.
-    Skip this on Kubespray unless your cluster enforces the same restriction.
+> [!INFO]
+>
+> The daemon collector and node-level monitoring components need privileged Pod Security labels on Talos.
+> Skip this on Kubespray unless your cluster enforces the same restriction.

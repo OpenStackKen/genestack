@@ -42,20 +42,16 @@ kubectl --namespace openstack \
 
 ## Run the package deployment
 
-Run the Freezer deployment Script `/opt/genestack/bin/install-freezer.sh`
+> [!genestack
+>
+> Run the Freezer deployment Script `/opt/genestack/bin/install-freezer.sh`
 
 ```bash {include="bin/install-freezer.sh"}
 ```
-```
 
-```
-
-> [!TIP]
+> [!tip]
 >
-> You may need to provide custom values to configure your OpenStack services.
-> For a simple single region or lab deployment you can supply an additional
-> overrides flag using the example found at
-> `base-helm-configs/aio-example-openstack-overrides.yaml`.
+> You may need to provide custom values to configure your OpenStack services. For a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
 
 ## Validate functionality
 

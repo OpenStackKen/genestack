@@ -20,11 +20,11 @@ A common use case for host aggregates is when you want to support scheduling ins
 - Hosts with GPU compute resources
 
 ```mermaid
-flowchart TB
+flowchart TD
     subgraph AZ [ Availability Zone ]
-        direction TB
+        direction TD
         subgraph HA3 [ Host Aggregate - GPU ]
-            direction TB
+            direction TD
             HOST31(<div style="padding: 4em 1em; font-weight:bold;">Server</div>)
             HOST32(<div style="padding: 4em 1em; font-weight:bold;">Server</div>)
             HOST33(<div style="padding: 4em 1em; font-weight:bold;">Server</div>)
@@ -32,7 +32,7 @@ flowchart TB
             HOST35(<div style="padding: 4em 1em; font-weight:bold;">Server</div>)
         end
         subgraph HA2 [ Host Aggregate - Intel ]
-            direction TB
+            direction TD
             HOST21(<div style="padding: 4em 1em; font-weight:bold;">Server</div>)
             HOST22(<div style="padding: 4em 1em; font-weight:bold;">Server</div>)
             HOST23(<div style="padding: 4em 1em; font-weight:bold;">Server</div>)
@@ -40,7 +40,7 @@ flowchart TB
             HOST25(<div style="padding: 4em 1em; font-weight:bold;">Server</div>)
         end
         subgraph HA1 [ Host Aggregate - AMD ]
-            direction TB
+            direction TD
             HOST11(<div style="padding: 4em 1em; font-weight:bold;">Server</div>)
             HOST12(<div style="padding: 4em 1em; font-weight:bold;">Server</div>)
             HOST13(<div style="padding: 4em 1em; font-weight:bold;">Server</div>)

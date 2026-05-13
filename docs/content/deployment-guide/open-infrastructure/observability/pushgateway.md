@@ -1,4 +1,8 @@
-# Prometheus Pushgateway
+---
+title: "Pushgateway"
+description: "Promethus Pushgateway"
+weightL: 30
+---
 
 Prometheus Pushgateway is useful for short-lived jobs, such as Kubernetes `CronJob` workloads, that need to push metrics before they exit.
 
@@ -10,13 +14,13 @@ Prometheus Pushgateway is useful for short-lived jobs, such as Kubernetes `CronJ
 
 ## Install
 
-```shell
+```bash
 /opt/genestack/bin/install-prometheus-pushgateway.sh
 ```
 
 ## Verify
 
-```shell
+```bash
 kubectl -n monitoring get pods -l app.kubernetes.io/instance=prometheus-pushgateway
 kubectl -n monitoring get servicemonitor prometheus-pushgateway
 ```

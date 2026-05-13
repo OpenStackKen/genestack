@@ -4,9 +4,10 @@ description: "Resource reservations in OpenStack."
 weight: 120
 ---
 
-[Blazar](https://docs.openstack.org/blazar/latest/) is the resource reservation service in OpenStack. It enables tenants and operators to reserve resources (such as compute hosts) for a timeframe, supporting capacity planning and guaranteed availability use cases. 
-
-This document section outlines the deployment of OpenStack Blazar using Genestack.
+OpenStack Blazar is the resource reservation service in OpenStack. It enables
+tenants and operators to reserve resources (such as compute hosts) for a
+timeframe, supporting capacity planning and guaranteed availability use cases.
+This document outlines the deployment of OpenStack Blazar using Genestack.
 
 ## Create secrets
 
@@ -15,9 +16,9 @@ This document section outlines the deployment of OpenStack Blazar using Genestac
 > Manual secret generation is only required if you haven't run the
 > `create-secrets.sh` script located in `/opt/genestack/bin`.
 
-Example secret generation
+Example secret generation:
 
-``` shell
+```bash
 kubectl --namespace openstack \
         create secret generic blazar-rabbitmq-password \
         --type Opaque \
@@ -37,15 +38,12 @@ kubectl --namespace openstack \
 
 > [!NOTE]
 >
-> **Information about the default policy rules used**
->
->
 > The default RabbitMQ policy sets quorum queues target group size to 3 for
 > the `blazar` vhost. This can be changed in `base-kustomize/blazar/base/policies.yaml`.
 
-Default RabbitMQ policy
+Default RabbitMQ policy:
 
-``` yaml
+```yaml
 apiVersion: rabbitmq.com/v1beta1
 kind: Policy
 metadata:
@@ -63,14 +61,26 @@ spec:
     name: rabbitmq
 ```
 
+## Add Blazar Filters
+
+To add Blazar filters via an override file, create or update
+`/etc/genestack/helm-configs/nova/nova-helm-overrides.yaml` with:
+
+```yaml
+conf:
+  nova:
+    filter_scheduler:
+      available_filters: blazarnova.scheduler.filters.blazar_filter.BlazarFilter
+      enabled_filters: BlazarFilter
+```
+
 ## Run the package deployment
 
-Run the Blazar deployment Script `/opt/genestack/bin/install-blazar.sh`
+> [!EXAMPLE]
+>
+> Run the Blazar deployment script.
 
 ```bash {include="bin/install-blazar.sh"}
-```
-```
-
 ```
 
 > [!TIP]
@@ -82,6 +92,6 @@ Run the Blazar deployment Script `/opt/genestack/bin/install-blazar.sh`
 
 ## Validate functionality
 
-``` shell
+```bash
 kubectl --namespace openstack exec -ti openstack-admin-client -- blazar host-list
 ```

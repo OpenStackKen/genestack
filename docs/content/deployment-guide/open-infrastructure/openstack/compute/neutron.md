@@ -4,19 +4,20 @@ descritption: "Software-defined networking in OpenStack"
 weight: 50
 ---
 
-[Neutron](https://docs.openstack.org/neutron/latest/) is the networking service within the OpenStack ecosystem, providing virtual networking, IP address management, routing, and security policy controls for cloud workloads. This document covers the deployment of OpenStack Neutron using Genestack.
 
-Run the Neutron deployment script `/opt/genestack/bin/install-neutron.sh`:
+> [!genestack]
+>
+> To deploy Neutron, run the Neutron deployment Script `/opt/genestack/bin/install-neutron.sh`
 
-```bash {include="bin/install-neutron.sh"}
+```shell {include="bin/install-neutron.sh"}
 ```
-
-> [!TIP]
+> [!tip]
 >
 > You may need to provide custom values to configure your openstack services, for a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
-> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operations-guide/multi-region-support/) guide to for a workflow solution.
+>
+> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operations-guide/genestack/multi-region/) guide to for a workflow solution.
 
-> [!NOTE]
+> [!note]
 >
 > The above command derives the OVN north/south bound database from our K8S environment. The insert `set` is making the assumption we're using **tcp** to connect.
 
@@ -25,7 +26,6 @@ Run the Neutron deployment script `/opt/genestack/bin/install-neutron.sh`:
 > [!WARNING]
 >
 > You will likely need to increase the MTU as described here if you want to support creating L3 overlay networks (via any software that creates nested networks, such as _Genestack_ itself, VPN, etc.) on your nova instances. Your physical L2 network will need jumbo frames to support this. You will likely end up with an MTU of 1280 for overlay networks on instances if you don't, and the abnormally small MTU can cause various problems, perhaps even reaching a size too small for the software to support).
-
 
 [Neutron documentation on MTU considerations](https://docs.openstack.org/neutron/latest/admin/config-mtu.html)
 

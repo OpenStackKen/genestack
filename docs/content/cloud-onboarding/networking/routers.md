@@ -2,12 +2,11 @@
 title: "Routers"
 weight: 20
 ---
+Read more about Openstack Routers using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/router.html).
 
-Read more about Openstack routers using the [upstream docs](https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/router.html).
+#### Get List of Routers
 
-## Get List of Routers
-
-``` shell
+```shell
 openstack --os-cloud={cloud name} router list
     [--sort-column SORT_COLUMN]
     [--sort-ascending | --sort-descending]
@@ -23,9 +22,9 @@ openstack --os-cloud={cloud name} router list
     [--not-any-tags <tag>[,<tag>,...]]
 ```
 
-## Create a Router
+#### Create a Router
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router create
     [--extra-property type=<property_type>,name=<property_name>,value=<property_value>]
     [--enable | --disable]
@@ -48,30 +47,30 @@ openstack --os-cloud={cloud name} router create
     <name>
 ```
 
-## Add a Gateway to Router
+#### Add a Gateway to Router
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router add gateway
     [--fixed-ip subnet=<subnet>,ip-address=<ip-address>]
     <router>
     <network>
 ```
 
-## Add a Subnet to Router
+#### Add a Subnet to Router
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router add subnet <router> <subnet>
 ```
 
-## Add a Port to Router
+#### Add a Port to Router
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router add port <router> <port>
 ```
 
-## Set Router Properties
+#### Set Router Properties
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router set
     [--extra-property type=<property_type>,name=<property_name>,value=<property_value>]
     [--name <name>]
@@ -95,16 +94,15 @@ openstack --os-cloud={cloud name} router set
     <router>
 ```
 
-## Delete a Router
+#### Delete Router
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router add subnet <router> <subnet>
 ```
 
-## Create a Router Port
+#### Create Router Port
 
-
-``` shell
+```shell
 openstack --os-cloud={cloud name} port create [-h] [-f {json,shell,table,value,yaml}]
                              [-c COLUMN] [--noindent] [--prefix PREFIX]
                              [--max-width <integer>] [--fit-width]
@@ -130,20 +128,20 @@ openstack --os-cloud={cloud name} port create [-h] [-f {json,shell,table,value,y
                              <name>
 ```
 
-## Example: Creating a Router with Subnets
+#### Creating a Router with Subnets Example
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router create {router_name}
 ```
 
 Add subnet to the router and set the router's external gateway using PUBLICNET to allow outbound network access.
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router add subnet {router_name} {subnet_name}
 ```
 
 Set the external gateway
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router set --external-gateway PUBLICNET {router_name}
 ```

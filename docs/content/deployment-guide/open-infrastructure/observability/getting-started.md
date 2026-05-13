@@ -1,4 +1,7 @@
-# Getting Started with Genestack Monitoring
+---
+title: "Getting Started with Genestack Monitoring"
+weight: 5
+---
 
 This guide documents the supported monitoring install flow for Genestack. The monitoring stack is installed component-by-component, and each component uses the same override layout as the rest of the platform:
 
@@ -7,13 +10,13 @@ This guide documents the supported monitoring install flow for Genestack. The mo
 
 That service-specific layout is the Genestack standard. The docs still group the monitoring stack conceptually so you can reason about it as one system:
 
-- [Prometheus](monitoring-prometheus.md) for metrics storage, scraping, and alerting
-- [Loki](monitoring-loki.md) for logs
-- [Tempo](monitoring-tempo.md) for traces
-- [Grafana](monitoring-grafana.md) for dashboards and datasources
-- [OpenTelemetry](monitoring-opentelemetry.md) for telemetry collection and infrastructure receivers
-- [OpenStack Exporter](openstack-exporter.md) for OpenStack API availability probes
-- [Pushgateway](prometheus-pushgateway.md) for short-lived job metrics
+- [Prometheus](/deployment-guide/open-infrastructure/observability/prometheus/) for metrics storage, scraping, and alerting
+- [Loki](/deployment-guide/open-infrastructure/infrastructure/loki/) for logs
+- [Tempo](/deployment-guide/open-infrastructure/observability/tempo/) for traces
+- [Grafana](/deployment-guide/open-infrastructure/observability/grafana/) for dashboards and datasources
+- [OpenTelemetry](/deployment-guide/open-infrastructure/observability/opentelemetry/) for telemetry collection and infrastructure receivers
+- [OpenStack Exporter](/operations-guide/observability/openstack-exporter/) for OpenStack API availability probes
+- [Pushgateway](/deployment-guide/open-infrastructure/observability/exporters/pushgateway/) for short-lived job metrics
 
 The supported install order is:
 
@@ -67,21 +70,21 @@ Create the monitoring namespace if it does not already exist:
 kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
 ```
 
-!!! info "Talos-only"
-
-    Label the `monitoring` namespace before installing components that need privileged host access.
-    Skip this on Kubespray unless your cluster enforces the same restriction.
-
-    ```shell
-    kubectl label namespace monitoring \
-      pod-security.kubernetes.io/enforce=privileged \
-      pod-security.kubernetes.io/enforce-version=latest \
-      pod-security.kubernetes.io/warn=privileged \
-      pod-security.kubernetes.io/warn-version=latest \
-      pod-security.kubernetes.io/audit=privileged \
-      pod-security.kubernetes.io/audit-version=latest \
-      --overwrite
-    ```
+> [!INFO]
+>
+> Label the `monitoring` namespace before installing components that need privileged host access.
+> Skip this on Kubespray unless your cluster enforces the same restriction.
+>
+> ```shell
+> kubectl label namespace monitoring \
+>   pod-security.kubernetes.io/enforce=privileged \
+>   pod-security.kubernetes.io/enforce-version=latest \
+>   pod-security.kubernetes.io/warn=privileged \
+>   pod-security.kubernetes.io/warn-version=latest \
+>   pod-security.kubernetes.io/audit=privileged \
+>   pod-security.kubernetes.io/audit-version=latest \
+>   --overwrite
+> ```
 
 The monitoring install scripts also apply these labels automatically when the provider is set to `talos`.
 
@@ -231,10 +234,10 @@ Use Grafana to confirm that Prometheus, Loki, Tempo, and Alertmanager datasource
 
 ## Component Guides
 
-- [Prometheus](monitoring-prometheus.md)
-- [Loki](monitoring-loki.md)
-- [Tempo](monitoring-tempo.md)
-- [Grafana](monitoring-grafana.md)
-- [OpenTelemetry](monitoring-opentelemetry.md)
-- [OpenStack Exporter](openstack-exporter.md)
-- [Pushgateway](prometheus-pushgateway.md)
+- [Prometheus](/deployment-guide/open-infrastructure/observability/prometheus/)
+- [Loki](/deployment-guide/open-infrastructure/infrastructure/loki/)
+- [Tempo](/deployment-guide/open-infrastructure/observability/tempo/)
+- [Grafana](/deployment-guide/open-infrastructure/observability/grafana/)
+- [OpenTelemetry](/deployment-guide/open-infrastructure/observability/opentelemetry/)
+- [OpenStack Exporter](/operations-guide/observability/openstack-exporter/)
+- [Pushgateway](/deployment-guide/open-infrastructure/observability/exporters/pushgateway/)

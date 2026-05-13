@@ -4,9 +4,8 @@ weight: 90
 ---
 This script helps you **import Grafana dashboards** from a local directory that contains JSON files. Each file must contain a valid Grafana dashboard definition.
 
-
 ## Prerequisites
-- A running [monitoring stack](https://github.com/rackerlabs/genestack/blob/main/docs/monitoring-info.md)
+- A running [monitoring stack](/operations-guide/observability/observability-info/)
 - Dashboards exported as valid [JSON files](https://github.com/rackerlabs/genestack/tree/main/etc/grafana-dashboards)
 
 ## Environment Variables
@@ -17,7 +16,6 @@ Set the following environment variables before running the script:
 | `GRAFANA_PASSWORD`| True     | Grafana admin password                                | None.                           |
 | `GRAFANA_USERNAME`| False    | Grafana admin username                                | `admin`                         |
 | `GRAFANA_URL`     | False    | URL of your Grafana instance                          | `http://grafana.monitoring.svc.cluster.local:80` |
-
 
 ## Usage
 ```bash

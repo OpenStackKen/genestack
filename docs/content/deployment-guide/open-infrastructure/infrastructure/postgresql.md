@@ -2,7 +2,8 @@
 title: "PostgreSQL"
 weight: 160
 ---
-[PostgreSQL](https://www.postgresql.org/) is used by [Gnocchi](/deployment-guide/open-infrastructure/openstack/metering/gnocchi/) to index the data
+
+PostgreSQL is used by [Gnocchi](/deployment-guide/open-infrastructure/openstack/metering/gnocchi/) to index the data
 collected and sent by [Ceilometer](/deployment-guide/open-infrastructure/openstack/metering/ceilometer/).
 
 ## Install the Postgres Operator
@@ -11,30 +12,24 @@ We are using the [Zalando postgres-operator](https://github.
 com/zalando/postgres-operator/) which offers easy to run and
 highly-available PostgreSQL clusters on Kubernetes.
 
-Run the postgres-operator deployment Script `/opt/genestack/bin/install-postgres-operator.sh`
+> [!EXAMPLE]
+>
+> Run the postgres-operator deployment script.
 
 ```bash {include="bin/install-postgres-operator.sh"}
-```
-```
-
 ```
 
 ## Create the PostgreSQL Cluster
 
-
 ### With kubectl _(Recommended)_
-
 
 > [!NOTE]
 >
-> **Customize as needed**
->
->
-> Be sure to modify the cluster parameters to suit your needs. The below
-> values should work fine for a small lab or staging envionrment, however
-> more disk space and other changes may be required in production.
+> Customize these cluster parameters to suit your environment. The example
+> below is reasonable for a small lab or staging environment, but production
+> deployments may require more storage and different PostgreSQL tuning.
 
-```shell
+```bash
 kubectl apply -f - <<EOF
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
@@ -57,19 +52,18 @@ spec:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.kubernetes.io/worker
-            operator: In
-            values:
-            - worker
+            - key: node-role.kubernetes.io/worker
+              operator: In
+              values:
+                - worker
 EOF
 ```
 
 ### With kubectl kustomize Overlay
 
-
 Two overlays exist - `base` which includes 3 replicas, and an `aio` overlay
 which has a single replica and less default resource utilization.
 
-```shell
+```bash
 kubectl kustomize /etc/genestack/kustomize/postgres-cluster/overlay | kubectl apply -f -
 ```

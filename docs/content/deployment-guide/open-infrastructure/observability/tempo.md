@@ -1,4 +1,6 @@
-# Tempo
+---
+title: "Tempo"
+---
 
 Tempo is Genestack's distributed tracing backend. It is deployed into the `monitoring` namespace.
 

@@ -3,16 +3,20 @@ title: "Ceilometer"
 weight: 20
 ---
 
-Ceilometer is the telemetry service in OpenStack responsible for collecting usage data related to 
-different resources (_e.g., instances, volumes, and network usage_). It compiles various types of 
-metrics (_referred to as meters_), such as CPU utilization, disk I/O, and network traffic. It does this 
-by gathering data from other OpenStack components like Nova (_compute_), Cinder (_block storage_), and 
-Neutron (_networking_). It also captures event data such as instance creation and volume attachment via 
-hooks into the message notification system (_RabbitMQ_).
+Ceilometer is the telemetry service in OpenStack responsible for collecting
+usage data related to different resources (_e.g., instances, volumes,
+and network usage_). It compiles various types of metrics (_referred to as
+meters_), such as CPU utilization, disk I/O, and network traffic. It does
+this by gathering data from other OpenStack components like Nova (_compute_),
+Cinder (_block storage_), and Neutron (_networking_). It also captures event
+data such as instance creation and volume attachment via hooks into the message
+notification system (_RabbitMQ_).
 
 ![Ceilometer Architecture](/assets/images/metering-ceilometer.png)
 
-Source: [docs.openstack.org](https://docs.openstack.org/ceilometer/latest/contributor/architecture.html)
+<figure>
+   <figcaption>Image source: <a href="https://docs.openstack.org/ceilometer/latest/contributor/architecture.html" target="_blank" rel="noopener noreferrer">docs.openstack.org</a></figcaption>
+</figure>
 
 ## Configuration
 
@@ -32,9 +36,9 @@ match one or more event definitions that describe what the incoming payload
 should be flattened to. See the [telemetry-events][ceilometer-events]
 section of Ceilometer's documentation for more information.
 
-Example event definitions for cinder volumes
+Example event definitions for cinder volumes:
 
-```
+```yaml
 - event_type: ['volume.exists', 'volume.retype', 'volume.create.*', 'volume.delete.*', 'volume.resize.*', 'volume.attach.*', 'volume.detach.*', 'volume.update.*', 'snapshot.exists', 'snapshot.create.*', 'snapshot.delete.*', 'snapshot.update.*', 'volume.transfer.accept.end', 'snapshot.transfer.accept.end']
   traits: &cinder_traits
     user_id:
@@ -84,9 +88,9 @@ resource type in Gnocchi (_which stores it as time-series data_). This
 structure allows for efficient monitoring, aggregation, and analysis of resource
 usage over time in a scalable way.
 
-Example resource definition for cinder volumes
+Example resource definition for cinder volumes:
 
-```
+```yaml
 - resource_type: volume
   metrics:
     volume:
@@ -105,14 +109,14 @@ Example resource definition for cinder volumes
     image_id: resource_metadata.image_id
     instance_id: resource_metadata.instance_id
   event_create:
-    - volume.create.end
+  - volume.create.end
   event_delete:
-    - volume.delete.end
-    - snapshot.delete.end
+  - volume.delete.end
+  - snapshot.delete.end
   event_update:
-    - volume.attach.end
-    - volume.transfer.accept.end
-    - snapshot.transfer.accept.end
+  - volume.attach.end
+  - volume.transfer.accept.end
+  - snapshot.transfer.accept.end
   event_attributes:
     id: resource_id
     project_id: project_id
@@ -128,31 +132,31 @@ definitions can be added to suit almost every need. To read more about
 measurements and how they are captured, see the [telemetry-measurements][ceilometer-telemetry]
 section of Ceilometer documentation.
 
-Example metric definition for volume.size
+Example metric definition for `volume.size`:
 
-```
+```yaml
 - name: 'volume.size'
-event_type:
-  - 'volume.exists'
-  - 'volume.retype'
-  - 'volume.create.*'
-  - 'volume.delete.*'
-  - 'volume.resize.*'
-  - 'volume.attach.*'
-  - 'volume.detach.*'
-  - 'volume.update.*'
-  - 'volume.manage.*'
-type: 'gauge'
-unit: 'GB'
-volume: $.payload.size
-user_id: $.payload.user_id
-project_id: $.payload.tenant_id
-resource_id: $.payload.volume_id
-metadata:
-  display_name: $.payload.display_name
-  volume_type: $.payload.volume_type
-  image_id: $.payload.glance_metadata[?key=image_id].value
-  instance_id: $.payload.volume_attachment[0].instance_uuid
+  event_type:
+    - 'volume.exists'
+    - 'volume.retype'
+    - 'volume.create.*'
+    - 'volume.delete.*'
+    - 'volume.resize.*'
+    - 'volume.attach.*'
+    - 'volume.detach.*'
+    - 'volume.update.*'
+    - 'volume.manage.*'
+  type: 'gauge'
+  unit: 'GB'
+  volume: $.payload.size
+  user_id: $.payload.user_id
+  project_id: $.payload.tenant_id
+  resource_id: $.payload.volume_id
+  metadata:
+    display_name: $.payload.display_name
+    volume_type: $.payload.volume_type
+    image_id: $.payload.glance_metadata[?key=image_id].value
+    instance_id: $.payload.volume_attachment[0].instance_uuid
 ```
 
 [ceilometer-telemetry]: https://docs.openstack.org/ceilometer/latest/admin/telemetry-measurements.html "The Telemetry service collects meters within an OpenStack deployment. This section provides a brief summary about meters format, their origin, and also contains the list of available meters."
