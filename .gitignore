@@ -22,6 +22,7 @@ contrib/terraform/aws/credentials.tfvars
 *~
 vagrant/
 plugins/mitogen
+.playwright*
 
 # Ansible inventory
 inventory/*
@@ -136,3 +137,21 @@ site/
 
 # skyline secrets
 /etc/genestack/skylinesecrets.yaml
+
+# Local docs build artifacts
+/.npm-cache/
+/.tmp-home/
+/node_modules/
+/package-lock.json
+/docs/.tmp-home/
+/docs/.hugo_build.lock
+/docs/tmp/
+/docs/content/overview/product-matrix.md
+
+# Keep these output directories in-tree, but ignore their generated contents
+/docs/pdf/*
+!/docs/pdf/.gitkeep
+/docs/public/*
+!/docs/public/.gitkeep
+/docs/resources/*
+!/docs/resources/.gitkeep

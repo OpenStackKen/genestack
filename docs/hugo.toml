@@ -1,0 +1,167 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Genestack Documentation"
+enableRobotsTXT = true
+
+[module]
+proxy = "direct"
+
+[[module.imports]]
+path = "github.com/KKKZOZ/hugo-admonitions"
+
+[[module.imports]]
+path = "github.com/google/docsy"
+
+[[module.mounts]]
+source = "content"
+target = "content"
+
+[[module.mounts]]
+source = "content/assets"
+target = "static/assets"
+
+[[module.mounts]]
+source = "assets"
+target = "assets"
+
+[[module.mounts]]
+source = "../bin"
+target = "assets/bin"
+
+[[module.mounts]]
+source = "../scripts"
+target = "assets/scripts"
+
+[[module.mounts]]
+source = "../base-helm-configs"
+target = "assets/base-helm-configs"
+
+[[module.mounts]]
+source = "../ansible"
+target = "assets/ansible"
+
+[[module.mounts]]
+source = "../recovery"
+target = "assets/recovery"
+
+[[module.mounts]]
+source = "../manifests"
+target = "assets/manifests"
+
+[[module.mounts]]
+source = "../etc"
+target = "assets/etc"
+
+[[module.mounts]]
+source = "../.github/workflows"
+target = "assets/.github/workflows"
+
+[[module.mounts]]
+source = "scripts"
+target = "assets/docs/scripts"
+
+[markup]
+
+[markup.goldmark]
+
+[markup.goldmark.parser]
+
+[markup.goldmark.parser.attribute]
+block = true
+title = true
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.highlight]
+style = "hrdark"
+
+[params]
+github_repo = "https://github.com/OpenStackKen/genestack"
+time_format_blog = "2006-01-02"
+btn-lg = 'class="btn btn-lg btn-{1}" role="button"'
+FA = '<i class="fa-{1} fa-{2} text-{3} px-1"></i>'
+logo = "assets/images/Genestack-Wordmark.png"
+release = "release-2025.4"
+
+[params.mermaid]
+version = "11.14.0"
+look = "classic"
+securityLevel = "loose"
+htmlLabels = true
+maxTextSize = 100000
+maxEdges = 1000
+deterministicIds = true
+deterministicIDSeed = "genestack"
+markdownAutoWrap = true
+wrap = true
+suppressErrorRendering = false
+theme = "base"
+
+[params.mermaid.themeVariables]
+fontFamily = "Open Sans"
+fontSize = "18px"
+primaryColor = "#F0F4FC"
+primaryTextColor = "#1d2432"
+primaryBorderColor = "#8b8f91"
+secondaryColor = "#fff"
+lineColor = "#8b8f91"
+tertiaryColor = "#f8f9fa"
+tertiaryBorderColor = "#dee2e6"
+tertiaryTextColor = "#57a1dd"
+#edgeLabelBackground = "transparent"
+edgeLabelBackground = "#ffffff"
+
+[params.mermaid.flowchart]
+#useMaxWidth = true
+#diagramPadding = 20
+#nodeSpacing = 80
+#rankSpacing = 80
+#curve = "basis"
+#padding = 50
+#defaultRenderer = "elk"
+#wrappingWidth = 160
+inheritDir = true
+
+[params.mermaid.flowchart.subGraphTitleMargin]
+#top = 4
+#bottom = 6
+
+[params.ui]
+breadcrumb_disable = false
+sidebar_menu_compact = true
+navbar_logo = true
+navbar_title = false
+
+[menu]
+
+[[menu.main]]
+name = "Overview"
+url = "/overview/"
+weight = 10
+
+[[menu.main]]
+name = "Design Guide"
+url = "/design-guide/"
+weight = 20
+
+[[menu.main]]
+name = "Deployment Guide"
+url = "/deployment-guide/"
+weight = 30
+
+[[menu.main]]
+name = "Operations Guide"
+url = "/operations-guide/"
+weight = 40
+
+[[menu.main]]
+name = "Cloud Onboarding"
+url = "/cloud-onboarding/"
+weight = 50
+
+[[menu.main]]
+name = ""
+weight = 60
+url = "https://github.com/OpenStackKen/genestack"
+pre = "<i class='fa-brands fa-github'></i>"

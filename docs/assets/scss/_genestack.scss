@@ -1,0 +1,72 @@
+.td-main main .td-content .lead {
+  font-size: 1.15rem;
+}
+
+.td-main main .td-content img {
+  height: auto;
+  max-width: 100%;
+}
+
+// Keep body-content media visually unframed. Some upstream theme styles apply
+// a subtle border or shadow treatment that reads as a gray outline in this
+// site; strip that chrome from prose images only, not from navigation logos or
+// other component-specific graphics.
+.td-main main .td-content p > img,
+.td-main main .td-content li > img,
+.td-main main .td-content figure > img,
+.td-main main .td-content picture > img {
+  border: 0;
+  box-shadow: none;
+}
+
+// Mermaid blocks are authored as `<pre class="mermaid">`, so they inherit the
+// standard code-block surface by default. Remove that code-block border and
+// background so rendered diagrams sit directly in the page flow like other
+// figures.
+.td-main main .td-content pre.mermaid {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.td-home .td-main {
+  padding-top: 0;
+}
+
+.td-content {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6 {
+    font-family: var(--gs-heading-font-family);
+    font-weight: var(--gs-heading-font-weight);
+  }
+}
+
+// Keep standard page content visually clear of the navbar even if upstream
+// spacing or page markup changes reduce the default first-block offset.
+.td-page .td-main> :first-child,
+.td-section .td-main> :first-child,
+.td-taxonomy .td-main> :first-child,
+.td-term .td-main> :first-child {
+  margin-top: 0;
+}
+
+// Match Docsy's readable-width treatment for top-level prose blocks so
+// hugo-admonitions panels do not visually overrun adjacent body content.
+.td-content>.admonition,
+.td-content>details.admonition {
+  @media (min-width: 768px) {
+    max-width: 80%;
+  }
+}

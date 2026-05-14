@@ -1,0 +1,54 @@
+{
+  // Keep markdownlint focused on repository-owned source documents.
+  // Without these ignores, a normal docs-wide run also lints vendored Docsy
+  // content under `.cache` plus generated PDF assembly artifacts, which makes
+  // the configuration non-portable and masks real source issues behind
+  // third-party noise.
+  "ignores": [
+    ".cache/**",
+    ".tmp-home/**",
+    "node_modules/**",
+    "public/**",
+    "resources/**",
+    "pdf/temp/**"
+  ],
+  "config": {
+    "default": true,
+    // Genestack documentation uses long path examples, generated content, and
+    // several established house-style exceptions. These rules stay disabled so
+    // markdownlint enforces the subset that is practical for this repository.
+    "MD013": false,
+    "MD001": false,
+    "MD004": false,
+    "MD007": false,
+    "MD009": false,
+    "MD010": false,
+    "MD012": false,
+    "MD014": false,
+    "MD018": false,
+    "MD019": false,
+    "MD022": false,
+    "MD023": false,
+    "MD024": false,
+    "MD025": false,
+    "MD026": false,
+    "MD027": false,
+    "MD028": false,
+    "MD029": false,
+    "MD031": false,
+    "MD032": false,
+    "MD033": false,
+    "MD034": false,
+    "MD036": false,
+    "MD037": false,
+    "MD040": false,
+    "MD041": false,
+    "MD046": false,
+    "MD047": false,
+    "MD049": false,
+    "MD056": false,
+    "MD058": false,
+    "MD060": false,
+    "MD059": false
+  }
+}
