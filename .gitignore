@@ -22,6 +22,7 @@ contrib/terraform/aws/credentials.tfvars
 *~
 vagrant/
 plugins/mitogen
+.playwright*
 
 # Ansible inventory
 inventory/*
@@ -29,6 +30,9 @@ inventory/*
 !inventory/sample
 inventory/*/artifacts/
 openstack-flex/inventory.ini
+
+# Ansible venv
+.ansible/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -41,7 +45,8 @@ env/
 build/
 credentials/
 develop-eggs/
-dist/
+dist/*
+!dist/release-notes-*.md
 downloads/
 eggs/
 .eggs/
