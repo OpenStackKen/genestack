@@ -2,7 +2,6 @@
 title: "Genestack Alerts"
 weight: 50
 ---
-## Genestack Prometheus Alerts
 
 ## Blackbox Alerts
 | Alert Name | Summary | Description | Severity |
@@ -10,21 +9,18 @@ weight: 50
 | **Service Down** | Service probe has failed for more than two minutes on (instance &#123;&#123; $labels.instance &#125;&#125;) | Service probe has failed for more than two minutes.<br>LABELS = &#123;&#123; $labels &#125;&#125;<br> | critical |
 | **TLS certificate expiring** | SSL certificate will expire soon on (instance &#123;&#123; $labels.instance &#125;&#125;) | SSL certificate expires within 30 days.<br>VALUE = &#123;&#123; $value &#125;&#125;<br>LABELS = &#123;&#123; $labels &#125;&#125;<br> | warning |
 | **TLS certificate expiring** | SSL certificate will expire soon on (instance &#123;&#123; $labels.instance &#125;&#125;) | SSL certificate expires within 15 days.<br>VALUE = &#123;&#123; $value &#125;&#125;<br>LABELS = &#123;&#123; $labels &#125;&#125;<br> | critical |
----
 
 ## Compute Resource Alerts
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **AbnormalInstanceFailures** | Instance build failure rate is abnormally high | This indicates a major problem building compute instances.<br>View logs and take action to resolve the build failures.<br> | critical |
 | **InstancesStuckInFailureState** | Instances stuck in failure state for a prolonged period | There are instances stuck in a building or error state for a prolonged period<br>that need to be cleaned up.<br> | warning |
----
 
 ## Image Resource Alerts
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **AbnormalImageFailures** | Image create failure rate is abnormally high | This indicates a major problem creating images.<br>View logs and take action to resolve the build failures.<br> | critical |
 | **ImagesStuckInFailureState** | Images stuck in failure state for a prolonged period | There are images stuck in a failure state for a prolonged period<br>that need to be cleaned up.<br> | warning |
----
 
 ## Linux MDM device and RAID alerts
 | Alert Name | Summary | Description | Severity |
@@ -33,20 +29,17 @@ weight: 50
 | **NodeMdInfoStateCritical** | Linux software MD RAID State is NOT active\|clean | &#123;&#123; $labels.name &#125;&#125;<br>State:&#123;&#123; $labels.State &#125;&#125;<br>LABELS: &#123;&#123; $labels &#125;&#125; | critical |
 | **NodeMdInfoSuperblockPersistenceCritical** | Linux software MD Superblock is NOT persistent | &#123;&#123; $labels.name &#125;&#125;<br>Persistence:&#123;&#123; $labels.Persistence &#125;&#125;<br>LABELS: &#123;&#123; $labels &#125;&#125; | critical |
 | **NodeMdStateCritical** | Linux MDM RAID State is &#123;&#123; $labels.state &#125;&#125; | &#123;&#123; $labels.name &#125;&#125;<br>MD RAID status:&#123;&#123; $value &#125;&#125;<br>MD RAID device:&#123;&#123; $labels.device &#125;&#125;<br>LABELS: &#123;&#123; $labels &#125;&#125; | critical |
----
 
 ## MariaDB backup alerts
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **mariadbBackupCritical** | Second successive MariaDB backup not successful within 1 hour of scheduled run | Second successive MariaDB backup not successful within 1 hour of scheduled run.<br> | critical |
 | **mariadbBackupWarning** | Last MariaDB backup not successful within 1 hour of scheduled run | Last MariaDB backup not successful within 1 hour of scheduled run.<br> | warning |
----
 
 ## Multipath path checker alerts
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **NodeDmpathInfoMultipathCritical** | Multipathd paths are NOT active\|ready and paths are likely orphaned | &#123;&#123; $labels.name &#125;&#125;<br>labels: &#123;&#123; $labels &#125;&#125; | critical |
----
 
 ## Mysql Alerts
 | Alert Name | Summary | Description | Severity |
@@ -55,7 +48,6 @@ weight: 50
 | **MysqlRestarted** | MySQL restarted (instance &#123;&#123; $labels.instance &#125;&#125;) | MySQL has just been restarted, less than one minute ago on &#123;&#123; $labels.instance &#125;&#125;.<br>VALUE = &#123;&#123; $value &#125;&#125;<br>LABELS = &#123;&#123; $labels &#125;&#125;<br> | info |
 | **MysqlSlowQueries** | MySQL slow queries (instance &#123;&#123; $labels.instance &#125;&#125;) | MySQL server has some new slow queries.<br>VALUE = &#123;&#123; $value &#125;&#125;<br>LABELS = &#123;&#123; $labels &#125;&#125;<br> | warning |
 | **MysqlTooManyConnections(>80%)** | Database too many connections (> 90%) (instance &#123;&#123; $labels.instance &#125;&#125;) | More than 90% of MySQL connections are in use on &#123;&#123; $labels.instance &#125;&#125;<br>VALUE = &#123;&#123; $value &#125;&#125;<br>LABELS = &#123;&#123; $labels &#125;&#125;<br> | warning |
----
 
 ## OVN backup alerts
 | Alert Name | Summary | Description | Severity |
@@ -64,19 +56,16 @@ weight: 50
 | **ovnBackupDiskUsageWarning** | OVN backup volume >= 80% disk usage | OVN backup volume >= 80% disk usage.<br> | warning |
 | **ovnBackupUploadCritical** | Second successive OVN backup not uploaded within 1 hour of scheduled run | Second successive OVN backup not uploaded within 1 hour of scheduled run.<br> | critical |
 | **ovnBackupUploadWarning** | Last OVN backup not uploaded within 1 hour of scheduled run | Last OVN backup not uploaded within 1 hour of scheduled run.<br> | warning |
----
 
 ## Octavia Resource Alerts
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **LoadbalancersInError** | Loadbalancer stuck in error state for a prolonged period | This may indicate a potential problem with failover and/or health manager services.<br>This could also indicate other problems building load balancers in general.<br> | critical |
----
 
 ## Volume Alerts
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **KubernetesVolumeOutOfDiskSpace** | Kubernetes Volume out of disk space (instance &#123;&#123; $labels.instance &#125;&#125;) | Volume is almost full (< 20% left).<br>VALUE = &#123;&#123; $value &#125;&#125;<br>LABELS = &#123;&#123; $labels &#125;&#125;<br> | warning |
----
 
 ## alertmanager.rules
 | Alert Name | Summary | Description | Severity |
@@ -89,13 +78,11 @@ weight: 50
 | **AlertmanagerFailedReload** | Reloading an Alertmanager configuration has failed. | Configuration has failed to load for &#123;&#123; $labels.namespace &#125;&#125;/&#123;&#123; $labels.pod&#125;&#125;. | critical |
 | **AlertmanagerFailedToSendAlerts** | An Alertmanager instance failed to send notifications. | Alertmanager &#123;&#123; $labels.namespace &#125;&#125;/&#123;&#123; $labels.pod&#125;&#125; failed to send &#123;&#123; $value \| humanizePercentage &#125;&#125; of notifications to &#123;&#123; $labels.integration &#125;&#125;. | warning |
 | **AlertmanagerMembersInconsistent** | A member of an Alertmanager cluster has not found all other cluster members. | Alertmanager &#123;&#123; $labels.namespace &#125;&#125;/&#123;&#123; $labels.pod&#125;&#125; has only found &#123;&#123; $value &#125;&#125; members of the &#123;&#123;$labels.job&#125;&#125; cluster. | critical |
----
 
 ## config-reloaders
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **ConfigReloaderSidecarErrors** | config-reloader sidecar has not had a successful reload for 10m | Errors encountered while the &#123;&#123;$labels.pod&#125;&#125; config-reloader sidecar attempts to sync config in &#123;&#123;$labels.namespace&#125;&#125; namespace.<br>As a result, configuration for service running in &#123;&#123;$labels.pod&#125;&#125; may be stale and cannot be updated anymore. | warning |
----
 
 ## etcd
 | Alert Name | Summary | Description | Severity |
@@ -115,13 +102,11 @@ weight: 50
 | **etcdMemberCommunicationSlow** | etcd cluster member communication is slow. | etcd cluster "&#123;&#123; $labels.job &#125;&#125;": member communication with &#123;&#123; $labels.To &#125;&#125; is taking &#123;&#123; $value &#125;&#125;s on etcd instance &#123;&#123; $labels.instance &#125;&#125;. | warning |
 | **etcdMembersDown** | etcd cluster members are down. | etcd cluster "&#123;&#123; $labels.job &#125;&#125;": members are down (&#123;&#123; $value &#125;&#125;). | warning |
 | **etcdNoLeader** | etcd cluster has no leader. | etcd cluster "&#123;&#123; $labels.job &#125;&#125;": member &#123;&#123; $labels.instance &#125;&#125; has no leader. | critical |
----
 
 ## fluentbit serviceMonitor alert
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **MissingFluentbitServiceMonitor** | ServiceMonitor 'fluentbit-fluent-bit' is either down or missing. | Check if the Fluentbit ServiceMonitor is properly configured and deployed.<br> | critical |
----
 
 ## general.rules
 | Alert Name | Summary | Description | Severity |
@@ -129,7 +114,6 @@ weight: 50
 | **InfoInhibitor** | Info-level alert inhibition. | This is an alert that is used to inhibit info alerts.<br>By themselves, the info-level alerts are sometimes very noisy, but they are relevant when combined with<br>other alerts.<br>This alert fires whenever there's a severity="info" alert, and stops firing when another alert with a<br>severity of 'warning' or 'critical' starts firing on the same namespace.<br>This alert should be routed to a null receiver and configured to inhibit alerts with severity="info".<br> | none |
 | **TargetDown** | One or more targets are unreachable. | &#123;&#123; printf "%.4g" $value &#125;&#125;% of the &#123;&#123; $labels.job &#125;&#125;/&#123;&#123; $labels.service &#125;&#125; targets in &#123;&#123; $labels.namespace &#125;&#125; namespace are down. | warning |
 | **Watchdog** | An alert that should always be firing to certify that Alertmanager is working properly. | This is an alert meant to ensure that the entire alerting pipeline is functional.<br>This alert is always firing, therefore it should always be firing in Alertmanager<br>and always fire against a receiver. There are integrations with various notification<br>mechanisms that send a notification when this alert is not firing. For example the<br>"DeadMansSnitch" integration in PagerDuty.<br> | none |
----
 
 ## kube-apiserver-slos
 | Alert Name | Summary | Description | Severity |
@@ -138,7 +122,6 @@ weight: 50
 | **KubeAPIErrorBudgetBurn** | The API server is burning too much error budget. | The API server is burning too much error budget on cluster &#123;&#123; $labels.cluster &#125;&#125;. | critical |
 | **KubeAPIErrorBudgetBurn** | The API server is burning too much error budget. | The API server is burning too much error budget on cluster &#123;&#123; $labels.cluster &#125;&#125;. | warning |
 | **KubeAPIErrorBudgetBurn** | The API server is burning too much error budget. | The API server is burning too much error budget on cluster &#123;&#123; $labels.cluster &#125;&#125;. | warning |
----
 
 ## kube-state-metrics
 | Alert Name | Summary | Description | Severity |
@@ -147,7 +130,6 @@ weight: 50
 | **KubeStateMetricsShardingMismatch** | kube-state-metrics sharding is misconfigured. | kube-state-metrics pods are running with different --total-shards configuration, some Kubernetes objects may be exposed multiple times or not exposed at all. | critical |
 | **KubeStateMetricsShardsMissing** | kube-state-metrics shards are missing. | kube-state-metrics shards are missing, some Kubernetes objects are not being exposed. | critical |
 | **KubeStateMetricsWatchErrors** | kube-state-metrics is experiencing errors in watch operations. | kube-state-metrics is experiencing errors at an elevated rate in watch operations. This is likely causing it to not be able to expose metrics about Kubernetes objects correctly or at all. | critical |
----
 
 ## kubernetes-apps
 | Alert Name | Summary | Description | Severity |
@@ -181,7 +163,6 @@ weight: 50
 | **KubeQuotaAlmostFull** | Namespace quota is going to be full. | Namespace &#123;&#123; $labels.namespace &#125;&#125; is using &#123;&#123; $value \| humanizePercentage &#125;&#125; of its &#123;&#123; $labels.resource &#125;&#125; quota on cluster &#123;&#123; $labels.cluster &#125;&#125;. | info |
 | **KubeQuotaExceeded** | Namespace quota has exceeded the limits. | Namespace &#123;&#123; $labels.namespace &#125;&#125; is using &#123;&#123; $value \| humanizePercentage &#125;&#125; of its &#123;&#123; $labels.resource &#125;&#125; quota on cluster &#123;&#123; $labels.cluster &#125;&#125;. | warning |
 | **KubeQuotaFullyUsed** | Namespace quota is fully used. | Namespace &#123;&#123; $labels.namespace &#125;&#125; is using &#123;&#123; $value \| humanizePercentage &#125;&#125; of its &#123;&#123; $labels.resource &#125;&#125; quota on cluster &#123;&#123; $labels.cluster &#125;&#125;. | info |
----
 
 ## kubernetes-storage
 | Alert Name | Summary | Description | Severity |
@@ -198,7 +179,6 @@ weight: 50
 | :--- | :--- | :--- | :--- |
 | **KubeClientErrors** | Kubernetes API server client is experiencing errors. | Kubernetes API server client '&#123;&#123; $labels.job &#125;&#125;/&#123;&#123; $labels.instance &#125;&#125;' is experiencing &#123;&#123; $value \| humanizePercentage &#125;&#125; errors on cluster &#123;&#123; $labels.cluster &#125;&#125;. | warning |
 | **KubeVersionMismatch** | Different semantic versions of Kubernetes components running. | There are &#123;&#123; $value &#125;&#125; different semantic versions of Kubernetes components running on cluster &#123;&#123; $labels.cluster &#125;&#125;. | warning |
----
 
 ## kubernetes-system-apiserver
 | Alert Name | Summary | Description | Severity |
@@ -209,19 +189,16 @@ weight: 50
 | **KubeAggregatedAPIErrors** | Kubernetes aggregated API has reported errors. | Kubernetes aggregated API &#123;&#123; $labels.instance &#125;&#125;/&#123;&#123; $labels.name &#125;&#125; has reported &#123;&#123; $labels.reason &#125;&#125; errors on cluster &#123;&#123; $labels.cluster &#125;&#125;. | warning |
 | **KubeClientCertificateExpiration** | Client certificate is about to expire. | A client certificate used to authenticate to kubernetes apiserver is expiring in less than 7.0 days on cluster &#123;&#123; $labels.cluster &#125;&#125;. | warning |
 | **KubeClientCertificateExpiration** | Client certificate is about to expire. | A client certificate used to authenticate to kubernetes apiserver is expiring in less than 24.0 hours on cluster &#123;&#123; $labels.cluster &#125;&#125;. | critical |
----
 
 ## kubernetes-system-controller-manager
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **KubeControllerManagerDown** | Target disappeared from Prometheus target discovery. | KubeControllerManager has disappeared from Prometheus target discovery. | critical |
----
 
 ## kubernetes-system-kube-proxy
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **KubeProxyDown** | Target disappeared from Prometheus target discovery. | KubeProxy has disappeared from Prometheus target discovery. | critical |
----
 
 ## kubernetes-system-kubelet
 | Alert Name | Summary | Description | Severity |
@@ -241,13 +218,11 @@ weight: 50
 | **KubeletServerCertificateExpiration** | Kubelet server certificate is about to expire. | Server certificate for Kubelet on node &#123;&#123; $labels.node &#125;&#125; expires in &#123;&#123; $value \| humanizeDuration &#125;&#125; on cluster &#123;&#123; $labels.cluster &#125;&#125;. | critical |
 | **KubeletServerCertificateRenewalErrors** | Kubelet has failed to renew its server certificate. | Kubelet on node &#123;&#123; $labels.node &#125;&#125; has failed to renew its server certificate (&#123;&#123; $value \| humanize &#125;&#125; errors in the last 5 minutes) on cluster &#123;&#123; $labels.cluster &#125;&#125;. | warning |
 | **KubeletTooManyPods** | Kubelet is running at capacity. | Kubelet '&#123;&#123; $labels.node &#125;&#125;' is running at &#123;&#123; $value \| humanizePercentage &#125;&#125; of its Pod capacity on cluster &#123;&#123; $labels.cluster &#125;&#125;. | info |
----
 
 ## kubernetes-system-scheduler
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **KubeSchedulerDown** | Target disappeared from Prometheus target discovery. | KubeScheduler has disappeared from Prometheus target discovery. | critical |
----
 
 ## mariadb-alerts
 | Alert Name | Summary | Description | Severity |
@@ -256,7 +231,6 @@ weight: 50
 | **MariaDBReplicationErrors** | MariaDB is reporting replication errors from &#123;&#123;$labels.instance&#125;&#125;, immediate attention is required. | MariaDB &#123;&#123;$labels.job&#125;&#125; on &#123;&#123;$labels.instance&#125;&#125; is reporting replication errors. | critical |
 | **MysqlSlaveReplicationLag** | MySQL Slave replication lag (instance &#123;&#123; $labels.instance &#125;&#125;) | MySQL replication lag on &#123;&#123; $labels.instance &#125;&#125;<br>  VALUE = &#123;&#123; $value &#125;&#125;<br>  LABELS = &#123;&#123; $labels &#125;&#125; | critical |
 | **MysqlTooManyConnections(>80%)** | MySQL too many connections (> 80%) (instance &#123;&#123; $labels.instance &#125;&#125;) | More than 80% of MySQL connections are in use on &#123;&#123; $labels.instance &#125;&#125;<br>  VALUE = &#123;&#123; $value &#125;&#125;<br>  LABELS = &#123;&#123; $labels &#125;&#125; | warning |
----
 
 ## node-exporter
 | Alert Name | Summary | Description | Severity |
@@ -287,13 +261,11 @@ weight: 50
 | **NodeSystemdServiceCrashlooping** | Systemd service keeps restaring, possibly crash looping. | Systemd service &#123;&#123; $labels.name &#125;&#125; has being restarted too many times at &#123;&#123; $labels.instance &#125;&#125; for the last 15 minutes. Please check if service is crash looping. | warning |
 | **NodeSystemdServiceFailed** | Systemd service has entered failed state. | Systemd service &#123;&#123; $labels.name &#125;&#125; has entered failed state at &#123;&#123; $labels.instance &#125;&#125; | warning |
 | **NodeTextFileCollectorScrapeError** | Node Exporter text file collector failed to scrape. | Node Exporter text file collector on &#123;&#123; $labels.instance &#125;&#125; failed to scrape. | warning |
----
 
 ## node-network
 | Alert Name | Summary | Description | Severity |
 | :--- | :--- | :--- | :--- |
 | **NodeNetworkInterfaceFlapping** | Network interface is often changing its status | Network interface "&#123;&#123; $labels.device &#125;&#125;" changing its up status often on node-exporter &#123;&#123; $labels.namespace &#125;&#125;/&#123;&#123; $labels.pod &#125;&#125; | warning |
----
 
 ## pod-state-alerts
 | Alert Name | Summary | Description | Severity |
@@ -301,7 +273,6 @@ weight: 50
 | **HighPodRestartRate** | High pod restart count detected | Pod &#123;&#123; $labels.pod &#125;&#125; in namespace &#123;&#123; $labels.namespace &#125;&#125; is restarting frequently, which may indicate network instability. | warning |
 | **KubePodNotReadyCritical** | Pod has been in a non-ready state for more than 5 minutes. | Pod &#123;&#123; $labels.namespace &#125;&#125;/&#123;&#123; $labels.pod &#125;&#125; has been in a non-ready state for longer than 5 minutes. | critical |
 | **TooManyContainerRestarts** | Container named &#123;&#123; $labels.container &#125;&#125; in &#123;&#123; $labels.pod &#125;&#125; in &#123;&#123; $labels.namespace &#125;&#125; has restarted too many times in a short period and needs to be investigated. | Namespace: &#123;&#123;$labels.namespace&#125;&#125;<br>Pod name: &#123;&#123;$labels.pod&#125;&#125;<br>Container name: &#123;&#123;$labels.container&#125;&#125;<br> | critical |
----
 
 ## prometheus
 | Alert Name | Summary | Description | Severity |
@@ -329,7 +300,6 @@ weight: 50
 | **PrometheusTSDBReloadsFailing** | Prometheus has issues reloading blocks from disk. | Prometheus &#123;&#123;$labels.namespace&#125;&#125;/&#123;&#123;$labels.pod&#125;&#125; has detected &#123;&#123;$value \| humanize&#125;&#125; reload failures over the last 3h. | warning |
 | **PrometheusTargetLimitHit** | Prometheus has dropped targets because some scrape configs have exceeded the targets limit. | Prometheus &#123;&#123;$labels.namespace&#125;&#125;/&#123;&#123;$labels.pod&#125;&#125; has dropped &#123;&#123; printf "%.0f" $value &#125;&#125; targets because the number of targets exceeded the configured target_limit. | warning |
 | **PrometheusTargetSyncFailure** | Prometheus has failed to sync targets. | &#123;&#123; printf "%.0f" $value &#125;&#125; targets in Prometheus &#123;&#123;$labels.namespace&#125;&#125;/&#123;&#123;$labels.pod&#125;&#125; have failed to sync because invalid configuration was supplied. | critical |
----
 
 ## prometheus-operator
 | Alert Name | Summary | Description | Severity |
@@ -342,7 +312,6 @@ weight: 50
 | **PrometheusOperatorStatusUpdateErrors** | Errors while updating objects status. | &#123;&#123; $value \| humanizePercentage &#125;&#125; of status update operations failed for &#123;&#123; $labels.controller &#125;&#125; controller in &#123;&#123; $labels.namespace &#125;&#125; namespace. | warning |
 | **PrometheusOperatorSyncFailed** | Last controller reconciliation failed | Controller &#123;&#123; $labels.controller &#125;&#125; in &#123;&#123; $labels.namespace &#125;&#125; namespace fails to reconcile &#123;&#123; $value &#125;&#125; objects. | warning |
 | **PrometheusOperatorWatchErrors** | Errors while performing watch operations in controller. | Errors while performing watch operations in controller &#123;&#123;$labels.controller&#125;&#125; in &#123;&#123;$labels.namespace&#125;&#125; namespace. | warning |
----
 
 ## rabbitmq
 | Alert Name | Summary | Description | Severity |
@@ -361,5 +330,3 @@ weight: 50
 | **RabbitmqFileDescriptorAlarm** | A RabbitMQ node ran out of file descriptors.<br>See https://www.rabbitmq.com/docs/alarms#file-descriptors.<br> | RabbitMQ cluster `{{ $labels.rabbitmq_cluster }}` file descriptor alarm active. Publishers are blocked.<br> | warning |
 | **TCPSocketsNearLimit** | More than 80% of TCP sockets are open on the RabbitMQ node.<br>When this value reaches 100%, new connections will not be accepted.<br>Client libraries, peer nodes and CLI tools will not be able to connect when the node runs out of available TCP sockets.<br>See https://www.rabbitmq.com/networking.html.<br> | `{{ $value \| humanizePercentage }}` TCP sockets of TCP socket<br>limit are open in RabbitMQ node `{{ $labels.rabbitmq_node }}`, pod `{{ $labels.pod }}`,<br>RabbitMQ cluster `{{ $labels.rabbitmq_cluster }}`, namespace `{{ $labels.namespace }}`.<br> | warning |
 | **UnroutableMessages** | There are messages published into an exchange which cannot be routed and are either dropped silently, or returned to publishers.<br>Is your routing topology set up correctly?<br>Check your application code and bindings between exchanges and queues.<br>See<br>https://www.rabbitmq.com/publishers.html#unroutable,<br>https://www.rabbitmq.com/confirms.html#when-publishes-are-confirmed.<br> | There were `{{ $value \| printf "%.0f" }}` unroutable messages within the last<br>5 minutes in RabbitMQ cluster `{{ $labels.rabbitmq_cluster }}` in namespace<br>`{{ $labels.namespace }}`.<br> | warning |
----
-

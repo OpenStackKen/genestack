@@ -3,7 +3,7 @@ title: "Custom Metrics"
 weight: 150
 ---
 
-We can utilize the Node Exporter deployed by Prometheus to collect custom metrics that may not be available from other exporters.
+Opentelemetry installs the textfile collector to collect custom metrics that may not be available from other exporters.
 
 For more information visit: [Node Exporter Textfile Collectors](https://github.com/prometheus/node_exporter?tab=readme-ov-file#textfile-collector)
 
@@ -11,7 +11,7 @@ You can also view example scripts here: [Textfile Collector Scripts](https://git
 
 ## Example custom exporter playbook
 
-```shell
+```bash
 ansible-playbook custom_exporters.yml
 ```
 
@@ -19,14 +19,16 @@ ansible-playbook custom_exporters.yml
 
 Confirm `inventory.yaml` matches what is in `/etc/genestack/inventory`. If it does not match update the command to match the file names.
 
-```shell
+```bash
 # Example overriding things on the CLI
 source /opt/genestack/scripts/genestack.rc
 ```
 
-Run the playbook
+> [!important
+>
+> Run the playbook
 
-```shell
+```bash
 ansible-playbook custom_exporters.yml --private-key ${HOME}/.ssh/openstack-keypair.key
 ```
 

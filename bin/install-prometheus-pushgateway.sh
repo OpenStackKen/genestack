@@ -7,7 +7,9 @@
 
 # Service
 SERVICE_NAME_DEFAULT="prometheus-pushgateway"
-SERVICE_NAMESPACE="prometheus"
+SERVICE_NAMESPACE="monitoring"
+
+source "$(dirname "$0")/monitoring-common.sh"
 
 # Helm
 HELM_REPO_NAME_DEFAULT="prometheus-community"
@@ -20,6 +22,12 @@ GENESTACK_OVERRIDES_DIR="${GENESTACK_OVERRIDES_DIR:-/etc/genestack}"
 # Define service-specific override directories based on the framework
 SERVICE_BASE_OVERRIDES="${GENESTACK_BASE_DIR}/base-helm-configs/${SERVICE_NAME_DEFAULT}"
 SERVICE_CUSTOM_OVERRIDES="${GENESTACK_OVERRIDES_DIR}/helm-configs/${SERVICE_NAME_DEFAULT}"
+
+# Define the Global Overrides directory used in the common installer pattern
+GLOBAL_OVERRIDES_DIR="${GENESTACK_OVERRIDES_DIR}/helm-configs/global_overrides"
+
+monitoring_ensure_namespace "${SERVICE_NAMESPACE}"
+monitoring_label_namespace_for_talos "${SERVICE_NAMESPACE}"
 
 # Read the desired chart version from VERSION_FILE
 # NOTE: Ensure this file exists and contains an entry for SERVICE_NAME_DEFAULT.
@@ -89,6 +97,19 @@ if [[ -d "$SERVICE_BASE_OVERRIDES" ]]; then
   done
 else
   echo "Warning: Base override directory not found: $SERVICE_BASE_OVERRIDES"
+fi
+
+# Include all YAML files from the GLOBAL configuration directory.
+if [[ -d "$GLOBAL_OVERRIDES_DIR" ]]; then
+  echo "Including global overrides from directory: $GLOBAL_OVERRIDES_DIR"
+  for file in "$GLOBAL_OVERRIDES_DIR"/*.yaml; do
+    if [[ -e "$file" ]]; then
+      echo " - $file"
+      overrides_args+=("-f" "$file")
+    fi
+  done
+else
+  echo "Warning: Global override directory not found: $GLOBAL_OVERRIDES_DIR"
 fi
 
 # Include all YAML files from the custom SERVICE configuration directory

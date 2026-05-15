@@ -4,16 +4,15 @@ description: "Deploying the Designate services."
 weight: 20
 ---
 
-## Create secrets
+## Create Secrets
 
-> [!NOTE]
+> [!note]
 >
-> Manual secret generation is only required if you haven't run the
-> `create-secrets.sh` script located in `/opt/genestack/bin`.
+> Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 
-Example secret generation
+**Example secret generation:**
 
-``` shell
+```bash
 kubectl --namespace openstack \
         create secret generic designate-rabbitmq-password \
         --type Opaque \
@@ -52,6 +51,6 @@ Run the Designate deployment Script `/opt/genestack/bin/install-designate.sh`
 
 ## Validate functionality
 
-``` shell
+```bash
 kubectl --namespace openstack exec -ti openstack-admin-client -- openstack dns service list
 ```

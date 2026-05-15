@@ -1,12 +1,9 @@
 ---
 title: "Designate"
+description: "OpenStack DNS as a Service (DNSaaS)"
 weight: 130
-type: docs
-description: "OpenStack DNS as a Service (DNSaaS)."
-cascade:
-  - type: docs
 ---
 
-[Designate](https://docs.openstack.org/designate/latest/) is a multi-tenant DNSaaS for OpenStack. auto-generate records based on Nova and Neutron actions. Designate supports a variety of DNS servers including Bind9 and PowerDNS 4. This will allow for record management for all multi-project VMs to their respective network dns domains.
+Designate is a multi-tenant DNSaaS for OpenStack. It provides a REST API with integrated Keystone authentication. It can be configured to auto-generate records based on Nova and Neutron actions.
 
-This section covers Designate deployment workflows, preparation steps, and related integrations.
+Designate supports a variety of DNS servers including [Bind 9](https://www.isc.org/bind/) and [PowerDNS 4](https://doc.powerdns.com/index.html).

@@ -7,7 +7,7 @@ Deploying the RabbitMQ Operator and a RabbitMQ Cluster
 
 ## Deploy the RabbitMQ operator.
 
-``` shell
+```bash
 kubectl apply -k /etc/genestack/kustomize/rabbitmq-operator/base
 ```
 
@@ -17,13 +17,13 @@ kubectl apply -k /etc/genestack/kustomize/rabbitmq-operator/base
 
 ### Deploy the RabbitMQ topology operator.
 
-``` shell
+```bash
 kubectl apply -k /etc/genestack/kustomize/rabbitmq-topology-operator/base
 ```
 
 ### Deploy the RabbitMQ cluster.
 
-``` shell
+```bash
 kubectl apply -k /etc/genestack/kustomize/rabbitmq-cluster/overlay
 ```
 
@@ -31,11 +31,21 @@ kubectl apply -k /etc/genestack/kustomize/rabbitmq-cluster/overlay
 >
 > RabbitMQ has a base configuration which is HA and production ready. If you're deploying on a small cluster the `aio` configuration may better suit the needs of the environment.
 
-### Validate the status with the following
+## Validate the status with the following
 
-``` shell
+```bash
 kubectl --namespace openstack get rabbitmqclusters.rabbitmq.com -w
 ```
+
+## Epoxy upgrade notes
+
+Genestack targets RabbitMQ `4.1.4` for the Epoxy release path. The `RabbitmqCluster` manifest pins `spec.image` explicitly to `rabbitmq:4.1.4-management` so upgrades remain predictable and do not depend on operator default image changes.
+
+When upgrading an existing environment, re-apply the RabbitMQ cluster manifest so that the intended RabbitMQ image is reconciled.
+
+> [!WARNING]
+>
+> If you rely on operator defaults rather than the pinned cluster image, your cluster may drift to an unexpected RabbitMQ server version during upgrade or reconciliation.
 
 ## RabbitMQ Operator Monitoring
 
@@ -44,18 +54,17 @@ cluster and operator.
 
 > [!WARNING]
 >
-> Make sure Prometheus Operator is deployed prior to running these commands. It will error out if the
-> rquired CRDs are not already installed.
+> Make sure Prometheus Operator is deployed prior to running these commands. It will error out if the required CRDs are not already installed.
 
 Check if the required CRDs are installed
 
-``` shell
+```bash
 kubectl get customresourcedefinitions.apiextensions.k8s.io servicemonitors.monitoring.coreos.com
 ```
 
 if the CRDs are present you can run the following
 
-```shell
+```bash
 kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/observability/prometheus/monitors/rabbitmq-servicemonitor.yml
 
 kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/observability/prometheus/monitors/rabbitmq-cluster-operator-podmonitor.yml
@@ -63,17 +72,16 @@ kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-oper
 
 then,
 
-```shell
+```bash
 for file in $(curl -s https://api.github.com/repos/rabbitmq/cluster-operator/contents/observability/prometheus/rules/rabbitmq | jq -r '.[].download_url'); do   kubectl apply -n prometheus -f $file; done
 
 for file in $(curl -s https://api.github.com/repos/rabbitmq/cluster-operator/contents/observability/prometheus/rules/rabbitmq-per-object | jq -r '.[].download_url'); do   kubectl apply -n prometheus -f $file; done
 ```
 
-In order for these to work we need to also make sure that they match the `ruleSelector` from Prometheus deploy.
-For genestack deploys run
+In order for these to work we also need to make sure that they match the `ruleSelector` from the Prometheus deployment. For Genestack deployments run:
 
-```shell
+```bash
 kubectl get prometheusrule -n prometheus -o name | xargs -I {} kubectl label -n prometheus {} release=kube-prometheus-stack --overwrite
 ```
-This will get all the rules in prometheus namespace and apply `release=kube-prometheus-stack` label. At this point the alerts will be configured
-in prometheus.
+
+This gets all the rules in the `prometheus` namespace and applies the `release=kube-prometheus-stack` label. At this point the alerts will be configured in Prometheus.

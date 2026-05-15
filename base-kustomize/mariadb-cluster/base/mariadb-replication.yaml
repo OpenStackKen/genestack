@@ -14,7 +14,12 @@ spec:
                 operator: In
                 values:
                   - worker
-  # NOTE: (brew) uncomment below when we update to a newer mariadb crd
+          - matchExpressions:
+              - key: openstack-control-plane
+                operator: In
+                values:
+                  - enabled
+    # -- Pod anti-affinity to ensure pods are scheduled on different nodes.
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
@@ -29,22 +34,27 @@ spec:
     secretTemplate:
       key: dsn
   database: mariadb
-  image: docker-registry1.mariadb.com/library/mariadb:11.4.5
+  image: docker-registry1.mariadb.com/library/mariadb:11.8.5
   metrics:
     enabled: false
   myCnf: |
     [mariadb]
+    # Preserve legacy OpenStack table compatibility during Alembic FK migrations.
+    character-set-server=utf8mb3
+    collation-server=utf8mb3_general_ci
     bind-address=0.0.0.0
     default_storage_engine=InnoDB
     binlog_format=ROW
-    binlog_expire_logs_seconds=172800
+    # Keep binlogs long enough for replica recovery and PITR workflows.
+    binlog_expire_logs_seconds=604800
     innodb_autoinc_lock_mode=2
+    innodb_snapshot_isolation=OFF
     max_allowed_packet=256M
     max_connections=10240
     open_files_limit=10240
     max-connect-errors=1000000
     innodb_rollback_on_timeout=1
-    performance_schema=ON
+    performance_schema=OFF
     innodb_log_buffer_size=33554432
     innodb_flush_log_at_trx_commit=1
     ignore_db_dirs=lost+found
@@ -76,7 +86,7 @@ spec:
   primaryService:
     metadata:
       annotations:
-        metallb.universe.tf/address-pool: primary
+        metallb.io/address-pool: primary
     type: LoadBalancer
   replicas: 3
   replication:
@@ -92,12 +102,12 @@ spec:
   secondaryService:
     metadata:
       annotations:
-        metallb.universe.tf/address-pool: primary
+        metallb.io/address-pool: primary
     type: LoadBalancer
   service:
     metadata:
       annotations:
-        metallb.universe.tf/address-pool: primary
+        metallb.io/address-pool: primary
     type: LoadBalancer
   storage:
     resizeInUseVolumes: true

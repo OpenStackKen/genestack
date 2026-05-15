@@ -23,6 +23,7 @@ contrib/terraform/aws/credentials.tfvars
 *~
 vagrant/
 plugins/mitogen
+.playwright*
 
 # Ansible inventory
 inventory/*
@@ -30,6 +31,9 @@ inventory/*
 !inventory/sample
 inventory/*/artifacts/
 openstack-flex/inventory.ini
+
+# Ansible venv
+.ansible/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -42,7 +46,8 @@ env/
 build/
 credentials/
 develop-eggs/
-dist/
+dist/*
+!dist/release-notes-*.md
 downloads/
 eggs/
 .eggs/
@@ -147,9 +152,30 @@ site/
 
 # skyline secrets
 /etc/genestack/skylinesecrets.yaml
+<<<<<<< HEAD
 .npm-cache/
 .docs-refactor-backup/
 .tmp-home/
 node_modules/
 local-docs/public/
 local-docs/.hugo_build.lock
+=======
+
+# Local docs build artifacts
+/.npm-cache/
+/.tmp-home/
+/node_modules/
+/package-lock.json
+/docs/.tmp-home/
+/docs/.hugo_build.lock
+/docs/tmp/
+/docs/content/overview/product-matrix.md
+
+# Keep these output directories in-tree, but ignore their generated contents
+/docs/pdf/*
+!/docs/pdf/.gitkeep
+/docs/public/*
+!/docs/public/.gitkeep
+/docs/resources/*
+!/docs/resources/.gitkeep
+>>>>>>> main

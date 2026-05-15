@@ -2,12 +2,15 @@
 title: "Securing Private Cloud Infrastructure"
 weight: 30
 ---
+
 To ensure a secure and highly available cloud, the security framework must address orchestration, compute, storage, and access control in the context of a larger cloud design. This guide builds on a multi-layered, defense-in-depth approach, incorporating best practices across physical, network, platform, and application layers, aligned with a region -> multi-DC -> availability zone (AZ) design. Each component is discussed below with actionable strategies for robust protection.
 
 ## Orchestration Security
+
 Orchestration platforms, such as OpenStack and Kubernetes, are fundamental to managing resources in a cloud environment. Securing these platforms ensures the stability and integrity of the overall cloud infrastructure. Below, we outline security considerations for both OpenStack and Kubernetes.
 
 ### Securing OpenStack
+
 OpenStack offers a robust framework for managing cloud resources, but its complexity requires careful security practices.
 
 - Implement software-defined networking (SDN) with micro-segmentation and zero-trust principles.
@@ -22,12 +25,12 @@ OpenStack offers a robust framework for managing cloud resources, but its comple
 - Use machine learning-powered threat hunting and anomaly detection to enhance monitoring capabilities.
 
 ### Securing Kubernetes
+
 Kubernetes is widely used for container orchestration, and securing its components is essential for maintaining a resilient cloud environment.
 
 Pod Security Standards (PSS)
 
 - Adopt Kubernetes' Pod Security Standards, which define three security profiles:
-
   - Privileged: Allows all pod configurations; use sparingly.
   - Baseline: Enforces minimal restrictions for general-purpose workloads.
   - Restricted: Applies the most stringent security controls, suitable for sensitive workloads.
@@ -57,8 +60,8 @@ Kubernetes API Access
 - Securing API communication with mutual TLS and enforcing short-lived certificates.
 - Logging all API server requests for auditing purposes.
 
-
 ## Compute Security
+
 Compute resources, including hypervisors and virtual machines (VMs), must be hardened to prevent unauthorized access and ensure isolation.
 
 ### Hypervisor and Host Security
@@ -75,8 +78,8 @@ Compute resources, including hypervisors and virtual machines (VMs), must be har
 - Ensure robust data-at-rest encryption via OpenStack Barbican.
 - Secure all communications with TLS and automate key management using HSMs.
 
-
 ## Storage Security
+
 Protecting data integrity and availability across storage systems is vital for cloud resilience.
 
 - Encrypt data-at-rest and data-in-transit.
@@ -86,8 +89,8 @@ Protecting data integrity and availability across storage systems is vital for c
 - Conduct regular RPO testing to validate recovery mechanisms.
 - Geographically distribute backups using redundant availability zones.
 
-
 ## Access Control Security
+
 Access control ensures only authorized users and systems can interact with the cloud environment.
 
 - Implement multi-factor physical security mechanisms.
@@ -114,6 +117,7 @@ Implement software-defined networking (SDN) with
 
 
 ## Larger Cloud Design: Integrating Region → Multi-DC → AZ Framework
+
 To enhance the security of orchestration, compute, storage, and access control components, the design must consider:
 
 - Regions: Isolate workloads geographically for regulatory compliance and disaster recovery.

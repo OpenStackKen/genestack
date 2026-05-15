@@ -20,8 +20,8 @@ After switch and firewall configuration, deployment nodes are created with in th
 flowchart TD
     %% ──────────── TIER 1 ────────────
     subgraph UI [" "]
-        CO(["🛠️ Cloud Orchestration"])
-        HR(["🌄 Skyline (UI)"])
+        CO(["Cloud Orchestration"])
+        HR(["Skyline (UI)"])
         CO --> HR
         class CO orchestration;
         class HR ui;
@@ -30,12 +30,12 @@ flowchart TD
     %% ──────────── TIER 2 (APIs) ─────
     subgraph APIS ["Cloud APIs"]
         direction TB
-        NEU(["🔌 Neutron"])
-        CIN(["🧱 Cinder"])
-        NOV(["🖥️ Nova"])
-        GLA(["🖼️ Glance"])
-        KEY(["🔑 Keystone"])
-        IRO(["⚙️ Ironic"])
+        NEU(["Neutron"])
+        CIN(["Cinder"])
+        NOV(["Nova"])
+        GLA(["Glance"])
+        KEY(["Keystone"])
+        IRO(["Ironic"])
         class NEU,CIN,NOV,GLA,KEY,IRO service;
     end
     class APIS api;

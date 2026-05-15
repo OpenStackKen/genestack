@@ -72,6 +72,8 @@ cloudkitty_admin_password=$(generate_password 32)
 metadata_shared_secret_password=$(generate_password 32)
 placement_db_password=$(generate_password 32)
 placement_admin_password=$(generate_password 32)
+skyline_db_password=$(generate_password 32)
+skyline_admin_password=$(generate_password 32)
 nova_db_password=$(generate_password 32)
 nova_admin_password=$(generate_password 32)
 nova_keystone_service_password=$(generate_password 32)
@@ -121,6 +123,7 @@ swift_rabbitmq_password=$(generate_password 32)
 memcached_shared_secret=$(generate_password 32)
 grafana_secret=$(generate_password 32)
 grafana_root_secret=$(generate_password 32)
+mariadb_monitoring_password=$(generate_password 32)
 ironic_db_password=$(generate_password 32)
 ironic_rabbitmq_password=$(generate_password 32)
 blazar_rabbitmq_password=$(generate_password 64)
@@ -137,15 +140,21 @@ zaqar_rabbitmq_password=$(generate_password 64)
 zaqar_db_password=$(generate_password 32)
 zaqar_admin_password=$(generate_password 32)
 zaqar_keystone_test_password=$(generate_password 32)
+keystone_auth_url="http://keystone-api.openstack.svc.cluster.local:5000/v3"
+keystone_username="admin"
+keystone_user_domain="Default"
+keystone_project_name="admin"
+keystone_project_domain="Default"
 
 OUTPUT_FILE="/etc/genestack/kubesecrets.yaml"
 GENERATED_FILE=$(mktemp)
 EXISTING_NAMES_FILE=$(mktemp)
 MISSING_SECRETS_FILE=$(mktemp)
 
-if [[ -f "${OUTPUT_FILE}" ]]; then
-    cp "${OUTPUT_FILE}" "${OUTPUT_FILE}.bak.${backup_suffix}"
-    echo "Backed up existing ${OUTPUT_FILE} to ${OUTPUT_FILE}.bak.${backup_suffix}"
+if [[ -f ${OUTPUT_FILE} ]]; then
+    echo "Notice: ${OUTPUT_FILE} already exists."
+    echo "        Reusing existing secrets file to avoid mass rotation."
+    exit 0
 fi
 
 cleanup() {
@@ -407,6 +416,24 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
+  name: skyline-db-password
+  namespace: openstack
+type: Opaque
+data:
+  password: $(echo -n $skyline_db_password | base64 -w0)
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: skyline-admin
+  namespace: openstack
+type: Opaque
+data:
+  password: $(echo -n $skyline_admin_password | base64 -w0)
+---
+apiVersion: v1
+kind: Secret
+metadata:
   name: nova-db-password
   namespace: openstack
 type: Opaque
@@ -429,7 +456,7 @@ metadata:
   namespace: openstack
 type: Opaque
 data:
-  password: $(echo -n $nova-keystone-service-password | base64 -w0)
+  password: $(echo -n $nova_keystone_service_password | base64 -w0)
 ---
 apiVersion: v1
 kind: Secret
@@ -438,7 +465,7 @@ metadata:
   namespace: openstack
 type: Opaque
 data:
-  password: $(echo -n $nova-keystone-test-password | base64 -w0)
+  password: $(echo -n $nova_keystone_test_password | base64 -w0)
 ---
 apiVersion: v1
 kind: Secret
@@ -846,18 +873,28 @@ data:
   memcache_secret_key: $(echo -n $memcached_shared_secret | base64 -w0)
 ---
 apiVersion: v1
+kind: Secret
+metadata:
+  name: mariadb-monitoring
+  namespace: openstack
+type: Opaque
+data:
+  username: $(echo -n "monitoring" | base64 -w0)
+  password: $(echo -n $mariadb_monitoring_password | base64 -w0)
+---
+apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    kubernetes.io/metadata.name: grafana
-    name: grafana
-  name: grafana
+    kubernetes.io/metadata.name: monitoring
+    name: monitoring
+  name: monitoring
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: grafana-db
-  namespace: grafana
+  namespace: monitoring
 type: Opaque
 data:
   password: $(echo -n $grafana_secret | base64 -w0)
@@ -968,12 +1005,12 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: keystone-auth-openstack-exporter
-  namespace: prometheus
+  namespace: monitoring
 type: Opaque
 data:
   AUTH_URL: $(echo -n $keystone_auth_url | base64 -w0)
   USERNAME: $(echo -n $keystone_username | base64 -w0)
-  PASSWORD: $(kubectl get secret keystone-admin -n openstack -o jsonpath={.data.password})
+  PASSWORD: $(echo -n $keystone_admin_password | base64 -w0)
   USER_DOMAIN_NAME: $(echo -n $keystone_user_domain | base64 -w0)
   PROJECT_NAME: $(echo -n $keystone_project_name | base64 -w0)
   PROJECT_DOMAIN_NAME: $(echo -n $keystone_project_domain | base64 -w0)
@@ -1024,16 +1061,6 @@ type: Opaque
 data:
   password: $(echo -n $zaqar_keystone_test_password | base64 -w0)
 EOF
-
-# Check if skylinesecrets.yaml exists and append it
-SKYLINE_SECRETS_FILE="/etc/genestack/skylinesecrets.yaml"
-if [[ -f ${SKYLINE_SECRETS_FILE} ]]; then
-    echo "Found existing ${SKYLINE_SECRETS_FILE}, appending skyline secrets..."
-    cat ${SKYLINE_SECRETS_FILE} >> "${GENERATED_FILE}"
-    echo "Skyline secrets appended from ${SKYLINE_SECRETS_FILE}"
-else
-    echo "Note: ${SKYLINE_SECRETS_FILE} not found. Run create-skyline-secrets.sh to add skyline secrets."
-fi
 
 # Check if kube-ovn-tls secret exists, and copy to openstack namespace if it does
 if kubectl -n kube-system get secret kube-ovn-tls >/dev/null 2>&1

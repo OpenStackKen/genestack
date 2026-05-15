@@ -2,40 +2,72 @@
 title: "Loki"
 weight: 150
 ---
-[Loki](https://grafana.com/oss/loki/) is a horizontally-scalable, highly-available, multi-tenant log aggregation system inspired by Prometheus. It is designed to be very cost-effective and easy to operate. It does not index the contents of the logs, but rather a set of labels for each log stream.
 
-## Run the package deployment
+Loki is Genestack's log backend. It is deployed into the `monitoring` namespace and follows the same override layout as the rest of Genestack.
 
-Run the Loki deployment Script `/opt/genestack/bin/install-loki.sh`
+## Paths
 
-```bash {include="bin/install-loki.sh"}
+- Base Helm values: `/opt/genestack/base-helm-configs/loki/`
+- Service overrides: `/etc/genestack/helm-configs/loki/`
+- Kustomize overlay: `/etc/genestack/kustomize/loki/overlay/`
+
+## Default Behavior
+
+The default base file, `/opt/genestack/base-helm-configs/loki/loki-helm-overrides.yaml`, uses a single-binary Loki deployment with filesystem-backed storage. This is the supported default for simple environments and first-pass validation.
+
+It also assumes the cluster DNS service is named `coredns`. If your environment uses a different service name, add an override file that sets `global.dnsService` before installing.
+
+## Storage Backends
+
+Add one or more override files to `/etc/genestack/helm-configs/loki/` before installing Loki.
+
+### Swift
+
+Example file:
+
+- `/opt/genestack/base-helm-configs/loki/loki-helm-swift-overrides.yaml.example`
+
+### Generic S3-Compatible
+
+Example file:
+
+- `/opt/genestack/base-helm-configs/loki/loki-helm-s3-overrides.yaml.example`
+
+### Rook/Ceph RGW
+
+Example file:
+
+- `/opt/genestack/base-helm-configs/loki/loki-helm-rook-rgw-overrides.yaml.example`
+
+If you are using a Rook RGW object store, you can generate the Loki and Tempo override files automatically:
+
+```bash
+/opt/genestack/bin/setup-monitoring-rgw-storage.sh
 ```
-> [!TIP]
 
-### Swift _(Recommended)_
+This helper uses `mc` (the MinIO Client) for bucket creation. If `mc` is missing, the script downloads a temporary copy. In restricted environments, install `mc` first or allow HTTPS access to `dl.min.io`.
 
-
-> [!NOTE]
->
-> If you plan on using **Swift** as a backend for log storage see the `loki-helm-swift-overrides-example.yaml` file in the `helm-configs/loki` directory.
-
-```yaml {include="base-helm-configs/loki/loki-helm-swift-overrides-example.yaml"}
-```
-### S3
-
-
-> [!NOTE]
->
-> If you plan on using **S3** as a backend for log storage see the `loki-helm-minio-overrides-example.yaml` file in the `helm-configs/loki` directory.
-
-```yaml {include="base-helm-configs/loki/loki-helm-s3-overrides-example.yaml"}
-```
 ### MinIO
 
+Example file:
 
-> [!NOTE]
->
-> If you plan on using **Minio** as a backend for log storage see the `loki-helm-s3-overrides-example.yaml` file in the `helm-configs/loki` directory.
+- `/opt/genestack/base-helm-configs/loki/loki-helm-minio-overrides.yaml.example`
 
-```yaml {include="base-helm-configs/loki/loki-helm-minio-overrides-example.yaml"}
+## Install
+
+```bash
+/opt/genestack/bin/install-loki.sh
 ```
+
+## Verify
+
+```bash
+kubectl -n monitoring get pods -l app.kubernetes.io/instance=loki
+kubectl -n monitoring port-forward svc/loki-gateway 3100:80
+curl http://127.0.0.1:3100/ready
+```
+
+> [!INFO]
+>
+> Loki itself does not require the same host access as the collectors, but many environments label the `monitoring` namespace once and reuse it for the whole stack.
+> Skip this on Kubespray unless your cluster enforces the same restriction.

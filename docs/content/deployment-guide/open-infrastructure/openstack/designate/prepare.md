@@ -5,7 +5,8 @@ weight: 10
 ---
 
 ## Add designate pools file
-Edit /etc/genestack/helm-configs/designate/designate-pools-helm-overrides.yaml
+
+Edit `/etc/genestack/helm-configs/designate/designate-pools-helm-overrides.yaml`
 
 ## Example
 

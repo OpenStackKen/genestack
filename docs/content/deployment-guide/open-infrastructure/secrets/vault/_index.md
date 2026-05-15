@@ -23,25 +23,25 @@ Before starting the installation, ensure the following prerequisites are met:
 
 ## Installation
 
-```shell
+```bash
 cd kustomize/vault/base
 ```
 
 Modify the `values.yaml` file with your desired configurations. Refer to the sample configuration in this directory, already updated for installation.
 
-```shell
+```bash
 vi values.yaml
 ```
 
 Specify the size of the PV and the PVC(dataStorage and auditStorage) in `kustomization.yaml`. Since we are utilizing local storage from the nodes, consider this as a placeholder. Vault will be able to utilize the available storage based on the size of /opt/vault on the nodes.
 
-```shell
+```bash
 vi kustomization.yaml
 ```
 
 Perform the installation:
 
-```shell
+```bash
 kubectl  kustomize . --enable-helm | kubectl apply -f -
 ```
 
@@ -49,7 +49,7 @@ kubectl  kustomize . --enable-helm | kubectl apply -f -
 
 After installing Vault, the Vault pods will initially be in a not-ready state. 
 
-```shell
+```bash
 NAME                                    READY   STATUS    RESTARTS   AGE
 vault-0                                 0/1     Running   0          55s
 vault-1                                 0/1     Running   0          55s
@@ -61,7 +61,7 @@ Initialization and unsealing are required.
 
 ### Initialize Vault
 
-```shell
+```bash
 kubectl exec vault-0 -n vault -- vault operator init -key-shares=3 -key-threshold=2 -format=json > cluster-keys.json
 ```
 
@@ -71,7 +71,7 @@ This command provides unseal keys and a root token in cluster-keys.json. Keep th
 
 On vault-0 pod, use any of the 2 unseal keys obtained during initialization:
 
-```shell
+```bash
 kubectl exec -it vault-0 -n vault -- vault operator unseal
 ```
 
@@ -79,22 +79,22 @@ Repeat the unseal command as needed with different unseal keys.
 
 ### Join Vault Pods to Form a Cluster
 
-```shell
+```bash
 kubectl exec -it vault-1 -n vault -- vault operator raft join -leader-ca-cert=@/vault/userconfig/vault-server-tls/ca.crt https://vault-0.vault-internal:8200
 ```
 
-```shell
+```bash
 kubectl exec -it vault-2 -n vault -- vault operator raft join -leader-ca-cert=@/vault/userconfig/vault-server-tls/ca.crt https://vault-0.vault-internal:8200
 ```
 
 ### Unseal Vault(vault-1, vault-2)
 
 On each Vault pod (vault-1, vault-2), use any of the 2 unseal keys obtained during initialization:
-```shell
+```bash
 kubectl exec -it vault-1 -n vault -- vault operator unseal
 
 ```
-```shell
+```bash
 kubectl exec -it vault-2 -n vault -- vault operator unseal
 ```
 
@@ -104,7 +104,7 @@ Repeat the unseal command as needed with different unseal keys.
 
 Use the root token obtained during initialization to authenticate:
 
-```shell
+```bash
 kubectl exec -it vault-0 -n vault -- vault login
 ```
 
@@ -118,7 +118,7 @@ kubectl exec -it vault-0 -n vault -- vault audit enable file file_path=/vault/au
 
 Login to vault-0 and list the raft peers:
 
-```shell
+```bash
 kubectl exec vault-0 -n vault -it -- vault operator raft list-peers
 Node       Address                        State       Voter
 ----       -------                        -----       -----
@@ -134,30 +134,26 @@ vault-2    vault-2.vault-internal:8201    follower    true
 >
 > This example shows how you can create secrets in Vault for use with Keystone
 
-### Setup
-
-Enable Kubernetes auth method:
-
-```shell
+```bash
 kubectl exec --stdin=true --tty=true vault-0 -n vault -- vault auth enable -path genestack kubernetes
 ```
 
 Define Kubernetes connection:
 
-```shell
+```bash
 kubectl exec --stdin=true --tty=true vault-0 -n vault -- sh
 vault write auth/genestack/config  kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 ```
 
 Define secret path for keystone:
 
-```shell
+```bash
 kubectl exec --stdin=true --tty=true vault-0 -n vault -- vault secrets enable -path=osh/keystone kv-v2
 ```
 
 Create a policy to access `osh/*` path:
 
-```shell
+```bash
 vault policy write osh - <<EOF
 path "osh/*" {
    capabilities = ["read"]
@@ -167,7 +163,7 @@ EOF
 
 Create a role which will restrict the access as per your requirement:
 
-```shell
+```bash
 vault write auth/genestack/role/osh \
    bound_service_account_names=default \
    bound_service_account_namespaces=openstack \
@@ -182,34 +178,34 @@ Generate and store secrets for Keystone within the designated path.
 
 -eystone RabbitMQ Username:
 
-```shell
+```bash
 vault kv put -mount=osh/keystone keystone-rabbitmq-username username=keystone
 ```
 
 Keystone RabbitMQ Password:
 
-```shell
+```bash
 vault kv put -mount=osh/keystone keystone-rabbitmq-password password=$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-64};echo;)
 ```
 
 Keystone Database Password:
 
-```shell
+```bash
 vault kv put -mount=osh/keystone keystone-db-password password=$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-32};echo;)
 ```
 
 Keystone Admin Password:
 
-```shell
+```bash
 vault kv put -mount=osh/keystone keystone-admin  password=$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-32};echo;)
 ```
 
 Keystone Credential Key:
 
-```shell
+```bash
 vault kv put -mount=osh/keystone keystone-credential-keys  password=$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-32};echo;)
 ```
 
 ### Usage
 
-Once the secrets are created in Vault, we can use [vault-secrets-operator](operator.md) to populate the Kubernetes secret resources in Kubernetes cluster.
+Once the secrets are created in Vault, we can use [vault-secrets-operator](/deployment-guide/open-infrastructure/secrets/vault/operator/) to populate the Kubernetes secret resources in Kubernetes cluster.

@@ -2,8 +2,9 @@
 title: "Using the Skyline Web UI"
 weight: 40
 ---
+## Goal
 
-Use the `Skyline` Web UI to perform operations on your object store.
+Use the `Skyline` GUI to perform operations on your object store.
 
 ## Prerequisites
 
@@ -64,7 +65,7 @@ To accomplish this you can use either the [openstack client](/cloud-onboarding/s
 
 ### Downloading files
 When the container is public, you can access each file using a specific URL, made up of your region's endpoint, the name of your container, the prefix (if any) of your object, and finally, the object name.
-``` shell
+```shell
 <REGIONAL_ENDPOINT>/storage/container/detail/flex-container01/example.rtf
 ```
 

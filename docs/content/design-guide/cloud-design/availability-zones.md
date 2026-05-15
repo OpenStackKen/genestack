@@ -2,6 +2,10 @@
 title: "Availability Zones"
 weight: 30
 ---
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 Availability Zones are one of the most arbitrary designed domains in a cloud.  In a large-scale cloud, they could be multiple data centers in the same geographical area, while in a smaller cloud they could be separate data halls in the same data center or separate racks in the same data hall.
 
 Ultimately, because it has no set physical analogue, an Availability Zone becomes a fancy way of defining a failure domain.  What this allows you to do in your cloud design is define an Availability Zone to best suit how you want your users to to separate resources for resilience against failures.
@@ -45,9 +49,9 @@ flowchart TD
 
 Typically, a [region](/design-guide/cloud-design/regions/) encompasses at least two, ideally more, availability zones (AZs). All AZs are fully independent, featuring redundant power, cooling, and networking resources, and are interconnected within a region via dedicated high-bandwidth, low-latency links. Connectivity between AZs in-Region are typically extremely fast[^1].
 
-> [!GENESTACK]
+> [!IMPORTANT]
 >
-> See the [data center](https://www.rackspace.com/about/data-centers) pages on the Rackspace website for information on how Rackspace deploys and manages data centers to deliver these capabilities.
+> See the [data center](https://www.rackspace.com/about/data-centers){:target="_blank"} pages on the Rackspace website for information on how Rackspace deploys and manages data centers to deliver these capabilities.
 
 There is no standard for quantifying distance between AZs.  What constitutes "in-Region" is defined by a the cloud provider, so when designing a cloud there is a lot of latitude.Distance between AZs depends on the region and the specific cloud provider[^2].
 
@@ -115,9 +119,7 @@ This matching includes naming of Availability Zones.  If your AZs don't match, i
 
 > [!TIP]
 >
-> You can prevent this from happening by setting the `allow_availability_zone_fallback` parameter in `cinder.conf` to `true` on the nodes running the `cinder-api` service.
->
-> This parameter prevents the API call from failing, because if the AZ _name_ does not exist, Cinder will fallback to another availability zone (whichever you defined as the `default_availability_zone` parameter or in the `storage_availability_zone` parameter.)
+> You can prevent this from happening by setting the following parameter in `cinder.conf` the nodes running the `cinder-api` service:
 
 ```ini
 [DEFAULT]
@@ -130,7 +132,7 @@ The Cinder multi-backend feature allows you to configure multiple storage backen
 >
 > Even if you define multiple backends in one `cinder.conf` they will all inherit the same availability zone.
 
-If you’re using a third party storage appliances[^5], or are making use of software-defined storage solutions like [Ceph](https://docs.ceph.com/en/latest/rbd/rbd-openstack/), then these systems typically have their own built-in redundancy that exist outside of OpenStack.
+If you’re using a third party storage appliances[^5], or are making use of software-defined storage solutions like [Ceph](https://docs.ceph.com/en/latest/rbd/rbd-openstack/){:target="_blank"}, then these systems typically have their own built-in redundancy that exist outside of OpenStack.
 
 ### Using Cinder and Nova Availability Zones Together
 
@@ -152,24 +154,19 @@ By deploying HA nodes across different availability zones, it is guaranteed that
 
 ### Neutron Availability Zones and OVN
 
-> [!GENESTACK]
+> [!IMPORTANT]
 >
-> [Open Virtual Networking (OVN)](https://www.ovn.org/en/) is the networking fabric being used in [Genestack](/deployment-guide/open-infrastructure/infrastructure/ovn-setup/).
+> [Open Virtual Networking (OVN)](https://www.ovn.org/en/){:target="_blank"} is the networking fabric being used in [Genestack](/deployment-guide/open-infrastructure/infrastructure/ovn-setup/).
 
-Additional [special configuration](https://docs.openstack.org/neutron/latest/admin/ovn/availability_zones.html) is necessary to enable Availability Zones when using OVN.
+Additional [special configuration](https://docs.openstack.org/neutron/latest/admin/ovn/availability_zones.html){:target="_blank"} is necessary to enable Availability Zones when using OVN.
 
 ## Sharing Keystone Across Availability Zones
 
-Availability Zones are a subset of a Region. Previously, we defined the scope
-of Keystone to be [regional](/design-guide/cloud-design/regions/#keystone).
-This means that all of the services in an AZ can be serviced by the
-Region-level Keystone deployment.
+Availability Zones are a subset of a Region.  Previously, we defined the scope of Keystone to be [regional](/design-guide/cloud-design/regions/#keystone).  This means that all of the services in an AZ can be serviced by the Region-level Keystone deployment.
 
 ## Sharing Glance Across Availability Zones
 
-As with Keystone, Glance can also be shared across Availability Zones. The
-[Region-level Glance deployment](/design-guide/cloud-design/regions/#glance)
-can be used across all the AZs defined in the region.
+As with Keystone, Glance can also be shared across Availability Zones. The [Region-level Glance deployment](/design-guide/cloud-design/regions/#glance) can be used across all the AZs defined in the region.
 
 [^1]: Typical speeds range from 10Gbps to 400Gbps in network throughput between AZs, with latencies as low as 1 to 2 milliseconds.
 [^2]: For instance, for Azure Cloud Services [in Northern Virginia](https://dgtlinfra.com/amazon-aws-microsoft-data-centers-virginia/), Microsoft has set a self-imposed requirement for its data centers to be located within approximately 12.5 miles (20 kilometers) of existing data centers in its regional network.

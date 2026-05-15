@@ -20,24 +20,24 @@ The Vault Secrets Operator (VSO) enables Pods to seamlessly consume Vault secret
 
 Navigate to the Vault Secrets Operator base directory:
 
-``` shell
+```bash
 cd kustomize/vault-secrets-operator/base
 ```
 
 Modify the `values.yaml` file with your desired configurations. Refer to the sample configuration in this directory, already updated for installation.
 
-``` shell
+```bash
 vi values.yaml
 ```
 
 Perform the installation.
 
-``` shell
+```bash
 kubectl kustomize . --enable-helm | kubectl apply -f -
 ```
 
 Validate if all the pods are up.
-``` shell
+```bash
 kubectl get pods -n vault-secrets-operator
 ```
 
@@ -49,7 +49,7 @@ After installing the `vault-secrets-operator`, create the necessary resources to
 
 Create a `VaultConnection` resource to establish a connection to Vault.
 
-``` yaml
+```yaml
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultConnection
 metadata:
@@ -77,7 +77,7 @@ caCertSecretRef: "vault-ca-secret"
 
 Create a `VaultAuth` resource to authenticate with Vault and access secrets.
 
-``` yaml
+```yaml
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
@@ -98,7 +98,7 @@ vaultConnectionRef: vault-connection
 
 Define a `VaultStaticSecret` resource to fetch a secret from Vault and create a Kubernetes Secret resource.
 
-``` yaml
+```yaml
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
@@ -127,9 +127,12 @@ vaultAuthRef: keystone-auth
 
 This `VaultStaticSecret` resource fetches the `keystone-rabbitmq-password` secret from Vault and creates a Kubernetes Secret named `keystone-rabbitmq-password` in the openstack namespace which you can further use in the Genestack running on Kubernetes.
 
-Example usage workflow.
+> [!IMPORTANT]
+>
+> Example usage workflow
 
-``` shell
+
+```bash
 # From Vault:
 vault kv get osh/keystone/keystone-rabbitmq-password
 ================ Secret Path ================
@@ -151,8 +154,7 @@ password    EENF1SfKOVkILTGVzftJhdj5A6mwnbcCLgdttahhKsQVxCWHrIrhc0theCG3Tzrr
 ```
 
 Apply the reuired configuration files.
-
-``` shell
+```bash
 # From Kubernetes:
 kubectl apply -f vaultconnection.yaml
 kubectl apply -f vault-auth.yaml
@@ -161,7 +163,7 @@ kubectl apply -f keystone-rabbitmq-password-vault.yaml
 
 Return the secret in YAML
 
-``` shell
+```bash
 kubectl get secret keystone-rabbitmq-password -n openstack -o yaml
 apiVersion: v1
 data:
@@ -173,7 +175,7 @@ kind: Secret
 
 Check the return password.
 
-``` shell
+```bash
 echo "RUVORjFTZktPVmtJTFRHVnpmdEpoZGo1QTZtd25iY0NMZ2R0dGFoaEtzUVZ4Q1dIcklyaGMwdGhlQ0czVHpycg==" | base64 -d
 EENF1SfKOVkILTGVzftJhdj5A6mwnbcCLgdttahhKsQVxCWHrIrhc0theCG3Tzrr
 ```

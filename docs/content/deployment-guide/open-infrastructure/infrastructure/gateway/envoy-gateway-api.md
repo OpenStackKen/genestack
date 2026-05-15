@@ -2,15 +2,17 @@
 title: "Envoy Gateway API"
 weight: 60
 ---
+
 The [Envoy Gateway](https://gateway.envoyproxy.io/) is an open-source project that provides an implementation
-of the Gateway API using Envoyproxy as the data plane. The Gateway API is a set of APIs that allow users to configure
-API gateways using a declarative configuration model.
+of the Gateway API using Envoyproxy as the data plane. The Gateway API is a set of APIs that allow users to configure API gateways using a declarative configuration model.
 
 ## Installation
 
 Run the helm command to install Envoy Gateway.
 
-Run the Envoy Gateway deployment Script `/opt/genestack/bin/install-envoy-gateway.sh`
+> [!genestack]
+>
+> Run the Envoy Gateway deployment script.
 
 ```bash {include="bin/install-envoy-gateway.sh"}
 ```
@@ -18,7 +20,9 @@ The install script will deploy Envoy Gateway to the `envoy-gateway-system` names
 
 ## Setup
 
-Run the Envoy Gateway setup Script `/opt/genestack/bin/setup-envoy-gateway.sh`
+> [!genestack]
+>
+> Run the Envoy Gateway setup script.
 
 ```bash {include="bin/setup-envoy-gateway.sh"}
 ```
@@ -27,14 +31,11 @@ The setup script will ask the following questions:
 * Enter a valid email address for use with ACME, press enter to skip"
 * Enter the domain name for the gateway"
 
-These values will be used to generate a certificate for the gateway and set the routes used within the flex-gateway,
-typically for OpenStack. This script can also be fully automated by providing the required values as arguments.
-By default HTTP01 challenge method is enabled, requiring the gateway API to be exposed to a routable IP address.
-Alternative challenge modes can be used, such as DNS01, requiring a DNS plugin to be configured.
-The DNS plugin uses access credentials or tokens to inject the `_acme-challenge` TXT record carrying the challenge token
-to prove the ownership of the domain.
+These values will be used to generate a certificate for the gateway and set the routes used within the flex-gateway, typically for OpenStack. This script can also be fully automated by providing the required values as arguments. By default HTTP01 challenge method is enabled, requiring the gateway API to be exposed to a routable IP address. 
 
-``` shell
+Alternative challenge modes can be used, such as DNS01, requiring a DNS plugin to be configured. The DNS plugin uses access credentials or tokens to inject the `_acme-challenge` TXT record carrying the challenge token to prove the ownership of the domain.
+
+```bash
 Current pre-configured DNS plugins:
   godaddy         GoDaddy DNS (requires webhook)
   rackspace       Rackspace Cloud DNS (requires webhook)
@@ -47,10 +48,11 @@ Current pre-configured DNS plugins:
   rfc2136         RFC2136 Dynamic DNS (built-in support)
 ```
 
+> [!EXAMPLE]
+>
+> Run the setup script with explicit arguments.
 
-Run the Envoy Gateway setup Script with arguments
-
-``` shell
+```bash
 /opt/genestack/bin/setup-envoy-gateway.sh \
   --email username@your.domain.tld \
   --domain your.domain.tld
@@ -60,11 +62,11 @@ Run the Envoy Gateway setup Script with arguments
 
 At this stage, Envoy Gateway should be operational. To validate the configuration, run the following command.
 
-``` shell
+```bash
 kubectl -n openstack get httproute
 ```
 
-``` shell
+```bash
 kubectl -n envoy-gateway get gateways.gateway.networking.k8s.io flex-gateway
 ```
 
@@ -72,6 +74,6 @@ kubectl -n envoy-gateway get gateways.gateway.networking.k8s.io flex-gateway
 
 If you encounter any issues, check the logs of the `envoy-gateway` deployment.
 
-``` shell
+```bash
 kubectl logs -n envoyproxy-gateway-system deployment/envoy-gateway
 ```

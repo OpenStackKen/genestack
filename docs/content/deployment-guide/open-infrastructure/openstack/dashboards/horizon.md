@@ -12,13 +12,13 @@ weight: 20
 
 ## Create Secrets
 
-> [!NOTE]
+> [!note]
 >
 > Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 
-Example secret generation
+**Example secret generation:**
 
-``` shell
+```bash
 kubectl --namespace openstack \
         create secret generic horizon-secret-key \
         --type Opaque \
@@ -32,15 +32,13 @@ kubectl --namespace openstack \
 
 ## Run the package deployment
 
-Run the Horizon deployment Script `/opt/genestack/bin/install-horizon.sh`
+> [!genestack]
+>
+> Run the Horizon deployment script.
 
 ```bash {include="bin/install-horizon.sh"}
-```
-```
-
 ```
 
 > [!TIP]
 >
-> You may need to provide custom values to configure your openstack services, for a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
-> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operations-guide/multi-region-support/) guide to for a workflow solution.
+> You may need to provide custom values to configure your OpenStack services. For a simple single-region or lab deployment, you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`. For multi-region environments, review the [Multi-Region Support](/operations-guide/genestack/multi-region/) workflow.

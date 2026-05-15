@@ -2,6 +2,7 @@
 title: "Install Kube-OVN"
 weight: 30
 ---
+
 The Kube-OVN project is a Kubernetes Network Plugin that uses OVN as the network provider. It
 is a CNI plugin that provides a network solution for Kubernetes. It is a lightweight, scalable,
 and easy-to-use network solution for Kubernetes.
@@ -14,26 +15,21 @@ likely need to be defined is the network interface that will Kube-OVN will bind 
 
 > [!IMPORTANT]
 >
-> **Example Kube-OVN Helm Overrides**
->
->
-> In the example below, the `IFACE` and `VLAN_INTERFACE_NAME` are the only values that need to be defined and
-> are set to `br-overlay`. If you intend to enable hardware offloading, you will need to set the `IFACE` to the
-> a physical interface that supports hardware offloading.
+In the example below, the `IFACE` and `VLAN_INTERFACE_NAME` are the only values that need to be defined and are set to `br-overlay`. If you intend to enable hardware offloading, you will need to set the `IFACE` to the a physical interface that supports hardware offloading.
 
 ### Default
 
-``` yaml
+
+```yaml
 networking:
   IFACE: "br-overlay"
   vlan:
     VLAN_INTERFACE_NAME: "br-overlay"
 ```
 
-
 ### Talos
 
-``` yaml
+```yaml
 global:                          # This is needed to
   registry:                      # Allow for pulling
     address: docker.io/kubeovn   # Kube-OVN version 1.14.10
@@ -47,10 +43,11 @@ OVN_DIR: /var/lib/ovn
 DISABLE_MODULES_MANAGEMENT: true
 ```
 
-
 For a full review of all the available options, see the Kube-OVN base helm overrides file.
 
-Example Kube-OVN Helm Overrides
+> [!example]
+>
+> Example Kube-OVN Helm Overrides
 
 ```yaml {include="base-helm-configs/kube-ovn/kube-ovn-helm-overrides.yaml"}
 ```
@@ -64,7 +61,7 @@ Example Kube-OVN Helm Overrides
 
 Label all controllers as Kube-OVN control plane nodes
 
-``` shell
+```bash
 kubectl label node -l beta.kubernetes.io/os=linux kubernetes.io/os=linux
 kubectl label node -l node-role.kubernetes.io/control-plane kube-ovn/role=master
 kubectl label node -l ovn.kubernetes.io/ovs_dp_type!=userspace ovn.kubernetes.io/ovs_dp_type=kernel
@@ -74,7 +71,9 @@ kubectl label node -l ovn.kubernetes.io/ovs_dp_type!=userspace ovn.kubernetes.io
 
 To run the Kube-OVN deployment, run the following command commands or script.
 
-Run the Kube-OVN deployment Script `/opt/genestack/bin/install-kube-ovn.sh`
+> [!genestack]
+>
+> Run the Kube-OVN deployment Script `/opt/genestack/bin/install-kube-ovn.sh`
 
 ```bash {include="bin/install-kube-ovn.sh"}
 ```
@@ -83,33 +82,36 @@ Run the Kube-OVN deployment Script `/opt/genestack/bin/install-kube-ovn.sh`
 
 Once the script has completed, you can verify that the Kube-OVN pods are running by running the following command
 
-``` shell
+```bash
 kubectl get subnets.kubeovn.io
 ```
 
-Output
+> [!example]
+>
+> Output
 
-``` shell
+
+```bash
 NAME          PROVIDER   VPC           PROTOCOL   CIDR            PRIVATE   NAT     DEFAULT   GATEWAYTYPE   V4USED   V4AVAILABLE   V6USED   V6AVAILABLE   EXCLUDEIPS       U2OINTERCONNECTIONIP
 join          ovn        ovn-cluster   IPv4       100.64.0.0/16   false     false   false     distributed   3        65530         0        0             ["100.64.0.1"]
 ovn-default   ovn        ovn-cluster   IPv4       10.236.0.0/14   false     true    true      distributed   111      262030        0        0             ["10.236.0.1"]
 ```
 
-> [!TIP]
->
-> After the deployment, and before going into production, it is highly recommended to review the
-> [Kube-OVN Backup documentation](/operations-guide/infrastructure-ovn-db-backup/), from the operators guide for setting up you backups.
+> [!tip]
+> 
+> After the deployment, and before going into production, it is highly recommended to review the [Kube-OVN Backup documentation](/operations-guide/infrastructure/ovn/db-backup/), from the operators guide for setting up you backups.
 
-Upon successful deployment the Kubernetes Nodes should transition into a `Ready` state. Validate the nodes are ready by
-running the following command.
+Upon successful deployment the Kubernetes Nodes should transition into a `Ready` state. Validate the nodes are ready by running the following command.
 
-``` shell
+```bash
 kubectl get nodes
 ```
 
-Output
+> [!example]
+>
+> Output
 
-``` shell
+```bash
 NAME                                  STATUS   ROLES                  AGE   VERSION
 compute-0.cloud.cloudnull.dev.local   Ready    control-plane,worker   24m   v1.30.4
 compute-1.cloud.cloudnull.dev.local   Ready    control-plane,worker   24m   v1.30.4

@@ -7,9 +7,9 @@ This guide will help you deploy [Fluent Bit](https://fluentbit.io/) to your kube
 
 ## Deployment
 
-Run the Fluent-Bit deployment Script `/opt/genestack/bin/install-fluentbit.sh`
-
-Run the Fluent-Bit deployment Script `/opt/genestack/bin/install-fluentbit.sh`
+> [!genestack]
+>
+> Run the Fluent-Bit deployment Script `/opt/genestack/bin/install-fluentbit.sh`
 
 ```bash {include="bin/install-fluentbit.sh"}
 ```

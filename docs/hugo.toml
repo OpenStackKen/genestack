@@ -112,19 +112,19 @@ tertiaryTextColor = "#57a1dd"
 edgeLabelBackground = "#ffffff"
 
 [params.mermaid.flowchart]
-useMaxWidth = true
-diagramPadding = 20
-nodeSpacing = 80
-rankSpacing = 80
-curve = "basis"
-padding = 50
-defaultRenderer = "elk"
-wrappingWidth = 160
+#useMaxWidth = true
+#diagramPadding = 20
+#nodeSpacing = 80
+#rankSpacing = 80
+#curve = "basis"
+#padding = 50
+#defaultRenderer = "elk"
+#wrappingWidth = 160
 inheritDir = true
 
 [params.mermaid.flowchart.subGraphTitleMargin]
-top = 4
-bottom = 6
+#top = 4
+#bottom = 6
 
 [params.ui]
 breadcrumb_disable = false

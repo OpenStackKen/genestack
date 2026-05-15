@@ -10,7 +10,7 @@ Running MariaDB in Genestack requires careful attention to detail for optimal pe
 
 Sometimes an operator may need to connect to the database to troubleshoot things or otherwise make modifications to the databases in place. The following command can be used to connect to the database from a node within the cluster.
 
-``` shell
+```bash
 mysql -h $(kubectl -n openstack get service mariadb-cluster-primary -o jsonpath='{.spec.clusterIP}') \
       -p$(kubectl --namespace openstack get secret mariadb -o jsonpath='{.data.root-password}' | base64 -d) \
       -u root
@@ -26,7 +26,7 @@ When running `mysqldump` or `mariadbdump` the following commands can be useful f
 
 ### Individual Database Backups
 
-``` shell
+```bash
 mysqldump --host=$(kubectl -n openstack get service mariadb-cluster -o jsonpath='{.spec.clusterIP}')\
           --user=root \
           --password=$(kubectl --namespace openstack get secret mariadb -o jsonpath='{.data.root-password}' | base64 -d) \
@@ -39,13 +39,11 @@ mysqldump --host=$(kubectl -n openstack get service mariadb-cluster -o jsonpath=
           --result-file=/tmp/${DATABASE_NAME}-$(date +%s).sql
 ```
 
-> [!TIP]
-> **Column Statistics**
->
+> [!TIP] Column Statistics
 >
 > With some versions of `mysqldump` the `--column-statistics=0` flag maybe be required. If required the following error will be thrown:
 
-``` sql
+```sql
 Unknown table 'COLUMN_STATISTICS' in information_schema (1109)
 ```
 
@@ -64,7 +62,7 @@ The MariaDB Operator automatically creates backups of all databases in the clust
 
 It is possible to trigger a manual backup using the automated backup cron job by creating a `Backup` resource. This will create a new backup with the current timestamp.
 
-``` shell
+```bash
 kubectl -n openstack create job --from=cronjob/mariadb-backup mariadb-backup-$(date +%s)
 ```
 
@@ -72,23 +70,25 @@ This command will create a job that runs the backup process immediately, creatin
 
 ### Individual Database Restores
 
-> [!TIP]
-> **Ensure the destination database exists**
->
+> [!TIP] Ensure the destination database exists
 >
 > The destination database must exist prior to restoring individual SQL
 > backups. If it does not already exist, it's important to create the
 > database with the correct charset and collate values. Failing to do so can
 > result in errors such as `Foreign Key Constraint is Incorrectly Formed`
 > during DB upgrades.
+>
+> This matches the replication cluster baseline, which intentionally keeps
+> `utf8mb3` / `utf8mb3_general_ci` as the server default so Alembic
+> migrations can add foreign keys to older pre-`11.8.5` tables.
 
-```
+```sql
 CREATE DATABASE ${DATABASE_NAME} DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 ```
 
 Restoring a database
 
-``` shell
+```bash
 mysql -h $(kubectl -n openstack get service mariadb-cluster-primary -o jsonpath='{.spec.clusterIP}') \
     -u root \
     -p$(kubectl --namespace openstack get secret mariadb -o jsonpath='{.data.root-password}' | base64 -d) \
@@ -104,10 +104,7 @@ dump to your MariaDB database.
 Refer to the mariadb-operator [restore documentation](https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/BACKUP.md#restore)
 for more information.
 
-> [!TIP]
->
-> **Operator Restore Tips**
->
+> [!tip] Operator Restore Tips
 >
 > 1. If you have multiple backups available, the operator is able to infer
 > which backup to restore based on the `spec.targetRecoveryTime` field
@@ -120,9 +117,11 @@ for more information.
 
 ### Restore All Databases
 
-The following command may lead to data loss
+> [!danger] 
+>
+> The following command may lead to data loss
 
-``` shell
+```bash
 cat <<EOF | kubectl -n openstack apply -f -
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: Restore
@@ -138,9 +137,11 @@ EOF
 
 ### Restore Single Database
 
-The following command may lead to data loss
+> [!danger] 
+>
+> The following command may lead to data loss
 
-``` shell
+```bash
 cat <<EOF | kubectl -n openstack apply -f -
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: Restore
@@ -159,11 +160,11 @@ EOF
 
 Simply _get_ the restore object previously created
 
-``` shell
+```bash
 kubectl -n openstack get restore maria-restore
 ```
 
-``` { .no-copy }
+```text { .no-copy }
 NAME            COMPLETE   STATUS    MARIADB           AGE
 maria-restore   True       Success   mariadb-cluster   26s
 ```
@@ -184,34 +185,34 @@ replication again on the busted pod.
 
 1. Take a full backup of the primary: mariadb-cluster-1
 
-    ``` shell
-    mariadb-dump --all-databases --master-data=2 --single-transaction --flush-logs -u root -p$MARIADB_ROOT_PASSWORD > /tmp/mariadb-cluster-1.sql
-    ```
+```bash
+mariadb-dump --all-databases --master-data=2 --single-transaction --flush-logs -u root -p$MARIADB_ROOT_PASSWORD > /tmp/mariadb-cluster-1.sql
+```
 
 2. Copy the backup off of the pod, onto your machine
 
-    ``` shell
-    kubectl -n openstack cp mariadb-cluster-1:/tmp/mariadb-cluster-1.sql /home/ubuntu/backups/mariadb-cluster-1.sql
-    ```
+```bash
+kubectl -n openstack cp mariadb-cluster-1:/tmp/mariadb-cluster-1.sql /home/ubuntu/backups/mariadb-cluster-1.sql
+```
 
 3. Copy the backup to the broken slave, mariadb-cluster-0
 
-    ``` shell
-    kubectl -n openstack cp /home/ubuntu/backups/mariadb-cluster-1.sql mariadb-cluster-0:/tmp/mariadb-cluster-1.sql
-    ```
+```bash
+kubectl -n openstack cp /home/ubuntu/backups/mariadb-cluster-1.sql mariadb-cluster-0:/tmp/mariadb-cluster-1.sql
+```
 
 4. Restore the backup, depending on its contents it may take a while, be
    patient.
 
-    ``` shell
-    mariadb -u root -p$MARIADB_ROOT_PASSWORD < /tmp/mariadb-cluster-1.sql
-    ```
+```bash
+mariadb -u root -p$MARIADB_ROOT_PASSWORD < /tmp/mariadb-cluster-1.sql
+```
 
 ### Stop and Reset the Slave
 
 Execute on the broken slave pod, mariadb-cluster-0:
 
-``` shell
+```bash
 STOP SLAVE; RESET SLAVE ALL; STOP SLAVE 'mariadb-operator'; RESET SLAVE 'mariadb-operator' ALL;
 ```
 
@@ -219,7 +220,7 @@ STOP SLAVE; RESET SLAVE ALL; STOP SLAVE 'mariadb-operator'; RESET SLAVE 'mariadb
 
 Identify master log file and position from the backup file:
 
-``` shell
+```bash
 [SJC3] ubuntu@bastion:~/backups$ grep "CHANGE MASTER TO MASTER_LOG_FILE='mariadb-cluster-bin." mariadb-cluster-1.sql
 -- CHANGE MASTER TO MASTER_LOG_FILE='mariadb-cluster-bin.000206', MASTER_LOG_POS=405;
 ```
@@ -232,40 +233,40 @@ Identify master log file and position from the backup file:
    MASTER_HOST from your environment, then execute it on the broken slave
    pod (in our example, that is mariadb-cluster-0).
 
-    ``` shell
-    CHANGE MASTER TO MASTER_HOST='mariadb-cluster-1.mariadb-cluster-internal.openstack.svc.cluster.local', MASTER_USER='repl', MASTER_PASSWORD='<FIND ME IN K8s secret repl-password-mariadb-cluster>', MASTER_LOG_FILE='mariadb-cluster-bin.000206', MASTER_LOG_POS=405;
-    ```
+```bash
+CHANGE MASTER TO MASTER_HOST='mariadb-cluster-1.mariadb-cluster-internal.openstack.svc.cluster.local', MASTER_USER='repl', MASTER_PASSWORD='<FIND ME IN K8s secret repl-password-mariadb-cluster>', MASTER_LOG_FILE='mariadb-cluster-bin.000206', MASTER_LOG_POS=405;
+```
 
-    > [!TIP]
-    >
-    > If the previous command to `CHANGE MASTER` fails, one may need to run
-    > `FLUSH PRIVILEGES;` first.
+> [!TIP]
+>
+> If the previous command to `CHANGE MASTER` fails, one may need to run
+> `FLUSH PRIVILEGES;` first.
 
 2. Start the slave process again
 
-    ``` shell
-    START SLAVE;
-    ```
+```bash
+START SLAVE;
+```
 
 3. Verify replication status is OK
 
-    ``` shell
-    SHOW ALL REPLICAS STATUS\G
-    ```
+```bash
+SHOW ALL REPLICAS STATUS\G
+```
 
 4. Wait for replication to be caught up, then kill the slave pod. We are
    doing this to ensure it comes back online as expected (the operator should
    automatically execute CHANGE MASTER for mariadb-operator on the slave).
    When the pod has started; logs should contain something like the following:
 
-    ``` text
-    2025-01-28 22:22:55 61 [Note] Master connection name: 'mariadb-operator'  Master_info_file: 'master-mariadb@002doperator.info'  Relay_info_file: 'relay-log-mariadb@002doperator.info'
-    2025-01-28 22:22:55 61 [Note] 'CHANGE MASTER TO executed'. Previous state master_host='', master_port='3306', master_log_file='', master_log_pos='4'. New state master_host='mariadb-cluster-1.mariadb-cluster-internal.openstack.svc.cluster.local', master_port='3306', master_log_file='', master_log_pos='4'.
-    2025-01-28 22:22:55 61 [Note] Previous Using_Gtid=Slave_Pos. New Using_Gtid=Current_Pos
-    2025-01-28 22:22:55 63 [Note] Master 'mariadb-operator': Slave I/O thread: Start semi-sync replication to master 'repl@mariadb-cluster-1.mariadb-cluster-internal.openstack.svc.cluster.local:3306' in log '' at position 4
-    2025-01-28 22:22:55 64 [Note] Master 'mariadb-operator': Slave SQL thread initialized, starting replication in log 'FIRST' at position 4, relay log './mariadb-cluster-relay-bin-mariadb@002doperator.000001' position: 4; GTID position '0-11-638858622'
-    2025-01-28 22:22:55 63 [Note] Master 'mariadb-operator': Slave I/O thread: connected to master 'repl@mariadb-cluster-1.mariadb-cluster-internal.openstack.svc.cluster.local:3306',replication starts at GTID position '0-11-638858622'
-    ```
+```text
+2025-01-28 22:22:55 61 [Note] Master connection name: 'mariadb-operator'  Master_info_file: 'master-mariadb@002doperator.info'  Relay_info_file: 'relay-log-mariadb@002doperator.info'
+2025-01-28 22:22:55 61 [Note] 'CHANGE MASTER TO executed'. Previous state master_host='', master_port='3306', master_log_file='', master_log_pos='4'. New state master_host='mariadb-cluster-1.mariadb-cluster-internal.openstack.svc.cluster.local', master_port='3306', master_log_file='', master_log_pos='4'.
+2025-01-28 22:22:55 61 [Note] Previous Using_Gtid=Slave_Pos. New Using_Gtid=Current_Pos
+2025-01-28 22:22:55 63 [Note] Master 'mariadb-operator': Slave I/O thread: Start semi-sync replication to master 'repl@mariadb-cluster-1.mariadb-cluster-internal.openstack.svc.cluster.local:3306' in log '' at position 4
+2025-01-28 22:22:55 64 [Note] Master 'mariadb-operator': Slave SQL thread initialized, starting replication in log 'FIRST' at position 4, relay log './mariadb-cluster-relay-bin-mariadb@002doperator.000001' position: 4; GTID position '0-11-638858622'
+2025-01-28 22:22:55 63 [Note] Master 'mariadb-operator': Slave I/O thread: connected to master 'repl@mariadb-cluster-1.mariadb-cluster-internal.openstack.svc.cluster.local:3306',replication starts at GTID position '0-11-638858622'
+```
 
 ## Switching from master/slave replication to galera replication mode
 
@@ -274,18 +275,18 @@ replication, a switch to galera replication is only possible with a fresh bootst
 The procedure below will rebuild the entire database and restore the database from
 the most recent backup.
 
-> [!WARNING]
-> Please ensure that you create a database backup before deleting the cluster
-> and that your mariadb operator is running with the version 0.38.1 and higher [see pr #1250](https://github.com/rackerlabs/genestack/pull/1250),
-> before switching the replication mode. Otherwise no automatic failover will work for the galera cluster.
+> [!warning]
 >
-> Check the operator versions with
+> Please ensure that you create a database backup before deleting the cluster and that your mariadb operator is running with the version 0.38.1 and higher see [pr #1250](https://github.com/rackerlabs/genestack/pull/1250), before switching the replication mode. Otherwise no automatic failover will work for the galera cluster.
 
-``` shell
+Check the operator versions like this:
+
+```bash
 kubectl -n mariadb-system get pods -o="custom-columns=NAME:.spec.containers[0].name,IMAGE:.spec.containers[0].image"
 ```
+If things meet the requirements, you can start the migration to galera replication:
 
-``` shell
+```bash
 # Delete the database and persistent volumes
 kubectl -n openstack delete mariadb/mariadb-cluster
 kubectl -n openstack delete pvc -l app.kubernetes.io/instance=mariadb-cluster

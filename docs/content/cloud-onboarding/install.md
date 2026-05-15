@@ -19,7 +19,7 @@ Pip is the python package manager and can make installing libraries very simple;
 
 ### MacOS
 
-``` shell
+```bash
 python -m ensurepip --upgrade
 ```
 
@@ -27,13 +27,13 @@ python -m ensurepip --upgrade
 
 Ensure that the `C:\Python27\Scripts` directory is defined in the PATH environment variable, and use the `easy_install` command from the `setuptools` package:
 
-``` shell
+```bash
 C:> py -m ensurepip --upgrade
 ```
 
 ### Linux
 
-``` shell
+```bash
 python -m ensurepip --upgrade
 ```
 
@@ -43,9 +43,11 @@ Assuming you have `pip` installed, it can be used to install the openstack clien
 
 > [!TIP]
 >
-> Users may want to use a Virtual Environment (venv) so that they do not have any risk of hurting their default Python environment. For more information on setting up a venv please visit the python [documentation](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments) on working with virtual environments.
+>
+> Users may want to use a Virtual Environment so that they do not have any risk of hurting their default Python environment. For more information on seting up a venv please visit the python [documentation](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments) on working with virtual environments.
+>
 
-``` shell
+```bash
 pip install python-openstackclient
 ```
 
@@ -57,18 +59,18 @@ Package based client install is a great way to simplify the installation process
 
 ### MacOS
 
-``` shell
+```bash
 brew install openstackclient
 ```
 
 ### Ubuntu or Debian
 
-``` shell
+```bash
 apt install python3-openstackclient
 ```
 
 ### Enterprise Linux
 
-``` shell
+```bash
 dnf install python3-openstackclient
 ```

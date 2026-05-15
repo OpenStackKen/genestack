@@ -11,13 +11,13 @@ You can create a bootable volume from an existing image, volume, or snapshot. Th
 
 1. List available images, noting the ID of the image that you wish to use.
 
-    ``` shell
+    ```bash
     openstack --os-cloud={cloud name} image list
     ```
 
 2. Create a bootable volume from the chosen image.
 
-    ``` shell
+    ```bash
     openstack --os-cloud={cloud name} volume create \
     --image {Image ID} --size 10 \
     test-volume
@@ -25,7 +25,7 @@ You can create a bootable volume from an existing image, volume, or snapshot. Th
 
 3. Create a server, specifying the volume as the boot device.
 
-    ``` shell
+    ```bash
     openstack --os-cloud={cloud name} server create \
     --flavor $FLAVOR --network $NETWORK \
     --volume {Volume ID}\
@@ -34,16 +34,16 @@ You can create a bootable volume from an existing image, volume, or snapshot. Th
 
 4. List volumes once again to ensure the status has changed to in-use and the volume is correctly reporting the attachment.
 
-    ``` shell
+    ```bash
     openstack --os-cloud={cloud name} volume list
     ```
 
-    ``` shell
+    ```bash
     openstack --os-cloud={cloud name} server volume list test-server
     ```
 ## Add Volume to Server
 
-``` shell
+```bash
 openstack --os-cloud={cloud name} server add volume
     [--device <device>]
     [--tag <tag>]
@@ -54,6 +54,6 @@ openstack --os-cloud={cloud name} server add volume
 
 ## Remove Volume from Server
 
-``` shell
+```bash
 openstack --os-cloud={cloud name} server remove volume <server> <volume>
 ```

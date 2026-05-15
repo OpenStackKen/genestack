@@ -7,7 +7,7 @@ Read more about Openstack routers using the [upstream docs](https://docs.opensta
 
 ## Get List of Routers
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router list
     [--sort-column SORT_COLUMN]
     [--sort-ascending | --sort-descending]
@@ -25,7 +25,7 @@ openstack --os-cloud={cloud name} router list
 
 ## Create a Router
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router create
     [--extra-property type=<property_type>,name=<property_name>,value=<property_value>]
     [--enable | --disable]
@@ -50,7 +50,7 @@ openstack --os-cloud={cloud name} router create
 
 ## Add a Gateway to Router
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router add gateway
     [--fixed-ip subnet=<subnet>,ip-address=<ip-address>]
     <router>
@@ -59,19 +59,19 @@ openstack --os-cloud={cloud name} router add gateway
 
 ## Add a Subnet to Router
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router add subnet <router> <subnet>
 ```
 
 ## Add a Port to Router
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router add port <router> <port>
 ```
 
 ## Set Router Properties
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router set
     [--extra-property type=<property_type>,name=<property_name>,value=<property_value>]
     [--name <name>]
@@ -97,14 +97,13 @@ openstack --os-cloud={cloud name} router set
 
 ## Delete a Router
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router add subnet <router> <subnet>
 ```
 
 ## Create a Router Port
 
-
-``` shell
+```shell
 openstack --os-cloud={cloud name} port create [-h] [-f {json,shell,table,value,yaml}]
                              [-c COLUMN] [--noindent] [--prefix PREFIX]
                              [--max-width <integer>] [--fit-width]
@@ -132,18 +131,18 @@ openstack --os-cloud={cloud name} port create [-h] [-f {json,shell,table,value,y
 
 ## Example: Creating a Router with Subnets
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router create {router_name}
 ```
 
 Add subnet to the router and set the router's external gateway using PUBLICNET to allow outbound network access.
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router add subnet {router_name} {subnet_name}
 ```
 
 Set the external gateway
 
-``` shell
+```shell
 openstack --os-cloud={cloud name} router set --external-gateway PUBLICNET {router_name}
 ```

@@ -28,7 +28,7 @@ our inventory and bootstrap type configs are found. We will make use of `/etc/ge
 For this workflow we want to utilize a git repo to store our changes and custom configs. We also want to clearly define regional specific directories within the repo that will contain everything from the custom inventory to our helm config overrides.
 The structure may look something like:
 
-```
+```text
 ├── my-genestack-configs
 │  ├── region1
 │  │  ├── inventory
@@ -69,20 +69,18 @@ For our example we just want to override the cpu_allocation as they are differen
 
 Create the override files within the respective structure as noted above with the contents of:
 
-> [!IMPORTANT]
-> [region1-custom-nova-helm-overrides.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/base-helm-configs/nova/nova-helm-overrides.yaml)
+[region1-custom-nova-helm-overrides.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/base-helm-configs/nova/nova-helm-overrides.yaml)
 
-```
+```yaml
 conf:
   nova:
     DEFAULT:
       cpu_allocation_ratio: 8.0
 ```
 
-> [!IMPORTANT]
-> [region2-custom-nova-helm-overrides.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/base-helm-configs/nova/nova-helm-overrides.yaml)
+[region2-custom-nova-helm-overrides.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/base-helm-configs/nova/nova-helm-overrides.yaml)
 
-```
+```yaml
 conf:
   nova:
     DEFAULT:
@@ -100,7 +98,7 @@ For the rest of the workflow example we'll be working with the `sjc` environment
 
 symlink the repo
 
-``` shell
+```bash
 ln -s /opt/my-genestack-configs/region1 /etc/genestack
 ```
 
@@ -108,7 +106,7 @@ This will make our `/etc/genestack` directory look like:
 
 /etc/genestack/
 
-```
+```text
 ├── inventory
 │  │  ├── inventory.yaml
 ├── helm-configs
@@ -127,12 +125,8 @@ We're going to simply add another `-f` flag below that one to include our overri
 
 So, our helm command that we'll run against sjc will now look like:
 
-``` shell
+```bash
 /opt/genestack/bin/install-nova.sh -f /etc/genestack/helm-configs/nova/region1-nova-helm-overrides.yaml
 ```
 
-Like mentioned above the only difference here is the additional flag to include our custom override and that's it, we can now version custom changes while maintaining upstream parity across many regions and/or staging envorinments!
-
-## Wrap-up
-
-This is a simple example workflow to handle multi-region deployments and may not work for every case please adjust anything in this example as you see fit and keep on stacking!
+Like mentioned above the only difference here is the additional flag to include our custom override and that's it, we can now version custom changes while maintaining upstream parity across many regions and/or staging environments!

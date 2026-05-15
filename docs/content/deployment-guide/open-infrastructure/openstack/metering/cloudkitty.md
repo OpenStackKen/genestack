@@ -15,9 +15,9 @@ This document outlines the deployment of OpenStack Cloudkitty using Genestack.
 > Manual secret generation is only required if you haven't run the
 > `create-secrets.sh` script located in `/opt/genestack/bin`.
 
-Example secret generation
+**Example secret generation:**
 
-``` shell
+```bash
 kubectl --namespace openstack \
         create secret generic cloudkitty-rabbitmq-password \
         --type Opaque \
@@ -35,23 +35,19 @@ kubectl --namespace openstack \
 
 ## Run the package deployment
 
-Run the Cloudkitty deployment Script `/opt/genestack/bin/install-cloudkitty.sh`
+> [!genestack]
+>
+> Run the CloudKitty deployment script.
 
 ```bash {include="bin/install-cloudkitty.sh"}
-```
-```
-
 ```
 
 > [!TIP]
 >
-> You may need to provide custom values to configure your OpenStack services.
-> For a simple single region or lab deployment you can supply an additional
-> overrides flag using the example found at
-> `base-helm-configs/aio-example-openstack-overrides.yaml`.
+> You may need to provide custom values to configure your OpenStack services. For a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
 
 ## Validate functionality
 
-``` shell
+```bash
 kubectl --namespace openstack exec -ti openstack-admin-client -- openstack rating module list
 ```

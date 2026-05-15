@@ -3,12 +3,9 @@ title: "MetalLB"
 weight: 40
 ---
 
-## Setup the MetalLB Load Balancer
-The MetalLb loadbalancer can be setup by editing the following file `metallb-openstack-service-lb.yml`, You will need to add
-your "external" VIP(s) to the loadbalancer so that they can be used within services. These IP addresses are unique and will
-need to be customized to meet the needs of your environment.
+The MetalLb loadbalancer can be setup by editing the following file `metallb-openstack-service-lb.yml`, You will need to add your "external" VIP(s) to the loadbalancer so that they can be used within services. These IP addresses are unique and will need to be customized to meet the needs of your environment.
 
-> [!TIP]
+> [!tip]
 >
 > When L2Advertisement is used, you should use a CIDR that is not overlapping with any local interface CIDR.
 > This also enables later migration to BGP advertisement.
@@ -21,32 +18,39 @@ kubectl apply -f /etc/genestack/manifests/metallb/metallb-namespace.yaml
 
 ## Install MetalLB
 
-Run the MetalLB deployment Script `/opt/genestack/bin/install-metallb.sh` You can include paramaters to deploy aio or base-monitoring. No paramaters deploys base
+> [!genestack]
+>
+> Run the MetalLB deployment Script `/opt/genestack/bin/install-metallb.sh`
+
+You can include paramaters to deploy aio or base-monitoring. No paramaters deploys base
 
 ```bash {include="bin/install-metallb.sh"}
 ```
 
 ## Example LB manifest
 
-Example for `metallb-openstack-service-lb.yml` file.
+> [!example]
+>
+> Example for `metallb-openstack-service-lb.yml` file.
 
 ```yaml {include="manifests/metallb/metallb-openstack-service-lb.yml"}
 ```
 
-> [!TIP]
+> [!tip]
 >
 > Edit the `/etc/genestack/manifests/metallb/metallb-openstack-service-lb.yml` file following the comment instructions with the details of your cluster.
-> The file `metallb-openstack-service-lb.yml` is intially provided during bootstrap for genestack.
+
+The file `metallb-openstack-service-lb.yml` is initially provided during bootstrap for genestack.
 
 Verify the deployment of MetalLB by checking the pods in the `metallb-system` namespace.
 
-``` shell
+```bash
 kubectl --namespace metallb-system get deployment.apps/metallb-controller
 ```
 
-Once MetalLB is operatianal, apply the metallb service manifest.
+Once MetalLB is operational, apply the metallb service manifest.
 
-``` shell
+```bash
 kubectl apply -f /etc/genestack/manifests/metallb/metallb-openstack-service-lb.yml
 ```
 
@@ -56,7 +60,7 @@ In situations where the advertisement pools must be changed, the following disru
 
 Update existing metallb configuration:
 
-```shell
+```bash
 kubectl -n metallb-system delete IPAddressPool/primary
 kubectl -n metallb-system delete IPAddressPool/gateway-api-external
 kubectl apply -f /etc/genestack/manifests/metallb/metallb-openstack-service-lb.yml
@@ -64,7 +68,7 @@ kubectl apply -f /etc/genestack/manifests/metallb/metallb-openstack-service-lb.y
 
 Restart the metallb controller:
 
-```shell
+```bash
 kubectl rollout restart deployment metallb-controller -n metallb-system
 ```
 
@@ -75,26 +79,18 @@ requires DNS entry updates. This change including the DNS refresh (TTL) time wil
 >
 > **Node Exclusion from LoadBalancer**
 >
->
 > To exclude specific nodes from receiving loadbalancer traffic, you can add the following
 > label to the nodes you want to exclude.
 
-``` shell
+```bash
 kubectl label node <node-name> node.kubernetes.io/exclude-from-external-load-balancers=true
 ```
+Replace `<node-name>` with the name of the node you want to exclude. This will prevent MetalLB from assigning load balancer IPs to services on that node.
 
-> [!TIP]
->
-> Replace `<node-name>` with the name of the node you want to exclude. This will prevent MetalLB
-> from assigning load balancer IPs to services on that node.
->
-> Conversely, to include a node back into loadbalancer assignments, you can remove the label.
+Conversely, to include a node back into loadbalancer assignments, you can remove the label.
 
-``` shell
+```bash
 kubectl label node <node-name> node.kubernetes.io/exclude-from-external-load-balancers-
 ```
 
-> [!TIP]
->
-> For more information on this well known label, refer to the
-> [Kubernetes documentation](https://kubernetes.io/docs/reference/labels-annotations-taints/#node-kubernetes-io-exclude-from-external-load-balancers).
+For more information on this well known label, refer to the [Kubernetes documentation](https://kubernetes.io/docs/reference/labels-annotations-taints/#node-kubernetes-io-exclude-from-external-load-balancers).

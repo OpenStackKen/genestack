@@ -2,6 +2,7 @@
 title: "TopoLVM"
 weight: 30
 ---
+
 [TopoLVM](https://github.com/topolvm/topolvm) is a capacity aware storage provisioner which can make use of physical volumes.
 
 The following steps are one way to set it up, however, consult the [documentation](https://github.com/topolvm/topolvm/blob/main/docs/getting-started.md) for a full breakdown of everything possible with TopoLVM.
@@ -12,7 +13,7 @@ TopoLVM requires access to a volume group on the physical host to work, which me
 
 Simple example showing how to create the needed volume group
 
-``` shell
+```bash
 # NOTE sdX is a placeholder for a physical drive or partition.
 pvcreate /dev/sdX
 vgcreate vg-general /dev/sdX
@@ -22,8 +23,9 @@ Once the volume group is on your storage nodes, the node is ready for use.
 
 ### Deploy the TopoLVM Provisioner
 
-> [!IMPORTANT]
-> Run the TopoLVM deployment script [bin/install-topolvm.sh](https://raw.githubusercontent.com/rackerlabs/genestack/main/bin/install-topolvm.sh)
+> [!genestack]
+>
+> Run the TopoLVM deployment script `bin/install-topolvm.sh`.
 
 ```bash {include="bin/install-topolvm.sh"}
 ```

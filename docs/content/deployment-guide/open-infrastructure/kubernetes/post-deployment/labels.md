@@ -2,12 +2,12 @@
 title: "Label all of the nodes in the environment"
 weight: 10
 ---
-To use the K8S environment for OpenStack all of the nodes MUST be labeled. The following Labels will be used within your environment. Make sure you label things accordingly.
 
-> [!NOTE]
+To use the Kubernetes environment for OpenStack all of the nodes MUST be labeled. The following Labels will be used within your environment. Make sure you label things accordingly.
+
+> [!note]
 >
-> The following example assumes the node names can be used to identify their purpose within our environment.
-> That may not be the case in reality. Adapt the following commands to meet your needs.
+> The following example assumes the node names can be used to identify their purpose within our environment. That may not be the case in reality. Adapt the following commands to meet your needs.
 
 ## Genestack Labels
 
@@ -22,7 +22,7 @@ To use the K8S environment for OpenStack all of the nodes MUST be labeled. The f
 > [!IMPORTANT]
 > Here's an example labeling all of the nodes: the subshell commands are using the node name to identify how to appropriately distribute the workloads throughout the environment.
 
-``` shell
+```bash
 # Label the openstack controllers
 kubectl label node $(kubectl get nodes | awk '/controller/ {print $1}') openstack-control-plane=enabled
 
@@ -46,14 +46,16 @@ kubectl label node $(kubectl get nodes | awk '/worker/ {print $1}')  node-role.k
 
 After labeling everything it's good to check the layout and ensure correctness.
 
-``` shell
-# Verify the nodes are operational and labled.
+```bash
+## Verify the nodes are operational and labled.
 kubectl get nodes -o wide --show-labels=true
 ```
 
-Make the node layout pretty
+> [!TIP]
+>
+> **Make the node layout pretty**
 
-``` shell
+```bash
 # Here is a way to make it look a little nicer:
 kubectl get nodes -o json | jq '[.items[] | {"NAME": .metadata.name, "LABELS": .metadata.labels}]'
 ```

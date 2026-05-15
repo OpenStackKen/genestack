@@ -9,12 +9,14 @@ on:
       - "helm-chart-versions.yaml"
       - ".github/workflows/docs-pages.yaml"
       - "releasenotes/notes/**"
+      - ".github/workflows/mkdocs.yaml"
   pull_request:
     paths:
       - "docs/**"
       - "helm-chart-versions.yaml"
       - ".github/workflows/docs-pages.yaml"
       - "releasenotes/notes/**"
+      - ".github/workflows/mkdocs.yaml"
   workflow_dispatch:
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
@@ -41,6 +43,10 @@ jobs:
       - run: ./docs/scripts/generate_product_matrix.sh
       - run: make -C docs build
       - uses: actions/upload-pages-artifact@main
+          python-version: 3.x
+      - run: pip install -r doc-requirements.txt
+      - run: mkdocs build --strict
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: docs/public
 
@@ -49,7 +55,7 @@ jobs:
     needs: build
 
     # ensure we only run on commits to the main branch
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && github.repository == 'rackerlabs/genestack'
 
     runs-on: ubuntu-latest
 

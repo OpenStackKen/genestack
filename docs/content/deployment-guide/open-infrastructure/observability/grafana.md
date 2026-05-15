@@ -3,88 +3,69 @@ title: "Grafana"
 weight: 40
 ---
 
-Grafana provides visualization dashboards for your metrics, alerts, and logs.
+Grafana is deployed into the `monitoring` namespace with the upstream Grafana Helm chart.
 
-Install Grafana to:
+## Paths
 
-- Create custom dashboards for monitoring OpenStack services
-- Visualize metrics collected by Prometheus
-- Set up alert notifications and integrations
-- Analyze logs and trace data
+- Base Helm values: `/opt/genestack/base-helm-configs/grafana/`
+- Service overrides: `/etc/genestack/helm-configs/grafana/`
+- Kustomize overlay: `/etc/genestack/kustomize/grafana/overlay/`
 
-For more information about Grafana's capabilities, visit the [Grafana website](https://grafana.com/docs).
+## Secrets
 
-## Installing Grafana
+The supported way to prepare Grafana secrets is:
 
-Grafana is installed with the upstream Helm Chart. Running the installation is simple and can be done with our integration script.
+```bash
+/opt/genestack/bin/create-secrets.sh
+```
 
-Before running the script, you will need to create a secret file with your database username and passwords.
+That workflow generates the `grafana-db` secret in `/etc/genestack/kubesecrets.yaml`. The Grafana installer applies it to the `monitoring` namespace automatically if it is not already present.
 
-> [!NOTE]
->
-> Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
+Manual secret creation is only needed if you are not using `create-secrets.sh`:
 
-**Example secret generation**
-
-``` shell
-kubectl --namespace grafana \
-        create secret generic grafana-db \
-        --type Opaque \
-        --from-literal=password="$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-32};echo;)" \
-        --from-literal=root-password="$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-32};echo;)" \
-        --from-literal=username=grafana
+```bash
+kubectl -n monitoring create secret generic grafana-db \
+  --type Opaque \
+  --from-literal=password="$(tr -dc _A-Za-z0-9 </dev/urandom | head -c32)" \
+  --from-literal=root-password="$(tr -dc _A-Za-z0-9 </dev/urandom | head -c32)" \
+  --from-literal=username=grafana
 ```
 
 ## Custom Values
 
-Before running the deployment script, you must set the `custom_host` value `grafana-helm-overrides.yaml` to the correct FQDN you wish to use within the deployment.
+Set `custom_host` in `/etc/genestack/helm-configs/grafana/grafana-helm-overrides.yaml` if you want Grafana exposed by a gateway or ingress:
 
-> [!IMPORTANT]
-> [grafana-helm-overrides.yaml](https://raw.githubusercontent.com/rackerlabs/genestack/main/base-helm-configs/monitoring/grafana/grafana-helm-overrides.yaml)
-
-``` yaml
-custom_host: grafana.api.your.domain.tld
+```yaml
+custom_host: grafana.api.example.tld
 ```
 
-## Installation
+## Azure AD Integration
 
-### Default
-
-The default installation is simple. The `grafana-helm-overrides.yaml` file is located at `/etc/genestack/helm-configs/grafana/` and overrides can be set there to customize the installation.
-
-### Azure Integrated
-
-Before running installation when integrating with Azure AD, you must create te `azure-client-secret`
-
-You can base64 encode your `client_id` and `client_secret` by using the echo and base64 command.
-
-``` shell
-echo -n "YOUR CLIENT ID OR SECRET" | base64
-```
-
-Apply your base64 encoded values to the `azure-client-secret.yaml` file and apply it to the `grafana` namespace.
-
-> [!IMPORTANT]
-> `manifests/grafana/azure-client-secret.yaml`
+If you are integrating with Azure AD, apply the client secret in the `monitoring` namespace:
 
 ```yaml {include="manifests/grafana/azure-client-secret.yaml"}
 ```
 
-Once you have created the secret file, update your `grafana-helm-overrides.yaml` file with the Azure AD values.
-
-> [!IMPORTANT]
-> `base-helm-configs/grafana/azure-overrides.yaml.example`
+Then add your Azure overrides in:
 
 ```yaml {include="base-helm-configs/grafana/azure-overrides.yaml.example"}
 ```
 
-### Listeners and Routes
+## Install
 
-Listeners and Routes should have been configureed when you installed the Gateway API.  If so some reason they were not created, please following the install guide here: [Gateway API](/deployment-guide/open-infrastructure/infrastructure/gateway-api/)
-
-### Deployment
-
-Run the Grafana deployment Script `/opt/genestack/bin/install-grafana.sh`
-
-```bash {include="bin/install-grafana.sh"}
+```bash
+/opt/genestack/bin/install-grafana.sh
 ```
+
+## Verify
+
+```bash
+kubectl -n monitoring get pods -l app.kubernetes.io/instance=grafana
+kubectl -n monitoring port-forward svc/grafana 3000:80
+kubectl -n monitoring get secret grafana -o jsonpath='{.data.admin-password}' | base64 -d
+```
+
+> [!INFO]
+>
+> The `monitoring` namespace may need privileged Pod Security labels on Talos.
+> Skip this on Kubespray unless your cluster enforces the same restriction.

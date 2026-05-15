@@ -674,6 +674,40 @@ $--
 %%
 
 %%
+% Command
+%%
+\definecolor{command-title}{HTML}{000000}
+\definecolor{command-content}{HTML}{ffffff}
+\definecolor{command-text}{HTML}{ffffff}
+\definecolor{command-border}{HTML}{000000}
+
+\newcommand\commandIcon{\faTerminal\hspace{0.5em}}
+\newcommand\commandTitle{\commandIcon Command}
+
+\NewTColorBox{command-box}{ O{\commandTitle} }{
+  colframe=command-border, colback=command-content,
+  coltitle=command-content,
+  coltext=command-text, title={\commandTitle}, boxsettings,
+}
+
+%%
+% Output
+%%
+\definecolor{output-title}{HTML}{000000}
+\definecolor{output-content}{HTML}{ffffff}
+\definecolor{output-text}{HTML}{ffffff}
+\definecolor{output-border}{HTML}{000000}
+
+\newcommand\outputIcon{\faList\hspace{0.5em}}
+\newcommand\outputTitle{\outputIcon Expected Output}
+
+\NewTColorBox{output-box}{ O{\outputTitle} }{
+  colframe=output-border, colback=output-content,
+  coltitle=output-content,
+  coltext=genestack-text, title={\outputTitle}, boxsettings,
+}
+
+%%
 % Genestack
 %%
 \definecolor{genestack-title}{HTML}{9e0001}

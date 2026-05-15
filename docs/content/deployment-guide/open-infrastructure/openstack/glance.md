@@ -4,19 +4,19 @@ description: "OpenStack image service."
 weight: 30
 ---
 
-[Glance](https://docs.openstack.org/glance/latest/) is the image service within the OpenStack ecosystem, responsible for discovering, registering, and retrieving virtual machine images. Glance provides a centralized repository where users can store and manage a wide variety of VM images, ranging from standard operating system snapshots to custom machine images tailored for specific workloads. This service plays a crucial role in enabling rapid provisioning of instances by providing readily accessible, pre-configured images that can be deployed across the cloud. 
+[OpenStack Glance](https://docs.openstack.org/glance/latest/) is the image service within the OpenStack ecosystem, responsible for discovering, registering, and retrieving virtual machine images. Glance provides a centralized repository where users can store and manage a wide variety of VM images, ranging from standard operating system snapshots to custom machine images tailored for specific workloads.
 
-This section will outline the deployment of OpenStack Glance using Genestack. The deployment process is streamlined, ensuring Glance is robustly integrated with other OpenStack services to deliver seamless image management and retrieval.
+This service plays a crucial role in enabling rapid provisioning of instances by providing readily accessible, pre-configured images that can be deployed across the cloud. In this document, we will outline the deployment of OpenStack Glance using Genestack. The deployment process is streamlined, ensuring Glance is robustly integrated with other OpenStack services to deliver seamless image management and retrieval.
 
 ## Create secrets
 
-> [!NOTE]
+> [!note]
 >
 > Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 
-Example secret generation
+**Example secret generation:**
 
-``` shell
+```bash
 kubectl --namespace openstack \
         create secret generic glance-rabbitmq-password \
         --type Opaque \
@@ -32,7 +32,9 @@ kubectl --namespace openstack \
         --from-literal=password="$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-32};echo;)"
 ```
 
-Before running the Glance deployment you should configure the backend which is defined in the `helm-configs/glance/glance-helm-overrides.yaml` file. The default is a making the assumption we're running with Ceph deployed by Rook so the backend is configured to be cephfs with multi-attach functionality. While this works great, you should consider all of the available storage backends and make the right decision for your environment.
+> [!NOTE]
+>
+> Before running the Glance deployment you should configure the backend which is defined in the `helm-configs/glance/glance-helm-overrides.yaml` file. The default is a making the assumption we're running with Ceph deployed by Rook so the backend is configured to be cephfs with multi-attach functionality. While this works great, you should consider all of the available storage backends and make the right decision for your environment.
 
 Recent Glance releases validate uploaded/imported image content against the declared `disk_format` by default. Ensure image pipelines set `--disk-format` correctly, or tune `conf.glance.image_format.require_image_format_match` and `conf.glance.image_format.gpt_safety_checks_nonfatal` in your overrides.
 
@@ -40,13 +42,13 @@ Recent Glance releases validate uploaded/imported image content against the decl
 
 > [!NOTE]
 >
-> The default policy allows only the `glance_admin` role to publicize images. The default policy allows only the `glance_admin` role or
-> `owner` role to download images. These default policy roles are found in genestack/base-helm-configs/glance/glance-helm-overrides.yaml.
-> To modify these policies, follow the policy allow concepts in the "Policy change to allow admin or owner to publicize image" example.
+> The default policy allows only the **glance_admin** role to publicize images. The default policy allows only the **glance_admin** role or **owner** role to download images. These default policy roles are found in `genestack/base-helm-configs/glance/glance-helm-overrides.yaml`.
+
+To modify these policies, follow the policy allow concepts in the "Policy change to allow admin or owner to publicize image" example.
 
 Default policy rules:
 
-``` yaml
+```yaml
 conf:
   policy:
     "admin_required": "role:admin or role:glance_admin"
@@ -57,9 +59,9 @@ conf:
     "download_image": "rule:is_owner or rule:context_is_admin"
 ```
 
-Policy change to allow admin or owner to publicize image
+Policy change to allow admin or owner to publicize images:
 
-``` yaml
+```yaml
 conf:
   policy:
     "admin_required": "role:admin or role:glance_admin"
@@ -70,43 +72,35 @@ conf:
     "download_image": "rule:is_owner or rule:context_is_admin"
 ```
 
-To assign the `glance_admin` role to a user, you can use the OpenStack CLI or dashboard. For example, using the OpenStack CLI:
+To assign the **glance_admin** role to a user, you can use the OpenStack CLI or dashboard. For example, using the OpenStack CLI:
 
-``` shell
+```bash
 openstack role add --project <project_name> --user <user_name> glance_admin
 ```
 
 ## Run the package deployment
 
-Run the Glance deployment Script `/opt/genestack/bin/install-glance.sh`
+> [!genestack]
+>
+> Run the Glance deployment script `/etc/genestack/bin/install-glance.sh`.
 
 ```bash {include="bin/install-glance.sh"}
 ```
-```
 
-```
-
-> [!TIP]
+> [!tip]
 >
-> You may need to provide custom values to configure your openstack services, for a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
-> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operations-guide/multi-region-support/) guide to for a workflow solution.
+> You may need to provide custom values to configure your OpenStack services. For a simple single-region or lab deployment, you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`. For multi-region environments, review the [Multi-Region Support](/operations-guide/genestack/multi-region/) workflow.
 
-> [!NOTE]
+> [!warning]
 >
-> The defaults disable `storage_init` because we're using `pvc` as the image backend type. In production this should be changed to swift.
+> The defaults disable `storage_init` because we're using **pvc** as the image backend type. In production this should be changed to swift.
 
 ## Validate functionality
 
-``` shell
+```bash
 kubectl --namespace openstack exec -ti openstack-admin-client -- openstack image list
 ```
 
-> [!IMPORTANT]
+> [!genestack]
 >
-> **External Image Store**
->
->
-> If glance will be deployed with an external swift storage backend, review the
-> [OpenStack Glance Swift Store](/operations-guide/openstack-glance-swift-store/) or the
-> [OpenStack Glance External Ceph Store](/operations-guide/openstack-glance-ceph-store/) operator
-> documentation for additional steps and setup.
+> If glance will be deployed with an external swift storage backend, review the [OpenStack Glance Swift Store](/operations-guide/openstack/glance/swift-storage/) or the [OpenStack Glance External Ceph Store](/operations-guide/openstack/glance/ceph-storage/) operator documentation for additional steps and setup.

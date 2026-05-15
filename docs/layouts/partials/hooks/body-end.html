@@ -153,6 +153,38 @@
     mermaid.initialize(settings);
     await mermaid.run({ querySelector: "pre.mermaid" });
 
+    // The release-overview versioning diagram is unusually sensitive to
+    // Mermaid's default 1px edge strokes and 8px marker boxes because the
+    // browser may still scale the final SVG down to fit the prose column.
+    // Scope this post-processing to that one page so the rest of the site keeps
+    // Mermaid's stock rendering behavior, and keep the logic simple so it is
+    // easy to back out if the diagram source changes again.
+    if (location.pathname === "/overview/releases/" || location.pathname === "/overview/releases") {
+      for (const svg of document.querySelectorAll("pre.mermaid > svg.flowchart")) {
+        // Thicken the visible release arrows themselves. This improves perceived
+        // line weight even when the SVG is still being scaled down slightly by
+        // the page layout.
+        for (const edge of svg.querySelectorAll(".edgePath .path, .flowchart-link")) {
+          const existingStyle = edge.getAttribute("style") || "";
+          edge.setAttribute("style", `${existingStyle};stroke-width:2px`);
+        }
+
+        // Enlarge every arrow marker box used by the diagram. Mermaid emits
+        // these at a fixed 8x8 size by default, which becomes visually tiny
+        // once the SVG is shrunk into the content column.
+        for (const marker of svg.querySelectorAll("marker")) {
+          marker.setAttribute("markerWidth", "14");
+          marker.setAttribute("markerHeight", "14");
+        }
+
+        // Match the marker path stroke to the heavier edge stroke so the arrow
+        // outline does not lag behind the thicker connector lines.
+        for (const arrow of svg.querySelectorAll(".arrowMarkerPath")) {
+          arrow.style.strokeWidth = "2";
+        }
+      }
+    }
+
     const observer = new MutationObserver((mutationsList) => {
       for (const mutation of mutationsList) {
         if (mutation.type === "attributes" && mutation.attributeName === "data-bs-theme") {

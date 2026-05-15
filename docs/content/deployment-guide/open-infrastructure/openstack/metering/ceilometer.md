@@ -12,9 +12,9 @@ weight: 30
 >
 > Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 
-Example secret generation
+Example secret generation:
 
-``` shell
+```bash
 kubectl --namespace openstack create secret generic ceilometer-keystone-admin-password \
         --type Opaque \
         --from-literal=password="$(< /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-32};echo;)"
@@ -28,25 +28,52 @@ kubectl --namespace openstack create secret generic ceilometer-rabbitmq-password
 
 ## Run the package deployment
 
-Run the Ceilometer deployment Script `/opt/genestack/bin/install-ceilometer.sh`
+> [!genestack]
+>
+> Run the Ceilometer deployment script.
 
 ```bash {include="bin/install-ceilometer.sh"}
-```
-```
-
 ```
 
 > [!TIP]
 >
-> You may need to provide custom values to configure your openstack services, for a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
-> In other cases such as a multi-region deployment you may want to view the [Multi-Region Support](/operations-guide/multi-region-support/) guide to for a workflow solution.
+> You may need to provide custom values to configure your OpenStack services. For a simple single-region or lab deployment, you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`. For multi-region environments, review the [Multi-Region Support](/operations-guide/genestack/multi-region/) workflow.
+
+## Validate the deployment
+
+### Confirm install idempotency
+
+Run the install script a second time and confirm it completes without error.
+
+```bash
+sudo /opt/genestack/bin/install-ceilometer.sh
+```
+
+### Confirm Ceilometer pods are running
+
+```bash
+kubectl get jobs,pods -n openstack | grep ceilometer
+```
+
+Expected steady state:
+- `ceilometer-db-sync` is `Complete`
+- `ceilometer-ks-user` is `Complete`
+- `ceilometer-central` is `Running`
+- `ceilometer-compute` pods are `Running`
+- `ceilometer-notification` pods are `Running`
+
+### Capture pod resource usage
+
+```bash
+kubectl top pods -n openstack | grep ceilometer
+```
 
 ## Verify Ceilometer Workers
 
 As there is no Ceilometer API, we will do a quick validation against the
 Gnocchi API via a series of `openstack metric` commands to confirm that
 Ceilometer workers are ingesting metric and event data then persisting them
-storage.
+to storage.
 
 ### Verify metric resource types exist
 
@@ -55,7 +82,7 @@ Without them, metrics can't be stored, so let's verify they exist. The
 output should include named resource types and some attributes for resources
 like `instance`, `instance_disk`, `network`, `volume`, etc.
 
-``` shell
+```bash
 kubectl exec -it openstack-admin-client -n openstack -- openstack metric resource-type list
 ```
 
@@ -63,7 +90,7 @@ kubectl exec -it openstack-admin-client -n openstack -- openstack metric resourc
 
 Confirm that resources are populating in Gnocchi
 
-``` shell
+```bash
 kubectl exec -it openstack-admin-client -n openstack -- openstack metric resource list
 ```
 
@@ -71,6 +98,6 @@ kubectl exec -it openstack-admin-client -n openstack -- openstack metric resourc
 
 Confirm that metrics can be retrieved from Gnocchi
 
-``` shell
+```bash
 kubectl exec -it openstack-admin-client -n openstack -- openstack metric list
 ```

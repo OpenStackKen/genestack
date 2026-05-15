@@ -27,17 +27,15 @@ Reference the full online [OpenStack Manila documentation](https://docs.openstac
 
 ## Create Secrets
 
-> [!NOTE]
+> [!note]
 >
 > **manila-service-keypair is only required for Generic share driver**
 >
->
-> Manual secret generation is only required if you haven't run the
-> `create-secrets.sh` script located in `/opt/genestack/bin`.
+> Manual secret generation is only required if you haven't run the `create-secrets.sh` script located in `/opt/genestack/bin`.
 
-Example secret generation
+**Example secret generation:**
 
-``` shell
+```bash
 kubectl --namespace openstack \
         create secret generic manila-admin \
         --type Opaque \
@@ -65,7 +63,7 @@ Manila configuration values for the NetApp ONTAP driver should be edited
 for the specific values relevant to the NetApp cluster and the Genestack
 environment.
 
-``` yaml
+```yaml
 bootstrap:
   enabled: false
 
@@ -108,22 +106,21 @@ manifests:
   deployment_share: false
 ```
 
-
 ## Run the package deployment
 
-Run the Manila deployment Script `/opt/genestack/bin/install-manila.sh`
+> [!genestack]
+>
+> Run the Manila deployment Script `/opt/genestack/bin/install-manila.sh`
 
 ```bash {include="bin/install-manila.sh"}
 ```
-> [!TIP]
+
+> [!tip]
 >
-> You may need to provide custom values to configure your OpenStack services.
-> For a simple single region or lab deployment you can supply an additional
-> overrides flag using the example found at
-> `base-helm-configs/aio-example-openstack-overrides.yaml`.
+> You may need to provide custom values to configure your OpenStack services. For a simple single region or lab deployment you can supply an additional overrides flag using the example found at `base-helm-configs/aio-example-openstack-overrides.yaml`.
 
 ## Validate functionality
 
-``` shell
+```bash
 kubectl --namespace openstack exec -ti openstack-admin-client -- openstack share service list
 ```

@@ -2,6 +2,7 @@
 title: "Layered Security"
 weight: 20
 ---
+
 Layered security in cloud-native environments involves applying protection measures across all lifecycle stages: development, distribution, deployment, and runtime. Each stage incorporates specific controls to address security risks and maintain a robust defense. For example, during development, practices like secure coding and dependency scanning are emphasized. The distribution stage focuses on verifying artifacts, such as container images, with cryptographic signatures. Deployment involves infrastructure hardening and policy enforcement, ensuring secure configuration. Finally, runtime security includes monitoring and detecting anomalies, enforcing least privilege, and safeguarding active workloads to mitigate threats dynamically.
 
 Lets look at each stage in detail.
@@ -14,10 +15,7 @@ The Develop phase in cloud-native security emphasizes integrating security into 
 
 *Ref: CNCF Cloud Native Security Develop Phase*
 
-
-
 ### Infrastructure Layer
-
 
 * **CNCF Context**
 
@@ -31,11 +29,7 @@ The Develop phase in cloud-native security emphasizes integrating security into 
 
     Implement CI pipelines that test and validate infrastructure configurations against security benchmarks.
 
-
-
-
 ### Platform Layer
-
 
 * **CNCF Context**
 
@@ -47,11 +41,7 @@ The Develop phase in cloud-native security emphasizes integrating security into 
 
     Audit configuration files for misconfigurations using tools like kube-score.
 
-
-
-
 ### Applications Layer
-
 
 * **CNCF Context**
 
@@ -69,11 +59,7 @@ The Develop phase in cloud-native security emphasizes integrating security into 
 
     Integrate static application security testing (SAST) into CI pipelines.
 
-
-
-
 ### Data Layer
-
 
 * **CNCF Context**
 
@@ -85,22 +71,15 @@ The Develop phase in cloud-native security emphasizes integrating security into 
 
     Use tools like Snyk to scan code for data exposure risks.
 
-
-
-
 ## Distribute
 
 The Distribute phase in cloud-native security focuses on ensuring that all software artifacts, such as container images and binaries, are securely handled during distribution. Key practices include signing artifacts with cryptographic signatures to verify their integrity and authenticity, scanning artifacts for vulnerabilities, and employing policies to prevent the distribution of untrusted or non-compliant components. A secure artifact registry, access controls, and monitoring of repository activity are essential to maintain trust and protect the supply chain. These measures help reduce risks of tampered or malicious artifacts being deployed in production environments.
-
 
 ![CNCF Distribute](/assets/images/CNCF_distribute.jpg)
 
 *Ref: CNCF Cloud Native Security Distribute Phase*
 
-
-
 ### Infrastructure Layer
-
 
 * **CNCF Context**
 
@@ -114,11 +93,7 @@ The Distribute phase in cloud-native security focuses on ensuring that all softw
 
     Validate VM images against OpenStack Glance hardening guidelines.
 
-
-
-
 ### Platform Layer
-
 
 * **CNCF Context**
 
@@ -132,11 +107,7 @@ The Distribute phase in cloud-native security focuses on ensuring that all softw
 
     Use secure registry for container images.
 
-
-
-
 ### Applications Layer
-
 
 * **CNCF Context**
 
@@ -154,11 +125,7 @@ The Distribute phase in cloud-native security focuses on ensuring that all softw
 
     Develop security tests for applications.
 
-
-
-
 ### Data Layer
-
 
 * **CNCF Context**
 
@@ -172,9 +139,6 @@ The Distribute phase in cloud-native security focuses on ensuring that all softw
 
     Use secure container image registry with RABC policy.
 
-
-
-
 ## Deploy
 
 The Deploy phase in cloud-native security focuses on securely setting up and configuring workloads and infrastructure in production environments. This phase emphasizes using tools like Infrastructure as Code (IaC) to define secure, consistent configurations. Security controls include enforcing policies such as mandatory access controls, network segmentation, and compliance with deployment best practices. Additionally, ensuring that only trusted artifacts, verified in the "Distribute" phase, are deployed is critical. Continuous validation of deployments and automated scanning help maintain security posture and prevent misconfigurations or vulnerabilities from affecting the runtime environment.
@@ -183,9 +147,7 @@ The Deploy phase in cloud-native security focuses on securely setting up and con
 
 *Ref: CNCF Cloud Native Security Deploy Phase*
 
-
 ### Infrastructure Layer
-
 
 * **CNCF Context**
 
@@ -201,16 +163,11 @@ The Deploy phase in cloud-native security focuses on securely setting up and con
 
     Setup secure log storage.
 
-
-
-
 ### Platform Layer
-
 
 * **CNCF Context**
 
     Secure APIs and runtime configurations for platforms.
-
 
 * **Recommendations:**
 
@@ -222,11 +179,7 @@ The Deploy phase in cloud-native security focuses on securely setting up and con
 
     Setup log aggregration.
 
-
-
-
 ### Applications Layer
-
 
 * **CNCF Context:**
 
@@ -242,11 +195,7 @@ The Deploy phase in cloud-native security focuses on securely setting up and con
 
     Have a strong Alert/Event Management and Automation policy.
 
-
-
-
 ### Data Layer
-
 
 * **CNCF Context:**
 
@@ -258,10 +207,7 @@ The Deploy phase in cloud-native security focuses on securely setting up and con
 
     Perform regular audits of access logs for sensitive data.
 
-Ensure data protection before deploy. (Example: make sure database backup exist)
-
-
-
+	Ensure data protection before deploy. (Example: make sure database backup exist)
 
 ## Runtime
 
@@ -271,15 +217,11 @@ The Runtime phase in cloud-native security focuses on protecting active workload
 
 *Ref: CNCF Cloud Native Security Runtime Phase*
 
-
-
 ### Infrastructure Layer
-
 
 * **CNCF Context**
 
     Monitor nodes for anomalies and ensure compliance with runtime configurations.
-
 
 * **Recommendations**
 
@@ -287,16 +229,11 @@ The Runtime phase in cloud-native security focuses on protecting active workload
 
     Automate incident response with tools like StackStorm.
 
-
-
-
 ### Platform Layer
-
 
 * **CNCF Context**
 
     Continuously secure platform services during operation.
-
 
 * **Recommendations**
 
@@ -304,16 +241,11 @@ The Runtime phase in cloud-native security focuses on protecting active workload
 
     Set up alerting for deviations in usage patterns or API calls.
 
-
-
-
 ### Applications Layer
-
 
 * **CNCF Context**
 
     Monitor containerized workloads for malicious or unexpected behavior.
-
 
 * **Recommendations**
 
@@ -321,24 +253,17 @@ The Runtime phase in cloud-native security focuses on protecting active workload
 
     Enforce network policies to restrict communication between workloads.
 
-
-
-
 ### Data Layer
-
 
 * **CNCF Context**
 
     Secure data throughout its lifecycle in runtime.
-
 
 * **Recommendations**
 
     Encrypt data streams and apply access controls to sensitive information.
 
     Use backup solutions and test recovery mechanisms to ensure data availability.
-
-
 
 The Runtime phase encompasses several key components that form the foundation of a secure and highly available cloud environment. These components include:
 
@@ -348,3 +273,7 @@ The Runtime phase encompasses several key components that form the foundation of
 - Access Control
 
 Each of these components involves complex interdependencies and is critical to the stability and security of your cloud infrastructure. Ensuring their security not only requires adherence to best practices during the Develop, Distribute, and Deploy phases but also relies heavily on the overall cloud environment's design.
+
+## Building a Secure and Resilient Cloud Environment
+
+Our objective is to provide comprehensive guidelines for designing a secure and highly available cloud. Start by reviewing the recommendations outlined in our Cloud Design Documentation to understand best practices for structuring your cloud infrastructure. With this foundation, we can establish security principles tailored to each critical component, ensuring they are robust and resilient against potential threats.
