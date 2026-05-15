@@ -52,6 +52,22 @@ A simple reference architecture for a hyper-converged lab environment is shown b
 that are connected to a two networks. The networks are connected via a router that provides external connectivity.
 
 ``` mermaid
+---
+config:
+    flowchart:
+        useMaxWidth: true
+        diagramPadding: 20
+        nodeSpacing: 80
+        rankSpacing: 80
+        curve: "basis"
+        padding: 50
+        defaultRenderer: "elk"
+        wrappingWidth: 160
+        inheritDir: true
+        subGraphTitleMargin:
+            top: 4
+            bottom: 6
+---
 flowchart TB
     %% Define clusters/subgraphs for clarity
     subgraph Public_Network ["<div style="width:15em; height:13em; display:flex; justify-content: flex-start; align-items:flex-end;">Public Network</div>"]
@@ -115,7 +131,7 @@ After the deployment is complete, the script will output the internal and extern
 
 With this information, operators can login to the Genestack instance and begin to explore the platform.
 
-> [!GENESTACK]
+> [!genestack]
 >
 > Genestack uses DNS to route services in Kubernetes, which may be a bit different from what you might be used to in other lab environments, where
 > IP addresses are used heavily.  To be able to access OpenStack externally from the jumpbox, set `GATEWAY_DOMAIN` to a DNS domain that you control.
@@ -124,7 +140,7 @@ With this information, operators can login to the Genestack instance and begin t
 
 At the end of the hyper-converged lab script run, you will see output that looks like this:
 
-```
+```text
 The lab is now ready for use and took 1298 seconds to complete.
 This is the jump host address WW.XX.YY.ZZ, write this down.
 This is the VIP address internally 192.168.100.NN with public address AA.BB.CC.DD within MetalLB, write this down.
@@ -132,7 +148,7 @@ This is the VIP address internally 192.168.100.NN with public address AA.BB.CC.D
 
 To make DNS correctly resolve the OpenStack services in the lab, you will need to set some DNS entries for the `GATEWAY_DOMAIN` you specified when building the lab.  Using the "cluster.local" default example domain, you should configure something like this:
 
-```
+```text
 jumpbox.cluster.local       A       WW.XX.YY.ZZ
 cluster.local               A       AA.BB.CC.DD
 *.cluster.local             CNAME   cluster.local
@@ -156,7 +172,7 @@ The jumpbox user has passwordless sudo if configured in the Glance image. (The U
 
 If you sudo to the `root` user, and look at the `clouds.yaml` file for that user, you will be able to see the OpenStack `admin` user password:
 
-```
+```text
 bash$ sudo su - root
 bash# cat $HOME/.config/openstack/clouds.yaml
 cache:
